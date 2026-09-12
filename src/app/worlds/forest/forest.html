@@ -1,0 +1,67 @@
+<main class="forest-screen">
+  <section class="welcome-section">
+    <p class="badge">🌱 UNA NUEVA AVENTURA</p>
+    <h1>Bienvenido al<br><span class="highlight">Bosque de Algoritmos</span></h1>
+    <p class="subtitle">Aprende a programar mientras exploras un bosque lleno de aventuras, desafíos y misterios.</p>
+    <button class="btn-primary" (click)="openWorld1.emit()">Comenzar aventura 🚀</button>
+  </section>
+
+  <section class="map-section">
+    <!-- Cielo, sol y nubes -->
+    <div class="sky"></div>
+    <div class="sun"></div>
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+
+    <!-- Colinas en capas para dar profundidad -->
+    <div class="hill hill-back"></div>
+    <div class="hill hill-mid"></div>
+    <div class="hill hill-front"></div>
+
+    <!-- Sendero serpenteante -->
+    <svg class="forest-path" viewBox="0 0 600 500" preserveAspectRatio="none">
+      <path d="M 120 420 C 60 340, 180 300, 240 260 C 320 210, 200 150, 300 110 C 380 80, 460 130, 470 210 C 480 290, 400 330, 430 400"
+            fill="none" stroke="#e0b877" stroke-width="26" stroke-linecap="round" opacity="0.55"/>
+      <path d="M 120 420 C 60 340, 180 300, 240 260 C 320 210, 200 150, 300 110 C 380 80, 460 130, 470 210 C 480 290, 400 330, 430 400"
+            fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 26" opacity="0.7"/>
+    </svg>
+
+    <!-- Árboles decorativos con profundidad -->
+    <div class="tree t1">🌲</div>
+    <div class="tree t2">🌳</div>
+    <div class="tree t3">🌲</div>
+    <div class="tree t4">🌳</div>
+    <div class="tree t5">🌲</div>
+    <div class="bush b1">🌿</div>
+    <div class="bush b2">🍄</div>
+    <div class="bush b3">🌸</div>
+    <div class="bird bird1">🦋</div>
+    <div class="bird bird2">🐦</div>
+
+    <button class="world-node w1" (click)="openWorld1.emit()">
+      <span class="node-glow"></span>
+      <span class="node-icon">🌱</span>
+      <span class="node-title">Semillas</span>
+      <span class="node-subtitle">Secuencias</span>
+    </button>
+
+    <button class="world-node w2" [class.locked]="!game.level2Unlocked" [disabled]="!game.level2Unlocked" (click)="openWorld2.emit()">
+      <span class="node-glow"></span>
+      <span class="node-icon">🌿</span>
+      <span class="node-title">Sendero</span>
+      <span class="node-subtitle">Variables</span>
+      @if (!game.level2Unlocked) { <span class="lock">🔒</span> }
+    </button>
+
+    <button class="world-node w3" [class.locked]="!game.level3Unlocked" [disabled]="!game.level3Unlocked" (click)="openWorld3.emit()">
+      <span class="node-glow"></span>
+      <span class="node-icon">🌊</span>
+      <span class="node-title">Río</span>
+      <span class="node-subtitle">Condicionales</span>
+      @if (!game.level3Unlocked) { <span class="lock">🔒</span> }
+    </button>
+
+    <div class="character-marker">🧑‍🚀</div>
+  </section>
+</main>

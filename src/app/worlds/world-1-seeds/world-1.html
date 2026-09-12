@@ -1,0 +1,813 @@
+    <main class="world-screen">
+      <div class="world-container">
+        <div class="progress-section">
+          <div class="progress-info">
+            <span>🌱 Mundo 1: Semillas</span>
+            <span>{{ currentActivity + 1 }} / {{ totalActivities }}</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="progressPercent()"></div>
+          </div>
+          <button class="skip-btn" (click)="skipActivity()">Saltar ⏭️</button>
+        </div>
+
+        <!-- ACTIVIDAD 1: SÁNDWICH -->
+        @if (currentActivity === 0) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 1</span>
+            <h1>Conoce a Nori 🧑‍🚀</h1>
+
+            <!-- PASO INTRO -->
+            @if (sandwichStep === 'intro') {
+              <div class="story-box">
+                <div class="story-avatar">🧑‍🚀</div>
+                <div class="story-content">
+                  <h2>¡Hola, soy Nori!</h2>
+                  <p>Soy un astronauta explorador. ¿Me ayudas a preparar mi sándwich favorito antes de mi próxima misión?</p>
+                </div>
+              </div>
+
+              <div class="info-box">
+                <h3>🧩 ¿Qué es una secuencia?</h3>
+                <p>Una <strong>secuencia</strong> es una lista de pasos en orden. ¡Como una receta!</p>
+                <div class="steps-list">
+                  <div class="step"><span class="step-num">1</span> Poner el pan 🍞</div>
+                  <div class="step"><span class="step-num">2</span> Agregar lechuga 🥬</div>
+                  <div class="step"><span class="step-num">3</span> Poner queso 🧀</div>
+                  <div class="step"><span class="step-num">4</span> Cerrar el sándwich 🥪</div>
+                </div>
+              </div>
+
+              <button class="btn-primary" (click)="goToSandwichGame()">¡Vamos a cocinar! →</button>
+            }
+
+            <!-- PASO JUEGO -->
+            @else if (sandwichStep === 'game') {
+              <div class="sandwich-game-v2">
+                <!-- Panel de ingredientes -->
+                <div class="ingredients-panel-v2">
+                  <div class="panel-header">
+                    <span class="panel-icon">🧺</span>
+                    <div class="panel-title-group">
+                      <h3>Ingredientes</h3>
+                      <p class="panel-subtitle">Toca para agregar al sándwich</p>
+                    </div>
+                  </div>
+                  
+                  <div class="ingredients-grid">
+                    @for (opt of sandwichOptions; track opt) {
+                      <button 
+                        class="ingredient-card" 
+                        [class.used]="sandwichBuild.includes(opt)"
+                        [class.dragging]="draggingIngredient === opt"
+                        [disabled]="sandwichBuild.includes(opt)"
+                        draggable="true" 
+                        (dragstart)="onDragStart(opt)" 
+                        (dragend)="onDragEnd()" 
+                        (click)="addIngredient(opt)">
+                        <span class="ingredient-emoji">{{ opt }}</span>
+                        <span class="ingredient-name">{{ getIngredientName(opt) }}</span>
+                        @if (sandwichBuild.includes(opt)) {
+                          <span class="ingredient-check">✓</span>
+                        }
+                      </button>
+                    }
+                  </div>
+
+                  <!-- Orden esperado -->
+                  <div class="order-hint">
+                    <span class="hint-label">📋 Orden correcto:</span>
+                    <div class="order-steps">
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 1">1. 🍞</span>
+                      <span class="order-arrow">→</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 2">2. 🥬</span>
+                      <span class="order-arrow">→</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 3">3. 🧀</span>
+                      <span class="order-arrow">→</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 4">4. 🥪</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panel de construcción -->
+                <div class="build-panel-v2" 
+                  [class.drop-active]="dropReady"
+                  [class.has-items]="sandwichBuild.length > 0"
+                  (dragover)="onDragOver($event)" 
+                  (dragleave)="onDragLeave()" 
+                  (drop)="onDrop($event)">
+                  
+                  <div class="panel-header">
+                    <span class="panel-icon">🍽️</span>
+                    <div class="panel-title-group">
+                      <h3>Tu Sándwich</h3>
+                      <p class="panel-subtitle">{{ sandwichBuild.length }} de 4 ingredientes</p>
+                    </div>
+                  </div>
+
+                  <div class="build-area">
+                    @if (sandwichBuild.length === 0) {
+                      <div class="empty-plate">
+                        <div class="plate-icon">🍽️</div>
+                        <p class="empty-text">Arrastra o toca los ingredientes</p>
+                        <p class="empty-subtext">Empieza con el pan 🍞</p>
+                      </div>
+                    } @else {
+                      <div class="sandwich-3d-build">
+                        @for (layer of sandwichBuild; track $index; let i = $index) {
+                          <div class="sandwich-layer-3d" [ngClass]="layerClass(layer)" [style.z-index]="10 - i">
+                            <span class="layer-emoji">{{ layer }}</span>
+                            <span class="layer-name">{{ getIngredientName(layer) }}</span>
+                            <span class="layer-number">{{ i + 1 }}</span>
+                          </div>
+                        }
+                      </div>
+                      
+                      <!-- Progress bar -->
+                      <div class="build-progress">
+                        <div class="progress-dots">
+                          @for (step of [1, 2, 3, 4]; track step) {
+                            <span class="progress-dot" [class.filled]="sandwichBuild.length >= step">
+                              @if (sandwichBuild.length >= step) { ✓ }
+                            </span>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Acciones -->
+                  <div class="build-actions">
+                    @if (sandwichBuild.length > 0 && sandwichBuild.length < 4) {
+                      <button class="action-btn-reset" (click)="resetSandwich(); goToSandwichGame()">
+                        🔄 Reiniciar
+                      </button>
+                    }
+                    @if (sandwichBuild.length === 4) {
+                      <button class="btn-primary btn-verify" (click)="checkSandwich()">
+                        ✨ ¡Verificar sándwich!
+                      </button>
+                    }
+                  </div>
+                </div>
+              </div>
+
+              @if (sandwichFeedback) {
+                <div class="feedback-box-v2" [class.error]="!sandwichDone" [class.success]="sandwichDone">
+                  <span class="feedback-icon">{{ sandwichDone ? '🎉' : '😅' }}</span>
+                  <span class="feedback-text">{{ sandwichFeedback }}</span>
+                  @if (!sandwichDone) {
+                    <button class="btn-retry" (click)="resetSandwich(); goToSandwichGame()">
+                      🔄 Intentar de nuevo
+                    </button>
+                  }
+                </div>
+              }
+            }
+
+            <!-- PASO COMPLETADO -->
+            @else if (sandwichDone) {
+              <div class="success-celebration">
+                <!-- Confetti animado -->
+                <div class="confetti-container">
+                  <div class="confetti-piece c1">🎊</div>
+                  <div class="confetti-piece c2">⭐</div>
+                  <div class="confetti-piece c3">🎉</div>
+                  <div class="confetti-piece c4">✨</div>
+                  <div class="confetti-piece c5">🌟</div>
+                  <div class="confetti-piece c6">🎊</div>
+                  <div class="confetti-piece c7">💫</div>
+                  <div class="confetti-piece c8">🎉</div>
+                </div>
+
+                <!-- Nori celebrando -->
+                <div class="nori-celebration">
+                  <div class="nori-avatar">🧑‍🚀</div>
+                  <div class="speech-bubble">
+                    <span class="bubble-text">¡Delicioso!</span>
+                  </div>
+                </div>
+
+                <h2 class="celebration-title">
+                  <span class="title-emoji">🏆</span>
+                  ¡Genial, lo lograste!
+                  <span class="title-emoji">🏆</span>
+                </h2>
+                <p class="celebration-subtitle">Tu sándwich está perfecto</p>
+
+                <!-- Sándwich 3D animado -->
+                <div class="sandwich-3d-fun">
+                  <div class="plate-base">
+                    <div class="plate-shine"></div>
+                  </div>
+                  <div class="sandwich-stack-3d">
+                    <div class="sw-piece sw-top-bun">
+                      <span class="bun-seeds">• • •</span>
+                    </div>
+                    <div class="sw-piece sw-lettuce-layer"></div>
+                    <div class="sw-piece sw-cheese-layer">
+                      <span class="cheese-drip"></span>
+                    </div>
+                    <div class="sw-piece sw-bottom-bun"></div>
+                  </div>
+                  <div class="sparkles">
+                    <span class="sparkle s1">✨</span>
+                    <span class="sparkle s2">⭐</span>
+                    <span class="sparkle s3">✨</span>
+                  </div>
+                </div>
+
+                <!-- Recompensas -->
+                <div class="rewards-fun">
+                  <div class="reward-badge xp-badge">
+                    <span class="badge-icon">⚡</span>
+                    <span class="badge-value">+10</span>
+                    <span class="badge-label">XP</span>
+                  </div>
+                  <div class="reward-badge seed-badge">
+                    <span class="badge-icon">🌱</span>
+                    <span class="badge-value">+1</span>
+                    <span class="badge-label">Semilla</span>
+                  </div>
+                </div>
+
+                <button class="btn-next-fun" (click)="nextActivity()">
+                  <span class="btn-text">Siguiente aventura</span>
+                  <span class="btn-icon">🚀</span>
+                </button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 2: PLANTA -->
+        @else if (currentActivity === 1) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 2</span>
+            <h1>Haz crecer la planta 🌱</h1>
+            <p class="activity-desc">Nori quiere plantar una flor. Arma la secuencia de acciones en el orden correcto —primero <strong>plantar</strong>, luego <strong>regar</strong> y al final dar <strong>sol</strong>— y pulsa Ejecutar para verla crecer.</p>
+
+            @if (!plantDone) {
+              <div class="plant-game-v2">
+                <!-- Escena del jardín -->
+                <div class="garden-scene">
+                  <!-- Cielo con nubes y sol -->
+                  <div class="sky">
+                    <div class="cloud cloud-1">☁️</div>
+                    <div class="cloud cloud-2">☁️</div>
+                    <div class="sun-sky" [class.active]="plantActions.includes('sun')">🌞</div>
+                  </div>
+                  
+                  <!-- Gotas de lluvia cuando se riega -->
+                  @if (plantActions.includes('water') && !plantActions.includes('sun')) {
+                    <div class="rain-drops">
+                      <span class="drop d1">💧</span>
+                      <span class="drop d2">💧</span>
+                      <span class="drop d3">💧</span>
+                      <span class="drop d4">💧</span>
+                      <span class="drop d5">💧</span>
+                    </div>
+                  }
+                  
+                  <!-- Tierra y planta -->
+                  <div class="ground">
+                    <div class="dirt-mound">
+                      <div class="plant-container">
+                        @if (plantStage === 'empty') {
+                          <div class="plant-stage empty-stage">
+                            <span class="empty-hole">🕳️</span>
+                          </div>
+                        } @else if (plantStage === 'seed') {
+                          <div class="plant-stage seed-stage">
+                            <span class="seed-icon">🌱</span>
+                          </div>
+                        } @else if (plantStage === 'sprout') {
+                          <div class="plant-stage sprout-stage">
+                            <div class="stem"></div>
+                            <div class="leaves">
+                              <span class="leaf leaf-left">🍃</span>
+                              <span class="leaf leaf-right">🍃</span>
+                            </div>
+                          </div>
+                        } @else {
+                          <div class="plant-stage flower-stage">
+                            <div class="flower-head">🌻</div>
+                            <div class="flower-stem"></div>
+                            <div class="flower-leaves">
+                              <span class="f-leaf f-left">🌿</span>
+                              <span class="f-leaf f-right">🌿</span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                    
+                    <!-- Decoración del jardín -->
+                    <div class="garden-decor">
+                      <span class="grass g1">🌾</span>
+                      <span class="grass g2">🌿</span>
+                      <span class="rock">🪨</span>
+                      <span class="grass g3">🌾</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panel de controles -->
+                <div class="plant-controls-v2">
+                  <div class="controls-header">
+                    <h3>🧩 Arma tu secuencia</h3>
+                    <p class="controls-hint">Elige las acciones en orden y luego pulsa Ejecutar</p>
+                  </div>
+
+                  <!-- Bloques disponibles para agregar -->
+                  <p class="controls-mini-label">Acciones disponibles</p>
+                  <div class="action-palette">
+                    <button class="palette-block plant-block"
+                      (click)="addPlantBlock('plant')"
+                      [disabled]="plantRunning || plantSequence.length >= 3">
+                      <span class="action-icon">🌱</span>
+                      <span class="action-text">Plantar</span>
+                    </button>
+                    <button class="palette-block water-block"
+                      (click)="addPlantBlock('water')"
+                      [disabled]="plantRunning || plantSequence.length >= 3">
+                      <span class="action-icon">💧</span>
+                      <span class="action-text">Regar</span>
+                    </button>
+                    <button class="palette-block sun-block"
+                      (click)="addPlantBlock('sun')"
+                      [disabled]="plantRunning || plantSequence.length >= 3">
+                      <span class="action-icon">☀️</span>
+                      <span class="action-text">Sol</span>
+                    </button>
+                  </div>
+
+                  <!-- Secuencia construida por el niño -->
+                  <p class="controls-mini-label">Tu programa ({{ plantSequence.length }}/3)</p>
+                  <div class="plant-program">
+                    @if (plantSequence.length === 0) {
+                      <span class="program-empty">Toca una acción para empezar 👆</span>
+                    }
+                    @for (step of plantSequence; track $index) {
+                      <div class="program-slot"
+                        [class.running]="plantActiveStep === $index"
+                        [class.done]="plantActiveStep > $index || plantDone">
+                        <span class="slot-num">{{ $index + 1 }}</span>
+                        <span class="slot-icon">{{ actionEmoji(step) }}</span>
+                        <span class="slot-label">{{ actionLabel(step) }}</span>
+                        @if (!plantRunning && !plantDone) {
+                          <button class="slot-remove" (click)="removePlantBlock($index)" aria-label="Quitar paso">✕</button>
+                        }
+                      </div>
+                      @if (!$last) { <span class="program-arrow">→</span> }
+                    }
+                  </div>
+
+                  <!-- Botones de control -->
+                  <div class="program-controls">
+                    <button class="btn-run" (click)="runPlantSequence()" [disabled]="plantRunning || plantSequence.length === 0">
+                      {{ plantRunning ? '🌱 Creciendo...' : '▶ Ejecutar' }}
+                    </button>
+                    <button class="btn-clear" (click)="clearPlantSequence()" [disabled]="plantRunning || plantSequence.length === 0">
+                      🗑️ Borrar
+                    </button>
+                  </div>
+
+                  @if (plantFeedback) {
+                    <div class="plant-feedback" [class.error]="plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero')" [class.success]="!(plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero'))">
+                      <span class="feedback-emoji">{{ (plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero')) ? '🤔' : '✨' }}</span>
+                      <span class="feedback-message">{{ plantFeedback }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
+            } @else {
+              <!-- Celebración de la planta -->
+              <div class="plant-celebration">
+                <div class="celebration-scene">
+                  <!-- Mariposas -->
+                  <div class="butterflies">
+                    <span class="butterfly b1">🦋</span>
+                    <span class="butterfly b2">🦋</span>
+                    <span class="butterfly b3">🐝</span>
+                  </div>
+                  
+                  <!-- Sol brillante -->
+                  <div class="big-sun">☀️</div>
+                  
+                  <!-- Flor grande -->
+                  <div class="big-flower">
+                    <div class="flower-glow"></div>
+                    <span class="sunflower">🌻</span>
+                  </div>
+                  
+                  <!-- Sparkles -->
+                  <div class="flower-sparkles">
+                    <span class="sp sp1">✨</span>
+                    <span class="sp sp2">⭐</span>
+                    <span class="sp sp3">✨</span>
+                    <span class="sp sp4">🌟</span>
+                  </div>
+                </div>
+
+                <h2 class="plant-success-title">🎉 ¡La planta floreció! 🎉</h2>
+                <p class="plant-success-text">Seguiste la secuencia correcta</p>
+                
+                <div class="sequence-display">
+                  <span class="seq-step">🌱 Plantar</span>
+                  <span class="seq-arrow">→</span>
+                  <span class="seq-step">💧 Regar</span>
+                  <span class="seq-arrow">→</span>
+                  <span class="seq-step">☀️ Sol</span>
+                  <span class="seq-arrow">=</span>
+                  <span class="seq-result">🌻</span>
+                </div>
+
+                <div class="rewards-fun">
+                  <div class="reward-badge xp-badge">
+                    <span class="badge-icon">⚡</span>
+                    <span class="badge-value">+10</span>
+                    <span class="badge-label">XP</span>
+                  </div>
+                  <div class="reward-badge seed-badge">
+                    <span class="badge-icon">🌱</span>
+                    <span class="badge-value">+1</span>
+                    <span class="badge-label">Semilla</span>
+                  </div>
+                </div>
+
+                <button class="btn-next-fun" (click)="nextActivity()">
+                  <span class="btn-text">Siguiente aventura</span>
+                  <span class="btn-icon">🚀</span>
+                </button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 3: RUTA -->
+        @else if (currentActivity === 2) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 3</span>
+            <h1>Lleva a Nori a casa 🏠</h1>
+            <p class="activity-desc">Programa la ruta de Nori evitando los obstáculos. ¡Cuidado con las rocas y árboles!</p>
+
+            @if (!routeDone) {
+              <div class="route-game-v2">
+                <!-- Escena del mapa -->
+                <div class="map-scene">
+                  <!-- Cielo y decoración -->
+                  <div class="map-sky">
+                    <div class="map-cloud mc1">☁️</div>
+                    <div class="map-cloud mc2">☁️</div>
+                    <div class="map-sun">🌤️</div>
+                  </div>
+                  
+                  <!-- Grid del juego (4 columnas x 5 filas) -->
+                  <div class="map-ground">
+                    <div class="game-grid-v2">
+                      @for (row of [0, 1, 2, 3, 4]; track row) {
+                        @for (col of [0, 1, 2, 3]; track col) {
+                          <div class="grid-cell-v2" 
+                            [class.goal-cell]="col === routeGoal.x && row === routeGoal.y"
+                            [class.start-cell]="col === 0 && row === 4"
+                            [class.obstacle-cell]="isObstacle(col, row)"
+                            [class.char-cell]="col === routeCharPos.x && row === routeCharPos.y && !isObstacle(col, row)">
+                            
+                            @if (col === routeGoal.x && row === routeGoal.y) {
+                              <div class="goal-house">
+                                <span class="house-icon">🏠</span>
+                                @if (routeCharPos.x === routeGoal.x && routeCharPos.y === routeGoal.y) {
+                                  <span class="nori-icon nori-arrived">🧑‍🚀</span>
+                                } @else {
+                                  <span class="house-label">Casa</span>
+                                }
+                              </div>
+                            } @else if (isObstacle(col, row)) {
+                              <span class="obstacle-icon">{{ getObstacleEmoji(col, row) }}</span>
+                            } @else if (col === routeCharPos.x && row === routeCharPos.y) {
+                              <div class="nori-character" 
+                                [class.moving]="routeRunning"
+                                [class.direction-right]="routeCharDirection === 'right'"
+                                [class.direction-left]="routeCharDirection === 'left'"
+                                [class.direction-up]="routeCharDirection === 'up'"
+                                [class.direction-down]="routeCharDirection === 'down'"
+                                [class.hit]="routeHitObstacle">
+                                <span class="nori-icon">🧑‍🚀</span>
+                              </div>
+                            } @else if (col === 0 && row === 4 && !(routeCharPos.x === 0 && routeCharPos.y === 4)) {
+                              <span class="start-flag">🚩</span>
+                            }
+                            
+                            <!-- Hierba decorativa en celdas vacías -->
+                            @if (!(col === routeGoal.x && row === routeGoal.y) && !isObstacle(col, row) && !(col === routeCharPos.x && row === routeCharPos.y) && !(col === 0 && row === 4)) {
+                              <span class="grass-decor">{{ (col + row) % 3 === 0 ? '🌿' : '' }}</span>
+                            }
+                          </div>
+                        }
+                      }
+                    </div>
+                    
+                    <!-- Leyenda del mapa -->
+                    <div class="map-legend">
+                      <span class="legend-item"><span class="legend-icon">🚩</span> Inicio</span>
+                      <span class="legend-item"><span class="legend-icon">🏠</span> Meta</span>
+                      <span class="legend-item"><span class="legend-icon">🪨🌳</span> Obstáculos</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panel de controles -->
+                <div class="route-controls-v2">
+                  <div class="controls-header">
+                    <h3>🎮 Tu Programa</h3>
+                    <p class="moves-counter">{{ routeBuild.length }} / 6 movimientos</p>
+                  </div>
+
+                  <!-- Preview de la ruta -->
+                  <div class="route-preview-v2">
+                    @if (routeBuild.length === 0) {
+                      <div class="empty-route">
+                        <span class="empty-icon">📝</span>
+                        <span class="empty-text">Agrega movimientos</span>
+                      </div>
+                    } @else {
+                      <div class="route-steps">
+                        @for (m of routeBuild; track $index; let i = $index) {
+                          <div class="route-step" [class.executing]="routeRunning && i === getCurrentStep()">
+                            <span class="step-number">{{ i + 1 }}</span>
+                            <span class="step-arrow">{{ routeMoveEmoji(m) }}</span>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Botones de dirección -->
+                  <div class="direction-pad">
+                    <div class="dpad-row">
+                      <button class="dpad-btn up" (click)="addRouteMove('up')" [disabled]="routeBuild.length >= 6 || routeRunning">
+                        <span class="dpad-arrow">⬆️</span>
+                        <span class="dpad-label">Arriba</span>
+                      </button>
+                    </div>
+                    <div class="dpad-row middle">
+                      <button class="dpad-btn left" (click)="addRouteMove('left')" [disabled]="routeBuild.length >= 6 || routeRunning">
+                        <span class="dpad-arrow">⬅️</span>
+                        <span class="dpad-label">Izq</span>
+                      </button>
+                      <button class="dpad-btn center delete" (click)="removeLastMove()" [disabled]="routeBuild.length === 0 || routeRunning">
+                        <span class="dpad-arrow">🗑️</span>
+                        <span class="dpad-label">Borrar</span>
+                      </button>
+                      <button class="dpad-btn right" (click)="addRouteMove('right')" [disabled]="routeBuild.length >= 6 || routeRunning">
+                        <span class="dpad-arrow">➡️</span>
+                        <span class="dpad-label">Der</span>
+                      </button>
+                    </div>
+                    <div class="dpad-row">
+                      <button class="dpad-btn down" (click)="addRouteMove('down')" [disabled]="routeBuild.length >= 6 || routeRunning">
+                        <span class="dpad-arrow">⬇️</span>
+                        <span class="dpad-label">Abajo</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Botón ejecutar -->
+                  <button class="btn-execute" 
+                    (click)="runRoute()" 
+                    [disabled]="routeBuild.length === 0 || routeRunning"
+                    [class.running]="routeRunning">
+                    @if (routeRunning) {
+                      <span class="execute-icon">⏳</span>
+                      <span class="execute-text">Ejecutando...</span>
+                    } @else {
+                      <span class="execute-icon">▶️</span>
+                      <span class="execute-text">¡Ejecutar!</span>
+                    }
+                  </button>
+
+                  @if (routeFeedback) {
+                    <div class="route-feedback" 
+                      [class.success]="routeDone" 
+                      [class.error]="!routeDone && routeFeedback.includes('chocó')"
+                      [class.warning]="!routeDone && !routeFeedback.includes('chocó')">
+                      <span class="feedback-emoji">
+                        {{ routeDone ? '🎉' : (routeFeedback.includes('chocó') ? '💥' : '🤔') }}
+                      </span>
+                      <span class="feedback-text">{{ routeFeedback }}</span>
+                      @if (!routeDone) {
+                        <button class="btn-retry-small" (click)="resetRoute()">🔄 Reintentar</button>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            } @else {
+              <!-- Celebración de la ruta -->
+              <div class="route-celebration">
+                <div class="celebration-scene">
+                  <div class="confetti-container">
+                    <div class="confetti-piece c1">🎊</div>
+                    <div class="confetti-piece c2">⭐</div>
+                    <div class="confetti-piece c3">🎉</div>
+                    <div class="confetti-piece c4">✨</div>
+                  </div>
+                  
+                  <div class="success-house">
+                    <div class="house-glow"></div>
+                    <span class="big-house">🏠</span>
+                  </div>
+                  
+                  <div class="nori-home">
+                    <span class="nori-happy">🧑‍🚀</span>
+                    <div class="speech-bubble small">
+                      <span>¡Llegué!</span>
+                    </div>
+                  </div>
+                </div>
+
+                <h2 class="route-success-title">🏆 ¡Nori llegó a casa! 🏆</h2>
+                <p class="route-success-text">Tu programa funcionó perfectamente</p>
+                
+                <div class="route-display">
+                  @for (m of routeBuild; track $index) {
+                    <span class="route-move">{{ routeMoveEmoji(m) }}</span>
+                  }
+                </div>
+
+                <div class="rewards-fun">
+                  <div class="reward-badge xp-badge">
+                    <span class="badge-icon">⚡</span>
+                    <span class="badge-value">+10</span>
+                    <span class="badge-label">XP</span>
+                  </div>
+                  <div class="reward-badge seed-badge">
+                    <span class="badge-icon">🌱</span>
+                    <span class="badge-value">+1</span>
+                    <span class="badge-label">Semilla</span>
+                  </div>
+                </div>
+
+                <button class="btn-next-fun" (click)="nextActivity()">
+                  <span class="btn-text">Siguiente aventura</span>
+                  <span class="btn-icon">🚀</span>
+                </button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 4: MOCHILA -->
+        @else if (currentActivity === 3) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 4</span>
+            <h1>Arregla la mochila 🎒</h1>
+            <p class="activity-desc">¡Nori desordenó los pasos! Intercambia los pasos para corregir el orden: Manzana → Agua → Cerrar.</p>
+
+            @if (!packingDone) {
+              <div class="packing-game">
+                <!-- Escena animada de la mochila -->
+                <div class="backpack-scene">
+                  <!-- Cielo, sol y nubes -->
+                  <span class="bp-sun">🌞</span>
+                  <span class="bp-cloud bp-c1">☁️</span>
+                  <span class="bp-cloud bp-c2">☁️</span>
+                  <span class="bp-bird">🐦</span>
+
+                  <!-- Colinas -->
+                  <div class="bp-hill bp-hill-back"></div>
+                  <div class="bp-hill bp-hill-front"></div>
+
+                  <!-- Objetos cayendo dentro de la mochila -->
+                  @for (item of packingItemsIn; track $index) {
+                    <span class="bp-item bp-item-{{ $index }}">{{ packingEmoji(item) }}</span>
+                  }
+
+                  <!-- Mochila -->
+                  <div class="bp-backpack"
+                    [class.packing]="packingPacking"
+                    [class.closed]="packingClosed || packingDone"
+                    [class.shake]="packingShake">
+                    <span class="bp-emoji">🎒</span>
+                    @if (packingClosed || packingDone) {
+                      <span class="bp-sparkle bp-sp1">✨</span>
+                      <span class="bp-sparkle bp-sp2">⭐</span>
+                      <span class="bp-sparkle bp-sp3">✨</span>
+                    }
+                  </div>
+
+                  <!-- Contador de objetos dentro -->
+                  @if (packingPacking || packingDone) {
+                    <div class="bp-status">
+                      {{ packingClosed || packingDone ? '¡Todo empacado! 🎉' : 'Guardando: ' + packingItemsIn.length + ' objeto(s)' }}
+                    </div>
+                  }
+                </div>
+                <div class="packing-controls">
+                  <h3>Orden actual (toca dos para intercambiar)</h3>
+                  <div class="packing-steps">
+                    @for (step of packingBuild; track $index; let i = $index) {
+                      <button class="packing-step" [class.selected]="packingSelectedIdx === i" (click)="selectPackingStep(i)">
+                        <span class="pstep-num">{{ i + 1 }}</span>
+                        <span class="pstep-icon">{{ packingEmoji(step) }}</span>
+                        <span class="pstep-label">{{ packingLabel(step) }}</span>
+                      </button>
+                    }
+                  </div>
+                  <button class="btn-primary" (click)="checkPacking()">✓ Verificar orden</button>
+                  @if (packingFeedback) {
+                    <div class="feedback-box" [class.error]="!packingDone">{{ packingFeedback }}</div>
+                  }
+                </div>
+              </div>
+            } @else {
+              <div class="success-box">
+                <h2>🎒 ¡Mochila lista!</h2>
+                <p>Depuraste el código correctamente: 🍎 → 💧 → 🎒</p>
+                <p class="reward-text">+10 XP · +1 Semilla</p>
+                <button class="btn-primary" (click)="nextActivity()">Siguiente actividad →</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 5: RETO FINAL -->
+        @else if (currentActivity === 4) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 5</span>
+            <h1>Reto final: La semilla mágica 🌟</h1>
+            <p class="activity-desc">Programa a Nori para recoger 💧 Agua, ☀️ Luz y 🌱 Tierra, y llevarlos hasta la semilla mágica para plantarla.</p>
+
+            @if (!finalDone) {
+              <div class="final-game">
+                <div class="grid-view small">
+                  <div class="game-grid grid-3">
+                    @for (row of [0, 1, 2]; track row) {
+                      @for (col of [0, 1, 2]; track col) {
+                        <div class="grid-cell"
+                          [class.goal-cell]="col === finalSeedPos.x && row === finalSeedPos.y"
+                          [class.char-cell]="col === finalCharPos.x && row === finalCharPos.y">
+                          @if (col === finalCharPos.x && row === finalCharPos.y) {
+                            🧑‍🚀
+                          } @else if (finalResourceAt(col, row); as res) {
+                            @if (!res.collected) { {{ finalResourceEmoji(res.type) }} }
+                          } @else if (col === finalSeedPos.x && row === finalSeedPos.y) {
+                            @if (finalGrowing || finalPlanted) { {{ finalSeedEmoji() }} } @else { 🌟 }
+                          }
+                        </div>
+                      }
+                    }
+                  </div>
+                </div>
+                <div class="final-controls">
+                  <div class="final-inventory">
+                    <span class="inventory-label">Mochila:</span>
+                    @for (r of finalResources; track r.type) {
+                      <span class="inventory-item" [class.got]="r.collected">{{ finalResourceEmoji(r.type) }}</span>
+                    }
+                  </div>
+                  <h3>Tu programa</h3>
+                  <div class="final-preview">
+                    @for (b of finalBuild; track $index) {
+                      <span class="block-preview" [class.active]="$index === finalCurrentStep">{{ finalBlockLabel(b) }}</span>
+                    }
+                    @if (finalBuild.length === 0) { <span class="empty-text">Sin bloques</span> }
+                  </div>
+                  <div class="block-buttons">
+                    <button class="block-btn" (click)="addFinalBlock('right')" [disabled]="finalRunning">➡️ Avanzar</button>
+                    <button class="block-btn" (click)="addFinalBlock('up')" [disabled]="finalRunning">⬆️ Subir</button>
+                    <button class="block-btn" (click)="addFinalBlock('left')" [disabled]="finalRunning">⬅️ Izquierda</button>
+                    <button class="block-btn" (click)="addFinalBlock('down')" [disabled]="finalRunning">⬇️ Bajar</button>
+                    <button class="block-btn" (click)="addFinalBlock('collect')" [disabled]="finalRunning">🫳 Recoger</button>
+                    <button class="block-btn" (click)="addFinalBlock('plant')" [disabled]="finalRunning">🌱 Plantar</button>
+                    <button class="block-btn delete" (click)="removeFinalBlock()" [disabled]="finalBuild.length === 0 || finalRunning">🗑️</button>
+                  </div>
+                  <button class="btn-primary" (click)="runFinal()" [disabled]="finalBuild.length === 0 || finalRunning">▶️ Ejecutar</button>
+                  @if (finalFeedback) {
+                    <div class="feedback-box" [class.error]="!finalPlanted">
+                      {{ finalFeedback }}
+                      @if (!finalPlanted && !finalRunning) { <button class="btn-secondary" (click)="resetFinal()">Reintentar</button> }
+                    </div>
+                  }
+                </div>
+              </div>
+            } @else {
+              <div class="completion-box">
+                <div class="seed-grown">🌲</div>
+                <h2>🎉 ¡MUNDO 1 COMPLETADO!</h2>
+                <p class="grow-sequence">🌱 → 🌿 → 🌳 → 🌲</p>
+                <p>🌟 ¡Felicidades, pequeña programadora!</p>
+                <p>Aprendiste que programar es dar instrucciones, organizarlas correctamente y encontrar errores cuando algo no funciona.</p>
+                <p>Desbloqueaste el <strong>Mundo 2: Sendero de Variables</strong></p>
+                <div class="rewards-row">
+                  <div class="reward-item"><strong>50</strong><span>XP</span></div>
+                  <div class="reward-item"><strong>5</strong><span>Semillas</span></div>
+                </div>
+                <button class="btn-primary" (click)="unlockAndOpenWorld2()">Desbloquear Mundo 2 →</button>
+              </div>
+            }
+          </article>
+        }
+      </div>
+    </main>

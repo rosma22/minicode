@@ -1,1 +1,2 @@
-@import './app/app.css';
+/* Estilos globales compartidos por el shell y todos los mundos. */
+@import './app/shared/global.css';

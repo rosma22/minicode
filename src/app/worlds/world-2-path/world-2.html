@@ -1,0 +1,566 @@
+    <main class="world-screen">
+      <div class="world-container">
+        <div class="progress-section">
+          <div class="progress-info">
+            <span>🌿 Mundo 2: Sendero de Variables</span>
+            <span>{{ currentWorld2Activity + 1 }} / {{ totalWorld2Activities }}</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="world2ProgressPercent()"></div>
+          </div>
+          <button class="skip-btn" (click)="skipWorld2Activity()">Saltar ⏭️</button>
+        </div>
+
+        <!-- ACTIVIDAD 1: CAJAS MÁGICAS -->
+        @if (currentWorld2Activity === 0) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 1</span>
+            <h1>Las cajas mágicas 📦</h1>
+            <p class="activity-desc">Una variable es como una caja que guarda información. Haz clic en cada elemento para colocarlo en su caja.</p>
+
+            @if (!magicDone) {
+              <p class="magic-hint">Arrastra cada elemento a su caja, o toca un elemento y luego la caja donde crees que va.</p>
+              <div class="magic-game">
+                <div class="magic-items">
+                  <h3>Elementos</h3>
+                  @for (item of magicItems; track item.label) {
+                    @if (!item.placed) {
+                      <button
+                        class="magic-btn"
+                        [class.selected]="magicSelectedItem === item"
+                        draggable="true"
+                        (dragstart)="startMagicDrag(item)"
+                        (click)="selectMagicItem(item)">
+                        {{ item.emoji }} {{ item.label }}
+                      </button>
+                    }
+                  }
+                </div>
+                <div class="magic-boxes">
+                  <h3>Cajas (variables)</h3>
+                  @for (box of magicBoxes; track box.accepts) {
+                    <div
+                      class="magic-box"
+                      [class.filled]="box.filled"
+                      [class.droppable]="!box.filled && (magicSelectedItem || magicDragItem)"
+                      (dragover)="$event.preventDefault()"
+                      (drop)="$event.preventDefault(); dropMagicItem($index)"
+                      (click)="dropMagicItem($index)">
+                      <span class="box-name">caja_{{ box.accepts }}</span>
+                      @if (box.filled) { <span class="box-content">{{ box.emoji }}</span> }
+                      @else { <span class="box-empty">vacía</span> }
+                    </div>
+                  }
+                </div>
+              </div>
+              @if (magicFeedback) {
+                <div class="feedback-box" [class.error]="magicFeedback.includes('no es')">{{ magicFeedback }}</div>
+              }
+            } @else {
+              <div class="success-box">
+                <h2>📦 ¡Todas las cajas llenas!</h2>
+                <p>Aprendiste que las variables guardan información.</p>
+                <p class="reward-text">+10 XP · +1 Semilla</p>
+                <button class="btn-primary" (click)="nextWorld2Activity()">Siguiente actividad →</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 2: ABRIR CAJAS -->
+        @else if (currentWorld2Activity === 1) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 2</span>
+            <h1>¿Qué hay dentro? 🔍</h1>
+            <p class="activity-desc">Abre las cajas para ver qué guardan y responde la pregunta.</p>
+
+            @if (!openDone) {
+              @if (openPhase === 'reveal') {
+                <div class="open-boxes-grid">
+                  @for (box of openBoxes; track box.label; let i = $index) {
+                    <button class="open-box" [class.revealed]="box.revealed" (click)="revealBox(i)">
+                      @if (!box.revealed) { <span class="box-icon">📦</span><small>Clic para abrir</small> }
+                      @else { <span class="box-icon">{{ box.emoji }}</span><strong>{{ box.value }}</strong><small>{{ box.label }}</small> }
+                    </button>
+                  }
+                </div>
+              } @else {
+                <div class="question-panel">
+                  <h3>{{ openQuestion }}</h3>
+                  <div class="answer-options">
+                    <button class="answer-btn" (click)="checkOpenAnswer(3)">3</button>
+                    <button class="answer-btn" (click)="checkOpenAnswer(5)">5</button>
+                    <button class="answer-btn" (click)="checkOpenAnswer(10)">10</button>
+                  </div>
+                </div>
+              }
+              @if (openFeedback) {
+                <div class="feedback-box" [class.error]="!openDone">{{ openFeedback }}</div>
+              }
+            } @else {
+              <div class="success-box">
+                <h2>🔍 ¡Correcto!</h2>
+                <p>Las variables guardan valores que podemos leer.</p>
+                <p class="reward-text">+10 XP · +1 Semilla</p>
+                <button class="btn-primary" (click)="nextWorld2Activity()">Siguiente actividad →</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 3: CAMBIAR VALOR -->
+        @else if (currentWorld2Activity === 2) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 3</span>
+            <h1>Cambia el valor 🔄</h1>
+            <p class="activity-desc">El personaje tiene una variable ❤️ Vidas. Una variable puede cambiar y su nuevo valor afecta lo que ocurre.</p>
+
+            @if (!changeDone) {
+              <div class="lives-game">
+                <div class="lives-character">🧍</div>
+
+                <p class="lives-goal">🎯 Meta: ¡llega a {{ changeTarget }} vidas!</p>
+
+                <div class="lives-var">
+                  <span class="lives-var-name">❤️ Vidas =</span>
+                  <strong class="lives-var-value">{{ changeValue }}</strong>
+                </div>
+
+                <div class="lives-hearts">
+                  @for (h of changeHearts; track h) {
+                    <span class="heart">❤️</span>
+                  }
+                  @if (changeValue === 0) { <span class="lives-empty">sin vidas</span> }
+                </div>
+
+                <div class="value-buttons">
+                  <button class="value-btn" (click)="changeSub()" [disabled]="changeValue === 0">➖ Restar 1</button>
+                  <button class="value-btn" (click)="changeAdd()">➕ Sumar 1</button>
+                </div>
+              </div>
+              @if (changeFeedback) {
+                <div class="feedback-box" [class.success]="changeValue === changeTarget" [class.error]="changeValue > changeTarget">{{ changeFeedback }}</div>
+              }
+            } @else {
+              <div class="success-box">
+                <h2>🎉 ¡Lo lograste!</h2>
+                <p>Cambiaste el valor de una variable hasta llegar al objetivo: ❤️ Vidas = {{ changeTarget }}.</p>
+                <p class="reward-text">+10 XP · +1 Semilla</p>
+                <button class="btn-primary" (click)="nextWorld2Activity()">Siguiente actividad →</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 4: TIENDA -->
+        @else if (currentWorld2Activity === 3) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 4</span>
+            <h1>La tienda de monedas 🏪</h1>
+            <p class="activity-desc">Una acción puede cambiar el valor de una variable. Compra objetos y observa cómo cambian tus 🪙 monedas.</p>
+
+            @if (!shopDone) {
+
+              <!-- FASE 1: COMPRAR -->
+              @if (shopPhase === 'shop') {
+                <div class="shop-panel">
+                  <p class="wallet">🪙 Monedas = <strong>{{ shopCoins }}</strong></p>
+                  <div class="shop-items">
+                    @for (item of shopItems; track item.name; let i = $index) {
+                      <div class="shop-item">
+                        <span class="item-icon">{{ item.emoji }}</span>
+                        <div class="item-info">
+                          <strong>{{ item.name }}</strong>
+                          <small>{{ item.price }} 🪙</small>
+                        </div>
+                        <button class="buy-btn" (click)="buyItem(i)" [disabled]="item.bought || shopCoins < item.price">
+                          @if (item.bought) { ✅ } @else { Comprar }
+                        </button>
+                      </div>
+                    }
+                  </div>
+                </div>
+                @if (shopFeedback) {
+                  <div class="feedback-box" [class.error]="shopFeedbackError" [class.success]="!shopFeedbackError">{{ shopFeedback }}</div>
+                }
+              }
+
+              <!-- FASE 2: ¿QUÉ PASÓ CON TUS MONEDAS? -->
+              @else if (shopPhase === 'quiz') {
+                <div class="question-panel">
+                  <h3>🧠 ¿Qué pasó con tus monedas?</h3>
+                  <div class="answer-options">
+                    <button class="answer-btn" (click)="answerShopQuiz('up')" [disabled]="shopQuizAnswered">🪙 Aumentaron</button>
+                    <button class="answer-btn" (click)="answerShopQuiz('down')" [disabled]="shopQuizAnswered">🪙 Disminuyeron</button>
+                    <button class="answer-btn" (click)="answerShopQuiz('same')" [disabled]="shopQuizAnswered">🪙 No cambiaron</button>
+                  </div>
+                </div>
+                @if (shopFeedback) {
+                  <div class="feedback-box" [class.error]="shopFeedbackError" [class.success]="!shopFeedbackError">{{ shopFeedback }}</div>
+                }
+              }
+
+              <!-- FASE 3: RETO LIBRE -->
+              @else if (shopPhase === 'challenge') {
+                <div class="shop-panel">
+                  <p class="challenge-intro">🔄 Reto libre: empiezas con <strong>{{ challengeStart }}</strong> monedas. Compra lo que quieras, pero intenta quedarte con <strong>exactamente {{ challengeGoal }}</strong> monedas.</p>
+                  <p class="wallet">🪙 Monedas = <strong>{{ challengeCoins }}</strong></p>
+                  <div class="shop-items">
+                    @for (item of challengeItems; track item.name; let i = $index) {
+                      <div class="shop-item">
+                        <span class="item-icon">{{ item.emoji }}</span>
+                        <div class="item-info">
+                          <strong>{{ item.name }}</strong>
+                          <small>{{ item.price }} 🪙</small>
+                        </div>
+                        <button class="buy-btn" (click)="buyChallengeItem(i)" [disabled]="challengeDone || challengeCoins < item.price">
+                          Comprar
+                        </button>
+                      </div>
+                    }
+                  </div>
+                  <button class="btn-secondary" (click)="resetChallengeCoins()">🔁 Reiniciar reto</button>
+                </div>
+                @if (challengeFeedback) {
+                  <div class="feedback-box" [class.error]="challengeFeedbackError" [class.success]="challengeDone">{{ challengeFeedback }}</div>
+                }
+              }
+
+            } @else {
+              <div class="success-box">
+                <h2>🛒 ¡Reto completado!</h2>
+                <p>Descubriste que una acción cambia el valor de una variable, y que ese valor decide qué puedes hacer.</p>
+                <p class="reward-text">+10 XP · +1 Semilla</p>
+                <button class="btn-primary" (click)="nextWorld2Activity()">Siguiente actividad →</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 5: VIDAS -->
+        @else if (currentWorld2Activity === 4) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 5</span>
+            <h1>¡Cuida tus vidas! ❤️</h1>
+            <p class="activity-desc">Una variable puede cambiar por diferentes eventos del juego. Las vidas van de 0 a {{ LIVES_MAX }}.</p>
+
+            @if (!livesDone) {
+
+              <!-- PARTE 1: DECIDIR QUÉ PASA -->
+              @if (livesPhase === 'decide') {
+                <div class="lives-game">
+                  <div class="lives-var">
+                    <span class="lives-var-name">❤️ Vidas =</span>
+                    <strong class="lives-var-value">{{ livesValue }}</strong>
+                  </div>
+                  <div class="lives-hearts">
+                    @for (h of livesHearts; track h) { <span class="heart">❤️</span> }
+                    @if (livesValue === 0) { <span class="lives-empty">sin vidas</span> }
+                  </div>
+
+                  <p class="lives-event-text">{{ livesDecideEvent.emoji }} {{ livesDecideEvent.text }} ¿Qué debería pasar con tus vidas?</p>
+
+                  @if (!livesDecideResolved) {
+                    <div class="answer-options">
+                      <button class="answer-btn" (click)="answerLivesDecide(1)">❤️ +1</button>
+                      <button class="answer-btn" (click)="answerLivesDecide(-1)">❤️ -1</button>
+                      <button class="answer-btn" (click)="answerLivesDecide(0)">❤️ No cambia</button>
+                    </div>
+                  } @else {
+                    <button class="btn-primary" (click)="nextLivesDecide()">Continuar →</button>
+                  }
+                </div>
+              }
+
+              <!-- PARTE 2: RONDA INTERACTIVA -->
+              @else if (livesPhase === 'round') {
+                <div class="lives-game">
+                  <p class="lives-goal">🕹️ Reacciona a los eventos que aparecen ({{ livesRoundCount }}/{{ livesRoundGoal }})</p>
+                  <div class="lives-var">
+                    <span class="lives-var-name">❤️ Vidas =</span>
+                    <strong class="lives-var-value">{{ livesValue }}</strong>
+                  </div>
+                  <div class="lives-hearts">
+                    @for (h of livesHearts; track h) { <span class="heart">❤️</span> }
+                    @if (livesValue === 0) { <span class="lives-empty">sin vidas</span> }
+                  </div>
+
+                  @if (!livesGameOver) {
+                    <button class="event-btn big-event" (click)="reactLivesEvent()">
+                      {{ livesRoundEvent.emoji }} {{ livesRoundEvent.label }}
+                      <small>({{ livesRoundEvent.delta > 0 ? '+1' : '-1' }} vida)</small>
+                    </button>
+                  } @else {
+                    <button class="btn-secondary" (click)="restartLivesRound()">🔁 Reintentar ronda</button>
+                  }
+                </div>
+              }
+
+              <!-- PARTE 3: MISIÓN LLEGA A LA META -->
+              @else if (livesPhase === 'mission') {
+                <div class="lives-game">
+                  <p class="lives-goal">🏁 ¡Llega al final con al menos {{ livesMissionMin }} vidas!</p>
+                  <div class="lives-var">
+                    <span class="lives-var-name">❤️ Vidas =</span>
+                    <strong class="lives-var-value">{{ livesMissionValue }}</strong>
+                  </div>
+                  <div class="lives-hearts">
+                    @for (h of livesMissionHearts; track h) { <span class="heart">❤️</span> }
+                    @if (livesMissionValue === 0) { <span class="lives-empty">sin vidas</span> }
+                  </div>
+
+                  <div class="mission-track">
+                    @for (step of livesMissionSteps; track $index) {
+                      <span class="mission-step" [class.passed]="$index < livesMissionIndex" [class.current]="$index === livesMissionIndex">{{ step.emoji }}</span>
+                    }
+                    <span class="mission-step goal">🏁</span>
+                  </div>
+
+                  @if (!livesMissionFailed && livesMissionIndex < livesMissionSteps.length) {
+                    <button class="event-btn big-event" (click)="advanceLivesMission()">
+                      Avanzar al siguiente obstáculo →
+                    </button>
+                  } @else if (livesMissionFailed) {
+                    <button class="btn-secondary" (click)="restartLivesMission()">🔁 Reintentar misión</button>
+                  }
+                </div>
+                @if (livesMissionFeedback) {
+                  <div class="feedback-box" [class.error]="livesMissionFailed" [class.success]="!livesMissionFailed && livesMissionIndex >= livesMissionSteps.length">{{ livesMissionFeedback }}</div>
+                }
+              }
+
+              <!-- PARTE 4: MINI DESAFÍO FINAL -->
+              @else if (livesPhase === 'quiz') {
+                <div class="question-panel">
+                  <h3>🧠 Tu personaje tiene 2 vidas. Aparece un 🐲 monstruo y después encuentras un 💖 corazón. ¿Con cuántas vidas terminarás?</h3>
+                  <div class="answer-options">
+                    <button class="answer-btn" (click)="answerLivesQuiz(1)" [disabled]="livesQuizAnswered">1 ❤️</button>
+                    <button class="answer-btn" (click)="answerLivesQuiz(2)" [disabled]="livesQuizAnswered">2 ❤️</button>
+                    <button class="answer-btn" (click)="answerLivesQuiz(3)" [disabled]="livesQuizAnswered">3 ❤️</button>
+                  </div>
+                </div>
+              }
+
+              @if (livesPhase !== 'mission' && livesFeedback) {
+                <div class="feedback-box" [class.error]="livesFeedbackError" [class.success]="!livesFeedbackError">{{ livesFeedback }}</div>
+              }
+
+            } @else {
+              <div class="success-box">
+                <h2>❤️ ¡Misión superada!</h2>
+                <p>Aprendiste que los eventos del juego cambian el valor de la variable vidas, y que ese valor representa el estado del personaje.</p>
+                <p class="reward-text">+10 XP · +1 Semilla</p>
+                <button class="btn-primary" (click)="nextWorld2Activity()">Siguiente actividad →</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 6: NOMBRE -->
+        @else if (currentWorld2Activity === 5) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 6</span>
+            <h1>¿Quién eres? 👤</h1>
+            <p class="activity-desc">Una variable también puede guardar texto, y ese valor puede usarse dentro del juego.</p>
+
+            @if (!heroDone) {
+
+              <!-- PARTE 1: ELIGE TU NOMBRE -->
+              @if (heroPhase === 'name') {
+                <div class="hero-say">👋 ¡Hola! Antes de comenzar necesito saber cómo llamarte.</div>
+                <div class="input-panel">
+                  <label>Escribe tu nombre:</label>
+                  <input type="text" [(ngModel)]="heroName" placeholder="Ej: Valentina" maxlength="20" (keyup.enter)="saveHeroName()">
+                  <button class="btn-primary" (click)="saveHeroName()">Guardar</button>
+                </div>
+              }
+
+              <!-- PARTE 2: USA LA VARIABLE -->
+              @else if (heroPhase === 'use') {
+                <div class="text-var-box">
+                  <span class="text-var-icon">📦</span>
+                  <span class="text-var-name">nombre</span>
+                  <span class="text-var-value">"{{ heroName }}"</span>
+                </div>
+                <p class="hero-explain">Una variable también puede guardar palabras o texto. En este caso, la variable <strong>nombre</strong> guarda: "{{ heroName }}".</p>
+                <div class="hero-messages">
+                  <div class="hero-msg">👋 ¡Hola, {{ heroName }}!</div>
+                  <div class="hero-msg">⭐ {{ heroName }}, encontraste un tesoro.</div>
+                  <div class="hero-msg">🏆 ¡Muy bien, {{ heroName }}!</div>
+                </div>
+                <p class="hero-note">No tuvimos que escribir el nombre cada vez: el programa lo guarda en la variable <strong>nombre</strong> y lo usa cuando lo necesita.</p>
+                <button class="btn-primary" (click)="goToChangeName()">Continuar →</button>
+              }
+
+              <!-- PARTE 3: CAMBIA EL NOMBRE -->
+              @else if (heroPhase === 'change') {
+                <div class="hero-say">🤔 ¿Qué pasa si cambiamos el valor de la variable?</div>
+                <div class="text-var-box">
+                  <span class="text-var-icon">📦</span>
+                  <span class="text-var-name">nombre =</span>
+                  <span class="text-var-value">"{{ heroName }}"</span>
+                </div>
+                <div class="input-panel">
+                  <label>Cambia el valor de nombre:</label>
+                  <input type="text" [(ngModel)]="heroNewName" placeholder="Ej: Leo" maxlength="20" (keyup.enter)="changeHeroName()">
+                  <button class="btn-primary" (click)="changeHeroName()">Cambiar valor</button>
+                </div>
+                <div class="hero-messages">
+                  <div class="hero-msg">👋 ¡Hola, {{ heroName }}!</div>
+                  <div class="hero-msg">⭐ {{ heroName }}, encontraste un tesoro.</div>
+                </div>
+                @if (heroFeedback && !heroFeedbackError) {
+                  <button class="btn-primary" (click)="goToTypePhase()">Continuar →</button>
+                }
+              }
+
+              <!-- PARTE 4: ¿QUÉ TIPO DE INFORMACIÓN ES? -->
+              @else if (heroPhase === 'type') {
+                <div class="question-panel">
+                  <h3>¿Cuál de estas variables guarda texto?</h3>
+                  <div class="type-vars">
+                    @for (v of heroTypeVars; track v.name; let i = $index) {
+                      <button class="type-var-btn" (click)="answerHeroType(i)" [disabled]="heroTypeAnswered">
+                        <span class="tv-emoji">{{ v.emoji }}</span>
+                        <span class="tv-name">{{ v.name }}</span>
+                        <span class="tv-value">{{ v.value }}</span>
+                      </button>
+                    }
+                  </div>
+                </div>
+              }
+
+              <!-- DESAFÍO FINAL: MENSAJE CON DOS VARIABLES -->
+              @else if (heroPhase === 'final') {
+                <p class="hero-explain">Completa un mensaje usando variables:</p>
+                <div class="text-var-box">
+                  <span class="text-var-icon">📦</span>
+                  <span class="text-var-name">nombre =</span>
+                  <span class="text-var-value">"{{ heroFinalName }}"</span>
+                </div>
+                <div class="text-var-box">
+                  <span class="text-var-icon">📦</span>
+                  <span class="text-var-name">mascota =</span>
+                  <span class="text-var-value">"{{ heroFinalPet }}"</span>
+                </div>
+                <div class="hero-msg big">🐶 ¡Hola, {{ heroFinalName }}! Tu mascota se llama {{ heroFinalPet }}.</div>
+
+                <div class="question-panel">
+                  <h3>Si cambiamos <strong>nombre → "Sara"</strong>, ¿qué mensaje aparecerá?</h3>
+                  <div class="answer-options vertical">
+                    <button class="answer-btn" (click)="answerHeroFinalQuiz('Sara')" [disabled]="heroFinalQuizAnswered">🐶 ¡Hola, Sara! Tu mascota se llama Luna.</button>
+                    <button class="answer-btn" (click)="answerHeroFinalQuiz('Mateo')" [disabled]="heroFinalQuizAnswered">🐶 ¡Hola, Mateo! Tu mascota se llama Sara.</button>
+                    <button class="answer-btn" (click)="answerHeroFinalQuiz('otro')" [disabled]="heroFinalQuizAnswered">🐶 ¡Hola, Luna! Tu mascota se llama Sara.</button>
+                  </div>
+                </div>
+              }
+
+              @if (heroFeedback) {
+                <div class="feedback-box" [class.error]="heroFeedbackError" [class.success]="!heroFeedbackError">{{ heroFeedback }}</div>
+              }
+
+            } @else {
+              <div class="success-box">
+                <h2>👤 ¡Hola, {{ heroName }}!</h2>
+                <p>Descubriste que una variable puede guardar texto y que ese valor se puede usar y cambiar dentro del juego. La caja no cambia, lo que cambia es lo que guardamos dentro.</p>
+                <p class="reward-text">+10 XP · +1 Semilla</p>
+                <button class="btn-primary" (click)="nextWorld2Activity()">Siguiente actividad →</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 7: MOCHILA -->
+        @else if (currentWorld2Activity === 6) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 7</span>
+            <h1>La mochila de variables 🎒</h1>
+            <p class="activity-desc">Configura las variables de tu personaje y vive una pequeña aventura.</p>
+
+            @if (!backpackDone) {
+              @if (backpackPhase === 'edit') {
+                <div class="backpack-form">
+                  <label>📛 Nombre <input type="text" [(ngModel)]="backpack.name" placeholder="Tu nombre"></label>
+                  <label>🪙 Monedas <input type="number" [(ngModel)]="backpack.coins" min="0"></label>
+                  <label>❤️ Vidas <input type="number" [(ngModel)]="backpack.lives" min="0"></label>
+                  <label>⭐ Puntos <input type="number" [(ngModel)]="backpack.points" min="0"></label>
+                </div>
+                <button class="btn-primary" (click)="startBackpackAdventure()">Comenzar aventura</button>
+              } @else if (backpackPhase === 'adventure') {
+                <div class="backpack-stats">
+                  <div>📛 {{ backpack.name }}</div>
+                  <div>🪙 {{ backpack.coins }} monedas</div>
+                  <div>❤️ {{ backpack.lives }} vidas</div>
+                  <div>⭐ {{ backpack.points }} puntos</div>
+                </div>
+                <button class="btn-primary" (click)="backpackEvent()">Siguiente evento</button>
+              }
+              @if (backpackFeedback) {
+                <div class="feedback-box">{{ backpackFeedback }}</div>
+              }
+            } @else {
+              <div class="success-box">
+                <h2>🎒 ¡Aventura completada!</h2>
+                <p>Variables finales: {{ backpack.coins }} monedas, {{ backpack.lives }} vidas, {{ backpack.points }} puntos</p>
+                <p class="reward-text">+10 XP · +1 Semilla</p>
+                <button class="btn-primary" (click)="nextWorld2Activity()">Siguiente actividad →</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 8: QUIZ -->
+        @else if (currentWorld2Activity === 7) {
+          <article class="activity-card">
+            <span class="activity-badge">EVALUACIÓN FINAL</span>
+            <h1>Comprueba lo que aprendiste 🎓</h1>
+            <p class="activity-desc">Responde las preguntas sobre variables.</p>
+
+            @if (!quizDone) {
+              <div class="quiz-panel">
+                <div class="quiz-question">
+                  <h3>1. Si tienes 5 monedas y encuentras 1 más, ¿cuántas tienes?</h3>
+                  <div class="quiz-options">
+                    <button [class.selected]="quizAnswers[0] === '5'" (click)="selectQuizAnswer(0, '5')">5</button>
+                    <button [class.selected]="quizAnswers[0] === '6'" (click)="selectQuizAnswer(0, '6')">6</button>
+                    <button [class.selected]="quizAnswers[0] === '4'" (click)="selectQuizAnswer(0, '4')">4</button>
+                  </div>
+                </div>
+                <div class="quiz-question">
+                  <h3>2. ¿Qué tipo de dato es un nombre?</h3>
+                  <div class="quiz-options">
+                    <button [class.selected]="quizAnswers[1] === 'número'" (click)="selectQuizAnswer(1, 'número')">Número</button>
+                    <button [class.selected]="quizAnswers[1] === 'texto'" (click)="selectQuizAnswer(1, 'texto')">Texto</button>
+                    <button [class.selected]="quizAnswers[1] === 'estrella'" (click)="selectQuizAnswer(1, 'estrella')">Estrella</button>
+                  </div>
+                </div>
+                <div class="quiz-question">
+                  <h3>3. ¿Qué puede hacer una variable?</h3>
+                  <div class="quiz-options">
+                    <button [class.selected]="quizAnswers[2] === 'nunca'" (click)="selectQuizAnswer(2, 'nunca')">Nunca cambiar</button>
+                    <button [class.selected]="quizAnswers[2] === 'cambiar'" (click)="selectQuizAnswer(2, 'cambiar')">Cambiar su valor</button>
+                    <button [class.selected]="quizAnswers[2] === 'desaparecer'" (click)="selectQuizAnswer(2, 'desaparecer')">Desaparecer</button>
+                  </div>
+                </div>
+              </div>
+              <button class="btn-primary" (click)="checkQuiz()">✓ Verificar respuestas</button>
+              @if (quizFeedback) {
+                <div class="feedback-box" [class.error]="!quizDone">{{ quizFeedback }}</div>
+              }
+            } @else {
+              <div class="completion-box">
+                <div class="trophy">🎓</div>
+                <h2>¡Mundo 2 completado!</h2>
+                <p>Has aprendido todo sobre variables: qué son, cómo guardan información y cómo cambiar sus valores.</p>
+                <div class="rewards-row">
+                  <div class="reward-item"><strong>80</strong><span>XP Total</span></div>
+                  <div class="reward-item"><strong>8</strong><span>Semillas</span></div>
+                </div>
+                <button class="btn-primary" (click)="unlockAndOpenWorld3()">Desbloquear Mundo 3 🌊</button>
+                <button class="btn-secondary" (click)="backToForest.emit()">Volver al bosque 🌳</button>
+              </div>
+            }
+          </article>
+        }
+      </div>
+    </main>
