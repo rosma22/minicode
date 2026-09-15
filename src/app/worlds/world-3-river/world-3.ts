@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { Component, ChangeDetectorRef, EventEmitter, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../../core/game-state.service';
 import { type ActivityReward } from '../../models/activities';
@@ -14,15 +14,84 @@ import { type ActivityReward } from '../../models/activities';
   templateUrl: './world-3.html',
   styleUrl: './world-3.css',
 })
-export class World3Component {
+export class World3Component implements OnInit {
   @Output() exitToForest = new EventEmitter<void>();
 
   constructor(private cdr: ChangeDetectorRef, private game: GameStateService) {
     this.resetWorld3Activities();
   }
 
+  ngOnInit(): void {
+    this.startW3Dialogue();
+  }
+
   currentWorld3Activity = 0;
   totalWorld3Activities = 7;
+
+  // ═══════════════════════════════════════════════════════════
+  // INTRO CON DIÁLOGO (Coco la rana presenta el mundo de condicionales)
+  // ═══════════════════════════════════════════════════════════
+  showW3Intro = true;
+
+  /** Personaje guía de este mundo. */
+  readonly w3Character = '🐸';
+
+  private readonly w3Dialogue: string[] = [
+    '¡Croac! Soy Coco, la rana guardiana del Río. 🐸',
+    'Bienvenid@ al Río de los Condicionales. ¡Aquí tomaremos decisiones!',
+    'Un condicional es preguntarse: SI pasa algo... entonces hago esto. 🤔',
+    'Por ejemplo: SI tienes la llave 🔑, entonces la puerta se abre.',
+    'Y SI NO la tienes, ¡tendrás que buscar otro camino! 🌊',
+    '¿List@ para decidir y cruzar el río conmigo? ¡Salta! 🪷',
+  ];
+
+  w3DialogueIndex = 0;
+  w3DisplayedText = '';
+  w3Typing = false;
+  private w3TypeTimer: any = null;
+
+  private startW3Dialogue(): void {
+    this.w3DialogueIndex = 0;
+    this.typeW3Line();
+  }
+
+  private typeW3Line(): void {
+    clearInterval(this.w3TypeTimer);
+    const full = this.w3Dialogue[this.w3DialogueIndex];
+    this.w3DisplayedText = '';
+    this.w3Typing = true;
+    let i = 0;
+    this.w3TypeTimer = setInterval(() => {
+      this.w3DisplayedText = full.slice(0, ++i);
+      if (i >= full.length) {
+        clearInterval(this.w3TypeTimer);
+        this.w3Typing = false;
+      }
+      this.cdr.detectChanges();
+    }, 32);
+  }
+
+  get w3DialogueFinished(): boolean {
+    return this.w3DialogueIndex >= this.w3Dialogue.length - 1 && !this.w3Typing;
+  }
+
+  advanceW3Dialogue(): void {
+    if (this.w3Typing) {
+      clearInterval(this.w3TypeTimer);
+      this.w3DisplayedText = this.w3Dialogue[this.w3DialogueIndex];
+      this.w3Typing = false;
+      return;
+    }
+    if (this.w3DialogueIndex < this.w3Dialogue.length - 1) {
+      this.w3DialogueIndex++;
+      this.typeW3Line();
+    }
+  }
+
+  startWorld3(): void {
+    clearInterval(this.w3TypeTimer);
+    this.showW3Intro = false;
+  }
 
   // Actividad 1 – La bifurcación
   forkScenarios = [

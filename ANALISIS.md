@@ -1,224 +1,184 @@
-# 📋 Análisis del Proyecto — Minicode ("Bosque de Algoritmos")
+# Análisis del proyecto — Bosque de Algoritmos (minicode)
 
-> Documento de análisis técnico e indicaciones de trabajo.
-> Última revisión: septiembre 2026.
+Fecha del análisis: 12 de septiembre de 2026
 
----
+## 1. Descripción general
 
-## 1. Resumen general
+**Bosque de Algoritmos** es una aplicación educativa e interactiva pensada para enseñar
+conceptos básicos de programación a niños y principiantes a través de un juego por
+"mundos". El jugador (el explorador *Nori* 🧑‍🚀) recorre un bosque y va desbloqueando
+mundos temáticos, cada uno enfocado en un concepto de programación:
 
-**Minicode** es una aplicación educativa e interactiva para enseñar conceptos
-básicos de programación a niños (secuencias, variables, depuración) a través de
-mini-juegos con temática de un "Bosque de Algoritmos". El personaje guía es
-**Nori**, un astronauta explorador.
+| Mundo | Nombre | Concepto que enseña |
+|-------|--------|---------------------|
+| 1 | 🌱 Semillas | Secuencias (pasos en orden) |
+| 2 | 🌿 Sendero | Variables |
+| 3 | 🌊 Río | Condicionales |
 
-La app está construida con **Angular 22** (standalone components, control flow
-`@if` / `@for`) y se empaqueta como aplicación de escritorio con **Electron**.
-
-- **Nombre:** minicode
-- **Versión:** 0.0.0
-- **Tipo:** Aplicación web (Angular) + escritorio (Electron)
-- **Idioma de la UI:** Español
-- **Público objetivo:** Niños que empiezan a programar
-
----
+La aplicación combina explicaciones simples con mini-juegos prácticos (armar un sándwich,
+hacer crecer una planta, programar rutas, tomar decisiones, etc.) y un sistema de
+recompensas (XP y semillas).
 
 ## 2. Stack tecnológico
 
-| Área | Tecnología | Versión |
-|------|------------|---------|
-| Framework front-end | Angular | ^22.1.0 |
-| Lenguaje | TypeScript | ~6.0.2 |
-| Reactividad | RxJS | ~7.8.0 |
-| Runtime de zonas | zone.js | ^0.16.3 |
-| Escritorio | Electron | ^44.0.0 |
-| Testing | Vitest | ^4.0.8 |
-| Formateo | Prettier | ^3.8.1 |
-| Gestor de paquetes | npm | 11.12.1 |
-| Build | @angular/build (esbuild/vite) | ^22.1.6 |
+- **Framework:** Angular 22.1 (componentes *standalone*, nueva sintaxis de control de flujo `@if` / `@for`).
+- **Lenguaje:** TypeScript ~6.0.
+- **Empaquetado de escritorio:** Electron 44 (`main: electron/main.js`), lo que permite distribuir la app como aplicación de escritorio.
+- **Testing:** Vitest 4 + jsdom (configurado, aunque sin cobertura visible de pruebas de los mundos).
+- **Estilos:** CSS puro centralizado en `src/app/shared/global.css`.
+- **Estado:** servicio Angular inyectable (`GameStateService`), sin librería de estado externa.
+
+## 3. Arquitectura
+
+```
+src/app/
+├── app.ts / app.html / app.css      → Shell: cabecera + navegación entre pantallas
+├── app.config.ts / app.routes.ts    → Configuración (router provisto pero sin rutas)
+├── core/
+│   └── game-state.service.ts        → Estado global (XP, semillas, desbloqueos)
+├── models/
+│   └── activities.ts                → Tipos y constantes de las actividades
+├── shared/
+│   └── global.css                   → TODOS los estilos de la app (~3950 líneas)
+└── worlds/
+    ├── forest/                      → Menú principal (mapa del bosque)
+    ├── world-1-seeds/               → Mundo 1: Secuencias (5 actividades)
+    ├── world-2-path/                → Mundo 2: Variables
+    └── world-3-river/               → Mundo 3: Condicionales
+```
+
+### Patrón de navegación
+El componente raíz `App` mantiene un estado `currentScreen` (`'forest' | 'world-1' | 'world-2' | 'world-3'`)
+y usa `@if` / `@else if` para renderizar la pantalla activa. La comunicación entre mundos y
+el shell se hace mediante `@Output() EventEmitter`:
+
+- `forest` emite `openWorld1/2/3` → el shell cambia de pantalla.
+- Cada mundo emite eventos para desbloquear/abrir el siguiente (`unlockWorld2`, `unlockWorld3`, etc.).
+
+Como los mundos se montan con `@if`, cada componente se **recrea** al entrar, por lo que sus
+hooks de inicialización (constructor / `ngOnInit`) se ejecutan cada vez. Esto se aprovecha,
+por ejemplo, para reiniciar animaciones (el explorador que "camina" en el bosque) y la intro
+del Mundo 1.
+
+### Estado global (`GameStateService`)
+```ts
+experience = 0;       // XP acumulada
+seeds = 0;            // Semillas (moneda del juego)
+level2Unlocked = false;
+level3Unlocked = false;
+applyReward(reward)   // Suma XP y semillas
+```
+Los mundos 2 y 3 comienzan bloqueados y se desbloquean al completar el mundo anterior.
+
+## 4. Detalle por pantallas
+
+### 4.1 Bosque (menú principal) — `forest/`
+- Escena "realista" construida íntegramente con CSS: cielo con degradado, rayos de sol,
+  montañas lejanas, colinas en capas, línea de árboles de fondo, bruma, sendero SVG serpenteante
+  y decoración (árboles, arbustos, aves).
+- Tres nodos de mundo posicionados sobre el sendero, con estado bloqueado/desbloqueado.
+- **Personaje que camina:** el explorador arranca al inicio del sendero y se desplaza (transición
+  CSS de ~2.6 s) hasta el mundo desbloqueado más avanzado. Al volver al bosque tras desbloquear
+  un mundo nuevo, camina hacia él. Incluye animación de paso y sombra dinámica.
+
+### 4.2 Mundo 1 — Semillas / Secuencias (~810 líneas TS, ~858 HTML)
+El mundo más desarrollado. Incluye:
+- **Intro con diálogo:** el personaje aparece en grande y "habla" con efecto máquina de escribir;
+  el usuario avanza el diálogo con clics y luego inicia las actividades.
+- **5 actividades:**
+  1. **Sándwich** (secuencia): ordenar 🍞 🥬 🍅 🧀 🥪 mediante drag & drop o clic.
+  2. **Planta:** armar la secuencia plantar → regar → sol y verla crecer animada.
+  3. **Ruta:** programar movimientos en una cuadrícula 4×5 evitando obstáculos para llevar a Nori a casa.
+  4. **Mochila (depuración):** reordenar pasos para empacar correctamente.
+  5. **Reto final:** recoger recursos (agua, luz, tierra) y plantar la semilla mágica.
+- Cada actividad otorga recompensas y muestra celebraciones animadas.
+
+### 4.3 Mundo 2 — Sendero / Variables (~798 líneas TS)
+Amplia variedad de mini-juegos alrededor del concepto de variable: cajas mágicas,
+contadores de vidas/corazones, tienda con precios, héroe con nombre y tipo, mochila,
+y un quiz final que desbloquea el Mundo 3.
+
+### 4.4 Mundo 3 — Río / Condicionales (~475 líneas TS)
+Actividades centradas en decisiones (if/else): bifurcaciones en el camino, detector de
+igualdad, puerta con condición de paso, condicionales sobre vidas, guardián y un cruce final.
+
+## 5. Modelo de datos (`activities.ts`)
+Define tipos y constantes que sirven como "fuente de verdad" de las soluciones correctas:
+- Tipos: `PlantAction`, `RouteMove`, `PackingStep`, `FinalBlock`, `FinalResource`, etc.
+- Órdenes correctos: `SANDWICH_CORRECT_ORDER`, `PLANT_GROWTH_ORDER`, `PACKING_CORRECT_ORDER`, etc.
+- Recompensa estándar: `{ experience: 10, seeds: 1 }`.
+
+Mantener la lógica de validación basada en estas constantes es una buena práctica: la interfaz
+y la comprobación de respuestas se derivan del mismo dato.
+
+## 6. Fortalezas
+
+- **Enfoque pedagógico claro:** progresión de conceptos (secuencias → variables → condicionales)
+  con metáforas concretas y visuales para cada idea abstracta.
+- **Alta calidad visual:** escenas y animaciones logradas solo con CSS, sin dependencias gráficas externas.
+- **Arquitectura simple y comprensible:** componentes standalone bien separados por mundo, estado global mínimo.
+- **Uso de la sintaxis moderna de Angular** (`@if`, `@for`, señales de control de flujo).
+- **Feedback inmediato y refuerzo positivo:** celebraciones, XP y semillas mantienen la motivación.
+- **Base para escritorio con Electron** ya preparada.
+
+## 7. Riesgos y oportunidades de mejora
+
+### Mantenibilidad
+- **`global.css` es un archivo monolítico (~3950 líneas).** Concentra los estilos de todas las
+  pantallas. Recomendación: dividir en hojas por componente (`forest.css`, `world-1.css`, …) o
+  usar estilos encapsulados por componente para reducir el riesgo de colisiones de clases
+  (varias clases como `.sky`, `.cloud`, `.tree` se reutilizan en contextos distintos).
+- **Componentes de mundo muy grandes** (700–800 líneas de TS con mucha lógica de UI y `setTimeout`
+  para animaciones). Podrían extraerse servicios o subcomponentes por actividad para facilitar
+  pruebas y lectura.
+
+### Estado y persistencia
+- **El progreso no se persiste.** Al recargar, XP, semillas y desbloqueos se reinician. Sería útil
+  guardar en `localStorage` (o almacenamiento de Electron) para conservar el avance.
+- El estado global usa propiedades mutables simples; migrar a **signals** de Angular daría
+  reactividad más robusta y explícita.
+
+### Enrutamiento
+- El `Router` está provisto pero **sin rutas** (`routes = []`); la navegación es manual por estado.
+  Si el proyecto crece, usar rutas reales facilitaría deep-linking, historial y pruebas.
+
+### Calidad
+- **Cobertura de pruebas escasa.** Vitest está configurado, pero la lógica de validación de las
+  actividades (que es determinista y aislada) es ideal para pruebas unitarias.
+- Uso frecuente de `any` en temporizadores (`typeTimer`) y de `setTimeout` encadenados; encapsular
+  las animaciones o usar utilidades de RxJS mejoraría la robustez.
+
+### Accesibilidad
+- La interacción depende mucho de emojis y color. Conviene añadir textos alternativos/etiquetas ARIA,
+  asegurar contraste suficiente y ofrecer alternativas a las acciones de arrastrar y soltar (ya existe
+  el clic como alternativa en el sándwich, buen punto de partida).
+
+## 8. Recomendaciones priorizadas
+
+1. **Persistir el progreso** (localStorage) — alto impacto, bajo esfuerzo.
+2. **Dividir `global.css`** por componente o encapsular estilos — reduce riesgo de regresiones.
+3. **Añadir pruebas unitarias** a las funciones de validación de cada actividad.
+4. **Extraer subcomponentes/servicios** en los mundos más grandes (empezando por Mundo 1 y 2).
+5. **Migrar el estado a signals** y evaluar el uso del Router para la navegación.
+6. **Revisar accesibilidad** (ARIA, contraste, alternativas de interacción).
+
+## 9. Métricas rápidas
+
+| Archivo | Líneas |
+|---------|-------:|
+| `shared/global.css` | 3954 |
+| `world-1-seeds/world-1.html` | 858 |
+| `world-1-seeds/world-1.ts` | 810 |
+| `world-2-path/world-2.ts` | 798 |
+| `world-2-path/world-2.html` | 566 |
+| `world-3-river/world-3.ts` | 475 |
+| `world-3-river/world-3.html` | 326 |
+| `forest/forest.html` | 91 |
+| `forest/forest.ts` | 62 |
+| `models/activities.ts` | 61 |
+| `core/game-state.service.ts` | 21 |
 
 ---
 
-## 3. Estructura del proyecto
-
-```
-minicode/
-├── angular.json            # Configuración del workspace de Angular
-├── package.json            # Dependencias y scripts
-├── tsconfig*.json          # Configuración de TypeScript (app / spec)
-├── README.md               # Documentación generada por Angular CLI
-├── electron/
-│   └── main.js             # Punto de entrada de Electron (crea la ventana)
-├── public/                 # Assets estáticos
-├── src/
-│   ├── index.html          # HTML raíz (<app-root>)
-│   ├── main.ts             # Bootstrap de la aplicación Angular
-│   ├── styles.css          # Estilos globales
-│   └── app/
-│       ├── app.ts          # Componente raíz: TODA la lógica de los juegos
-│       ├── app.html        # Plantilla con las 3 pantallas y actividades
-│       ├── app.css         # Estilos del componente
-│       ├── app.config.ts   # Providers (router, error listeners)
-│       ├── app.routes.ts   # Rutas (actualmente vacías)
-│       ├── activities.ts   # Tipos y constantes de las actividades
-│       └── app.spec.ts     # Pruebas unitarias del componente raíz
-├── dist/                   # Artefactos de build
-└── .angular/               # Caché de compilación (ignorar)
-```
-
----
-
-## 4. Arquitectura de la aplicación
-
-La aplicación es **monolítica en un solo componente** (`App`, en `app.ts`).
-Todo el estado y la lógica de las actividades viven en esa clase, y la plantilla
-`app.html` cambia lo que muestra según la variable de estado `currentScreen`.
-
-### Pantallas (`Screen`)
-- `forest` — Mapa del bosque. Pantalla inicial con acceso a los mundos.
-- `world-1` — **Mundo 1: Semillas** (concepto: *secuencias*).
-- `world-2` — **Mundo 2: Sendero** (concepto: *variables*). Se desbloquea al
-  terminar el Mundo 1.
-
-Existe un tercer nodo en el mapa ("Río / Condicionales") marcado como bloqueado,
-sin implementar todavía.
-
-### Estado global
-- `experience` — puntos de experiencia (XP) acumulados.
-- `seeds` — semillas ganadas.
-- `level2Unlocked` — controla el acceso al Mundo 2.
-- La recompensa estándar por actividad es `{ experience: 10, seeds: 1 }`.
-
----
-
-## 5. Contenido: actividades
-
-### Mundo 1 — Semillas (secuencias) · 5 actividades
-Definidas en `activities.ts` (`WORLD_ONE_ACTIVITIES`) y controladas por
-`currentActivity` (0–4).
-
-1. **Sándwich** — Ordenar ingredientes (🍞 🥬 🧀 🥪) mediante drag & drop o clic.
-   Enseña qué es una secuencia. Orden correcto: `SANDWICH_CORRECT_ORDER`.
-2. **Planta** — Armar y ejecutar una secuencia de bloques
-   (🌱 Plantar → 💧 Regar → ☀️ Sol) que se corre paso a paso. Orden en
-   `PLANT_GROWTH_ORDER`.
-3. **Ruta** — Programar movimientos en un grid 4×5 para llevar a Nori a casa
-   evitando obstáculos (🪨 roca, 🌳 árbol).
-4. **Depuración (mochila)** — Reordenar pasos de empaque (`PACKING_INITIAL_ORDER`
-   → `PACKING_CORRECT_ORDER`) intercambiando posiciones.
-5. **Reto final** — En un grid 3×3, recoger recursos (💧 Agua, ☀️ Luz, 🌱 Tierra)
-   y plantar en la semilla mágica, con animación de crecimiento.
-
-Al completar el Mundo 1 se activa `level2Unlocked`.
-
-### Mundo 2 — Sendero (variables) · 11 actividades
-Controladas por `currentWorld2Activity` (0–10).
-
-1. **Cajas mágicas** — Emparejar ítems con la caja que los acepta (variables como cajas).
-2. **Abrir cajas** — Revelar valores guardados y responder una pregunta.
-3. **Cambiar valor** — Subir/bajar un número hasta un objetivo (mutación de variable).
-4. **Tienda** — Comprar ítems restando de las monedas disponibles.
-5. **Vidas** — Aplicar eventos que suman/restan vidas hasta la meta.
-6. **Nombre** — Guardar un nombre (variable de texto).
-7. **Marcador** — Recolectar estrellas e incrementar el marcador.
-8. **Mochila de variables** — Definir un personaje (nombre, monedas, vidas, puntos)
-   y vivir una aventura que modifica esos valores.
-9. **Arreglar variables** — Asignar cada etiqueta a su slot correcto (depuración).
-10. **Gran aventura** — Secuencia de eventos que modifican varias variables.
-11. **Evaluación final** — Quiz de 3 preguntas (`quizCorrect`).
-
----
-
-## 6. Cómo ejecutar el proyecto
-
-Instalar dependencias:
-
-```bash
-npm install
-```
-
-Servidor de desarrollo Angular (http://localhost:4200):
-
-```bash
-npm start
-```
-
-Ejecutar como app de escritorio con Electron (requiere que el servidor de
-desarrollo esté corriendo, porque `electron/main.js` carga `http://localhost:4200`):
-
-```bash
-# En una terminal
-npm start
-# En otra terminal
-npm run electron
-```
-
-Compilar para producción (salida en `dist/`):
-
-```bash
-npm run build
-```
-
-Ejecutar pruebas:
-
-```bash
-npm test
-```
-
----
-
-## 7. Observaciones y hallazgos
-
-- **La lógica está toda en un solo componente.** `app.ts` supera las 1300 líneas
-  y `app.html` es muy extenso. Funciona, pero dificulta el mantenimiento.
-- **La prueba unitaria está desactualizada.** `app.spec.ts` espera que el `<h1>`
-  contenga `"Hello, minicode"`, texto que ya no existe en la plantilla actual
-  (ahora dice "Bienvenido al Bosque de Algoritmos"). Esa prueba fallará.
-- **El rutado no se usa.** `app.routes.ts` está vacío; la navegación se maneja
-  con la variable `currentScreen`. El `provideRouter` podría eliminarse si no se
-  planea usar rutas.
-- **Electron depende del servidor de desarrollo.** `main.js` carga siempre
-  `localhost:4200`. Para distribuir una app real habría que cargar los archivos
-  compilados de `dist/` en modo producción.
-- **El tercer mundo (Río / Condicionales) no está implementado**, solo aparece
-  bloqueado en el mapa.
-- **Detección de cambios manual.** Se usa `ChangeDetectorRef.detectChanges()` en
-  muchas animaciones con `setTimeout`. Migrar a *signals* de Angular simplificaría
-  esto.
-
----
-
-## 8. Indicaciones / próximos pasos recomendados
-
-Prioridad alta:
-1. **Arreglar la prueba unitaria** de `app.spec.ts` para que valide el contenido
-   real (o reescribirla acorde a las pantallas actuales).
-2. **Configurar Electron para producción**: cargar `dist/` con `loadFile` cuando
-   no esté en modo desarrollo, y agregar un script que construya + lance Electron.
-
-Prioridad media:
-3. **Refactorizar por componentes**: separar cada mundo/actividad en su propio
-   componente standalone para reducir el tamaño de `app.ts` y `app.html`.
-4. **Extraer el estado del juego a un servicio** (por ejemplo `GameService`) o a
-   *signals*, para separar lógica de presentación.
-5. **Añadir pruebas** para la lógica de cada actividad (validación de secuencias,
-   rutas, recompensas).
-
-Prioridad baja / mejoras:
-6. Implementar el **Mundo 3 (Condicionales)**.
-7. Persistir el progreso (XP, semillas, mundos desbloqueados) en `localStorage`.
-8. Revisar **accesibilidad**: roles ARIA, navegación por teclado y foco en los
-   juegos de arrastrar y soltar.
-9. Considerar migrar a **signals** para las animaciones que hoy usan
-   `detectChanges()` manual.
-
----
-
-## 9. Convenciones del proyecto
-
-- Componentes **standalone** (sin NgModules).
-- Sintaxis de control de flujo moderna de Angular: `@if`, `@else if`, `@for`.
-- `prefix` de selectores: `app`.
-- Formateo con **Prettier**.
-- Textos de la interfaz en **español**.
-- Emojis usados de forma intensiva como recursos visuales del juego.
+*Documento generado como análisis técnico del estado actual del proyecto. Las recomendaciones
+son sugerencias de mejora y no implican que el proyecto esté incompleto para su propósito educativo.*

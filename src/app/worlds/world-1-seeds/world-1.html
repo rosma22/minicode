@@ -1,4 +1,38 @@
     <main class="world-screen">
+      <!-- ══════════════════════════════════════════════════════════════════
+           INTRO: el explorador aparece y explica lo básico del Mundo 1
+           ══════════════════════════════════════════════════════════════════ -->
+      @if (showIntro) {
+        <div class="world-intro" (click)="advanceDialogue()">
+          <span class="intro-badge">🌱 MUNDO 1 · SEMILLAS</span>
+
+          <!-- Burbuja de diálogo: el texto aparece letra por letra -->
+          <div class="dialogue-bubble">
+            <p class="dialogue-text">{{ displayedText }}<span class="type-caret" [class.hidden]="!typing">▋</span></p>
+          </div>
+
+          <!-- Personaje grande que "habla" -->
+          <div class="intro-character-xl" [class.talking]="typing">🧑‍🚀</div>
+
+          <!-- Progreso del diálogo -->
+          <div class="dialogue-dots">
+            @for (line of [0,1,2,3,4,5]; track line) {
+              <span class="dlg-dot" [class.active]="line === dialogueIndex" [class.seen]="line < dialogueIndex"></span>
+            }
+          </div>
+
+          <!-- Pista o botón de empezar -->
+          @if (!dialogueFinished) {
+            <p class="tap-hint">👆 Toca la pantalla para continuar</p>
+          } @else {
+            <button class="btn-primary intro-start" (click)="startWorld(); $event.stopPropagation()">
+              ¡Empezar la aventura! 🚀
+            </button>
+          }
+        </div>
+      }
+
+      @else {
       <div class="world-container">
         <div class="progress-section">
           <div class="progress-info">
@@ -15,26 +49,19 @@
         @if (currentActivity === 0) {
           <article class="activity-card">
             <span class="activity-badge">ACTIVIDAD 1</span>
-            <h1>Conoce a Nori 🧑‍🚀</h1>
+            <h1>Prepara el sándwich de Nori 🥪</h1>
 
-            <!-- PASO INTRO -->
+            <!-- PASO INTRO: explicación de qué es una secuencia -->
             @if (sandwichStep === 'intro') {
-              <div class="story-box">
-                <div class="story-avatar">🧑‍🚀</div>
-                <div class="story-content">
-                  <h2>¡Hola, soy Nori!</h2>
-                  <p>Soy un astronauta explorador. ¿Me ayudas a preparar mi sándwich favorito antes de mi próxima misión?</p>
-                </div>
-              </div>
-
               <div class="info-box">
                 <h3>🧩 ¿Qué es una secuencia?</h3>
                 <p>Una <strong>secuencia</strong> es una lista de pasos en orden. ¡Como una receta!</p>
                 <div class="steps-list">
                   <div class="step"><span class="step-num">1</span> Poner el pan 🍞</div>
                   <div class="step"><span class="step-num">2</span> Agregar lechuga 🥬</div>
-                  <div class="step"><span class="step-num">3</span> Poner queso 🧀</div>
-                  <div class="step"><span class="step-num">4</span> Cerrar el sándwich 🥪</div>
+                  <div class="step"><span class="step-num">3</span> Agregar tomate 🍅</div>
+                  <div class="step"><span class="step-num">4</span> Poner queso 🧀</div>
+                  <div class="step"><span class="step-num">5</span> Cerrar el sándwich 🥪</div>
                 </div>
               </div>
 
@@ -82,9 +109,11 @@
                       <span class="order-arrow">→</span>
                       <span class="order-step" [class.completed]="sandwichBuild.length >= 2">2. 🥬</span>
                       <span class="order-arrow">→</span>
-                      <span class="order-step" [class.completed]="sandwichBuild.length >= 3">3. 🧀</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 3">3. 🍅</span>
                       <span class="order-arrow">→</span>
-                      <span class="order-step" [class.completed]="sandwichBuild.length >= 4">4. 🥪</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 4">4. 🧀</span>
+                      <span class="order-arrow">→</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 5">5. 🥪</span>
                     </div>
                   </div>
                 </div>
@@ -101,7 +130,7 @@
                     <span class="panel-icon">🍽️</span>
                     <div class="panel-title-group">
                       <h3>Tu Sándwich</h3>
-                      <p class="panel-subtitle">{{ sandwichBuild.length }} de 4 ingredientes</p>
+                      <p class="panel-subtitle">{{ sandwichBuild.length }} de 5 ingredientes</p>
                     </div>
                   </div>
 
@@ -126,7 +155,7 @@
                       <!-- Progress bar -->
                       <div class="build-progress">
                         <div class="progress-dots">
-                          @for (step of [1, 2, 3, 4]; track step) {
+                          @for (step of [1, 2, 3, 4, 5]; track step) {
                             <span class="progress-dot" [class.filled]="sandwichBuild.length >= step">
                               @if (sandwichBuild.length >= step) { ✓ }
                             </span>
@@ -138,12 +167,12 @@
 
                   <!-- Acciones -->
                   <div class="build-actions">
-                    @if (sandwichBuild.length > 0 && sandwichBuild.length < 4) {
+                    @if (sandwichBuild.length > 0 && sandwichBuild.length < 5) {
                       <button class="action-btn-reset" (click)="resetSandwich(); goToSandwichGame()">
                         🔄 Reiniciar
                       </button>
                     }
-                    @if (sandwichBuild.length === 4) {
+                    @if (sandwichBuild.length === 5) {
                       <button class="btn-primary btn-verify" (click)="checkSandwich()">
                         ✨ ¡Verificar sándwich!
                       </button>
@@ -201,13 +230,28 @@
                     <div class="plate-shine"></div>
                   </div>
                   <div class="sandwich-stack-3d">
+                    <!-- Pan superior con domo y semillas de sésamo -->
                     <div class="sw-piece sw-top-bun">
-                      <span class="bun-seeds">• • •</span>
+                      <span class="bun-shine"></span>
+                      <span class="seed sd1"></span>
+                      <span class="seed sd2"></span>
+                      <span class="seed sd3"></span>
+                      <span class="seed sd4"></span>
+                      <span class="seed sd5"></span>
+                      <span class="seed sd6"></span>
                     </div>
+                    <!-- Lechuga con borde ondulado -->
                     <div class="sw-piece sw-lettuce-layer"></div>
+                    <!-- Tomate -->
+                    <div class="sw-piece sw-tomato-layer"></div>
+                    <!-- Queso con goteo -->
                     <div class="sw-piece sw-cheese-layer">
-                      <span class="cheese-drip"></span>
+                      <span class="cheese-drip drip-a"></span>
+                      <span class="cheese-drip drip-b"></span>
                     </div>
+                    <!-- Carne / relleno -->
+                    <div class="sw-piece sw-patty-layer"></div>
+                    <!-- Pan inferior -->
                     <div class="sw-piece sw-bottom-bun"></div>
                   </div>
                   <div class="sparkles">
@@ -810,4 +854,5 @@
           </article>
         }
       </div>
+      }
     </main>

@@ -7,35 +7,55 @@
   </section>
 
   <section class="map-section">
-    <!-- Cielo, sol y nubes -->
+    <!-- Cielo con degradado atmosférico -->
     <div class="sky"></div>
+    <!-- Rayos de sol difusos -->
+    <div class="sun-rays"></div>
     <div class="sun"></div>
     <div class="cloud c1"></div>
     <div class="cloud c2"></div>
     <div class="cloud c3"></div>
 
-    <!-- Colinas en capas para dar profundidad -->
+    <!-- Montañas lejanas para dar escala y profundidad -->
+    <div class="mountain m1"></div>
+    <div class="mountain m2"></div>
+    <div class="mountain m3"></div>
+
+    <!-- Línea de árboles del bosque de fondo -->
+    <div class="treeline"></div>
+
+    <!-- Colinas en capas -->
     <div class="hill hill-back"></div>
     <div class="hill hill-mid"></div>
     <div class="hill hill-front"></div>
 
-    <!-- Sendero serpenteante -->
-    <svg class="forest-path" viewBox="0 0 600 500" preserveAspectRatio="none">
-      <path d="M 120 420 C 60 340, 180 300, 240 260 C 320 210, 200 150, 300 110 C 380 80, 460 130, 470 210 C 480 290, 400 330, 430 400"
-            fill="none" stroke="#e0b877" stroke-width="26" stroke-linecap="round" opacity="0.55"/>
-      <path d="M 120 420 C 60 340, 180 300, 240 260 C 320 210, 200 150, 300 110 C 380 80, 460 130, 470 210 C 480 290, 400 330, 430 400"
-            fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 26" opacity="0.7"/>
+    <!-- Bruma suave sobre las colinas -->
+    <div class="mist"></div>
+
+    <!-- Sendero serpenteante que recorre los tres mundos -->
+    <svg class="forest-path" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <path class="path-base"
+            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"
+            fill="none" stroke="#d9ad6b" stroke-width="34" stroke-linecap="round"/>
+      <path class="path-edge"
+            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"
+            fill="none" stroke="#e9c988" stroke-width="26" stroke-linecap="round"/>
+      <path class="path-dashes"
+            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"
+            fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 30" opacity="0.65"/>
     </svg>
 
-    <!-- Árboles decorativos con profundidad -->
+    <!-- Árboles decorativos con profundidad (parallax por tamaño y opacidad) -->
     <div class="tree t1">🌲</div>
     <div class="tree t2">🌳</div>
     <div class="tree t3">🌲</div>
     <div class="tree t4">🌳</div>
     <div class="tree t5">🌲</div>
+    <div class="tree t6">🌲</div>
     <div class="bush b1">🌿</div>
     <div class="bush b2">🍄</div>
     <div class="bush b3">🌸</div>
+    <div class="bush b4">🌾</div>
     <div class="bird bird1">🦋</div>
     <div class="bird bird2">🐦</div>
 
@@ -62,6 +82,10 @@
       @if (!game.level3Unlocked) { <span class="lock">🔒</span> }
     </button>
 
-    <div class="character-marker">🧑‍🚀</div>
+    <!-- El explorador camina por el sendero hasta el mundo desbloqueado -->
+    <div class="character-marker" [class.walking]="walking" [ngStyle]="characterPos">
+      <span class="character-shadow"></span>
+      <span class="character-body">🧑‍🚀</span>
+    </div>
   </section>
 </main>

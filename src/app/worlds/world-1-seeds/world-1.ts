@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { Component, ChangeDetectorRef, EventEmitter, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../../core/game-state.service';
 import {
@@ -28,15 +28,91 @@ import {
   templateUrl: './world-1.html',
   styleUrl: './world-1.css',
 })
-export class World1Component {
+export class World1Component implements OnInit {
   @Output() unlockWorld2 = new EventEmitter<void>();
 
   constructor(private cdr: ChangeDetectorRef, private game: GameStateService) {
     this.resetWorld1Activities();
   }
 
+  ngOnInit(): void {
+    this.startDialogue();
+  }
+
   currentActivity = 0;
   totalActivities = 5;
+
+  // ═══════════════════════════════════════════════════════════
+  // INTRO CON DIÁLOGO (el personaje aparece en grande y "habla")
+  // ═══════════════════════════════════════════════════════════
+  showIntro = true;
+
+  /** Líneas que Nori va diciendo; avanzan al hacer click. */
+  private readonly dialogue: string[] = [
+    '¡Hola! Soy Nori 👋 Soy un astronauta explorador.',
+    'Bienvenid@ al Bosque de Algoritmos. ¡Qué emoción que me acompañes!',
+    'En este mundo vas a aprender las secuencias: una lista de pasos en orden. 🧩',
+    'Es como una receta: si sigues los pasos en el orden correcto, ¡todo sale bien! 🥪',
+    'Recuerda: cada acción es un paso y el orden importa muchísimo. 🔢',
+    '¿List@ para la aventura? Resolveremos 5 retos juntos. 🚀',
+  ];
+
+  dialogueIndex = 0;      // línea actual
+  displayedText = '';     // texto ya "escrito" en pantalla
+  typing = false;         // true mientras aparecen las letras
+  private typeTimer: any = null;
+
+  /** Al abrir la intro empieza a escribir la primera línea. */
+  private startDialogue(): void {
+    this.dialogueIndex = 0;
+    this.typeLine();
+  }
+
+  /** Escribe la línea actual letra por letra (efecto de habla). */
+  private typeLine(): void {
+    clearInterval(this.typeTimer);
+    const full = this.dialogue[this.dialogueIndex];
+    this.displayedText = '';
+    this.typing = true;
+    let i = 0;
+    this.typeTimer = setInterval(() => {
+      this.displayedText = full.slice(0, ++i);
+      if (i >= full.length) {
+        clearInterval(this.typeTimer);
+        this.typing = false;
+      }
+      this.cdr.detectChanges();
+    }, 32);
+  }
+
+  /** true cuando ya se mostró la última línea completa. */
+  get dialogueFinished(): boolean {
+    return this.dialogueIndex >= this.dialogue.length - 1 && !this.typing;
+  }
+
+  /**
+   * Click sobre la escena:
+   * - Si está escribiendo, completa la línea al instante.
+   * - Si terminó la línea, pasa a la siguiente.
+   */
+  advanceDialogue(): void {
+    if (this.typing) {
+      clearInterval(this.typeTimer);
+      this.displayedText = this.dialogue[this.dialogueIndex];
+      this.typing = false;
+      return;
+    }
+    if (this.dialogueIndex < this.dialogue.length - 1) {
+      this.dialogueIndex++;
+      this.typeLine();
+    }
+  }
+
+  /** Cierra la intro y comienza con las actividades. */
+  startWorld(): void {
+    clearInterval(this.typeTimer);
+    this.showIntro = false;
+  }
 
   // Actividad 1 – Sándwich
   sandwichStep: 'intro' | 'game' | 'done' = 'intro';
@@ -177,6 +253,7 @@ export class World1Component {
     const map: Record<string, string> = {
       '🍞': 'bread-layer',
       '🥬': 'lettuce-layer',
+      '🍅': 'tomato-layer',
       '🧀': 'cheese-layer',
       '🥪': 'close-layer',
     };
@@ -187,6 +264,7 @@ export class World1Component {
     const names: Record<string, string> = {
       '🍞': 'Pan',
       '🥬': 'Lechuga',
+      '🍅': 'Tomate',
       '🧀': 'Queso',
       '🥪': 'Cerrar',
     };

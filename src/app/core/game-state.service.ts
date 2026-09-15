@@ -10,9 +10,9 @@ export class GameStateService {
   experience = 0;
   seeds = 0;
 
-  // TODO: volver a false antes de publicar (habilitado para desarrollo)
-  level2Unlocked = true;
-  level3Unlocked = true;
+  // Los mundos 2 y 3 comienzan bloqueados; se desbloquean al avanzar.
+  level2Unlocked = false;
+  level3Unlocked = false;
 
   applyReward(reward: ActivityReward): void {
     this.experience += reward.experience;

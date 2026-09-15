@@ -1,4 +1,34 @@
     <main class="world-screen">
+      <!-- ══════════════════════════════════════════════════════════════════
+           INTRO: Coco la rana aparece en grande y explica lo básico
+           ══════════════════════════════════════════════════════════════════ -->
+      @if (showW3Intro) {
+        <div class="world-intro world-intro--river" (click)="advanceW3Dialogue()">
+          <span class="intro-badge">🌊 MUNDO 3 · CONDICIONALES</span>
+
+          <div class="dialogue-bubble">
+            <p class="dialogue-text">{{ w3DisplayedText }}<span class="type-caret" [class.hidden]="!w3Typing">▋</span></p>
+          </div>
+
+          <div class="intro-character-xl" [class.talking]="w3Typing">{{ w3Character }}</div>
+
+          <div class="dialogue-dots">
+            @for (line of [0,1,2,3,4,5]; track line) {
+              <span class="dlg-dot" [class.active]="line === w3DialogueIndex" [class.seen]="line < w3DialogueIndex"></span>
+            }
+          </div>
+
+          @if (!w3DialogueFinished) {
+            <p class="tap-hint">👆 Toca la pantalla para continuar</p>
+          } @else {
+            <button class="btn-primary intro-start" (click)="startWorld3(); $event.stopPropagation()">
+              ¡Cruzar el río! 🪷
+            </button>
+          }
+        </div>
+      }
+
+      @else {
       <div class="world-container">
         <div class="progress-section">
           <div class="progress-info">
@@ -323,4 +353,5 @@
           </article>
         }
       </div>
+      }
     </main>

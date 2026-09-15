@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { Component, ChangeDetectorRef, EventEmitter, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GameStateService } from '../../core/game-state.service';
@@ -15,7 +15,7 @@ import { type ActivityReward } from '../../models/activities';
   templateUrl: './world-2.html',
   styleUrl: './world-2.css',
 })
-export class World2Component {
+export class World2Component implements OnInit {
   @Output() unlockWorld3 = new EventEmitter<void>();
   @Output() backToForest = new EventEmitter<void>();
 
@@ -23,8 +23,77 @@ export class World2Component {
     this.resetWorld2Activities();
   }
 
+  ngOnInit(): void {
+    this.startW2Dialogue();
+  }
+
   currentWorld2Activity = 0;
   totalWorld2Activities = 8;
+
+  // ═══════════════════════════════════════════════════════════
+  // INTRO CON DIÁLOGO (Vera la maga presenta el mundo de variables)
+  // ═══════════════════════════════════════════════════════════
+  showW2Intro = true;
+
+  /** Personaje guía de este mundo. */
+  readonly w2Character = '🧙‍♀️';
+
+  private readonly w2Dialogue: string[] = [
+    '¡Saludos! Soy Vera, la maga del Sendero. 🧙‍♀️',
+    'Este es el Mundo de las Variables. ¡Aquí guardaremos cosas con magia!',
+    'Una variable es como una caja mágica 📦 con una etiqueta.',
+    'Dentro puedes guardar un número, un nombre o cualquier cosa que necesites.',
+    'Y lo mejor: puedes cambiar lo que hay dentro cuando quieras. ✨',
+    '¿List@ para dominar la magia de las variables? ¡Acompáñame! 🌟',
+  ];
+
+  w2DialogueIndex = 0;
+  w2DisplayedText = '';
+  w2Typing = false;
+  private w2TypeTimer: any = null;
+
+  private startW2Dialogue(): void {
+    this.w2DialogueIndex = 0;
+    this.typeW2Line();
+  }
+
+  private typeW2Line(): void {
+    clearInterval(this.w2TypeTimer);
+    const full = this.w2Dialogue[this.w2DialogueIndex];
+    this.w2DisplayedText = '';
+    this.w2Typing = true;
+    let i = 0;
+    this.w2TypeTimer = setInterval(() => {
+      this.w2DisplayedText = full.slice(0, ++i);
+      if (i >= full.length) {
+        clearInterval(this.w2TypeTimer);
+        this.w2Typing = false;
+      }
+      this.cdr.detectChanges();
+    }, 32);
+  }
+
+  get w2DialogueFinished(): boolean {
+    return this.w2DialogueIndex >= this.w2Dialogue.length - 1 && !this.w2Typing;
+  }
+
+  advanceW2Dialogue(): void {
+    if (this.w2Typing) {
+      clearInterval(this.w2TypeTimer);
+      this.w2DisplayedText = this.w2Dialogue[this.w2DialogueIndex];
+      this.w2Typing = false;
+      return;
+    }
+    if (this.w2DialogueIndex < this.w2Dialogue.length - 1) {
+      this.w2DialogueIndex++;
+      this.typeW2Line();
+    }
+  }
+
+  startWorld2(): void {
+    clearInterval(this.w2TypeTimer);
+    this.showW2Intro = false;
+  }
 
   // Actividad 1 – Cajas mágicas
   magicItems = [
@@ -168,8 +237,8 @@ export class World2Component {
   backpackDone = false;
 
   // Actividad 8 – Evaluación final
-  quizAnswers: (string | null)[] = [null, null, null];
-  quizCorrect = ['6', 'texto', 'cambiar'];
+  quizAnswers: (string | null)[] = [null, null, null, null, null];
+  quizCorrect = ['6', 'texto', 'cambiar', 'caja', '3'];
   quizFeedback = '';
   quizDone = false;
 
@@ -770,7 +839,7 @@ export class World2Component {
   // ACTIVIDAD 8: EVALUACIÓN
   // ───────────────────────────────────────────────────────────
   resetQuiz(): void {
-    this.quizAnswers = [null, null, null];
+    this.quizAnswers = [null, null, null, null, null];
     this.quizFeedback = '';
     this.quizDone = false;
   }

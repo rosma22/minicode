@@ -1,7 +1,7 @@
 // Tipos para las actividades
 export type ActivityId = 1 | 2 | 3 | 4 | 5;
 export type ActivityKind = 'sandwich' | 'plant' | 'route' | 'debug' | 'builder';
-export type SandwichStepId = 'bread' | 'lettuce' | 'cheese' | 'close';
+export type SandwichStepId = 'bread' | 'lettuce' | 'tomato' | 'cheese' | 'close';
 export type PlantAction = 'plant' | 'water' | 'sun';
 export type RouteMove = 'right' | 'up' | 'left' | 'down';
 export type PackingStep = 'apple' | 'water' | 'close';
@@ -32,11 +32,12 @@ export const WORLD_ONE_ACTIVITIES: readonly ActivityDefinition[] = [
 export const SANDWICH_STEPS: Readonly<Record<SandwichStepId, string>> = {
   bread: '🍞',
   lettuce: '🥬',
+  tomato: '🍅',
   cheese: '🧀',
   close: '🥪',
 };
 
-export const SANDWICH_CORRECT_ORDER: readonly string[] = ['🍞', '🥬', '🧀', '🥪'];
+export const SANDWICH_CORRECT_ORDER: readonly string[] = ['🍞', '🥬', '🍅', '🧀', '🥪'];
 export const PLANT_GROWTH_ORDER: readonly PlantAction[] = ['plant', 'water', 'sun'];
 export const NORI_HOME_ROUTE: readonly RouteMove[] = ['up', 'up', 'right', 'right', 'right'];
 export const PACKING_INITIAL_ORDER: readonly PackingStep[] = ['apple', 'close', 'water'];
