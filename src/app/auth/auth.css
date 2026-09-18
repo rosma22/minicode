@@ -1,0 +1,285 @@
+/* Pantalla de acceso (login / registro) */
+
+.auth-screen {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #bfe6f5 0%, #d7f0d0 45%, #a8e063 100%);
+}
+
+/* ── Escena de fondo ─────────────────────────────────────────────────────── */
+.auth-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Sol con brillo */
+.auth-sun {
+  position: absolute;
+  top: 8%;
+  right: 12%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff6c4 0%, #ffe07a 55%, #ffd147 100%);
+  box-shadow: 0 0 60px 20px rgba(255, 221, 87, 0.55);
+  animation: auth-sun-pulse 6s ease-in-out infinite;
+}
+
+@keyframes auth-sun-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 60px 20px rgba(255, 221, 87, 0.55); }
+  50% { transform: scale(1.06); box-shadow: 0 0 80px 30px rgba(255, 221, 87, 0.7); }
+}
+
+/* Nubes */
+.auth-cloud {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50px;
+  opacity: 0.9;
+  filter: blur(0.3px);
+}
+.auth-cloud::before,
+.auth-cloud::after {
+  content: '';
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+}
+.auth-cloud--1 {
+  top: 14%;
+  left: -160px;
+  width: 120px;
+  height: 34px;
+  animation: auth-drift 38s linear infinite;
+}
+.auth-cloud--1::before { width: 50px; height: 50px; top: -22px; left: 18px; }
+.auth-cloud--1::after { width: 38px; height: 38px; top: -14px; left: 60px; }
+
+.auth-cloud--2 {
+  top: 26%;
+  left: -220px;
+  width: 90px;
+  height: 26px;
+  animation: auth-drift 52s linear infinite;
+  animation-delay: -12s;
+}
+.auth-cloud--2::before { width: 38px; height: 38px; top: -16px; left: 14px; }
+.auth-cloud--2::after { width: 28px; height: 28px; top: -10px; left: 46px; }
+
+.auth-cloud--3 {
+  top: 9%;
+  left: -260px;
+  width: 70px;
+  height: 22px;
+  opacity: 0.75;
+  animation: auth-drift 64s linear infinite;
+  animation-delay: -30s;
+}
+.auth-cloud--3::before { width: 30px; height: 30px; top: -13px; left: 12px; }
+.auth-cloud--3::after { width: 22px; height: 22px; top: -8px; left: 38px; }
+
+@keyframes auth-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(100vw + 300px)); }
+}
+
+/* Colinas en capas */
+.auth-hill {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  border-radius: 50% 50% 0 0;
+}
+.auth-hill--back {
+  bottom: 90px;
+  height: 240px;
+  background: #7cc063;
+  opacity: 0.55;
+}
+.auth-hill--mid {
+  bottom: 60px;
+  height: 200px;
+  background: #62b04b;
+  opacity: 0.8;
+}
+.auth-hill--front {
+  bottom: 0;
+  height: 150px;
+  background: #4a9a37;
+}
+
+/* Línea de árboles */
+.auth-trees {
+  position: absolute;
+  bottom: 34px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  font-size: 2.6rem;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15));
+}
+.auth-tree {
+  animation: auth-sway 5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+.auth-tree:nth-child(even) { animation-delay: -2.5s; font-size: 3.1rem; }
+.auth-tree:nth-child(3n) { animation-duration: 6.5s; }
+
+@keyframes auth-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* Elementos flotantes */
+.auth-float {
+  position: absolute;
+  font-size: 1.6rem;
+  opacity: 0.85;
+  animation: auth-floaty 9s ease-in-out infinite;
+}
+.auth-float--1 { top: 30%; left: 12%; animation-delay: 0s; }
+.auth-float--2 { top: 62%; left: 8%; font-size: 1.9rem; animation-delay: -2s; }
+.auth-float--3 { top: 20%; left: 40%; animation-delay: -4s; }
+.auth-float--4 { top: 68%; right: 14%; animation-delay: -1s; }
+.auth-float--5 { top: 40%; right: 10%; font-size: 1.9rem; animation-delay: -3s; }
+
+@keyframes auth-floaty {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-22px) rotate(6deg); }
+}
+
+/* ── Tarjeta ──────────────────────────────────────────────────────────────── */
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: 0 18px 45px rgba(20, 60, 15, 0.3);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-sun,
+  .auth-cloud,
+  .auth-tree,
+  .auth-float { animation: none; }
+}
+
+.auth-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #2d6a1e;
+  margin-bottom: 6px;
+}
+
+.auth-logo span {
+  color: #3b7a2a;
+}
+
+.auth-subtitle {
+  margin: 0 0 20px;
+  color: #5a6b53;
+  font-size: 0.95rem;
+}
+
+/* Pestañas login / registro */
+.auth-tabs {
+  display: flex;
+  gap: 6px;
+  background: #eef3e6;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.auth-tab {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  border-radius: 9px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #5a6b53;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.auth-tab.active {
+  background: #56ab2f;
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(86, 171, 47, 0.4);
+}
+
+/* Formulario */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3d4a37;
+}
+
+.auth-field input,
+.auth-field select {
+  padding: 11px 13px;
+  border: 2px solid #d6e2c8;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.auth-field input:focus,
+.auth-field select:focus {
+  border-color: #56ab2f;
+}
+
+.auth-error {
+  margin: 0;
+  color: #c0392b;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.auth-submit {
+  margin-top: 4px;
+  border: 0;
+  background: #56ab2f;
+  color: #fff;
+  padding: 13px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.auth-submit:hover {
+  background: #4a9528;
+}
+
+.auth-submit:active {
+  transform: scale(0.98);
+}

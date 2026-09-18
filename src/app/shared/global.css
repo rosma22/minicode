@@ -39,6 +39,27 @@ input { font: inherit; }
 .stat { background: #e8f5e9; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
 .avatar { font-size: 1.5rem; }
 .player-name { font-weight: 700; }
+.role-badge {
+  background: #2e7d32;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.logout-btn {
+  background: #ffebee;
+  color: #c62828;
+  border: 0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover { background: #ffcdd2; }
 .back-btn {
   background: #e8f5e9;
   padding: 10px 18px;
@@ -3971,6 +3992,117 @@ input { font: inherit; }
 }
 .cond-result.ok { background: #e8f5e9; color: #2e7d32; }
 .cond-result.stop { background: #ffebee; color: #c62828; }
+.cond-result.fight { background: #ede7f6; color: #4527a0; }
+.cond-result.seek { background: #e0f7fa; color: #00838f; }
+
+/* Actividad 4 – pasos, tabla de situaciones, ordenar y predecir */
+.lives-steps {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;
+}
+.lives-step {
+  font-size: 0.8rem; font-weight: 700; color: #90a4ae;
+  background: #eceff1; padding: 6px 12px; border-radius: 999px;
+}
+.lives-step.active { color: #fff; background: #26a69a; }
+
+.lives-table {
+  list-style: none; margin: 16px auto 20px; padding: 0; max-width: 420px;
+  border-radius: 14px; overflow: hidden; border: 2px solid #e0f2f1;
+}
+.lives-table li {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; font-weight: 600; color: #37474f; background: #fff;
+  border-bottom: 1px solid #eceff1;
+}
+.lives-table li:last-child { border-bottom: none; }
+.lives-table li.now { background: #e0f7fa; color: #00695c; box-shadow: inset 4px 0 0 #26a69a; }
+
+.order-slots {
+  display: flex; flex-direction: column; gap: 10px; max-width: 460px; margin: 8px auto 16px;
+}
+.order-slot-empty {
+  padding: 14px; border: 2px dashed #b0bec5; border-radius: 12px;
+  color: #90a4ae; font-weight: 700; text-align: center;
+}
+.order-pool {
+  display: flex; flex-direction: column; gap: 10px; max-width: 460px; margin: 8px auto 16px;
+}
+.order-hint { color: #558b2f; font-weight: 600; margin: 8px 0 4px; }
+.order-card {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 12px 16px; background: #fff; border: 2px solid #b2dfdb; border-radius: 12px;
+  font-weight: 700; color: #00695c; cursor: pointer; box-shadow: 0 3px 0 #b2dfdb;
+  transition: transform 0.15s ease;
+}
+.order-card:hover { transform: translateY(-2px); }
+.order-card.placed { border-color: #26a69a; box-shadow: 0 3px 0 #80cbc4; }
+.order-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%; background: #26a69a; color: #fff;
+}
+.order-text { font-weight: 800; }
+.order-action { color: #607d8b; font-weight: 600; }
+
+.predict-options {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+  max-width: 420px; margin: 16px auto;
+}
+.predict-btn {
+  padding: 14px 12px; background: #fff; border: 2px solid #b2dfdb; border-radius: 12px;
+  font-weight: 700; color: #00695c; cursor: pointer; box-shadow: 0 3px 0 #b2dfdb;
+}
+.predict-btn.selected { background: #26a69a; color: #fff; border-color: #26a69a; }
+.predict-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* Actividad 5 – puerta if/else y reto de clasificar */
+.answer-btn.selected { background: #26a69a; color: #fff; border-color: #26a69a; }
+
+.door-scene { margin: 16px auto; }
+.door-scene .door-visual { font-size: 4rem; }
+.door-key { margin-top: 8px; font-weight: 700; color: #6d4c41; }
+
+.classify-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  max-width: 480px; margin: 16px auto;
+}
+.classify-card {
+  background: #fff; border: 2px solid #b2dfdb; border-radius: 14px;
+  padding: 14px 12px; text-align: center;
+}
+.classify-card.correct { border-color: #66bb6a; background: #e8f5e9; }
+.classify-card.wrong { border-color: #ef5350; background: #ffebee; }
+.classify-cond { font-weight: 800; color: #00695c; margin-bottom: 10px; }
+.classify-choices { display: flex; gap: 8px; justify-content: center; }
+.classify-btn {
+  flex: 1; padding: 10px 6px; background: #f1f8e9; border: 2px solid #c5e1a5;
+  border-radius: 10px; font-weight: 700; color: #33691e; cursor: pointer;
+}
+.classify-btn.selected { background: #26a69a; color: #fff; border-color: #26a69a; }
+.classify-btn:disabled { cursor: default; opacity: 0.9; }
+.classify-mark { margin-top: 10px; font-weight: 700; color: #455a64; }
+
+/* Actividad 6 – guardián: variables ajustables y reto de personajes */
+.mini-buttons { display: flex; gap: 6px; justify-content: center; margin-top: 8px; }
+.mini-buttons .value-btn { padding: 6px 12px; font-size: 0.9rem; }
+.value-btn.selected { background: #26a69a; color: #fff; border-color: #26a69a; }
+
+.chars-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  max-width: 480px; margin: 16px auto;
+}
+.char-card {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 14px 10px; background: #fff; border: 2px solid #b2dfdb; border-radius: 14px;
+  cursor: pointer; box-shadow: 0 3px 0 #b2dfdb;
+}
+.char-card.selected { border-color: #26a69a; background: #e0f2f1; box-shadow: 0 3px 0 #80cbc4; }
+.char-card.correct { border-color: #66bb6a; background: #e8f5e9; }
+.char-card.wrong { border-color: #ef5350; background: #ffebee; }
+.char-emoji { font-size: 2.2rem; line-height: 1; }
+.char-name { font-weight: 800; color: #00695c; }
+.char-vars { font-weight: 600; color: #546e7a; font-size: 0.9rem; }
+.char-pick { font-weight: 700; color: #26a69a; margin-top: 4px; }
+.char-mark { font-weight: 700; color: #455a64; font-size: 0.85rem; }
 
 .else-result {
   margin-top: 14px; padding: 14px; border-radius: 12px;
@@ -3990,3 +4122,30 @@ input { font: inherit; }
 .cross-stage { text-align: center; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .cross-stage.gameover { background: #ffebee; border-radius: 16px; }
 .stage-emoji { font-size: 3.5rem; }
+
+.cross-status .ok-var {
+  background: #c8e6c9; color: #1b5e20; padding: 2px 10px; border-radius: 999px;
+}
+
+.cross-checklist {
+  list-style: none; margin: 0 auto 18px; padding: 0; max-width: 460px;
+  border-radius: 14px; overflow: hidden; border: 2px solid #e0f2f1;
+}
+.cross-checklist li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: #fff; border-bottom: 1px solid #eceff1;
+  font-weight: 600; color: #455a64;
+}
+.cross-checklist li:last-child { border-bottom: none; }
+.cross-checklist li.met { background: #e8f5e9; color: #1b5e20; }
+.chk-emoji { font-size: 1.4rem; }
+.chk-text { flex: 1; text-align: left; }
+.chk-mark { font-size: 1.2rem; }
+
+.cross-actions {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+  max-width: 460px; margin: 8px auto 16px;
+}
+.cross-run {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 8px;
+}

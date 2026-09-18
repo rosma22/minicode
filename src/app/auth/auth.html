@@ -1,0 +1,91 @@
+<div class="auth-screen">
+  <!-- Escena de fondo del bosque (decorativa) -->
+  <div class="auth-bg" aria-hidden="true">
+    <div class="auth-sun"></div>
+    <div class="auth-cloud auth-cloud--1"></div>
+    <div class="auth-cloud auth-cloud--2"></div>
+    <div class="auth-cloud auth-cloud--3"></div>
+    <div class="auth-hill auth-hill--back"></div>
+    <div class="auth-hill auth-hill--mid"></div>
+    <div class="auth-hill auth-hill--front"></div>
+    <div class="auth-trees">
+      <span class="auth-tree">🌲</span>
+      <span class="auth-tree">🌳</span>
+      <span class="auth-tree">🌲</span>
+      <span class="auth-tree">🌳</span>
+      <span class="auth-tree">🌲</span>
+      <span class="auth-tree">🌳</span>
+      <span class="auth-tree">🌲</span>
+      <span class="auth-tree">🌳</span>
+    </div>
+    <span class="auth-float auth-float--1">🍃</span>
+    <span class="auth-float auth-float--2">🌱</span>
+    <span class="auth-float auth-float--3">✨</span>
+    <span class="auth-float auth-float--4">🍃</span>
+    <span class="auth-float auth-float--5">🦋</span>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-logo">🌳 <span>Bosque de Algoritmos</span></div>
+    <p class="auth-subtitle">🧑‍🚀 ¡Hola explorador! Entra para empezar la aventura.</p>
+
+    <!-- Selector de modo -->
+    <div class="auth-tabs">
+      <button
+        type="button"
+        class="auth-tab"
+        [class.active]="mode === 'login'"
+        (click)="switchMode('login')">
+        Iniciar sesión
+      </button>
+      <button
+        type="button"
+        class="auth-tab"
+        [class.active]="mode === 'register'"
+        (click)="switchMode('register')">
+        Registrarse
+      </button>
+    </div>
+
+    <form class="auth-form" (ngSubmit)="submit()">
+      <label class="auth-field">
+        <span>👤 Usuario</span>
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          autocomplete="username"
+          placeholder="Tu nombre de explorador" />
+      </label>
+
+      <label class="auth-field">
+        <span>🔑 Contraseña</span>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          autocomplete="current-password"
+          placeholder="Tu contraseña secreta" />
+      </label>
+
+      <!-- Rol: solo al registrarse (otorga permisos) -->
+      @if (mode === 'register') {
+        <label class="auth-field">
+          <span>🎓 Soy...</span>
+          <select name="role" [(ngModel)]="role">
+            <option value="estudiante">Estudiante (jugar)</option>
+            <option value="profesor">Profesor (administrar)</option>
+          </select>
+        </label>
+      }
+
+      @if (error) {
+        <p class="auth-error">⚠️ {{ error }}</p>
+      }
+
+      <button type="submit" class="auth-submit">
+        {{ mode === 'login' ? 'Entrar' : 'Crear cuenta' }}
+      </button>
+    </form>
+  </div>
+</div>

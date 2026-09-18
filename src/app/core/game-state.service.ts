@@ -18,4 +18,10 @@ export class GameStateService {
     this.experience += reward.experience;
     this.seeds += reward.seeds;
   }
+
+  /** Desbloquea todos los mundos (p. ej. para el rol profesor). */
+  unlockAll(): void {
+    this.level2Unlocked = true;
+    this.level3Unlocked = true;
+  }
 }

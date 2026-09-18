@@ -1,44 +1,51 @@
-<div class="app-container">
-  <!-- ══════════════════════════════════════════════════════════════════════
-       HEADER
-       ══════════════════════════════════════════════════════════════════════ -->
-  <header class="topbar">
-    <div class="logo">🌳 <span>Bosque de Algoritmos</span></div>
-    <div class="player-stats">
-      <span class="stat">🌱 {{ game.seeds }}</span>
-      <span class="stat">⭐ {{ game.experience }} XP</span>
-      <span class="avatar">🧑‍🚀</span>
-      <span class="player-name">Explorador</span>
-    </div>
-    @if (currentScreen !== 'forest') {
-      <button class="back-btn" (click)="backToForest()">← Volver al Bosque</button>
+<!-- PANTALLA DE ACCESO: si no hay sesión iniciada -->
+@if (!auth.isLoggedIn()) {
+  <app-auth (authenticated)="onAuthenticated()"></app-auth>
+} @else {
+  <div class="app-container">
+    <!-- ══════════════════════════════════════════════════════════════════════
+         HEADER
+         ══════════════════════════════════════════════════════════════════════ -->
+    <header class="topbar">
+      <div class="logo">🌳 <span>Bosque de Algoritmos</span></div>
+      <div class="player-stats">
+        <span class="stat">🌱 {{ game.seeds }}</span>
+        <span class="stat">⭐ {{ game.experience }} XP</span>
+        <span class="avatar">🧑‍🚀</span>
+        <span class="player-name">{{ auth.currentUser()?.username }}</span>
+        <span class="role-badge">{{ auth.currentUser()?.role }}</span>
+        <button class="logout-btn" (click)="logout()">Salir</button>
+      </div>
+      @if (currentScreen !== 'forest') {
+        <button class="back-btn" (click)="backToForest()">← Volver al Bosque</button>
+      }
+    </header>
+
+    <!-- PANTALLA: BOSQUE -->
+    @if (currentScreen === 'forest') {
+      <app-forest
+        (openWorld1)="openWorld1()"
+        (openWorld2)="openWorld2()"
+        (openWorld3)="openWorld3()">
+      </app-forest>
     }
-  </header>
 
-  <!-- PANTALLA: BOSQUE -->
-  @if (currentScreen === 'forest') {
-    <app-forest
-      (openWorld1)="openWorld1()"
-      (openWorld2)="openWorld2()"
-      (openWorld3)="openWorld3()">
-    </app-forest>
-  }
+    <!-- PANTALLA: MUNDO 1 - SEMILLAS -->
+    @else if (currentScreen === 'world-1') {
+      <app-world-1 (unlockWorld2)="openWorld2()"></app-world-1>
+    }
 
-  <!-- PANTALLA: MUNDO 1 - SEMILLAS -->
-  @else if (currentScreen === 'world-1') {
-    <app-world-1 (unlockWorld2)="openWorld2()"></app-world-1>
-  }
+    <!-- PANTALLA: MUNDO 2 - SENDERO -->
+    @else if (currentScreen === 'world-2') {
+      <app-world-2
+        (unlockWorld3)="openWorld3()"
+        (backToForest)="backToForest()">
+      </app-world-2>
+    }
 
-  <!-- PANTALLA: MUNDO 2 - SENDERO -->
-  @else if (currentScreen === 'world-2') {
-    <app-world-2
-      (unlockWorld3)="openWorld3()"
-      (backToForest)="backToForest()">
-    </app-world-2>
-  }
-
-  <!-- PANTALLA: MUNDO 3 - RÍO DE LOS CONDICIONALES -->
-  @else if (currentScreen === 'world-3') {
-    <app-world-3 (exitToForest)="backToForest()"></app-world-3>
-  }
-</div>
+    <!-- PANTALLA: MUNDO 3 - RÍO DE LOS CONDICIONALES -->
+    @else if (currentScreen === 'world-3') {
+      <app-world-3 (exitToForest)="backToForest()"></app-world-3>
+    }
+  </div>
+}

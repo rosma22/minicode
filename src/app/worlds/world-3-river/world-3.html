@@ -154,37 +154,133 @@
           <article class="activity-card">
             <span class="activity-badge">ACTIVIDAD 4</span>
             <h1>Si tienes vidas... ❤️</h1>
-            <p class="activity-desc">Regla: SI vidas > 0 → puedes continuar. Cambia las vidas y observa qué pasa.</p>
+            <p class="activity-desc">Tus vidas deciden el camino del programa. Explora, ordena las condiciones y predice el resultado.</p>
 
             @if (!ifLivesDone) {
-              <div class="lives-game">
-                <div class="code-rule">SI vidas &gt; 0 → continuar</div>
-                <div class="lives-var">
-                  <span class="lives-var-name">❤️ Vidas =</span>
-                  <strong class="lives-var-value">{{ ifLivesValue }}</strong>
-                </div>
-                <div class="lives-hearts">
-                  @for (h of ifLivesHearts; track h) { <span class="heart">❤️</span> }
-                  @if (ifLivesValue === 0) { <span class="lives-empty">sin vidas</span> }
-                </div>
-                <div class="cond-result" [class.ok]="!ifLivesReached0" [class.stop]="ifLivesReached0">
-                  {{ ifLivesReached0 ? '🛑 No puedes continuar' : '🏃 Continúa' }}
-                </div>
-                <div class="value-buttons">
-                  <button class="value-btn" (click)="ifLivesSub()" [disabled]="ifLivesValue === 0">➖ Restar 1</button>
-                  <button class="value-btn" (click)="ifLivesAdd()" [disabled]="ifLivesValue === 5">➕ Sumar 1</button>
-                </div>
-                @if (ifLivesReached0 || ifLivesReachedContinue) {
-                  <button class="btn-primary" (click)="finishIfLives()">Entendido, continuar →</button>
-                }
+
+              <!-- Pasos de la actividad -->
+              <div class="lives-steps">
+                <span class="lives-step" [class.active]="ifLivesPhase === 'explore'">1 · Explorar</span>
+                <span class="lives-step" [class.active]="ifLivesPhase === 'order'">2 · Ordenar</span>
+                <span class="lives-step" [class.active]="ifLivesPhase === 'predict'">3 · Predecir</span>
               </div>
-              @if (ifLivesFeedback) {
-                <div class="feedback-box" [class.error]="ifLivesReached0" [class.success]="!ifLivesReached0">{{ ifLivesFeedback }}</div>
+
+              <!-- FASE 1: EXPLORAR LAS SITUACIONES -->
+              @if (ifLivesPhase === 'explore') {
+                <div class="lives-game">
+                  <div class="code-rule">Cambia las ❤️ y observa qué hace el héroe</div>
+                  <div class="lives-var">
+                    <span class="lives-var-name">❤️ Vidas =</span>
+                    <strong class="lives-var-value">{{ ifLivesValue }}</strong>
+                  </div>
+                  <div class="lives-hearts">
+                    @for (h of ifLivesHearts; track h) { <span class="heart">❤️</span> }
+                    @if (ifLivesValue === 0) { <span class="lives-empty">sin vidas</span> }
+                  </div>
+                  <div class="cond-result"
+                       [class.ok]="ifLivesCurrentOutcome.cls === 'ok'"
+                       [class.fight]="ifLivesCurrentOutcome.cls === 'fight'"
+                       [class.seek]="ifLivesCurrentOutcome.cls === 'seek'"
+                       [class.stop]="ifLivesCurrentOutcome.cls === 'stop'">
+                    {{ ifLivesCurrentOutcome.emoji }} {{ ifLivesCurrentOutcome.label }}
+                  </div>
+                  <div class="value-buttons">
+                    <button class="value-btn" (click)="ifLivesSub()" [disabled]="ifLivesValue === 0">➖ Restar 1</button>
+                    <button class="value-btn" (click)="ifLivesAdd()" [disabled]="ifLivesValue === 4">➕ Sumar 1</button>
+                  </div>
+
+                  <ul class="lives-table">
+                    <li [class.now]="ifLivesValue > 2"><span>❤️❤️❤️ vidas &gt; 2</span><span>🗡️ Enfrentar al enemigo</span></li>
+                    <li [class.now]="ifLivesValue === 2"><span>❤️❤️ vidas = 2</span><span>🏃 Continuar con cuidado</span></li>
+                    <li [class.now]="ifLivesValue === 1"><span>❤️ vidas = 1</span><span>💚 Buscar una vida extra</span></li>
+                    <li [class.now]="ifLivesValue === 0"><span>🖤 vidas = 0</span><span>💀 Game Over</span></li>
+                  </ul>
+
+                  <button class="btn-primary" (click)="goToLivesOrder()">Siguiente: ordenar condiciones →</button>
+                </div>
               }
+
+              <!-- FASE 2: ORDENAR LAS CONDICIONES -->
+              @else if (ifLivesPhase === 'order') {
+                <div class="lives-game">
+                  <p class="cond-rule">🧠 Reto: ordena las condiciones. El programa las revisa de arriba hacia abajo, así que empieza por la más exigente.</p>
+
+                  <div class="order-slots">
+                    @for (id of livesOrderPlaced; track id; let i = $index) {
+                      <button class="order-card placed" (click)="removeCondition(i)">
+                        <span class="order-num">{{ i + 1 }}</span>
+                        <span class="order-text">{{ conditionCard(id).text }}</span>
+                        <span class="order-action">→ {{ conditionCard(id).action }}</span>
+                      </button>
+                    }
+                    @if (livesOrderPlaced.length < 3) {
+                      <div class="order-slot-empty">Ranura {{ livesOrderPlaced.length + 1 }}</div>
+                    }
+                  </div>
+
+                  @if (livesOrderPool.length > 0) {
+                    <p class="order-hint">Toca una condición para colocarla:</p>
+                    <div class="order-pool">
+                      @for (id of livesOrderPool; track id) {
+                        <button class="order-card" (click)="placeCondition(id)">
+                          <span class="order-text">{{ conditionCard(id).text }}</span>
+                          <span class="order-action">→ {{ conditionCard(id).action }}</span>
+                        </button>
+                      }
+                    </div>
+                  }
+
+                  @if (livesOrderFeedback) {
+                    <div class="feedback-box" [class.error]="livesOrderError" [class.success]="livesOrderOk">{{ livesOrderFeedback }}</div>
+                  }
+
+                  @if (!livesOrderOk) {
+                    <button class="btn-primary" (click)="checkLivesOrder()">Comprobar orden ✓</button>
+                  } @else {
+                    <button class="btn-primary" (click)="goToLivesPredict()">Siguiente: ¡a predecir! →</button>
+                  }
+                </div>
+              }
+
+              <!-- FASE 3: PREDECIR EL RESULTADO -->
+              @else {
+                <div class="lives-game">
+                  <p class="cond-rule">🔮 Reto final: mira las vidas y predice qué hará el héroe ANTES de ejecutar.</p>
+                  <div class="lives-var">
+                    <span class="lives-var-name">❤️ Vidas =</span>
+                    <strong class="lives-var-value">{{ predictLives }}</strong>
+                  </div>
+                  <div class="lives-hearts">
+                    @for (h of predictHearts; track h) { <span class="heart">❤️</span> }
+                    @if (predictLives === 0) { <span class="lives-empty">sin vidas</span> }
+                  </div>
+
+                  <div class="predict-options">
+                    <button class="predict-btn" [class.selected]="predictChoice === 'fight'" [disabled]="predictRevealed" (click)="choosePrediction('fight')">🗡️ Enfrentar</button>
+                    <button class="predict-btn" [class.selected]="predictChoice === 'careful'" [disabled]="predictRevealed" (click)="choosePrediction('careful')">🏃 Continuar</button>
+                    <button class="predict-btn" [class.selected]="predictChoice === 'seek'" [disabled]="predictRevealed" (click)="choosePrediction('seek')">💚 Buscar vida</button>
+                    <button class="predict-btn" [class.selected]="predictChoice === 'over'" [disabled]="predictRevealed" (click)="choosePrediction('over')">💀 Game Over</button>
+                  </div>
+
+                  @if (predictFeedback) {
+                    <div class="feedback-box" [class.error]="!predictCorrect" [class.success]="predictCorrect">{{ predictFeedback }}</div>
+                  }
+
+                  @if (!predictRevealed) {
+                    <button class="btn-primary" (click)="revealPrediction()" [disabled]="!predictChoice">▶️ Ejecutar y comprobar</button>
+                  } @else {
+                    <div class="value-buttons">
+                      <button class="value-btn" (click)="newPrediction()">🔁 Otra ronda</button>
+                      <button class="btn-primary" (click)="finishIfLives()">Terminar actividad →</button>
+                    </div>
+                  }
+                </div>
+              }
+
             } @else {
               <div class="success-box">
                 <h2>❤️ ¡Lo entendiste!</h2>
-                <p>Una condición SI decide si el personaje puede continuar según sus vidas.</p>
+                <p>El valor de una variable (las vidas) cambia el camino que toma el programa. Y el orden de las condiciones importa.</p>
                 <p class="reward-text">+10 XP · +1 Semilla</p>
                 <button class="btn-primary" (click)="nextWorld3Activity()">Siguiente actividad →</button>
               </div>
@@ -196,31 +292,96 @@
         @else if (currentWorld3Activity === 4) {
           <article class="activity-card">
             <span class="activity-badge">ACTIVIDAD 5</span>
-            <h1>Si no... toma otro camino 🔀</h1>
-            <p class="activity-desc">Una condición puede producir dos resultados: SI se cumple, o SI NO.</p>
+            <h1>La puerta 🚪</h1>
+            <p class="activity-desc">SI tienes una llave → abres la puerta. SI NO → buscas la llave. ¡Dos caminos posibles!</p>
 
             @if (!elseDone) {
-              <div class="cond-scene">
-                <div class="cond-question">{{ elseScenario.question }}</div>
-                <div class="code-rule">
-                  SI (condición) → {{ elseScenario.ifText }}<br>
-                  SI NO → {{ elseScenario.elseText }}
-                </div>
-                <div class="answer-options">
-                  <button class="answer-btn" (click)="chooseElse(true)">✅ Sí (rama SI)</button>
-                  <button class="answer-btn" (click)="chooseElse(false)">❌ No (rama SI NO)</button>
-                </div>
-                @if (elseResult) {
-                  <div class="else-result">{{ elseResult === 'if' ? elseScenario.ifText : elseScenario.elseText }}</div>
-                }
+
+              <div class="lives-steps">
+                <span class="lives-step" [class.active]="elsePhase === 'explore'">1 · Probar</span>
+                <span class="lives-step" [class.active]="elsePhase === 'classify'">2 · Reto extra</span>
               </div>
-              @if (elseFeedback) {
-                <div class="feedback-box" [class.error]="elseFeedbackError" [class.success]="!elseFeedbackError">{{ elseFeedback }}</div>
+
+              <!-- FASE 1: PROBAR LA PUERTA -->
+              @if (elsePhase === 'explore') {
+                <div class="cond-scene">
+                  <div class="code-rule">
+                    SI llave &gt; 0 → 🔓 Abrir la puerta<br>
+                    SI NO → 🔎 Buscar la llave
+                  </div>
+
+                  <div class="door-scene">
+                    <div class="door-visual" [class.open]="elseRan && elseHasKey">
+                      {{ elseRan && elseHasKey ? '🔓' : '🚪' }}
+                    </div>
+                    <div class="door-key">{{ elseHasKey ? '🔑 Tienes la llave' : '❌ Sin llave' }}</div>
+                  </div>
+
+                  <p class="cond-rule">Elige tu situación:</p>
+                  <div class="answer-options">
+                    <button class="answer-btn" [class.selected]="elseHasKey" (click)="toggleElseKey(true)">🔑 Tengo llave</button>
+                    <button class="answer-btn" [class.selected]="!elseHasKey" (click)="toggleElseKey(false)">❌ No tengo llave</button>
+                  </div>
+
+                  <button class="btn-primary" (click)="runElseDoor()">▶️ Ejecutar programa</button>
+
+                  @if (elseFeedback) {
+                    <div class="feedback-box" [class.error]="elseFeedbackError" [class.success]="!elseFeedbackError">{{ elseFeedback }}</div>
+                  }
+
+                  @if (elseRan) {
+                    <button class="btn-primary" (click)="goToElseClassify()">Siguiente: reto extra →</button>
+                  }
+                </div>
               }
+
+              <!-- FASE 2: RETO EXTRA – CLASIFICAR SIN EJECUTAR -->
+              @else {
+                <div class="cond-scene">
+                  <p class="cond-rule">🧠 Reto extra: sin ejecutar, decide qué camino tomará cada situación.</p>
+                  <div class="code-rule">SI llave &gt; 0 → 🔓 Abrir puerta &nbsp;|&nbsp; SI NO → 🔎 Buscar llave</div>
+
+                  <div class="classify-grid">
+                    @for (s of elseSituations; track s.id) {
+                      <div class="classify-card"
+                           [class.correct]="elseChecked && isElseCorrect(s)"
+                           [class.wrong]="elseChecked && !isElseCorrect(s)">
+                        <div class="classify-cond">llave = {{ s.keys }}</div>
+                        <div class="classify-choices">
+                          <button class="classify-btn"
+                                  [class.selected]="s.choice === 'open'"
+                                  [disabled]="elseChecked"
+                                  (click)="assignElse(s.id, 'open')">🔓 Abrir</button>
+                          <button class="classify-btn"
+                                  [class.selected]="s.choice === 'search'"
+                                  [disabled]="elseChecked"
+                                  (click)="assignElse(s.id, 'search')">🔎 Buscar</button>
+                        </div>
+                        @if (elseChecked) {
+                          <div class="classify-mark">{{ isElseCorrect(s) ? '✅' : '❌ → ' + (elseExpected(s.keys) === 'open' ? '🔓 Abrir' : '🔎 Buscar') }}</div>
+                        }
+                      </div>
+                    }
+                  </div>
+
+                  @if (elseClassifyFeedback) {
+                    <div class="feedback-box" [class.error]="elseChecked && !elseAllCorrect" [class.success]="elseAllCorrect">{{ elseClassifyFeedback }}</div>
+                  }
+
+                  @if (!elseChecked) {
+                    <button class="btn-primary" (click)="checkElseClassify()">▶️ Ejecutar y comprobar</button>
+                  } @else if (elseAllCorrect) {
+                    <button class="btn-primary" (click)="finishElse()">Terminar actividad →</button>
+                  } @else {
+                    <button class="value-btn" (click)="resetElseClassify()">🔁 Intentar de nuevo</button>
+                  }
+                </div>
+              }
+
             } @else {
               <div class="success-box">
-                <h2>🔀 ¡SI / SI NO dominado!</h2>
-                <p>Una condición puede llevar a dos caminos diferentes.</p>
+                <h2>🚪 ¡if / else dominado!</h2>
+                <p>Una condición deja que el programa tome uno de dos caminos posibles: SI se cumple, o SI NO.</p>
                 <p class="reward-text">+10 XP · +1 Semilla</p>
                 <button class="btn-primary" (click)="nextWorld3Activity()">Siguiente actividad →</button>
               </div>
@@ -233,36 +394,110 @@
           <article class="activity-card">
             <span class="activity-badge">ACTIVIDAD 6</span>
             <h1>El guardián del río 🧙</h1>
-            <p class="activity-desc">Combina variables y condiciones: deben cumplirse las dos a la vez.</p>
+            <p class="activity-desc">Para cruzar necesitas DOS condiciones a la vez: tener la llave 🔑 Y suficientes monedas 🪙.</p>
 
             @if (!guardianDone) {
-              <div class="cond-scene">
-                <div class="guardian-speech">🧙 "Solo dejaré pasar a quienes tengan <strong>3 vidas o más</strong> Y la <strong>llave</strong>."</div>
-                <div class="compare-row">
-                  <div class="compare-box">
-                    <span class="cmp-icon">❤️</span>
-                    <span class="cmp-label">Vidas</span>
-                    <strong class="cmp-value">{{ guardianScenario.lives }}</strong>
-                  </div>
-                  <div class="compare-box">
-                    <span class="cmp-icon">🔑</span>
-                    <span class="cmp-label">Llave</span>
-                    <strong class="cmp-value">{{ guardianScenario.hasKey ? 'Sí' : 'No' }}</strong>
-                  </div>
-                </div>
-                <p class="cond-rule">¿Puede pasar?</p>
-                <div class="answer-options">
-                  <button class="answer-btn" (click)="answerGuardian(true)">✅ Sí, puede pasar</button>
-                  <button class="answer-btn" (click)="answerGuardian(false)">❌ No puede pasar</button>
-                </div>
+
+              <div class="lives-steps">
+                <span class="lives-step" [class.active]="guardianPhase === 'explore'">1 · Explorar</span>
+                <span class="lives-step" [class.active]="guardianPhase === 'final'">2 · Reto final</span>
               </div>
-              @if (guardianFeedback) {
-                <div class="feedback-box" [class.error]="guardianFeedbackError" [class.success]="!guardianFeedbackError">{{ guardianFeedback }}</div>
+
+              <!-- FASE 1: VARIABLES + PREDICCIÓN -->
+              @if (guardianPhase === 'explore') {
+                <div class="cond-scene">
+                  <div class="guardian-speech">🧙 "Solo cruza quien tenga la <strong>llave</strong> Y <strong>5 monedas o más</strong>."</div>
+                  <div class="code-rule">
+                    SI tiene_llave = verdadero Y monedas &gt;= 5 → 🌉 ¡Cruzar el río!<br>
+                    SI NO → 🧙 El guardián no te deja pasar
+                  </div>
+
+                  <div class="compare-row">
+                    <div class="compare-box">
+                      <span class="cmp-icon">🔑</span>
+                      <span class="cmp-label">Llave</span>
+                      <strong class="cmp-value">{{ guardianKey ? 'Sí' : 'No' }}</strong>
+                      <div class="mini-buttons">
+                        <button class="value-btn" [class.selected]="guardianKey" (click)="toggleGuardianKey(true)">Sí</button>
+                        <button class="value-btn" [class.selected]="!guardianKey" (click)="toggleGuardianKey(false)">No</button>
+                      </div>
+                    </div>
+                    <div class="compare-box">
+                      <span class="cmp-icon">🪙</span>
+                      <span class="cmp-label">Monedas</span>
+                      <strong class="cmp-value">{{ guardianCoins }}</strong>
+                      <div class="mini-buttons">
+                        <button class="value-btn" (click)="guardianCoinsSub()" [disabled]="guardianCoins === 0">➖</button>
+                        <button class="value-btn" (click)="guardianCoinsAdd()" [disabled]="guardianCoins === 10">➕</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p class="cond-rule">Antes de ejecutar, predice: ¿podrá cruzar?</p>
+                  <div class="answer-options">
+                    <button class="answer-btn" [class.selected]="guardianPrediction === true" [disabled]="guardianRan" (click)="predictGuardian(true)">✅ Sí puede cruzar</button>
+                    <button class="answer-btn" [class.selected]="guardianPrediction === false" [disabled]="guardianRan" (click)="predictGuardian(false)">❌ No puede cruzar</button>
+                  </div>
+
+                  @if (!guardianRan) {
+                    <button class="btn-primary" (click)="runGuardian()" [disabled]="guardianPrediction === null">▶️ Ejecutar programa</button>
+                  }
+
+                  @if (guardianFeedback) {
+                    <div class="feedback-box" [class.error]="guardianFeedbackError" [class.success]="!guardianFeedbackError">{{ guardianFeedback }}</div>
+                  }
+
+                  @if (guardianRan) {
+                    <div class="value-buttons">
+                      <button class="value-btn" (click)="toggleGuardianKey(guardianKey)">🔁 Otra situación</button>
+                      <button class="btn-primary" (click)="goToGuardianFinal()">Siguiente: reto final →</button>
+                    </div>
+                  }
+                </div>
               }
+
+              <!-- FASE 2: RETO FINAL – ¿QUIÉNES PUEDEN CRUZAR? -->
+              @else {
+                <div class="cond-scene">
+                  <p class="cond-rule">🔥 Reto final: marca a quiénes pueden cruzar (llave 🔑 Y monedas ≥ 5). Piénsalo antes de ejecutar.</p>
+
+                  <div class="chars-grid">
+                    @for (c of guardianChars; track c.id) {
+                      <button class="char-card"
+                              [class.selected]="c.selected"
+                              [class.correct]="guardianChecked && isGuardianCharCorrect(c)"
+                              [class.wrong]="guardianChecked && !isGuardianCharCorrect(c)"
+                              [disabled]="guardianChecked"
+                              (click)="toggleGuardianChar(c.id)">
+                        <span class="char-emoji">{{ c.emoji }}</span>
+                        <span class="char-name">{{ c.name }}</span>
+                        <span class="char-vars">{{ c.hasKey ? '🔑 Sí' : '🔑 No' }} · 🪙 {{ c.coins }}</span>
+                        <span class="char-pick">{{ c.selected ? '✅ Cruza' : 'No cruza' }}</span>
+                        @if (guardianChecked) {
+                          <span class="char-mark">{{ isGuardianCharCorrect(c) ? '✔️ correcto' : '✖️ ' + (charCanCross(c) ? 'sí cruzaba' : 'no cruzaba') }}</span>
+                        }
+                      </button>
+                    }
+                  </div>
+
+                  @if (guardianFinalFeedback) {
+                    <div class="feedback-box" [class.error]="guardianChecked && !guardianAllCorrect" [class.success]="guardianAllCorrect">{{ guardianFinalFeedback }}</div>
+                  }
+
+                  @if (!guardianChecked) {
+                    <button class="btn-primary" (click)="checkGuardianFinal()">▶️ Ejecutar y comprobar</button>
+                  } @else if (guardianAllCorrect) {
+                    <button class="btn-primary" (click)="finishGuardian()">Terminar actividad →</button>
+                  } @else {
+                    <button class="value-btn" (click)="resetGuardianFinal()">🔁 Intentar de nuevo</button>
+                  }
+                </div>
+              }
+
             } @else {
               <div class="success-box">
                 <h2>🧙 ¡Guardián superado!</h2>
-                <p>Aprendiste a combinar dos condiciones con "Y".</p>
+                <p>Aprendiste la condición compuesta con Y (AND): todas las condiciones deben cumplirse para que ocurra la acción.</p>
                 <p class="reward-text">+10 XP · +1 Semilla</p>
                 <button class="btn-primary" (click)="nextWorld3Activity()">Siguiente actividad →</button>
               </div>
@@ -274,64 +509,62 @@
         @else if (currentWorld3Activity === 6) {
           <article class="activity-card">
             <span class="activity-badge">RETO FINAL</span>
-            <h1>¡Cruza el Río! 🏆</h1>
-            <p class="activity-desc">Analiza cada condición y decide bien. No basta con hacer clic: hay que pensar.</p>
+            <h1>¡La gran aventura del río! 🏆🌊</h1>
+            <p class="activity-desc">El río está frente a ti y tienes una sola oportunidad. Analiza tus variables, prepara al personaje y decide cuándo cruzar.</p>
 
             @if (!crossDone) {
+
+              <!-- Variables del personaje -->
               <div class="cross-status">
-                <span>🔑 {{ crossKey ? 'Sí' : 'No' }}</span>
-                <span>🪙 {{ crossCoins }}</span>
-                <span>❤️ {{ crossLives }}</span>
-                <span>🛶 {{ crossBoat ? 'Sí' : 'No' }}</span>
+                <span [class.ok-var]="crossLives > 2">❤️ {{ crossLives }}</span>
+                <span [class.ok-var]="crossCoins >= 5">🪙 {{ crossCoins }}</span>
+                <span [class.ok-var]="crossKey">🔑 {{ crossKey ? 'Sí' : 'No' }}</span>
+                <span [class.ok-var]="crossItem">🎒 {{ crossItem ? 'Sí' : 'No' }}</span>
               </div>
 
-              @if (crossGameOver) {
+              <!-- Obstáculos y sus condiciones -->
+              <ul class="cross-checklist">
+                <li [class.met]="crossBridgeOk">
+                  <span class="chk-emoji">🌉</span>
+                  <span class="chk-text">Puente: llave 🔑 <strong>Y</strong> monedas &gt;= 5</span>
+                  <span class="chk-mark">{{ crossBridgeOk ? '✅' : '⬜' }}</span>
+                </li>
+                <li [class.met]="crossCrocOk">
+                  <span class="chk-emoji">🐊</span>
+                  <span class="chk-text">Cocodrilo: vidas &gt; 2</span>
+                  <span class="chk-mark">{{ crossCrocOk ? '✅' : '⬜' }}</span>
+                </li>
+                <li [class.met]="crossGuardianOk">
+                  <span class="chk-emoji">🧙</span>
+                  <span class="chk-text">Guardián: objeto especial 🎒</span>
+                  <span class="chk-mark">{{ crossGuardianOk ? '✅' : '⬜' }}</span>
+                </li>
+                <li [class.met]="crossAllOk">
+                  <span class="chk-emoji">🏆</span>
+                  <span class="chk-text">Meta: cumplir TODAS las condiciones</span>
+                  <span class="chk-mark">{{ crossAllOk ? '✅' : '⬜' }}</span>
+                </li>
+              </ul>
+
+              @if (crossResult !== 'over') {
+                <p class="cond-rule">🎒 Prepara lo que te falta:</p>
+                <div class="cross-actions">
+                  <button class="value-btn" (click)="crossFindKey()" [disabled]="crossKey">🔑 Buscar la llave</button>
+                  <button class="value-btn" (click)="crossEarnCoins()" [disabled]="crossCoins >= 12">🪙 Ganar monedas (+3)</button>
+                  <button class="value-btn" (click)="crossRest()" [disabled]="crossLives >= 5">❤️ Descansar (+1 vida)</button>
+                  <button class="value-btn" (click)="crossTakeItem()" [disabled]="crossItem">🎒 Recoger el objeto</button>
+                </div>
+
+                <p class="cond-rule">Cuando estés list@, ejecuta el programa:</p>
+                <div class="cross-run">
+                  <button class="btn-primary" (click)="crossCheckAndCross()">🔎 Comprobar y cruzar</button>
+                  <button class="btn-secondary" (click)="crossRush()">🎲 Arriesgarse a cruzar</button>
+                </div>
+              } @else {
                 <div class="cross-stage gameover">
                   <div class="stage-emoji">💀</div>
-                  <p>Te quedaste sin vidas.</p>
+                  <p>Te arriesgaste sin cumplir las condiciones.</p>
                   <button class="btn-secondary" (click)="restartCross()">🔁 Reintentar el río</button>
-                </div>
-              }
-
-              <!-- Paso 0: Puente -->
-              @else if (crossStep === 0) {
-                <div class="cross-stage">
-                  <div class="stage-emoji">🌉</div>
-                  <p class="cond-rule">Puente: SI tienes la llave → cruzas.</p>
-                  @if (!crossKey) {
-                    <button class="answer-btn" (click)="crossTakeKey()">🔑 Recoger la llave</button>
-                  }
-                  <button class="btn-primary" (click)="crossBridge()">Cruzar el puente →</button>
-                </div>
-              }
-
-              <!-- Paso 1: Tienda -->
-              @else if (crossStep === 1) {
-                <div class="cross-stage">
-                  <div class="stage-emoji">🪙</div>
-                  <p class="cond-rule">Tienda: SI tienes 5 monedas → compra el bote 🛶.</p>
-                  <button class="btn-primary" (click)="crossBuyBoat()">Comprar el bote (5 🪙)</button>
-                </div>
-              }
-
-              <!-- Paso 2: Monstruo -->
-              @else if (crossStep === 2) {
-                <div class="cross-stage">
-                  <div class="stage-emoji">👹</div>
-                  <p class="cond-rule">Monstruo: SI tienes vidas → continúas. Si llegas a 0 → Game Over.</p>
-                  <div class="lives-hearts">
-                    @for (h of crossHearts; track h) { <span class="heart">❤️</span> }
-                  </div>
-                  <button class="btn-primary" (click)="crossFightMonster()">Enfrentar al monstruo</button>
-                </div>
-              }
-
-              <!-- Paso 3: Meta -->
-              @else if (crossStep === 3) {
-                <div class="cross-stage">
-                  <div class="stage-emoji">🏁</div>
-                  <p class="cond-rule">Meta: SI tienes el bote 🛶 Y al menos 1 vida → ¡cruzaste!</p>
-                  <button class="btn-primary" (click)="crossFinish()">Intentar cruzar 🏁</button>
                 </div>
               }
 

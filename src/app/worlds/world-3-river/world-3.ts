@@ -126,54 +126,74 @@ export class World3Component implements OnInit {
   doorOpen = false;
   doorDone = false;
 
-  // Actividad 4 – Si tienes vidas...
-  ifLivesValue = 4;
-  ifLivesFeedback = '';
-  ifLivesReached0 = false;
-  ifLivesReachedContinue = false;
+  // Actividad 4 – Si tienes vidas... (condiciones encadenadas)
+  ifLivesPhase: 'explore' | 'order' | 'predict' = 'explore';
+  ifLivesValue = 3;
   ifLivesDone = false;
 
-  // Actividad 5 – Si no... toma otro camino (SI / SINO)
-  elseScenarios = [
-    {
-      question: '🔑 ¿Tienes la llave?',
-      hasIt: true,
-      ifText: '🚪 Abre la puerta.',
-      elseText: '🔄 Busca otra entrada.',
-    },
-    {
-      question: '🪙 ¿Tienes 10 monedas?',
-      hasIt: false,
-      ifText: '🛒 Compra el objeto.',
-      elseText: '🚫 No puedes comprarlo.',
-    },
+  // Fase 2: ordenar las condiciones (el reto de programación)
+  readonly livesConditionCards: { id: string; text: string; action: string }[] = [
+    { id: 'gt2', text: 'SI vidas > 2', action: '🗡️ Enfrentar al enemigo' },
+    { id: 'gt0', text: 'SI vidas > 0', action: '🏃 Continuar' },
+    { id: 'eq0', text: 'SI vidas = 0', action: '💀 Game Over' },
   ];
-  elseIndex = 0;
-  elseResult: 'if' | 'else' | null = null;
-  elseFeedback = '';
-  elseFeedbackError = false;
+  private readonly livesOrderCorrect: string[] = ['gt2', 'gt0', 'eq0'];
+  livesOrderPool: string[] = [];
+  livesOrderPlaced: string[] = [];
+  livesOrderFeedback = '';
+  livesOrderError = false;
+  livesOrderOk = false;
+
+  // Fase 3: predecir el resultado antes de ejecutar
+  predictLives = 3;
+  predictChoice: 'fight' | 'careful' | 'seek' | 'over' | null = null;
+  predictRevealed = false;
+  predictCorrect = false;
+  predictFeedback = '';
+
+  // Actividad 5 – La puerta (if / else)
+  elsePhase: 'explore' | 'classify' = 'explore';
   elseDone = false;
 
-  // Actividad 6 – El guardián del río (variables + condiciones)
-  guardianScenarios = [
-    { lives: 4, hasKey: true },
-    { lives: 2, hasKey: true },
-    { lives: 5, hasKey: false },
-  ];
-  guardianIndex = 0;
-  guardianFeedback = '';
-  guardianFeedbackError = false;
+  // Fase 1: probar la puerta (SI tienes llave → abrir / SI NO → buscar)
+  elseHasKey = true;
+  elseRan = false;
+  elseFeedback = '';
+  elseFeedbackError = false;
+
+  // Fase 2: reto extra – clasificar situaciones sin ejecutar
+  elseSituations: { id: number; keys: number; choice: 'open' | 'search' | null }[] = [];
+  elseChecked = false;
+  elseAllCorrect = false;
+  elseClassifyFeedback = '';
+
+  // Actividad 6 – El guardián del río (condición compuesta con Y / AND)
+  guardianPhase: 'explore' | 'final' = 'explore';
   guardianDone = false;
 
-  // Actividad 7 – Reto final: ¡Cruza el Río!
+  // Fase 1: cambiar variables, predecir y comprobar
+  guardianKey = true;
+  guardianCoins = 5;
+  guardianPrediction: boolean | null = null;
+  guardianRan = false;
+  guardianFeedback = '';
+  guardianFeedbackError = false;
+
+  // Fase 2: reto final – 4 personajes
+  guardianChars: { id: number; name: string; emoji: string; hasKey: boolean; coins: number; selected: boolean }[] = [];
+  guardianChecked = false;
+  guardianAllCorrect = false;
+  guardianFinalFeedback = '';
+
+  // Actividad 7 – Reto final: ¡La gran aventura del río!
+  // El niño analiza sus variables, las prepara y decide cuándo ejecutar.
+  crossLives = 2;
+  crossCoins = 3;
   crossKey = false;
-  crossCoins = 5;
-  crossLives = 3;
-  crossBoat = false;
-  crossStep = 0; // 0 puente, 1 tienda, 2 monstruo, 3 meta
+  crossItem = false;
+  crossResult: 'none' | 'win' | 'missing' | 'over' = 'none';
   crossFeedback = '';
   crossFeedbackError = false;
-  crossGameOver = false;
   crossDone = false;
 
   // ═══════════════════════════════════════════════════════════
@@ -340,11 +360,11 @@ export class World3Component implements OnInit {
   // ACTIVIDAD 4: SI TIENES VIDAS...
   // ───────────────────────────────────────────────────────────
   resetIfLives(): void {
-    this.ifLivesValue = 4;
-    this.ifLivesFeedback = '';
-    this.ifLivesReached0 = false;
-    this.ifLivesReachedContinue = false;
+    this.ifLivesPhase = 'explore';
+    this.ifLivesValue = 3;
     this.ifLivesDone = false;
+    this.resetLivesOrder();
+    this.newPrediction();
   }
 
   get ifLivesHearts(): number[] {
@@ -352,24 +372,119 @@ export class World3Component implements OnInit {
   }
 
   ifLivesAdd(): void {
-    if (this.ifLivesValue < 5) this.ifLivesValue++;
-    this.evalIfLives();
+    if (this.ifLivesValue < 4) this.ifLivesValue++;
   }
 
   ifLivesSub(): void {
     if (this.ifLivesValue > 0) this.ifLivesValue--;
-    this.evalIfLives();
   }
 
-  private evalIfLives(): void {
-    if (this.ifLivesValue > 0) {
-      this.ifLivesReached0 = false;
-      this.ifLivesReachedContinue = true;
-      this.ifLivesFeedback = '🏃 vidas > 0 → ¡Puedes continuar! (vidas = ' + this.ifLivesValue + ')';
-    } else {
-      this.ifLivesReached0 = true;
-      this.ifLivesFeedback = '🛑 vidas = 0 → No puedes continuar.';
+  /** Devuelve el resultado según las 4 situaciones de vidas. */
+  livesOutcome(v: number): { key: 'fight' | 'careful' | 'seek' | 'over'; emoji: string; label: string; cls: string } {
+    if (v > 2) return { key: 'fight', emoji: '🗡️', label: 'Enfrentar al enemigo', cls: 'fight' };
+    if (v === 2) return { key: 'careful', emoji: '🏃', label: 'Continuar con cuidado', cls: 'ok' };
+    if (v === 1) return { key: 'seek', emoji: '💚', label: 'Buscar una vida extra', cls: 'seek' };
+    return { key: 'over', emoji: '💀', label: 'Game Over', cls: 'stop' };
+  }
+
+  get ifLivesCurrentOutcome() {
+    return this.livesOutcome(this.ifLivesValue);
+  }
+
+  goToLivesOrder(): void {
+    this.ifLivesPhase = 'order';
+    this.resetLivesOrder();
+  }
+
+  goToLivesPredict(): void {
+    this.ifLivesPhase = 'predict';
+    this.newPrediction();
+  }
+
+  // ── Fase 2: ordenar condiciones ──
+  resetLivesOrder(): void {
+    this.livesOrderPool = this.shuffleIds(this.livesConditionCards.map((c) => c.id));
+    this.livesOrderPlaced = [];
+    this.livesOrderFeedback = '';
+    this.livesOrderError = false;
+    this.livesOrderOk = false;
+  }
+
+  private shuffleIds(ids: string[]): string[] {
+    const arr = [...ids];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
+    // Evita que salga ya ordenado de casualidad
+    if (arr.join() === this.livesOrderCorrect.join()) {
+      return [arr[1], arr[0], arr[2]];
+    }
+    return arr;
+  }
+
+  conditionCard(id: string) {
+    return this.livesConditionCards.find((c) => c.id === id)!;
+  }
+
+  placeCondition(id: string): void {
+    if (this.livesOrderOk) return;
+    this.livesOrderPool = this.livesOrderPool.filter((x) => x !== id);
+    this.livesOrderPlaced.push(id);
+    this.livesOrderFeedback = '';
+    this.livesOrderError = false;
+  }
+
+  removeCondition(index: number): void {
+    if (this.livesOrderOk) return;
+    const [id] = this.livesOrderPlaced.splice(index, 1);
+    if (id) this.livesOrderPool.push(id);
+    this.livesOrderFeedback = '';
+    this.livesOrderError = false;
+  }
+
+  checkLivesOrder(): void {
+    if (this.livesOrderPlaced.length < this.livesConditionCards.length) {
+      this.livesOrderError = true;
+      this.livesOrderFeedback = '👀 Coloca las 3 condiciones en orden antes de comprobar.';
+      return;
+    }
+    if (this.livesOrderPlaced.join() === this.livesOrderCorrect.join()) {
+      this.livesOrderOk = true;
+      this.livesOrderError = false;
+      this.livesOrderFeedback = '✅ ¡Orden perfecto! Se revisa primero la más exigente (vidas > 2) y al final vidas = 0.';
+    } else {
+      this.livesOrderError = true;
+      this.livesOrderFeedback = '❌ El orden importa: empieza por la condición más exigente (vidas > 2) y termina con vidas = 0.';
+    }
+  }
+
+  // ── Fase 3: predecir el resultado ──
+  newPrediction(): void {
+    this.predictLives = Math.floor(Math.random() * 4); // 0..3
+    this.predictChoice = null;
+    this.predictRevealed = false;
+    this.predictCorrect = false;
+    this.predictFeedback = '';
+  }
+
+  get predictHearts(): number[] {
+    return Array.from({ length: this.predictLives }, (_, i) => i);
+  }
+
+  choosePrediction(choice: 'fight' | 'careful' | 'seek' | 'over'): void {
+    if (this.predictRevealed) return;
+    this.predictChoice = choice;
+  }
+
+  revealPrediction(): void {
+    if (!this.predictChoice) return;
+    const real = this.livesOutcome(this.predictLives);
+    this.predictRevealed = true;
+    this.predictCorrect = this.predictChoice === real.key;
+    this.predictFeedback = this.predictCorrect
+      ? '🎉 ¡Predicción correcta! Con ' + this.predictLives + ' ❤️ → ' + real.emoji + ' ' + real.label + '.'
+      : '🤔 Casi. Con ' + this.predictLives + ' ❤️ el programa elige → ' + real.emoji + ' ' + real.label + '.';
   }
 
   finishIfLives(): void {
@@ -380,97 +495,206 @@ export class World3Component implements OnInit {
   // ACTIVIDAD 5: SI NO... TOMA OTRO CAMINO
   // ───────────────────────────────────────────────────────────
   resetElse(): void {
-    this.elseIndex = 0;
-    this.elseResult = null;
+    this.elsePhase = 'explore';
+    this.elseDone = false;
+    this.elseHasKey = true;
+    this.elseRan = false;
     this.elseFeedback = '';
     this.elseFeedbackError = false;
-    this.elseDone = false;
+    this.resetElseClassify();
   }
 
-  get elseScenario() {
-    return this.elseScenarios[this.elseIndex];
+  // ── Fase 1: probar la puerta ──
+  toggleElseKey(hasKey: boolean): void {
+    this.elseHasKey = hasKey;
+    this.elseRan = false;
+    this.elseFeedback = '';
+    this.elseFeedbackError = false;
   }
 
-  // choice: true = intenta el camino "SI", false = camino "SINO"
-  chooseElse(choice: boolean): void {
-    const sc = this.elseScenario;
-    const shouldTakeIf = sc.hasIt;
-    if (choice === shouldTakeIf) {
-      this.elseResult = choice ? 'if' : 'else';
+  runElseDoor(): void {
+    this.elseRan = true;
+    if (this.elseHasKey) {
       this.elseFeedbackError = false;
-      this.elseFeedback = choice
-        ? '✅ La condición se cumple → ' + sc.ifText
-        : '✅ La condición NO se cumple → ' + sc.elseText;
-      if (this.elseIndex < this.elseScenarios.length - 1) {
-        setTimeout(() => {
-          this.elseIndex++;
-          this.elseResult = null;
-          this.elseFeedback = '';
-          this.cdr.detectChanges();
-        }, 1600);
-      } else {
-        this.elseDone = true;
-      }
+      this.elseFeedback = '🔓 SI tienes la llave → ¡La puerta se abre!';
     } else {
       this.elseFeedbackError = true;
-      this.elseFeedback = '❌ Mira la condición: ' + sc.question + ' La respuesta es ' + (sc.hasIt ? 'SÍ' : 'NO') + '.';
+      this.elseFeedback = '🔎 SI NO tienes la llave → ¡Debes buscarla!';
     }
+  }
+
+  goToElseClassify(): void {
+    this.elsePhase = 'classify';
+    this.resetElseClassify();
+  }
+
+  // ── Fase 2: reto extra – clasificar sin ejecutar ──
+  resetElseClassify(): void {
+    this.elseSituations = [
+      { id: 1, keys: 0, choice: null },
+      { id: 2, keys: 1, choice: null },
+      { id: 3, keys: 3, choice: null },
+      { id: 4, keys: 0, choice: null },
+    ];
+    this.elseChecked = false;
+    this.elseAllCorrect = false;
+    this.elseClassifyFeedback = '';
+  }
+
+  assignElse(id: number, choice: 'open' | 'search'): void {
+    if (this.elseChecked) return;
+    const s = this.elseSituations.find((x) => x.id === id);
+    if (s) s.choice = choice;
+  }
+
+  get elseAllAssigned(): boolean {
+    return this.elseSituations.every((s) => s.choice !== null);
+  }
+
+  /** Rama correcta según la condición llave > 0. */
+  elseExpected(keys: number): 'open' | 'search' {
+    return keys > 0 ? 'open' : 'search';
+  }
+
+  isElseCorrect(s: { keys: number; choice: 'open' | 'search' | null }): boolean {
+    return s.choice === this.elseExpected(s.keys);
+  }
+
+  checkElseClassify(): void {
+    if (!this.elseAllAssigned) {
+      this.elseClassifyFeedback = '👀 Asigna un camino a cada situación antes de ejecutar.';
+      this.elseAllCorrect = false;
+      return;
+    }
+    this.elseChecked = true;
+    this.elseAllCorrect = this.elseSituations.every((s) => this.isElseCorrect(s));
+    this.elseClassifyFeedback = this.elseAllCorrect
+      ? '🎉 ¡Todas correctas! SI llave > 0 abre la puerta; SI NO, toca buscar la llave.'
+      : '🤔 Revisa las marcadas en rojo: SI llave > 0 → abrir, SI NO → buscar.';
+  }
+
+  finishElse(): void {
+    this.elseDone = true;
   }
 
   // ───────────────────────────────────────────────────────────
   // ACTIVIDAD 6: EL GUARDIÁN DEL RÍO
   // ───────────────────────────────────────────────────────────
   resetGuardian(): void {
-    this.guardianIndex = 0;
+    this.guardianPhase = 'explore';
+    this.guardianDone = false;
+    this.guardianKey = true;
+    this.guardianCoins = 5;
+    this.guardianPrediction = null;
+    this.guardianRan = false;
     this.guardianFeedback = '';
     this.guardianFeedbackError = false;
-    this.guardianDone = false;
+    this.resetGuardianFinal();
   }
 
-  get guardianScenario() {
-    return this.guardianScenarios[this.guardianIndex];
+  // ── Fase 1: variables + predicción ──
+  /** Regla: tiene llave Y monedas >= 5. */
+  guardianRule(hasKey: boolean, coins: number): boolean {
+    return hasKey && coins >= 5;
   }
 
-  // Regla: vidas >= 3 Y llave = sí
-  answerGuardian(canPass: boolean): void {
-    const sc = this.guardianScenario;
-    const actuallyCan = sc.lives >= 3 && sc.hasKey;
-    if (canPass === actuallyCan) {
-      this.guardianFeedbackError = false;
-      if (actuallyCan) {
-        this.guardianFeedback = '🎉 ¡Puede pasar! Tiene ' + sc.lives + ' vidas (≥ 3) y la llave. 🔑';
-      } else if (!sc.hasKey) {
-        this.guardianFeedback = '✅ Correcto: no puede pasar porque le falta la llave. 🔑❌';
-      } else {
-        this.guardianFeedback = '✅ Correcto: no puede pasar, tiene ' + sc.lives + ' vidas (menos de 3).';
-      }
-      if (this.guardianIndex < this.guardianScenarios.length - 1) {
-        setTimeout(() => {
-          this.guardianIndex++;
-          this.guardianFeedback = '';
-          this.cdr.detectChanges();
-        }, 1800);
-      } else {
-        this.guardianDone = true;
-      }
-    } else {
-      this.guardianFeedbackError = true;
-      this.guardianFeedback = '❌ Recuerda: necesita 3 vidas o más Y la llave. Revisa ambas condiciones.';
-    }
+  get guardianCanCross(): boolean {
+    return this.guardianRule(this.guardianKey, this.guardianCoins);
+  }
+
+  toggleGuardianKey(hasKey: boolean): void {
+    this.guardianKey = hasKey;
+    this.guardianPrediction = null;
+    this.guardianRan = false;
+    this.guardianFeedback = '';
+  }
+
+  guardianCoinsAdd(): void {
+    if (this.guardianCoins < 10) this.guardianCoins++;
+    this.guardianPrediction = null;
+    this.guardianRan = false;
+    this.guardianFeedback = '';
+  }
+
+  guardianCoinsSub(): void {
+    if (this.guardianCoins > 0) this.guardianCoins--;
+    this.guardianPrediction = null;
+    this.guardianRan = false;
+    this.guardianFeedback = '';
+  }
+
+  predictGuardian(canCross: boolean): void {
+    if (this.guardianRan) return;
+    this.guardianPrediction = canCross;
+  }
+
+  runGuardian(): void {
+    if (this.guardianPrediction === null) return;
+    this.guardianRan = true;
+    const real = this.guardianCanCross;
+    const hit = this.guardianPrediction === real;
+    this.guardianFeedbackError = !hit;
+    const result = real
+      ? '🌉 ¡Puede cruzar! Tiene la llave 🔑 Y ' + this.guardianCoins + ' monedas (≥ 5).'
+      : '🧙 El guardián no lo deja pasar: ' + (!this.guardianKey ? 'falta la llave 🔑.' : 'solo tiene ' + this.guardianCoins + ' monedas (< 5).');
+    this.guardianFeedback = (hit ? '🎉 ¡Predicción correcta! ' : '🤔 Fallaste la predicción. ') + result;
+  }
+
+  goToGuardianFinal(): void {
+    this.guardianPhase = 'final';
+    this.resetGuardianFinal();
+  }
+
+  // ── Fase 2: reto final con 4 personajes ──
+  resetGuardianFinal(): void {
+    this.guardianChars = [
+      { id: 1, name: 'Ana', emoji: '🧒', hasKey: true, coins: 8, selected: false },
+      { id: 2, name: 'Beto', emoji: '👦', hasKey: true, coins: 3, selected: false },
+      { id: 3, name: 'Caro', emoji: '👧', hasKey: false, coins: 10, selected: false },
+      { id: 4, name: 'Dani', emoji: '🧑', hasKey: true, coins: 6, selected: false },
+    ];
+    this.guardianChecked = false;
+    this.guardianAllCorrect = false;
+    this.guardianFinalFeedback = '';
+  }
+
+  toggleGuardianChar(id: number): void {
+    if (this.guardianChecked) return;
+    const c = this.guardianChars.find((x) => x.id === id);
+    if (c) c.selected = !c.selected;
+  }
+
+  charCanCross(c: { hasKey: boolean; coins: number }): boolean {
+    return this.guardianRule(c.hasKey, c.coins);
+  }
+
+  isGuardianCharCorrect(c: { hasKey: boolean; coins: number; selected: boolean }): boolean {
+    return c.selected === this.charCanCross(c);
+  }
+
+  checkGuardianFinal(): void {
+    this.guardianChecked = true;
+    this.guardianAllCorrect = this.guardianChars.every((c) => this.isGuardianCharCorrect(c));
+    this.guardianFinalFeedback = this.guardianAllCorrect
+      ? '🎉 ¡Perfecto! Solo cruzan quienes tienen llave 🔑 Y 5 o más monedas 🪙.'
+      : '🤔 Revisa: para cruzar hacen falta las DOS condiciones a la vez (llave Y monedas ≥ 5).';
+  }
+
+  finishGuardian(): void {
+    this.guardianDone = true;
   }
 
   // ───────────────────────────────────────────────────────────
   // ACTIVIDAD 7: RETO FINAL - ¡CRUZA EL RÍO!
   // ───────────────────────────────────────────────────────────
   resetCross(): void {
+    this.crossLives = 2;
+    this.crossCoins = 3;
     this.crossKey = false;
-    this.crossCoins = 5;
-    this.crossLives = 3;
-    this.crossBoat = false;
-    this.crossStep = 0;
+    this.crossItem = false;
+    this.crossResult = 'none';
     this.crossFeedback = '';
     this.crossFeedbackError = false;
-    this.crossGameOver = false;
     this.crossDone = false;
   }
 
@@ -478,63 +702,80 @@ export class World3Component implements OnInit {
     return Array.from({ length: this.crossLives }, (_, i) => i);
   }
 
-  // El niño consigue una llave antes del puente
-  crossTakeKey(): void {
-    this.crossKey = true;
-    this.crossFeedback = '🔑 Recogiste la llave.';
+  // ── Condiciones de cada obstáculo ──
+  get crossBridgeOk(): boolean {
+    return this.crossKey && this.crossCoins >= 5; // 🌉 llave Y monedas >= 5
+  }
+  get crossCrocOk(): boolean {
+    return this.crossLives > 2; // 🐊 vidas > 2
+  }
+  get crossGuardianOk(): boolean {
+    return this.crossItem; // 🧙 objeto especial
+  }
+  get crossAllOk(): boolean {
+    return this.crossBridgeOk && this.crossCrocOk && this.crossGuardianOk;
+  }
+
+  private crossMissingList(): string {
+    const missing: string[] = [];
+    if (!this.crossBridgeOk) missing.push('🌉 puente (llave 🔑 Y 5 monedas 🪙)');
+    if (!this.crossCrocOk) missing.push('🐊 cocodrilo (más de 2 vidas ❤️)');
+    if (!this.crossGuardianOk) missing.push('🧙 guardián (objeto especial 🎒)');
+    return missing.join(', ');
+  }
+
+  // ── Acciones para preparar al personaje (analizar variables) ──
+  private clearCrossRun(): void {
+    if (this.crossResult !== 'over') this.crossResult = 'none';
+    this.crossFeedback = '';
     this.crossFeedbackError = false;
   }
 
-  // Paso 0: puente (necesita llave)
-  crossBridge(): void {
-    if (this.crossKey) {
-      this.crossFeedbackError = false;
-      this.crossFeedback = '🌉 SI tienes la llave → cruzas el puente. ✅';
-      this.crossStep = 1;
-    } else {
-      this.crossFeedbackError = true;
-      this.crossFeedback = '🌉 No tienes la llave. Recoge la llave para cruzar el puente.';
-    }
+  crossFindKey(): void {
+    this.crossKey = true;
+    this.clearCrossRun();
   }
 
-  // Paso 1: tienda (necesita 5 monedas para el bote)
-  crossBuyBoat(): void {
-    if (this.crossCoins >= 5) {
-      this.crossCoins -= 5;
-      this.crossBoat = true;
-      this.crossFeedbackError = false;
-      this.crossFeedback = '🪙 SI tienes 5 monedas → compras el bote. 🛶 ✅';
-      this.crossStep = 2;
-    } else {
-      this.crossFeedbackError = true;
-      this.crossFeedback = '🪙 No te alcanza para el bote. Necesitas 5 monedas.';
-    }
+  crossEarnCoins(): void {
+    this.crossCoins = Math.min(this.crossCoins + 3, 12);
+    this.clearCrossRun();
   }
 
-  // Paso 2: monstruo (si tienes vidas continúas, si 0 game over)
-  crossFightMonster(): void {
-    this.crossLives -= 1;
-    if (this.crossLives <= 0) {
-      this.crossLives = 0;
-      this.crossGameOver = true;
-      this.crossFeedbackError = true;
-      this.crossFeedback = '💀 Game Over. Te quedaste sin vidas.';
-    } else {
-      this.crossFeedbackError = false;
-      this.crossFeedback = '❤️ El monstruo te quitó 1 vida (vidas = ' + this.crossLives + '), pero continúas. ✅';
-      this.crossStep = 3;
-    }
+  crossRest(): void {
+    this.crossLives = Math.min(this.crossLives + 1, 5);
+    this.clearCrossRun();
   }
 
-  // Paso 3: meta (necesita bote y al menos 1 vida)
-  crossFinish(): void {
-    if (this.crossBoat && this.crossLives >= 1) {
+  crossTakeItem(): void {
+    this.crossItem = true;
+    this.clearCrossRun();
+  }
+
+  // ── Ejecutar con comprobación (camino seguro) ──
+  crossCheckAndCross(): void {
+    if (this.crossAllOk) {
+      this.crossResult = 'win';
       this.crossFeedbackError = false;
-      this.crossFeedback = '🏁 ¡Cruzaste el río! Tienes el bote 🛶 y ' + this.crossLives + ' vida(s). 🎉';
+      this.crossFeedback = '🏆 ¡Lo lograste! Cumpliste todas las condiciones y cruzaste el río. 🌉';
       this.crossDone = true;
     } else {
+      this.crossResult = 'missing';
       this.crossFeedbackError = true;
-      this.crossFeedback = '🏁 Aún no puedes cruzar: necesitas el bote y al menos 1 vida.';
+      this.crossFeedback = '🔎 Te falta algo. Revisa tus variables: ' + this.crossMissingList() + '.';
+    }
+  }
+
+  // ── Ejecutar arriesgándose (camino peligroso) ──
+  crossRush(): void {
+    if (this.crossAllOk) {
+      this.crossResult = 'win';
+      this.crossFeedbackError = false;
+      this.crossFeedback = '🏆 ¡Lo lograste! Te arriesgaste... y estabas list@ de verdad. 🌉';
+      this.crossDone = true;
+    } else {
+      this.crossResult = 'over';
+      this.crossFeedbackError = true;
+      this.crossFeedback = '💀 Game Over. Tomaste una decisión incorrecta sin cumplir: ' + this.crossMissingList() + '.';
     }
   }
 

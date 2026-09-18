@@ -36714,3537 +36714,6 @@ var appConfig = {
   ]
 };
 
-// src/app/core/game-state.service.ts
-var GameStateService = class _GameStateService {
-  experience = 0;
-  seeds = 0;
-  // TODO: volver a false antes de publicar (habilitado para desarrollo)
-  level2Unlocked = true;
-  level3Unlocked = true;
-  applyReward(reward) {
-    this.experience += reward.experience;
-    this.seeds += reward.seeds;
-  }
-  static \u0275fac = function GameStateService_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _GameStateService)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _GameStateService, factory: _GameStateService.\u0275fac, providedIn: "root" });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(GameStateService, [{
-    type: Injectable,
-    args: [{ providedIn: "root" }]
-  }], null, null);
-})();
-
-// src/app/worlds/forest/forest.ts
-function ForestComponent_Conditional_72_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 43);
-    \u0275\u0275text(1, "\u{1F512}");
-    \u0275\u0275elementEnd();
-  }
-}
-function ForestComponent_Conditional_81_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 43);
-    \u0275\u0275text(1, "\u{1F512}");
-    \u0275\u0275elementEnd();
-  }
-}
-var ForestComponent = class _ForestComponent {
-  constructor(game) {
-    this.game = game;
-  }
-  game;
-  openWorld1 = new EventEmitter();
-  openWorld2 = new EventEmitter();
-  openWorld3 = new EventEmitter();
-  /** true mientras el personaje se desplaza por el sendero. */
-  walking = false;
-  /** false = el personaje sigue al inicio del sendero; true = ya avanzó al mundo. */
-  arrived = false;
-  /** Coordenadas (en %) del personaje a lo largo del sendero. */
-  positions = {
-    start: { left: "9%", top: "86%" },
-    w1: { left: "20%", top: "76%" },
-    w2: { left: "42%", top: "64%" },
-    w3: { left: "66%", top: "40%" }
-  };
-  /** Mundo desbloqueado más avanzado (destino del personaje). */
-  get currentWorld() {
-    if (this.game.level3Unlocked)
-      return 3;
-    if (this.game.level2Unlocked)
-      return 2;
-    return 1;
-  }
-  /** Posición actual del personaje: al inicio o sobre el mundo alcanzado. */
-  get characterPos() {
-    return this.arrived ? this.positions["w" + this.currentWorld] : this.positions["start"];
-  }
-  ngOnInit() {
-    setTimeout(() => {
-      this.walking = true;
-      this.arrived = true;
-    }, 500);
-    setTimeout(() => {
-      this.walking = false;
-    }, 500 + 2600);
-  }
-  static \u0275fac = function ForestComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ForestComponent)(\u0275\u0275directiveInject(GameStateService));
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ForestComponent, selectors: [["app-forest"]], outputs: { openWorld1: "openWorld1", openWorld2: "openWorld2", openWorld3: "openWorld3" }, decls: 86, vars: 11, consts: [[1, "forest-screen"], [1, "welcome-section"], [1, "badge"], [1, "highlight"], [1, "subtitle"], [1, "btn-primary", 3, "click"], [1, "map-section"], [1, "sky"], [1, "sun-rays"], [1, "sun"], [1, "cloud", "c1"], [1, "cloud", "c2"], [1, "cloud", "c3"], [1, "mountain", "m1"], [1, "mountain", "m2"], [1, "mountain", "m3"], [1, "treeline"], [1, "hill", "hill-back"], [1, "hill", "hill-mid"], [1, "hill", "hill-front"], [1, "mist"], ["viewBox", "0 0 1000 1000", "preserveAspectRatio", "none", 1, "forest-path"], ["d", "M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190", "fill", "none", "stroke", "#d9ad6b", "stroke-width", "34", "stroke-linecap", "round", 1, "path-base"], ["d", "M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190", "fill", "none", "stroke", "#e9c988", "stroke-width", "26", "stroke-linecap", "round", 1, "path-edge"], ["d", "M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190", "fill", "none", "stroke", "#fff", "stroke-width", "4", "stroke-linecap", "round", "stroke-dasharray", "2 30", "opacity", "0.65", 1, "path-dashes"], [1, "tree", "t1"], [1, "tree", "t2"], [1, "tree", "t3"], [1, "tree", "t4"], [1, "tree", "t5"], [1, "tree", "t6"], [1, "bush", "b1"], [1, "bush", "b2"], [1, "bush", "b3"], [1, "bush", "b4"], [1, "bird", "bird1"], [1, "bird", "bird2"], [1, "world-node", "w1", 3, "click"], [1, "node-glow"], [1, "node-icon"], [1, "node-title"], [1, "node-subtitle"], [1, "world-node", "w2", 3, "click", "disabled"], [1, "lock"], [1, "world-node", "w3", 3, "click", "disabled"], [1, "character-marker", 3, "ngStyle"], [1, "character-shadow"], [1, "character-body"]], template: function ForestComponent_Template(rf, ctx) {
-    if (rf & 1) {
-      \u0275\u0275elementStart(0, "main", 0)(1, "section", 1)(2, "p", 2);
-      \u0275\u0275text(3, "\u{1F331} UNA NUEVA AVENTURA");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(4, "h1");
-      \u0275\u0275text(5, "Bienvenido al");
-      \u0275\u0275element(6, "br");
-      \u0275\u0275elementStart(7, "span", 3);
-      \u0275\u0275text(8, "Bosque de Algoritmos");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(9, "p", 4);
-      \u0275\u0275text(10, "Aprende a programar mientras exploras un bosque lleno de aventuras, desaf\xEDos y misterios.");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(11, "button", 5);
-      \u0275\u0275listener("click", function ForestComponent_Template_button_click_11_listener() {
-        return ctx.openWorld1.emit();
-      });
-      \u0275\u0275text(12, "Comenzar aventura \u{1F680}");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(13, "section", 6);
-      \u0275\u0275element(14, "div", 7)(15, "div", 8)(16, "div", 9)(17, "div", 10)(18, "div", 11)(19, "div", 12)(20, "div", 13)(21, "div", 14)(22, "div", 15)(23, "div", 16)(24, "div", 17)(25, "div", 18)(26, "div", 19)(27, "div", 20);
-      \u0275\u0275namespaceSVG();
-      \u0275\u0275elementStart(28, "svg", 21);
-      \u0275\u0275element(29, "path", 22)(30, "path", 23)(31, "path", 24);
-      \u0275\u0275elementEnd();
-      \u0275\u0275namespaceHTML();
-      \u0275\u0275elementStart(32, "div", 25);
-      \u0275\u0275text(33, "\u{1F332}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(34, "div", 26);
-      \u0275\u0275text(35, "\u{1F333}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(36, "div", 27);
-      \u0275\u0275text(37, "\u{1F332}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(38, "div", 28);
-      \u0275\u0275text(39, "\u{1F333}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(40, "div", 29);
-      \u0275\u0275text(41, "\u{1F332}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(42, "div", 30);
-      \u0275\u0275text(43, "\u{1F332}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(44, "div", 31);
-      \u0275\u0275text(45, "\u{1F33F}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(46, "div", 32);
-      \u0275\u0275text(47, "\u{1F344}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(48, "div", 33);
-      \u0275\u0275text(49, "\u{1F338}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(50, "div", 34);
-      \u0275\u0275text(51, "\u{1F33E}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(52, "div", 35);
-      \u0275\u0275text(53, "\u{1F98B}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(54, "div", 36);
-      \u0275\u0275text(55, "\u{1F426}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(56, "button", 37);
-      \u0275\u0275listener("click", function ForestComponent_Template_button_click_56_listener() {
-        return ctx.openWorld1.emit();
-      });
-      \u0275\u0275element(57, "span", 38);
-      \u0275\u0275elementStart(58, "span", 39);
-      \u0275\u0275text(59, "\u{1F331}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(60, "span", 40);
-      \u0275\u0275text(61, "Semillas");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(62, "span", 41);
-      \u0275\u0275text(63, "Secuencias");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(64, "button", 42);
-      \u0275\u0275listener("click", function ForestComponent_Template_button_click_64_listener() {
-        return ctx.openWorld2.emit();
-      });
-      \u0275\u0275element(65, "span", 38);
-      \u0275\u0275elementStart(66, "span", 39);
-      \u0275\u0275text(67, "\u{1F33F}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(68, "span", 40);
-      \u0275\u0275text(69, "Sendero");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(70, "span", 41);
-      \u0275\u0275text(71, "Variables");
-      \u0275\u0275elementEnd();
-      \u0275\u0275conditionalCreate(72, ForestComponent_Conditional_72_Template, 2, 0, "span", 43);
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(73, "button", 44);
-      \u0275\u0275listener("click", function ForestComponent_Template_button_click_73_listener() {
-        return ctx.openWorld3.emit();
-      });
-      \u0275\u0275element(74, "span", 38);
-      \u0275\u0275elementStart(75, "span", 39);
-      \u0275\u0275text(76, "\u{1F30A}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(77, "span", 40);
-      \u0275\u0275text(78, "R\xEDo");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(79, "span", 41);
-      \u0275\u0275text(80, "Condicionales");
-      \u0275\u0275elementEnd();
-      \u0275\u0275conditionalCreate(81, ForestComponent_Conditional_81_Template, 2, 0, "span", 43);
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(82, "div", 45);
-      \u0275\u0275element(83, "span", 46);
-      \u0275\u0275elementStart(84, "span", 47);
-      \u0275\u0275text(85, "\u{1F9D1}\u200D\u{1F680}");
-      \u0275\u0275elementEnd()()()();
-    }
-    if (rf & 2) {
-      \u0275\u0275advance(64);
-      \u0275\u0275classProp("locked", !ctx.game.level2Unlocked);
-      \u0275\u0275property("disabled", !ctx.game.level2Unlocked);
-      \u0275\u0275advance(8);
-      \u0275\u0275conditional(!ctx.game.level2Unlocked ? 72 : -1);
-      \u0275\u0275advance();
-      \u0275\u0275classProp("locked", !ctx.game.level3Unlocked);
-      \u0275\u0275property("disabled", !ctx.game.level3Unlocked);
-      \u0275\u0275advance(8);
-      \u0275\u0275conditional(!ctx.game.level3Unlocked ? 81 : -1);
-      \u0275\u0275advance();
-      \u0275\u0275classProp("walking", ctx.walking);
-      \u0275\u0275property("ngStyle", ctx.characterPos);
-    }
-  }, dependencies: [CommonModule, NgStyle], styles: ["\n/*# sourceMappingURL=forest.css.map */"] });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ForestComponent, [{
-    type: Component,
-    args: [{ selector: "app-forest", standalone: true, imports: [CommonModule], template: '<main class="forest-screen">\n  <section class="welcome-section">\n    <p class="badge">\u{1F331} UNA NUEVA AVENTURA</p>\n    <h1>Bienvenido al<br><span class="highlight">Bosque de Algoritmos</span></h1>\n    <p class="subtitle">Aprende a programar mientras exploras un bosque lleno de aventuras, desaf\xEDos y misterios.</p>\n    <button class="btn-primary" (click)="openWorld1.emit()">Comenzar aventura \u{1F680}</button>\n  </section>\n\n  <section class="map-section">\n    <!-- Cielo con degradado atmosf\xE9rico -->\n    <div class="sky"></div>\n    <!-- Rayos de sol difusos -->\n    <div class="sun-rays"></div>\n    <div class="sun"></div>\n    <div class="cloud c1"></div>\n    <div class="cloud c2"></div>\n    <div class="cloud c3"></div>\n\n    <!-- Monta\xF1as lejanas para dar escala y profundidad -->\n    <div class="mountain m1"></div>\n    <div class="mountain m2"></div>\n    <div class="mountain m3"></div>\n\n    <!-- L\xEDnea de \xE1rboles del bosque de fondo -->\n    <div class="treeline"></div>\n\n    <!-- Colinas en capas -->\n    <div class="hill hill-back"></div>\n    <div class="hill hill-mid"></div>\n    <div class="hill hill-front"></div>\n\n    <!-- Bruma suave sobre las colinas -->\n    <div class="mist"></div>\n\n    <!-- Sendero serpenteante que recorre los tres mundos -->\n    <svg class="forest-path" viewBox="0 0 1000 1000" preserveAspectRatio="none">\n      <path class="path-base"\n            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"\n            fill="none" stroke="#d9ad6b" stroke-width="34" stroke-linecap="round"/>\n      <path class="path-edge"\n            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"\n            fill="none" stroke="#e9c988" stroke-width="26" stroke-linecap="round"/>\n      <path class="path-dashes"\n            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"\n            fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 30" opacity="0.65"/>\n    </svg>\n\n    <!-- \xC1rboles decorativos con profundidad (parallax por tama\xF1o y opacidad) -->\n    <div class="tree t1">\u{1F332}</div>\n    <div class="tree t2">\u{1F333}</div>\n    <div class="tree t3">\u{1F332}</div>\n    <div class="tree t4">\u{1F333}</div>\n    <div class="tree t5">\u{1F332}</div>\n    <div class="tree t6">\u{1F332}</div>\n    <div class="bush b1">\u{1F33F}</div>\n    <div class="bush b2">\u{1F344}</div>\n    <div class="bush b3">\u{1F338}</div>\n    <div class="bush b4">\u{1F33E}</div>\n    <div class="bird bird1">\u{1F98B}</div>\n    <div class="bird bird2">\u{1F426}</div>\n\n    <button class="world-node w1" (click)="openWorld1.emit()">\n      <span class="node-glow"></span>\n      <span class="node-icon">\u{1F331}</span>\n      <span class="node-title">Semillas</span>\n      <span class="node-subtitle">Secuencias</span>\n    </button>\n\n    <button class="world-node w2" [class.locked]="!game.level2Unlocked" [disabled]="!game.level2Unlocked" (click)="openWorld2.emit()">\n      <span class="node-glow"></span>\n      <span class="node-icon">\u{1F33F}</span>\n      <span class="node-title">Sendero</span>\n      <span class="node-subtitle">Variables</span>\n      @if (!game.level2Unlocked) { <span class="lock">\u{1F512}</span> }\n    </button>\n\n    <button class="world-node w3" [class.locked]="!game.level3Unlocked" [disabled]="!game.level3Unlocked" (click)="openWorld3.emit()">\n      <span class="node-glow"></span>\n      <span class="node-icon">\u{1F30A}</span>\n      <span class="node-title">R\xEDo</span>\n      <span class="node-subtitle">Condicionales</span>\n      @if (!game.level3Unlocked) { <span class="lock">\u{1F512}</span> }\n    </button>\n\n    <!-- El explorador camina por el sendero hasta el mundo desbloqueado -->\n    <div class="character-marker" [class.walking]="walking" [ngStyle]="characterPos">\n      <span class="character-shadow"></span>\n      <span class="character-body">\u{1F9D1}\u200D\u{1F680}</span>\n    </div>\n  </section>\n</main>\n', styles: ["/* src/app/worlds/forest/forest.css */\n/*# sourceMappingURL=forest.css.map */\n"] }]
-  }], () => [{ type: GameStateService }], { openWorld1: [{
-    type: Output
-  }], openWorld2: [{
-    type: Output
-  }], openWorld3: [{
-    type: Output
-  }] });
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ForestComponent, { className: "ForestComponent", filePath: "src/app/worlds/forest/forest.ts", lineNumber: 19 });
-})();
-
-// src/app/models/activities.ts
-var SANDWICH_CORRECT_ORDER = ["\u{1F35E}", "\u{1F96C}", "\u{1F9C0}", "\u{1F96A}"];
-var PLANT_GROWTH_ORDER = ["plant", "water", "sun"];
-var PACKING_INITIAL_ORDER = ["apple", "close", "water"];
-var PACKING_CORRECT_ORDER = ["apple", "water", "close"];
-var FINAL_RESOURCE_EMOJI = {
-  water: "\u{1F4A7}",
-  sun: "\u2600\uFE0F",
-  soil: "\u{1F331}"
-};
-var FINAL_RESOURCE_LABEL = {
-  water: "Agua",
-  sun: "Luz",
-  soil: "Tierra"
-};
-var SEED_GROWTH_STAGES = ["\u{1F331}", "\u{1F33F}", "\u{1F333}", "\u{1F332}"];
-
-// src/app/worlds/world-1-seeds/world-1.ts
-var _c0 = () => [1, 2, 3, 4];
-var _c1 = () => [0, 1, 2, 3, 4];
-var _c2 = () => [0, 1, 2, 3];
-var _c3 = () => [0, 1, 2];
-var _forTrack0 = ($index, $item) => $item.type;
-function World1Component_Conditional_12_Conditional_5_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "div", 11);
-    \u0275\u0275text(2, "\u{1F9D1}\u200D\u{1F680}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 12)(4, "h2");
-    \u0275\u0275text(5, "\xA1Hola, soy Nori!");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "p");
-    \u0275\u0275text(7, "Soy un astronauta explorador. \xBFMe ayudas a preparar mi s\xE1ndwich favorito antes de mi pr\xF3xima misi\xF3n?");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(8, "div", 13)(9, "h3");
-    \u0275\u0275text(10, "\u{1F9E9} \xBFQu\xE9 es una secuencia?");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "p");
-    \u0275\u0275text(12, "Una ");
-    \u0275\u0275elementStart(13, "strong");
-    \u0275\u0275text(14, "secuencia");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(15, " es una lista de pasos en orden. \xA1Como una receta!");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "div", 14)(17, "div", 15)(18, "span", 16);
-    \u0275\u0275text(19, "1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(20, " Poner el pan \u{1F35E}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(21, "div", 15)(22, "span", 16);
-    \u0275\u0275text(23, "2");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(24, " Agregar lechuga \u{1F96C}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(25, "div", 15)(26, "span", 16);
-    \u0275\u0275text(27, "3");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(28, " Poner queso \u{1F9C0}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(29, "div", 15)(30, "span", 16);
-    \u0275\u0275text(31, "4");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(32, " Cerrar el s\xE1ndwich \u{1F96A}");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(33, "button", 17);
-    \u0275\u0275listener("click", function World1Component_Conditional_12_Conditional_5_Template_button_click_33_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.goToSandwichGame());
-    });
-    \u0275\u0275text(34, "\xA1Vamos a cocinar! \u2192");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_12_Conditional_6_For_12_Conditional_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 41);
-    \u0275\u0275text(1, "\u2713");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_12_Conditional_6_For_12_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 38);
-    \u0275\u0275listener("dragstart", function World1Component_Conditional_12_Conditional_6_For_12_Template_button_dragstart_0_listener() {
-      const opt_r5 = \u0275\u0275restoreView(_r4).$implicit;
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.onDragStart(opt_r5));
-    })("dragend", function World1Component_Conditional_12_Conditional_6_For_12_Template_button_dragend_0_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.onDragEnd());
-    })("click", function World1Component_Conditional_12_Conditional_6_For_12_Template_button_click_0_listener() {
-      const opt_r5 = \u0275\u0275restoreView(_r4).$implicit;
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.addIngredient(opt_r5));
-    });
-    \u0275\u0275elementStart(1, "span", 39);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 40);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(5, World1Component_Conditional_12_Conditional_6_For_12_Conditional_5_Template, 2, 0, "span", 41);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const opt_r5 = ctx.$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("used", ctx_r1.sandwichBuild.includes(opt_r5))("dragging", ctx_r1.draggingIngredient === opt_r5);
-    \u0275\u0275property("disabled", ctx_r1.sandwichBuild.includes(opt_r5));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(opt_r5);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.getIngredientName(opt_r5));
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.sandwichBuild.includes(opt_r5) ? 5 : -1);
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_41_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 33)(1, "div", 42);
-    \u0275\u0275text(2, "\u{1F37D}\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "p", 43);
-    \u0275\u0275text(4, "Arrastra o toca los ingredientes");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 44);
-    \u0275\u0275text(6, "Empieza con el pan \u{1F35E}");
-    \u0275\u0275elementEnd()();
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_42_For_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 50)(1, "span", 51);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 52);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 53);
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const layer_r6 = ctx.$implicit;
-    const \u0275$index_179_r7 = ctx.$index;
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275styleProp("z-index", 10 - \u0275$index_179_r7);
-    \u0275\u0275property("ngClass", ctx_r1.layerClass(layer_r6));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(layer_r6);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.getIngredientName(layer_r6));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275$index_179_r7 + 1);
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_42_For_6_Conditional_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275text(0, " \u2713 ");
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_42_For_6_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 54);
-    \u0275\u0275conditionalCreate(1, World1Component_Conditional_12_Conditional_6_Conditional_42_For_6_Conditional_1_Template, 1, 0);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const step_r8 = ctx.$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275classProp("filled", ctx_r1.sandwichBuild.length >= step_r8);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.sandwichBuild.length >= step_r8 ? 1 : -1);
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_42_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 45);
-    \u0275\u0275repeaterCreate(1, World1Component_Conditional_12_Conditional_6_Conditional_42_For_2_Template, 7, 6, "div", 46, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 47)(4, "div", 48);
-    \u0275\u0275repeaterCreate(5, World1Component_Conditional_12_Conditional_6_Conditional_42_For_6_Template, 2, 3, "span", 49, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r1.sandwichBuild);
-    \u0275\u0275advance(4);
-    \u0275\u0275repeater(\u0275\u0275pureFunction0(0, _c0));
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_44_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 55);
-    \u0275\u0275listener("click", function World1Component_Conditional_12_Conditional_6_Conditional_44_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      ctx_r1.resetSandwich();
-      return \u0275\u0275resetView(ctx_r1.goToSandwichGame());
-    });
-    \u0275\u0275text(1, " \u{1F504} Reiniciar ");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_45_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 56);
-    \u0275\u0275listener("click", function World1Component_Conditional_12_Conditional_6_Conditional_45_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r10);
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.checkSandwich());
-    });
-    \u0275\u0275text(1, " \u2728 \xA1Verificar s\xE1ndwich! ");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_46_Conditional_5_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 61);
-    \u0275\u0275listener("click", function World1Component_Conditional_12_Conditional_6_Conditional_46_Conditional_5_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r11);
-      const ctx_r1 = \u0275\u0275nextContext(4);
-      ctx_r1.resetSandwich();
-      return \u0275\u0275resetView(ctx_r1.goToSandwichGame());
-    });
-    \u0275\u0275text(1, " \u{1F504} Intentar de nuevo ");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Conditional_46_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 57)(1, "span", 58);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 59);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(5, World1Component_Conditional_12_Conditional_6_Conditional_46_Conditional_5_Template, 2, 0, "button", 60);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", !ctx_r1.sandwichDone)("success", ctx_r1.sandwichDone);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.sandwichDone ? "\u{1F389}" : "\u{1F605}");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.sandwichFeedback);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(!ctx_r1.sandwichDone ? 5 : -1);
-  }
-}
-function World1Component_Conditional_12_Conditional_6_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 18)(1, "div", 19)(2, "div", 20)(3, "span", 21);
-    \u0275\u0275text(4, "\u{1F9FA}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 22)(6, "h3");
-    \u0275\u0275text(7, "Ingredientes");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "p", 23);
-    \u0275\u0275text(9, "Toca para agregar al s\xE1ndwich");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(10, "div", 24);
-    \u0275\u0275repeaterCreate(11, World1Component_Conditional_12_Conditional_6_For_12_Template, 6, 8, "button", 25, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "div", 26)(14, "span", 27);
-    \u0275\u0275text(15, "\u{1F4CB} Orden correcto:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "div", 28)(17, "span", 29);
-    \u0275\u0275text(18, "1. \u{1F35E}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(19, "span", 30);
-    \u0275\u0275text(20, "\u2192");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(21, "span", 29);
-    \u0275\u0275text(22, "2. \u{1F96C}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(23, "span", 30);
-    \u0275\u0275text(24, "\u2192");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(25, "span", 29);
-    \u0275\u0275text(26, "3. \u{1F9C0}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "span", 30);
-    \u0275\u0275text(28, "\u2192");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(29, "span", 29);
-    \u0275\u0275text(30, "4. \u{1F96A}");
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(31, "div", 31);
-    \u0275\u0275listener("dragover", function World1Component_Conditional_12_Conditional_6_Template_div_dragover_31_listener($event) {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onDragOver($event));
-    })("dragleave", function World1Component_Conditional_12_Conditional_6_Template_div_dragleave_31_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onDragLeave());
-    })("drop", function World1Component_Conditional_12_Conditional_6_Template_div_drop_31_listener($event) {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onDrop($event));
-    });
-    \u0275\u0275elementStart(32, "div", 20)(33, "span", 21);
-    \u0275\u0275text(34, "\u{1F37D}\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(35, "div", 22)(36, "h3");
-    \u0275\u0275text(37, "Tu S\xE1ndwich");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(38, "p", 23);
-    \u0275\u0275text(39);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(40, "div", 32);
-    \u0275\u0275conditionalCreate(41, World1Component_Conditional_12_Conditional_6_Conditional_41_Template, 7, 0, "div", 33)(42, World1Component_Conditional_12_Conditional_6_Conditional_42_Template, 7, 1);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(43, "div", 34);
-    \u0275\u0275conditionalCreate(44, World1Component_Conditional_12_Conditional_6_Conditional_44_Template, 2, 0, "button", 35);
-    \u0275\u0275conditionalCreate(45, World1Component_Conditional_12_Conditional_6_Conditional_45_Template, 2, 0, "button", 36);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275conditionalCreate(46, World1Component_Conditional_12_Conditional_6_Conditional_46_Template, 6, 7, "div", 37);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(11);
-    \u0275\u0275repeater(ctx_r1.sandwichOptions);
-    \u0275\u0275advance(6);
-    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 1);
-    \u0275\u0275advance(4);
-    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 2);
-    \u0275\u0275advance(4);
-    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 3);
-    \u0275\u0275advance(4);
-    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 4);
-    \u0275\u0275advance(2);
-    \u0275\u0275classProp("drop-active", ctx_r1.dropReady)("has-items", ctx_r1.sandwichBuild.length > 0);
-    \u0275\u0275advance(8);
-    \u0275\u0275textInterpolate1("", ctx_r1.sandwichBuild.length, " de 4 ingredientes");
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.sandwichBuild.length === 0 ? 41 : 42);
-    \u0275\u0275advance(3);
-    \u0275\u0275conditional(ctx_r1.sandwichBuild.length > 0 && ctx_r1.sandwichBuild.length < 4 ? 44 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.sandwichBuild.length === 4 ? 45 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.sandwichFeedback ? 46 : -1);
-  }
-}
-function World1Component_Conditional_12_Conditional_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r12 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 9)(1, "div", 62)(2, "div", 63);
-    \u0275\u0275text(3, "\u{1F38A}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 64);
-    \u0275\u0275text(5, "\u2B50");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "div", 65);
-    \u0275\u0275text(7, "\u{1F389}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 66);
-    \u0275\u0275text(9, "\u2728");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "div", 67);
-    \u0275\u0275text(11, "\u{1F31F}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 68);
-    \u0275\u0275text(13, "\u{1F38A}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "div", 69);
-    \u0275\u0275text(15, "\u{1F4AB}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "div", 70);
-    \u0275\u0275text(17, "\u{1F389}");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(18, "div", 71)(19, "div", 72);
-    \u0275\u0275text(20, "\u{1F9D1}\u200D\u{1F680}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(21, "div", 73)(22, "span", 74);
-    \u0275\u0275text(23, "\xA1Delicioso!");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(24, "h2", 75)(25, "span", 76);
-    \u0275\u0275text(26, "\u{1F3C6}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(27, " \xA1Genial, lo lograste! ");
-    \u0275\u0275elementStart(28, "span", 76);
-    \u0275\u0275text(29, "\u{1F3C6}");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(30, "p", 77);
-    \u0275\u0275text(31, "Tu s\xE1ndwich est\xE1 perfecto");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(32, "div", 78)(33, "div", 79);
-    \u0275\u0275element(34, "div", 80);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(35, "div", 81)(36, "div", 82)(37, "span", 83);
-    \u0275\u0275text(38, "\u2022 \u2022 \u2022");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275element(39, "div", 84);
-    \u0275\u0275elementStart(40, "div", 85);
-    \u0275\u0275element(41, "span", 86);
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(42, "div", 87);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(43, "div", 88)(44, "span", 89);
-    \u0275\u0275text(45, "\u2728");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(46, "span", 90);
-    \u0275\u0275text(47, "\u2B50");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(48, "span", 91);
-    \u0275\u0275text(49, "\u2728");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(50, "div", 92)(51, "div", 93)(52, "span", 94);
-    \u0275\u0275text(53, "\u26A1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(54, "span", 95);
-    \u0275\u0275text(55, "+10");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(56, "span", 96);
-    \u0275\u0275text(57, "XP");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(58, "div", 97)(59, "span", 94);
-    \u0275\u0275text(60, "\u{1F331}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(61, "span", 95);
-    \u0275\u0275text(62, "+1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(63, "span", 96);
-    \u0275\u0275text(64, "Semilla");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(65, "button", 98);
-    \u0275\u0275listener("click", function World1Component_Conditional_12_Conditional_7_Template_button_click_65_listener() {
-      \u0275\u0275restoreView(_r12);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.nextActivity());
-    });
-    \u0275\u0275elementStart(66, "span", 99);
-    \u0275\u0275text(67, "Siguiente aventura");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(68, "span", 100);
-    \u0275\u0275text(69, "\u{1F680}");
-    \u0275\u0275elementEnd()()();
-  }
-}
-function World1Component_Conditional_12_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
-    \u0275\u0275text(2, "ACTIVIDAD 1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "h1");
-    \u0275\u0275text(4, "Conoce a Nori \u{1F9D1}\u200D\u{1F680}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(5, World1Component_Conditional_12_Conditional_5_Template, 35, 0)(6, World1Component_Conditional_12_Conditional_6_Template, 47, 17)(7, World1Component_Conditional_12_Conditional_7_Template, 70, 0, "div", 9);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(5);
-    \u0275\u0275conditional(ctx_r1.sandwichStep === "intro" ? 5 : ctx_r1.sandwichStep === "game" ? 6 : ctx_r1.sandwichDone ? 7 : -1);
-  }
-}
-function World1Component_Conditional_13_Conditional_16_Conditional_9_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 109)(1, "span", 138);
-    \u0275\u0275text(2, "\u{1F4A7}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 139);
-    \u0275\u0275text(4, "\u{1F4A7}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 140);
-    \u0275\u0275text(6, "\u{1F4A7}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "span", 141);
-    \u0275\u0275text(8, "\u{1F4A7}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "span", 142);
-    \u0275\u0275text(10, "\u{1F4A7}");
-    \u0275\u0275elementEnd()();
-  }
-}
-function World1Component_Conditional_13_Conditional_16_Conditional_13_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 113)(1, "span", 143);
-    \u0275\u0275text(2, "\u{1F573}\uFE0F");
-    \u0275\u0275elementEnd()();
-  }
-}
-function World1Component_Conditional_13_Conditional_16_Conditional_14_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 114)(1, "span", 144);
-    \u0275\u0275text(2, "\u{1F331}");
-    \u0275\u0275elementEnd()();
-  }
-}
-function World1Component_Conditional_13_Conditional_16_Conditional_15_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 115);
-    \u0275\u0275element(1, "div", 145);
-    \u0275\u0275elementStart(2, "div", 146)(3, "span", 147);
-    \u0275\u0275text(4, "\u{1F343}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 148);
-    \u0275\u0275text(6, "\u{1F343}");
-    \u0275\u0275elementEnd()()();
-  }
-}
-function World1Component_Conditional_13_Conditional_16_Conditional_16_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 116)(1, "div", 149);
-    \u0275\u0275text(2, "\u{1F33B}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(3, "div", 150);
-    \u0275\u0275elementStart(4, "div", 151)(5, "span", 152);
-    \u0275\u0275text(6, "\u{1F33F}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "span", 153);
-    \u0275\u0275text(8, "\u{1F33F}");
-    \u0275\u0275elementEnd()()();
-  }
-}
-function World1Component_Conditional_13_Conditional_16_Conditional_53_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 133);
-    \u0275\u0275text(1, "Toca una acci\xF3n para empezar \u{1F446}");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_13_Conditional_16_For_55_Conditional_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r14 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 160);
-    \u0275\u0275listener("click", function World1Component_Conditional_13_Conditional_16_For_55_Conditional_7_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r14);
-      const $index_r15 = \u0275\u0275nextContext().$index;
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.removePlantBlock($index_r15));
-    });
-    \u0275\u0275text(1, "\u2715");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_13_Conditional_16_For_55_Conditional_8_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 159);
-    \u0275\u0275text(1, "\u2192");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_13_Conditional_16_For_55_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 154)(1, "span", 155);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 156);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 157);
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World1Component_Conditional_13_Conditional_16_For_55_Conditional_7_Template, 2, 0, "button", 158);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(8, World1Component_Conditional_13_Conditional_16_For_55_Conditional_8_Template, 2, 0, "span", 159);
-  }
-  if (rf & 2) {
-    const step_r16 = ctx.$implicit;
-    const $index_r15 = ctx.$index;
-    const \u0275$index_505_r17 = ctx.$index;
-    const \u0275$count_505_r18 = ctx.$count;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("running", ctx_r1.plantActiveStep === $index_r15)("done", ctx_r1.plantActiveStep > $index_r15 || ctx_r1.plantDone);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate($index_r15 + 1);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.actionEmoji(step_r16));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.actionLabel(step_r16));
-    \u0275\u0275advance();
-    \u0275\u0275conditional(!ctx_r1.plantRunning && !ctx_r1.plantDone ? 7 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(!(\u0275$index_505_r17 === \u0275$count_505_r18 - 1) ? 8 : -1);
-  }
-}
-function World1Component_Conditional_13_Conditional_16_Conditional_61_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 161)(1, "span", 162);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 163);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", ctx_r1.plantFeedback.includes("Ups") || ctx_r1.plantFeedback.includes("Casi") || ctx_r1.plantFeedback.includes("Primero"))("success", !(ctx_r1.plantFeedback.includes("Ups") || ctx_r1.plantFeedback.includes("Casi") || ctx_r1.plantFeedback.includes("Primero")));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.plantFeedback.includes("Ups") || ctx_r1.plantFeedback.includes("Casi") || ctx_r1.plantFeedback.includes("Primero") ? "\u{1F914}" : "\u2728");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.plantFeedback);
-  }
-}
-function World1Component_Conditional_13_Conditional_16_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r13 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 102)(1, "div", 104)(2, "div", 105)(3, "div", 106);
-    \u0275\u0275text(4, "\u2601\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 107);
-    \u0275\u0275text(6, "\u2601\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "div", 108);
-    \u0275\u0275text(8, "\u{1F31E}");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(9, World1Component_Conditional_13_Conditional_16_Conditional_9_Template, 11, 0, "div", 109);
-    \u0275\u0275elementStart(10, "div", 110)(11, "div", 111)(12, "div", 112);
-    \u0275\u0275conditionalCreate(13, World1Component_Conditional_13_Conditional_16_Conditional_13_Template, 3, 0, "div", 113)(14, World1Component_Conditional_13_Conditional_16_Conditional_14_Template, 3, 0, "div", 114)(15, World1Component_Conditional_13_Conditional_16_Conditional_15_Template, 7, 0, "div", 115)(16, World1Component_Conditional_13_Conditional_16_Conditional_16_Template, 9, 0, "div", 116);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(17, "div", 117)(18, "span", 118);
-    \u0275\u0275text(19, "\u{1F33E}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(20, "span", 119);
-    \u0275\u0275text(21, "\u{1F33F}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 120);
-    \u0275\u0275text(23, "\u{1FAA8}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "span", 121);
-    \u0275\u0275text(25, "\u{1F33E}");
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(26, "div", 122)(27, "div", 123)(28, "h3");
-    \u0275\u0275text(29, "\u{1F9E9} Arma tu secuencia");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "p", 124);
-    \u0275\u0275text(31, "Elige las acciones en orden y luego pulsa Ejecutar");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(32, "p", 125);
-    \u0275\u0275text(33, "Acciones disponibles");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(34, "div", 126)(35, "button", 127);
-    \u0275\u0275listener("click", function World1Component_Conditional_13_Conditional_16_Template_button_click_35_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addPlantBlock("plant"));
-    });
-    \u0275\u0275elementStart(36, "span", 128);
-    \u0275\u0275text(37, "\u{1F331}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(38, "span", 129);
-    \u0275\u0275text(39, "Plantar");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(40, "button", 130);
-    \u0275\u0275listener("click", function World1Component_Conditional_13_Conditional_16_Template_button_click_40_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addPlantBlock("water"));
-    });
-    \u0275\u0275elementStart(41, "span", 128);
-    \u0275\u0275text(42, "\u{1F4A7}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(43, "span", 129);
-    \u0275\u0275text(44, "Regar");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(45, "button", 131);
-    \u0275\u0275listener("click", function World1Component_Conditional_13_Conditional_16_Template_button_click_45_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addPlantBlock("sun"));
-    });
-    \u0275\u0275elementStart(46, "span", 128);
-    \u0275\u0275text(47, "\u2600\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(48, "span", 129);
-    \u0275\u0275text(49, "Sol");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(50, "p", 125);
-    \u0275\u0275text(51);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(52, "div", 132);
-    \u0275\u0275conditionalCreate(53, World1Component_Conditional_13_Conditional_16_Conditional_53_Template, 2, 0, "span", 133);
-    \u0275\u0275repeaterCreate(54, World1Component_Conditional_13_Conditional_16_For_55_Template, 9, 9, null, null, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(56, "div", 134)(57, "button", 135);
-    \u0275\u0275listener("click", function World1Component_Conditional_13_Conditional_16_Template_button_click_57_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.runPlantSequence());
-    });
-    \u0275\u0275text(58);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(59, "button", 136);
-    \u0275\u0275listener("click", function World1Component_Conditional_13_Conditional_16_Template_button_click_59_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.clearPlantSequence());
-    });
-    \u0275\u0275text(60, " \u{1F5D1}\uFE0F Borrar ");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(61, World1Component_Conditional_13_Conditional_16_Conditional_61_Template, 5, 6, "div", 137);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(7);
-    \u0275\u0275classProp("active", ctx_r1.plantActions.includes("sun"));
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.plantActions.includes("water") && !ctx_r1.plantActions.includes("sun") ? 9 : -1);
-    \u0275\u0275advance(4);
-    \u0275\u0275conditional(ctx_r1.plantStage === "empty" ? 13 : ctx_r1.plantStage === "seed" ? 14 : ctx_r1.plantStage === "sprout" ? 15 : 16);
-    \u0275\u0275advance(22);
-    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length >= 3);
-    \u0275\u0275advance(5);
-    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length >= 3);
-    \u0275\u0275advance(5);
-    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length >= 3);
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1("Tu programa (", ctx_r1.plantSequence.length, "/3)");
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.plantSequence.length === 0 ? 53 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r1.plantSequence);
-    \u0275\u0275advance(3);
-    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length === 0);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.plantRunning ? "\u{1F331} Creciendo..." : "\u25B6 Ejecutar", " ");
-    \u0275\u0275advance();
-    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length === 0);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.plantFeedback ? 61 : -1);
-  }
-}
-function World1Component_Conditional_13_Conditional_17_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r19 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 103)(1, "div", 164)(2, "div", 165)(3, "span", 166);
-    \u0275\u0275text(4, "\u{1F98B}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 167);
-    \u0275\u0275text(6, "\u{1F98B}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "span", 168);
-    \u0275\u0275text(8, "\u{1F41D}");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 169);
-    \u0275\u0275text(10, "\u2600\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "div", 170);
-    \u0275\u0275element(12, "div", 171);
-    \u0275\u0275elementStart(13, "span", 172);
-    \u0275\u0275text(14, "\u{1F33B}");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 173)(16, "span", 174);
-    \u0275\u0275text(17, "\u2728");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "span", 175);
-    \u0275\u0275text(19, "\u2B50");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(20, "span", 176);
-    \u0275\u0275text(21, "\u2728");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 177);
-    \u0275\u0275text(23, "\u{1F31F}");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(24, "h2", 178);
-    \u0275\u0275text(25, "\u{1F389} \xA1La planta floreci\xF3! \u{1F389}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(26, "p", 179);
-    \u0275\u0275text(27, "Seguiste la secuencia correcta");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(28, "div", 180)(29, "span", 181);
-    \u0275\u0275text(30, "\u{1F331} Plantar");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(31, "span", 182);
-    \u0275\u0275text(32, "\u2192");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(33, "span", 181);
-    \u0275\u0275text(34, "\u{1F4A7} Regar");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(35, "span", 182);
-    \u0275\u0275text(36, "\u2192");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(37, "span", 181);
-    \u0275\u0275text(38, "\u2600\uFE0F Sol");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(39, "span", 182);
-    \u0275\u0275text(40, "=");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(41, "span", 183);
-    \u0275\u0275text(42, "\u{1F33B}");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(43, "div", 92)(44, "div", 93)(45, "span", 94);
-    \u0275\u0275text(46, "\u26A1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(47, "span", 95);
-    \u0275\u0275text(48, "+10");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(49, "span", 96);
-    \u0275\u0275text(50, "XP");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(51, "div", 97)(52, "span", 94);
-    \u0275\u0275text(53, "\u{1F331}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(54, "span", 95);
-    \u0275\u0275text(55, "+1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(56, "span", 96);
-    \u0275\u0275text(57, "Semilla");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(58, "button", 98);
-    \u0275\u0275listener("click", function World1Component_Conditional_13_Conditional_17_Template_button_click_58_listener() {
-      \u0275\u0275restoreView(_r19);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.nextActivity());
-    });
-    \u0275\u0275elementStart(59, "span", 99);
-    \u0275\u0275text(60, "Siguiente aventura");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(61, "span", 100);
-    \u0275\u0275text(62, "\u{1F680}");
-    \u0275\u0275elementEnd()()();
-  }
-}
-function World1Component_Conditional_13_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
-    \u0275\u0275text(2, "ACTIVIDAD 2");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "h1");
-    \u0275\u0275text(4, "Haz crecer la planta \u{1F331}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 101);
-    \u0275\u0275text(6, "Nori quiere plantar una flor. Arma la secuencia de acciones en el orden correcto \u2014primero ");
-    \u0275\u0275elementStart(7, "strong");
-    \u0275\u0275text(8, "plantar");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(9, ", luego ");
-    \u0275\u0275elementStart(10, "strong");
-    \u0275\u0275text(11, "regar");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(12, " y al final dar ");
-    \u0275\u0275elementStart(13, "strong");
-    \u0275\u0275text(14, "sol");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(15, "\u2014 y pulsa Ejecutar para verla crecer.");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(16, World1Component_Conditional_13_Conditional_16_Template, 62, 13, "div", 102)(17, World1Component_Conditional_13_Conditional_17_Template, 63, 0, "div", 103);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(16);
-    \u0275\u0275conditional(!ctx_r1.plantDone ? 16 : 17);
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_1_Conditional_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 221);
-    \u0275\u0275text(1, "\u{1F9D1}\u200D\u{1F680}");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_1_Conditional_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 222);
-    \u0275\u0275text(1, "Casa");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 215)(1, "span", 220);
-    \u0275\u0275text(2, "\u{1F3E0}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(3, World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_1_Conditional_3_Template, 2, 0, "span", 221)(4, World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_1_Conditional_4_Template, 2, 0, "span", 222);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(5);
-    \u0275\u0275advance(3);
-    \u0275\u0275conditional(ctx_r1.routeCharPos.x === ctx_r1.routeGoal.x && ctx_r1.routeCharPos.y === ctx_r1.routeGoal.y ? 3 : 4);
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 216);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const col_r21 = \u0275\u0275nextContext().$implicit;
-    const row_r22 = \u0275\u0275nextContext().$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.getObstacleEmoji(col_r21, row_r22));
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 223)(1, "span", 224);
-    \u0275\u0275text(2, "\u{1F9D1}\u200D\u{1F680}");
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(5);
-    \u0275\u0275classProp("moving", ctx_r1.routeRunning)("direction-right", ctx_r1.routeCharDirection === "right")("direction-left", ctx_r1.routeCharDirection === "left")("direction-up", ctx_r1.routeCharDirection === "up")("direction-down", ctx_r1.routeCharDirection === "down")("hit", ctx_r1.routeHitObstacle);
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 218);
-    \u0275\u0275text(1, "\u{1F6A9}");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 219);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const col_r21 = \u0275\u0275nextContext().$implicit;
-    const row_r22 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate((col_r21 + row_r22) % 3 === 0 ? "\u{1F33F}" : "");
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_For_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 214);
-    \u0275\u0275conditionalCreate(1, World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_1_Template, 5, 1, "div", 215)(2, World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_2_Template, 2, 1, "span", 216)(3, World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_3_Template, 3, 12, "div", 217)(4, World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_4_Template, 2, 0, "span", 218);
-    \u0275\u0275conditionalCreate(5, World1Component_Conditional_14_Conditional_7_For_12_For_1_Conditional_5_Template, 2, 1, "span", 219);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const col_r21 = ctx.$implicit;
-    const row_r22 = \u0275\u0275nextContext().$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("goal-cell", col_r21 === ctx_r1.routeGoal.x && row_r22 === ctx_r1.routeGoal.y)("start-cell", col_r21 === 0 && row_r22 === 4)("obstacle-cell", ctx_r1.isObstacle(col_r21, row_r22))("char-cell", col_r21 === ctx_r1.routeCharPos.x && row_r22 === ctx_r1.routeCharPos.y && !ctx_r1.isObstacle(col_r21, row_r22));
-    \u0275\u0275advance();
-    \u0275\u0275conditional(col_r21 === ctx_r1.routeGoal.x && row_r22 === ctx_r1.routeGoal.y ? 1 : ctx_r1.isObstacle(col_r21, row_r22) ? 2 : col_r21 === ctx_r1.routeCharPos.x && row_r22 === ctx_r1.routeCharPos.y ? 3 : col_r21 === 0 && row_r22 === 4 && !(ctx_r1.routeCharPos.x === 0 && ctx_r1.routeCharPos.y === 4) ? 4 : -1);
-    \u0275\u0275advance(4);
-    \u0275\u0275conditional(!(col_r21 === ctx_r1.routeGoal.x && row_r22 === ctx_r1.routeGoal.y) && !ctx_r1.isObstacle(col_r21, row_r22) && !(col_r21 === ctx_r1.routeCharPos.x && row_r22 === ctx_r1.routeCharPos.y) && !(col_r21 === 0 && row_r22 === 4) ? 5 : -1);
-  }
-}
-function World1Component_Conditional_14_Conditional_7_For_12_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275repeaterCreate(0, World1Component_Conditional_14_Conditional_7_For_12_For_1_Template, 6, 10, "div", 213, \u0275\u0275repeaterTrackByIdentity);
-  }
-  if (rf & 2) {
-    \u0275\u0275repeater(\u0275\u0275pureFunction0(0, _c2));
-  }
-}
-function World1Component_Conditional_14_Conditional_7_Conditional_33_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 199)(1, "span", 225);
-    \u0275\u0275text(2, "\u{1F4DD}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 43);
-    \u0275\u0275text(4, "Agrega movimientos");
-    \u0275\u0275elementEnd()();
-  }
-}
-function World1Component_Conditional_14_Conditional_7_Conditional_34_For_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 227)(1, "span", 228);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 229);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const m_r23 = ctx.$implicit;
-    const \u0275$index_755_r24 = ctx.$index;
-    const ctx_r1 = \u0275\u0275nextContext(4);
-    \u0275\u0275classProp("executing", ctx_r1.routeRunning && \u0275$index_755_r24 === ctx_r1.getCurrentStep());
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275$index_755_r24 + 1);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.routeMoveEmoji(m_r23));
-  }
-}
-function World1Component_Conditional_14_Conditional_7_Conditional_34_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 200);
-    \u0275\u0275repeaterCreate(1, World1Component_Conditional_14_Conditional_7_Conditional_34_For_2_Template, 5, 4, "div", 226, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r1.routeBuild);
-  }
-}
-function World1Component_Conditional_14_Conditional_7_Conditional_65_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 230);
-    \u0275\u0275text(1, "\u23F3");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "span", 231);
-    \u0275\u0275text(3, "Ejecutando...");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_14_Conditional_7_Conditional_66_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 230);
-    \u0275\u0275text(1, "\u25B6\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "span", 231);
-    \u0275\u0275text(3, "\xA1Ejecutar!");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_14_Conditional_7_Conditional_67_Conditional_5_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r25 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 234);
-    \u0275\u0275listener("click", function World1Component_Conditional_14_Conditional_7_Conditional_67_Conditional_5_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r25);
-      const ctx_r1 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r1.resetRoute());
-    });
-    \u0275\u0275text(1, "\u{1F504} Reintentar");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_14_Conditional_7_Conditional_67_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 232)(1, "span", 162);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 59);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(5, World1Component_Conditional_14_Conditional_7_Conditional_67_Conditional_5_Template, 2, 0, "button", 233);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("success", ctx_r1.routeDone)("error", !ctx_r1.routeDone && ctx_r1.routeFeedback.includes("choc\xF3"))("warning", !ctx_r1.routeDone && !ctx_r1.routeFeedback.includes("choc\xF3"));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.routeDone ? "\u{1F389}" : ctx_r1.routeFeedback.includes("choc\xF3") ? "\u{1F4A5}" : "\u{1F914}", " ");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.routeFeedback);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(!ctx_r1.routeDone ? 5 : -1);
-  }
-}
-function World1Component_Conditional_14_Conditional_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r20 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 184)(1, "div", 186)(2, "div", 187)(3, "div", 188);
-    \u0275\u0275text(4, "\u2601\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 189);
-    \u0275\u0275text(6, "\u2601\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "div", 190);
-    \u0275\u0275text(8, "\u{1F324}\uFE0F");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 191)(10, "div", 192);
-    \u0275\u0275repeaterCreate(11, World1Component_Conditional_14_Conditional_7_For_12_Template, 2, 1, null, null, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "div", 193)(14, "span", 194)(15, "span", 195);
-    \u0275\u0275text(16, "\u{1F6A9}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(17, " Inicio");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "span", 194)(19, "span", 195);
-    \u0275\u0275text(20, "\u{1F3E0}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(21, " Meta");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 194)(23, "span", 195);
-    \u0275\u0275text(24, "\u{1FAA8}\u{1F333}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(25, " Obst\xE1culos");
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(26, "div", 196)(27, "div", 123)(28, "h3");
-    \u0275\u0275text(29, "\u{1F3AE} Tu Programa");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "p", 197);
-    \u0275\u0275text(31);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(32, "div", 198);
-    \u0275\u0275conditionalCreate(33, World1Component_Conditional_14_Conditional_7_Conditional_33_Template, 5, 0, "div", 199)(34, World1Component_Conditional_14_Conditional_7_Conditional_34_Template, 3, 0, "div", 200);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(35, "div", 201)(36, "div", 202)(37, "button", 203);
-    \u0275\u0275listener("click", function World1Component_Conditional_14_Conditional_7_Template_button_click_37_listener() {
-      \u0275\u0275restoreView(_r20);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addRouteMove("up"));
-    });
-    \u0275\u0275elementStart(38, "span", 204);
-    \u0275\u0275text(39, "\u2B06\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(40, "span", 205);
-    \u0275\u0275text(41, "Arriba");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(42, "div", 206)(43, "button", 207);
-    \u0275\u0275listener("click", function World1Component_Conditional_14_Conditional_7_Template_button_click_43_listener() {
-      \u0275\u0275restoreView(_r20);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addRouteMove("left"));
-    });
-    \u0275\u0275elementStart(44, "span", 204);
-    \u0275\u0275text(45, "\u2B05\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(46, "span", 205);
-    \u0275\u0275text(47, "Izq");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(48, "button", 208);
-    \u0275\u0275listener("click", function World1Component_Conditional_14_Conditional_7_Template_button_click_48_listener() {
-      \u0275\u0275restoreView(_r20);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.removeLastMove());
-    });
-    \u0275\u0275elementStart(49, "span", 204);
-    \u0275\u0275text(50, "\u{1F5D1}\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(51, "span", 205);
-    \u0275\u0275text(52, "Borrar");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(53, "button", 209);
-    \u0275\u0275listener("click", function World1Component_Conditional_14_Conditional_7_Template_button_click_53_listener() {
-      \u0275\u0275restoreView(_r20);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addRouteMove("right"));
-    });
-    \u0275\u0275elementStart(54, "span", 204);
-    \u0275\u0275text(55, "\u27A1\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(56, "span", 205);
-    \u0275\u0275text(57, "Der");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(58, "div", 202)(59, "button", 210);
-    \u0275\u0275listener("click", function World1Component_Conditional_14_Conditional_7_Template_button_click_59_listener() {
-      \u0275\u0275restoreView(_r20);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addRouteMove("down"));
-    });
-    \u0275\u0275elementStart(60, "span", 204);
-    \u0275\u0275text(61, "\u2B07\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(62, "span", 205);
-    \u0275\u0275text(63, "Abajo");
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(64, "button", 211);
-    \u0275\u0275listener("click", function World1Component_Conditional_14_Conditional_7_Template_button_click_64_listener() {
-      \u0275\u0275restoreView(_r20);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.runRoute());
-    });
-    \u0275\u0275conditionalCreate(65, World1Component_Conditional_14_Conditional_7_Conditional_65_Template, 4, 0)(66, World1Component_Conditional_14_Conditional_7_Conditional_66_Template, 4, 0);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(67, World1Component_Conditional_14_Conditional_7_Conditional_67_Template, 6, 9, "div", 212);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(11);
-    \u0275\u0275repeater(\u0275\u0275pureFunction0(12, _c1));
-    \u0275\u0275advance(20);
-    \u0275\u0275textInterpolate1("", ctx_r1.routeBuild.length, " / 6 movimientos");
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.routeBuild.length === 0 ? 33 : 34);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("disabled", ctx_r1.routeBuild.length >= 6 || ctx_r1.routeRunning);
-    \u0275\u0275advance(6);
-    \u0275\u0275property("disabled", ctx_r1.routeBuild.length >= 6 || ctx_r1.routeRunning);
-    \u0275\u0275advance(5);
-    \u0275\u0275property("disabled", ctx_r1.routeBuild.length === 0 || ctx_r1.routeRunning);
-    \u0275\u0275advance(5);
-    \u0275\u0275property("disabled", ctx_r1.routeBuild.length >= 6 || ctx_r1.routeRunning);
-    \u0275\u0275advance(6);
-    \u0275\u0275property("disabled", ctx_r1.routeBuild.length >= 6 || ctx_r1.routeRunning);
-    \u0275\u0275advance(5);
-    \u0275\u0275classProp("running", ctx_r1.routeRunning);
-    \u0275\u0275property("disabled", ctx_r1.routeBuild.length === 0 || ctx_r1.routeRunning);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.routeRunning ? 65 : 66);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.routeFeedback ? 67 : -1);
-  }
-}
-function World1Component_Conditional_14_Conditional_8_For_27_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 244);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const m_r27 = ctx.$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.routeMoveEmoji(m_r27));
-  }
-}
-function World1Component_Conditional_14_Conditional_8_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r26 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 185)(1, "div", 164)(2, "div", 62)(3, "div", 63);
-    \u0275\u0275text(4, "\u{1F38A}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 64);
-    \u0275\u0275text(6, "\u2B50");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "div", 65);
-    \u0275\u0275text(8, "\u{1F389}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "div", 66);
-    \u0275\u0275text(10, "\u2728");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(11, "div", 235);
-    \u0275\u0275element(12, "div", 236);
-    \u0275\u0275elementStart(13, "span", 237);
-    \u0275\u0275text(14, "\u{1F3E0}");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 238)(16, "span", 239);
-    \u0275\u0275text(17, "\u{1F9D1}\u200D\u{1F680}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "div", 240)(19, "span");
-    \u0275\u0275text(20, "\xA1Llegu\xE9!");
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(21, "h2", 241);
-    \u0275\u0275text(22, "\u{1F3C6} \xA1Nori lleg\xF3 a casa! \u{1F3C6}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(23, "p", 242);
-    \u0275\u0275text(24, "Tu programa funcion\xF3 perfectamente");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(25, "div", 243);
-    \u0275\u0275repeaterCreate(26, World1Component_Conditional_14_Conditional_8_For_27_Template, 2, 1, "span", 244, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(28, "div", 92)(29, "div", 93)(30, "span", 94);
-    \u0275\u0275text(31, "\u26A1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(32, "span", 95);
-    \u0275\u0275text(33, "+10");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(34, "span", 96);
-    \u0275\u0275text(35, "XP");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(36, "div", 97)(37, "span", 94);
-    \u0275\u0275text(38, "\u{1F331}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(39, "span", 95);
-    \u0275\u0275text(40, "+1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(41, "span", 96);
-    \u0275\u0275text(42, "Semilla");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(43, "button", 98);
-    \u0275\u0275listener("click", function World1Component_Conditional_14_Conditional_8_Template_button_click_43_listener() {
-      \u0275\u0275restoreView(_r26);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.nextActivity());
-    });
-    \u0275\u0275elementStart(44, "span", 99);
-    \u0275\u0275text(45, "Siguiente aventura");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(46, "span", 100);
-    \u0275\u0275text(47, "\u{1F680}");
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(26);
-    \u0275\u0275repeater(ctx_r1.routeBuild);
-  }
-}
-function World1Component_Conditional_14_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
-    \u0275\u0275text(2, "ACTIVIDAD 3");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "h1");
-    \u0275\u0275text(4, "Lleva a Nori a casa \u{1F3E0}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 101);
-    \u0275\u0275text(6, "Programa la ruta de Nori evitando los obst\xE1culos. \xA1Cuidado con las rocas y \xE1rboles!");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World1Component_Conditional_14_Conditional_7_Template, 68, 13, "div", 184)(8, World1Component_Conditional_14_Conditional_8_Template, 48, 0, "div", 185);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r1.routeDone ? 7 : 8);
-  }
-}
-function World1Component_Conditional_15_Conditional_7_For_13_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const item_r29 = ctx.$implicit;
-    const $index_r30 = ctx.$index;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classMap(\u0275\u0275interpolate1("bp-item bp-item-", $index_r30));
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.packingEmoji(item_r29));
-  }
-}
-function World1Component_Conditional_15_Conditional_7_Conditional_17_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 262);
-    \u0275\u0275text(1, "\u2728");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "span", 263);
-    \u0275\u0275text(3, "\u2B50");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "span", 264);
-    \u0275\u0275text(5, "\u2728");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_15_Conditional_7_Conditional_18_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 257);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.packingClosed || ctx_r1.packingDone ? "\xA1Todo empacado! \u{1F389}" : "Guardando: " + ctx_r1.packingItemsIn.length + " objeto(s)", " ");
-  }
-}
-function World1Component_Conditional_15_Conditional_7_For_24_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r31 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 265);
-    \u0275\u0275listener("click", function World1Component_Conditional_15_Conditional_7_For_24_Template_button_click_0_listener() {
-      const \u0275$index_984_r32 = \u0275\u0275restoreView(_r31).$index;
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.selectPackingStep(\u0275$index_984_r32));
-    });
-    \u0275\u0275elementStart(1, "span", 266);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 267);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 268);
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const step_r33 = ctx.$implicit;
-    const \u0275$index_984_r32 = ctx.$index;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("selected", ctx_r1.packingSelectedIdx === \u0275$index_984_r32);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275$index_984_r32 + 1);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.packingEmoji(step_r33));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.packingLabel(step_r33));
-  }
-}
-function World1Component_Conditional_15_Conditional_7_Conditional_27_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 269);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", !ctx_r1.packingDone);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.packingFeedback);
-  }
-}
-function World1Component_Conditional_15_Conditional_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r28 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 245)(1, "div", 247)(2, "span", 248);
-    \u0275\u0275text(3, "\u{1F31E}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "span", 249);
-    \u0275\u0275text(5, "\u2601\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "span", 250);
-    \u0275\u0275text(7, "\u2601\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "span", 251);
-    \u0275\u0275text(9, "\u{1F426}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(10, "div", 252)(11, "div", 253);
-    \u0275\u0275repeaterCreate(12, World1Component_Conditional_15_Conditional_7_For_13_Template, 2, 4, "span", 254, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementStart(14, "div", 255)(15, "span", 256);
-    \u0275\u0275text(16, "\u{1F392}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(17, World1Component_Conditional_15_Conditional_7_Conditional_17_Template, 6, 0);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(18, World1Component_Conditional_15_Conditional_7_Conditional_18_Template, 2, 1, "div", 257);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(19, "div", 258)(20, "h3");
-    \u0275\u0275text(21, "Orden actual (toca dos para intercambiar)");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "div", 259);
-    \u0275\u0275repeaterCreate(23, World1Component_Conditional_15_Conditional_7_For_24_Template, 7, 5, "button", 260, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(25, "button", 17);
-    \u0275\u0275listener("click", function World1Component_Conditional_15_Conditional_7_Template_button_click_25_listener() {
-      \u0275\u0275restoreView(_r28);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.checkPacking());
-    });
-    \u0275\u0275text(26, "\u2713 Verificar orden");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(27, World1Component_Conditional_15_Conditional_7_Conditional_27_Template, 2, 3, "div", 261);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(12);
-    \u0275\u0275repeater(ctx_r1.packingItemsIn);
-    \u0275\u0275advance(2);
-    \u0275\u0275classProp("packing", ctx_r1.packingPacking)("closed", ctx_r1.packingClosed || ctx_r1.packingDone)("shake", ctx_r1.packingShake);
-    \u0275\u0275advance(3);
-    \u0275\u0275conditional(ctx_r1.packingClosed || ctx_r1.packingDone ? 17 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.packingPacking || ctx_r1.packingDone ? 18 : -1);
-    \u0275\u0275advance(5);
-    \u0275\u0275repeater(ctx_r1.packingBuild);
-    \u0275\u0275advance(4);
-    \u0275\u0275conditional(ctx_r1.packingFeedback ? 27 : -1);
-  }
-}
-function World1Component_Conditional_15_Conditional_8_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r34 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 246)(1, "h2");
-    \u0275\u0275text(2, "\u{1F392} \xA1Mochila lista!");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "p");
-    \u0275\u0275text(4, "Depuraste el c\xF3digo correctamente: \u{1F34E} \u2192 \u{1F4A7} \u2192 \u{1F392}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 270);
-    \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 17);
-    \u0275\u0275listener("click", function World1Component_Conditional_15_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r34);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.nextActivity());
-    });
-    \u0275\u0275text(8, "Siguiente actividad \u2192");
-    \u0275\u0275elementEnd()();
-  }
-}
-function World1Component_Conditional_15_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
-    \u0275\u0275text(2, "ACTIVIDAD 4");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "h1");
-    \u0275\u0275text(4, "Arregla la mochila \u{1F392}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 101);
-    \u0275\u0275text(6, "\xA1Nori desorden\xF3 los pasos! Intercambia los pasos para corregir el orden: Manzana \u2192 Agua \u2192 Cerrar.");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World1Component_Conditional_15_Conditional_7_Template, 28, 9, "div", 245)(8, World1Component_Conditional_15_Conditional_8_Template, 9, 0, "div", 246);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r1.packingDone ? 7 : 8);
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275text(0, " \u{1F9D1}\u200D\u{1F680} ");
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_2_Conditional_0_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275text(0);
-  }
-  if (rf & 2) {
-    const res_r36 = \u0275\u0275nextContext();
-    const ctx_r1 = \u0275\u0275nextContext(5);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.finalResourceEmoji(res_r36.type), " ");
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_2_Conditional_0_Template, 1, 1);
-  }
-  if (rf & 2) {
-    \u0275\u0275conditional(!ctx.collected ? 0 : -1);
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_3_Conditional_0_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275text(0);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.finalSeedEmoji(), " ");
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_3_Conditional_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275text(0, " \u{1F31F} ");
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_3_Conditional_0_Template, 1, 1)(1, World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_3_Conditional_1_Template, 1, 0);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(5);
-    \u0275\u0275conditional(ctx_r1.finalGrowing || ctx_r1.finalPlanted ? 0 : 1);
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_4_For_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 286);
-    \u0275\u0275conditionalCreate(1, World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_1_Template, 1, 0)(2, World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_2_Template, 1, 1)(3, World1Component_Conditional_16_Conditional_7_For_4_For_1_Conditional_3_Template, 2, 1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    let tmp_24_0;
-    const col_r37 = ctx.$implicit;
-    const row_r38 = \u0275\u0275nextContext().$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("goal-cell", col_r37 === ctx_r1.finalSeedPos.x && row_r38 === ctx_r1.finalSeedPos.y)("char-cell", col_r37 === ctx_r1.finalCharPos.x && row_r38 === ctx_r1.finalCharPos.y);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(col_r37 === ctx_r1.finalCharPos.x && row_r38 === ctx_r1.finalCharPos.y ? 1 : (tmp_24_0 = ctx_r1.finalResourceAt(col_r37, row_r38)) ? 2 : col_r37 === ctx_r1.finalSeedPos.x && row_r38 === ctx_r1.finalSeedPos.y ? 3 : -1, tmp_24_0);
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275repeaterCreate(0, World1Component_Conditional_16_Conditional_7_For_4_For_1_Template, 4, 5, "div", 285, \u0275\u0275repeaterTrackByIdentity);
-  }
-  if (rf & 2) {
-    \u0275\u0275repeater(\u0275\u0275pureFunction0(0, _c3));
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_10_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 287);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const r_r39 = ctx.$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("got", r_r39.collected);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.finalResourceEmoji(r_r39.type));
-  }
-}
-function World1Component_Conditional_16_Conditional_7_For_15_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 288);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const b_r40 = ctx.$implicit;
-    const $index_r41 = ctx.$index;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("active", $index_r41 === ctx_r1.finalCurrentStep);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.finalBlockLabel(b_r40));
-  }
-}
-function World1Component_Conditional_16_Conditional_7_Conditional_16_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 43);
-    \u0275\u0275text(1, "Sin bloques");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_16_Conditional_7_Conditional_34_Conditional_2_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r42 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 290);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Conditional_34_Conditional_2_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r42);
-      const ctx_r1 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r1.resetFinal());
-    });
-    \u0275\u0275text(1, "Reintentar");
-    \u0275\u0275elementEnd();
-  }
-}
-function World1Component_Conditional_16_Conditional_7_Conditional_34_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 269);
-    \u0275\u0275text(1);
-    \u0275\u0275conditionalCreate(2, World1Component_Conditional_16_Conditional_7_Conditional_34_Conditional_2_Template, 2, 0, "button", 289);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", !ctx_r1.finalPlanted);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.finalFeedback, " ");
-    \u0275\u0275advance();
-    \u0275\u0275conditional(!ctx_r1.finalPlanted && !ctx_r1.finalRunning ? 2 : -1);
-  }
-}
-function World1Component_Conditional_16_Conditional_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r35 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 271)(1, "div", 273)(2, "div", 274);
-    \u0275\u0275repeaterCreate(3, World1Component_Conditional_16_Conditional_7_For_4_Template, 2, 1, null, null, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(5, "div", 275)(6, "div", 276)(7, "span", 277);
-    \u0275\u0275text(8, "Mochila:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275repeaterCreate(9, World1Component_Conditional_16_Conditional_7_For_10_Template, 2, 3, "span", 278, _forTrack0);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "h3");
-    \u0275\u0275text(12, "Tu programa");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "div", 279);
-    \u0275\u0275repeaterCreate(14, World1Component_Conditional_16_Conditional_7_For_15_Template, 2, 3, "span", 280, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275conditionalCreate(16, World1Component_Conditional_16_Conditional_7_Conditional_16_Template, 2, 0, "span", 43);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "div", 281)(18, "button", 282);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Template_button_click_18_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addFinalBlock("right"));
-    });
-    \u0275\u0275text(19, "\u27A1\uFE0F Avanzar");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(20, "button", 282);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Template_button_click_20_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addFinalBlock("up"));
-    });
-    \u0275\u0275text(21, "\u2B06\uFE0F Subir");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "button", 282);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Template_button_click_22_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addFinalBlock("left"));
-    });
-    \u0275\u0275text(23, "\u2B05\uFE0F Izquierda");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "button", 282);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Template_button_click_24_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addFinalBlock("down"));
-    });
-    \u0275\u0275text(25, "\u2B07\uFE0F Bajar");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(26, "button", 282);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Template_button_click_26_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addFinalBlock("collect"));
-    });
-    \u0275\u0275text(27, "\u{1FAF3} Recoger");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(28, "button", 282);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Template_button_click_28_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.addFinalBlock("plant"));
-    });
-    \u0275\u0275text(29, "\u{1F331} Plantar");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "button", 283);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Template_button_click_30_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.removeFinalBlock());
-    });
-    \u0275\u0275text(31, "\u{1F5D1}\uFE0F");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(32, "button", 284);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_7_Template_button_click_32_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.runFinal());
-    });
-    \u0275\u0275text(33, "\u25B6\uFE0F Ejecutar");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(34, World1Component_Conditional_16_Conditional_7_Conditional_34_Template, 3, 4, "div", 261);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(3);
-    \u0275\u0275repeater(\u0275\u0275pureFunction0(10, _c3));
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(ctx_r1.finalResources);
-    \u0275\u0275advance(5);
-    \u0275\u0275repeater(ctx_r1.finalBuild);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.finalBuild.length === 0 ? 16 : -1);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.finalRunning);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.finalRunning);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.finalRunning);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.finalRunning);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.finalRunning);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.finalRunning);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.finalBuild.length === 0 || ctx_r1.finalRunning);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.finalBuild.length === 0 || ctx_r1.finalRunning);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.finalFeedback ? 34 : -1);
-  }
-}
-function World1Component_Conditional_16_Conditional_8_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r43 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 272)(1, "div", 291);
-    \u0275\u0275text(2, "\u{1F332}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "h2");
-    \u0275\u0275text(4, "\u{1F389} \xA1MUNDO 1 COMPLETADO!");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 292);
-    \u0275\u0275text(6, "\u{1F331} \u2192 \u{1F33F} \u2192 \u{1F333} \u2192 \u{1F332}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "p");
-    \u0275\u0275text(8, "\u{1F31F} \xA1Felicidades, peque\xF1a programadora!");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "p");
-    \u0275\u0275text(10, "Aprendiste que programar es dar instrucciones, organizarlas correctamente y encontrar errores cuando algo no funciona.");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "p");
-    \u0275\u0275text(12, "Desbloqueaste el ");
-    \u0275\u0275elementStart(13, "strong");
-    \u0275\u0275text(14, "Mundo 2: Sendero de Variables");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 293)(16, "div", 294)(17, "strong");
-    \u0275\u0275text(18, "50");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(19, "span");
-    \u0275\u0275text(20, "XP");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(21, "div", 294)(22, "strong");
-    \u0275\u0275text(23, "5");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "span");
-    \u0275\u0275text(25, "Semillas");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(26, "button", 17);
-    \u0275\u0275listener("click", function World1Component_Conditional_16_Conditional_8_Template_button_click_26_listener() {
-      \u0275\u0275restoreView(_r43);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.unlockAndOpenWorld2());
-    });
-    \u0275\u0275text(27, "Desbloquear Mundo 2 \u2192");
-    \u0275\u0275elementEnd()();
-  }
-}
-function World1Component_Conditional_16_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
-    \u0275\u0275text(2, "ACTIVIDAD 5");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "h1");
-    \u0275\u0275text(4, "Reto final: La semilla m\xE1gica \u{1F31F}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 101);
-    \u0275\u0275text(6, "Programa a Nori para recoger \u{1F4A7} Agua, \u2600\uFE0F Luz y \u{1F331} Tierra, y llevarlos hasta la semilla m\xE1gica para plantarla.");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World1Component_Conditional_16_Conditional_7_Template, 35, 11, "div", 271)(8, World1Component_Conditional_16_Conditional_8_Template, 28, 0, "div", 272);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r1.finalDone ? 7 : 8);
-  }
-}
-var World1Component = class _World1Component {
-  constructor(cdr, game) {
-    this.cdr = cdr;
-    this.game = game;
-    this.resetWorld1Activities();
-  }
-  cdr;
-  game;
-  unlockWorld2 = new EventEmitter();
-  currentActivity = 0;
-  totalActivities = 5;
-  // Actividad 1 – Sándwich
-  sandwichStep = "intro";
-  sandwichOptions = [];
-  sandwichBuild = [];
-  sandwichFeedback = "";
-  sandwichDone = false;
-  draggingIngredient = null;
-  dropReady = false;
-  // Actividad 2 – Planta
-  plantStage = "empty";
-  plantActions = [];
-  plantSequence = [];
-  plantFeedback = "";
-  plantDone = false;
-  plantRunning = false;
-  plantActiveStep = -1;
-  // Actividad 3 – Ruta (grid 4x5)
-  routeBuild = [];
-  routeFeedback = "";
-  routeDone = false;
-  routeRunning = false;
-  routeCharPos = { x: 0, y: 4 };
-  routeGoal = { x: 3, y: 2 };
-  routeObstacles = [
-    { x: 1, y: 1, emoji: "\u{1FAA8}" },
-    { x: 3, y: 4, emoji: "\u{1F333}" }
-  ];
-  routeCharDirection = "right";
-  routeHitObstacle = false;
-  routeCurrentStep = -1;
-  routeGridRows = 5;
-  routeGridCols = 4;
-  // Actividad 4 – Depuración (mochila)
-  packingBuild = [...PACKING_INITIAL_ORDER];
-  packingFeedback = "";
-  packingDone = false;
-  packingSelectedIdx = null;
-  packingPacking = false;
-  packingItemsIn = [];
-  packingClosed = false;
-  packingShake = false;
-  // Actividad 5 – Reto final
-  finalBuild = [];
-  finalFeedback = "";
-  finalDone = false;
-  finalRunning = false;
-  finalCharPos = { x: 0, y: 2 };
-  finalStartPos = { x: 0, y: 2 };
-  finalSeedPos = { x: 2, y: 0 };
-  finalResources = [
-    { x: 1, y: 2, type: "water", collected: false },
-    { x: 2, y: 1, type: "sun", collected: false },
-    { x: 1, y: 0, type: "soil", collected: false }
-  ];
-  finalCollected = [];
-  finalPlanted = false;
-  finalCurrentStep = -1;
-  finalSeedStageIndex = 0;
-  finalGrowing = false;
-  // ═══════════════════════════════════════════════════════════
-  // MÉTODOS GENERALES
-  // ═══════════════════════════════════════════════════════════
-  nextActivity() {
-    const reward = { experience: 10, seeds: 1 };
-    this.game.applyReward(reward);
-    if (this.currentActivity < this.totalActivities - 1) {
-      this.currentActivity++;
-      this.resetCurrentActivity();
-    } else {
-      this.game.level2Unlocked = true;
-    }
-  }
-  skipActivity() {
-    if (this.currentActivity < this.totalActivities - 1) {
-      this.currentActivity++;
-      this.resetCurrentActivity();
-    } else {
-      this.game.level2Unlocked = true;
-    }
-  }
-  progressPercent() {
-    return Math.round(this.currentActivity / this.totalActivities * 100);
-  }
-  resetWorld1Activities() {
-    this.resetSandwich();
-    this.resetPlant();
-    this.resetRoute();
-    this.resetPacking();
-    this.resetFinal();
-  }
-  resetCurrentActivity() {
-    switch (this.currentActivity) {
-      case 0:
-        this.resetSandwich();
-        break;
-      case 1:
-        this.resetPlant();
-        break;
-      case 2:
-        this.resetRoute();
-        break;
-      case 3:
-        this.resetPacking();
-        break;
-      case 4:
-        this.resetFinal();
-        break;
-    }
-  }
-  // ───────────────────────────────────────────────────────────
-  // ACTIVIDAD 1: SÁNDWICH
-  // ───────────────────────────────────────────────────────────
-  resetSandwich() {
-    this.sandwichStep = "intro";
-    this.sandwichOptions = this.shuffleArray([...SANDWICH_CORRECT_ORDER]);
-    this.sandwichBuild = [];
-    this.sandwichFeedback = "";
-    this.sandwichDone = false;
-    this.draggingIngredient = null;
-    this.dropReady = false;
-  }
-  goToSandwichGame() {
-    this.sandwichStep = "game";
-  }
-  shuffleArray(array) {
-    const arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-  layerClass(emoji) {
-    const map2 = {
-      "\u{1F35E}": "bread-layer",
-      "\u{1F96C}": "lettuce-layer",
-      "\u{1F9C0}": "cheese-layer",
-      "\u{1F96A}": "close-layer"
-    };
-    return map2[emoji] || "";
-  }
-  getIngredientName(emoji) {
-    const names = {
-      "\u{1F35E}": "Pan",
-      "\u{1F96C}": "Lechuga",
-      "\u{1F9C0}": "Queso",
-      "\u{1F96A}": "Cerrar"
-    };
-    return names[emoji] || "";
-  }
-  onDragStart(ingredient) {
-    this.draggingIngredient = ingredient;
-  }
-  onDragEnd() {
-    this.draggingIngredient = null;
-    this.dropReady = false;
-  }
-  onDragOver(event) {
-    event.preventDefault();
-    this.dropReady = true;
-  }
-  onDragLeave() {
-    this.dropReady = false;
-  }
-  onDrop(event) {
-    event.preventDefault();
-    this.dropReady = false;
-    if (this.draggingIngredient && !this.sandwichBuild.includes(this.draggingIngredient)) {
-      this.sandwichBuild = [...this.sandwichBuild, this.draggingIngredient];
-    }
-    this.draggingIngredient = null;
-  }
-  addIngredient(ingredient) {
-    if (!this.sandwichBuild.includes(ingredient)) {
-      this.sandwichBuild = [...this.sandwichBuild, ingredient];
-    }
-  }
-  checkSandwich() {
-    const correct = SANDWICH_CORRECT_ORDER.every((s, i) => this.sandwichBuild[i] === s);
-    if (correct) {
-      this.sandwichFeedback = "\xA1Perfecto! \u{1F389}";
-      this.sandwichDone = true;
-      this.sandwichStep = "done";
-    } else {
-      this.sandwichFeedback = "Orden incorrecto. \xA1Int\xE9ntalo de nuevo!";
-      this.sandwichBuild = [];
-    }
-  }
-  // ───────────────────────────────────────────────────────────
-  // ACTIVIDAD 2: PLANTA
-  // ───────────────────────────────────────────────────────────
-  resetPlant() {
-    this.plantStage = "empty";
-    this.plantActions = [];
-    this.plantSequence = [];
-    this.plantFeedback = "";
-    this.plantDone = false;
-    this.plantRunning = false;
-    this.plantActiveStep = -1;
-  }
-  plantEmoji() {
-    return this.plantStage === "seed" ? "\u{1F331}" : this.plantStage === "sprout" ? "\u{1F33F}" : "\u{1F33B}";
-  }
-  actionLabel(action) {
-    return action === "plant" ? "Plantar" : action === "water" ? "Regar" : "Sol";
-  }
-  actionEmoji(action) {
-    return action === "plant" ? "\u{1F331}" : action === "water" ? "\u{1F4A7}" : "\u2600\uFE0F";
-  }
-  addPlantBlock(action) {
-    if (this.plantRunning || this.plantDone)
-      return;
-    if (this.plantSequence.length >= PLANT_GROWTH_ORDER.length)
-      return;
-    this.plantSequence.push(action);
-    this.plantFeedback = "";
-  }
-  removePlantBlock(index) {
-    if (this.plantRunning || this.plantDone)
-      return;
-    this.plantSequence.splice(index, 1);
-    this.plantFeedback = "";
-  }
-  clearPlantSequence() {
-    if (this.plantRunning)
-      return;
-    this.plantSequence = [];
-    this.plantFeedback = "";
-  }
-  runPlantSequence() {
-    if (this.plantRunning || this.plantDone)
-      return;
-    if (this.plantSequence.length === 0) {
-      this.plantFeedback = "Primero arma tu secuencia con los bloques \u{1F331}\u{1F4A7}\u2600\uFE0F";
-      return;
-    }
-    this.plantRunning = true;
-    this.plantActions = [];
-    this.plantStage = "empty";
-    this.plantFeedback = "";
-    this.plantActiveStep = -1;
-    this.cdr.detectChanges();
-    setTimeout(() => this.runPlantStep(0), 400);
-  }
-  runPlantStep(idx) {
-    if (idx >= this.plantSequence.length) {
-      this.finishPlantRun();
-      return;
-    }
-    this.plantActiveStep = idx;
-    const action = this.plantSequence[idx];
-    setTimeout(() => {
-      if (PLANT_GROWTH_ORDER[idx] !== action) {
-        this.plantActiveStep = -1;
-        this.plantRunning = false;
-        this.plantFeedback = `\xA1Ups! El paso ${idx + 1} no va en ese orden. Recuerda: primero Plantar \u{1F331}, luego Regar \u{1F4A7} y al final Sol \u2600\uFE0F.`;
-        this.plantStage = "empty";
-        this.plantActions = [];
-        this.cdr.detectChanges();
-        return;
-      }
-      this.plantActions.push(action);
-      if (action === "plant")
-        this.plantStage = "seed";
-      else if (action === "water")
-        this.plantStage = "sprout";
-      else if (action === "sun")
-        this.plantStage = "flower";
-      this.cdr.detectChanges();
-      this.runPlantStep(idx + 1);
-    }, 700);
-  }
-  finishPlantRun() {
-    this.plantActiveStep = -1;
-    this.plantRunning = false;
-    const correct = this.plantSequence.length === PLANT_GROWTH_ORDER.length && this.plantSequence.every((a, i) => a === PLANT_GROWTH_ORDER[i]);
-    if (correct) {
-      this.plantStage = "flower";
-      this.plantDone = true;
-    } else {
-      this.plantFeedback = "Casi. Faltan pasos o el orden no es completo. Prueba: \u{1F331} \u2192 \u{1F4A7} \u2192 \u2600\uFE0F";
-      this.plantStage = "empty";
-      this.plantActions = [];
-    }
-    this.cdr.detectChanges();
-  }
-  // ───────────────────────────────────────────────────────────
-  // ACTIVIDAD 3: RUTA
-  // ───────────────────────────────────────────────────────────
-  resetRoute() {
-    this.routeBuild = [];
-    this.routeFeedback = "";
-    this.routeDone = false;
-    this.routeRunning = false;
-    this.routeCharPos = { x: 0, y: 4 };
-    this.routeCharDirection = "right";
-    this.routeHitObstacle = false;
-    this.routeCurrentStep = -1;
-  }
-  addRouteMove(move) {
-    if (this.routeBuild.length < 6 && !this.routeDone && !this.routeRunning) {
-      this.routeBuild = [...this.routeBuild, move];
-    }
-  }
-  removeLastMove() {
-    if (this.routeBuild.length > 0 && !this.routeRunning) {
-      this.routeBuild = this.routeBuild.slice(0, -1);
-    }
-  }
-  routeMoveEmoji(m) {
-    return m === "right" ? "\u27A1\uFE0F" : m === "up" ? "\u2B06\uFE0F" : m === "left" ? "\u2B05\uFE0F" : "\u2B07\uFE0F";
-  }
-  getCurrentStep() {
-    return this.routeCurrentStep;
-  }
-  isObstacle(x, y) {
-    return this.routeObstacles.some((o) => o.x === x && o.y === y);
-  }
-  getObstacleEmoji(x, y) {
-    const obstacle = this.routeObstacles.find((o) => o.x === x && o.y === y);
-    return obstacle ? obstacle.emoji : "";
-  }
-  runRoute() {
-    if (this.routeRunning || this.routeDone || this.routeBuild.length === 0) {
-      return;
-    }
-    this.routeRunning = true;
-    this.routeCharPos = { x: 0, y: 4 };
-    this.routeFeedback = "";
-    this.routeHitObstacle = false;
-    this.routeCurrentStep = -1;
-    let stepIndex = 0;
-    const executeStep = () => {
-      if (stepIndex >= this.routeBuild.length) {
-        this.routeRunning = false;
-        this.routeCurrentStep = -1;
-        if (this.routeCharPos.x === this.routeGoal.x && this.routeCharPos.y === this.routeGoal.y) {
-          this.routeFeedback = "\xA1Nori lleg\xF3 a casa! \u{1F389}";
-          this.routeDone = true;
-        } else {
-          this.routeFeedback = "Nori no lleg\xF3 a casa. \xA1Intenta otra ruta!";
-        }
-        this.cdr.detectChanges();
-        return;
-      }
-      this.routeCurrentStep = stepIndex;
-      const move = this.routeBuild[stepIndex];
-      this.routeCharDirection = move;
-      let newX = this.routeCharPos.x;
-      let newY = this.routeCharPos.y;
-      if (move === "right")
-        newX++;
-      else if (move === "left")
-        newX--;
-      else if (move === "up")
-        newY--;
-      else if (move === "down")
-        newY++;
-      if (newX < 0 || newX > 3 || newY < 0 || newY > 4) {
-        this.routeRunning = false;
-        this.routeCurrentStep = -1;
-        this.routeFeedback = "\xA1Nori se sali\xF3 del camino! \u{1F635}";
-        this.cdr.detectChanges();
-        return;
-      }
-      if (this.isObstacle(newX, newY)) {
-        this.routeHitObstacle = true;
-        this.routeRunning = false;
-        this.routeCurrentStep = -1;
-        this.routeFeedback = "\xA1Nori choc\xF3 con un obst\xE1culo! \u{1F4A5}";
-        this.cdr.detectChanges();
-        return;
-      }
-      this.routeCharPos = { x: newX, y: newY };
-      stepIndex++;
-      if (newX === this.routeGoal.x && newY === this.routeGoal.y) {
-        this.routeRunning = false;
-        this.routeCurrentStep = -1;
-        this.routeFeedback = "\xA1Nori lleg\xF3 a casa! \u{1F389}";
-        this.routeDone = true;
-        this.cdr.detectChanges();
-        return;
-      }
-      this.cdr.detectChanges();
-      setTimeout(() => executeStep(), 600);
-    };
-    this.cdr.detectChanges();
-    setTimeout(() => executeStep(), 300);
-  }
-  // ───────────────────────────────────────────────────────────
-  // ACTIVIDAD 4: DEPURACIÓN MOCHILA
-  // ───────────────────────────────────────────────────────────
-  resetPacking() {
-    this.packingBuild = [...PACKING_INITIAL_ORDER];
-    this.packingFeedback = "";
-    this.packingDone = false;
-    this.packingSelectedIdx = null;
-    this.packingPacking = false;
-    this.packingItemsIn = [];
-    this.packingClosed = false;
-    this.packingShake = false;
-  }
-  packingEmoji(step) {
-    return step === "apple" ? "\u{1F34E}" : step === "water" ? "\u{1F4A7}" : "\u{1F392}";
-  }
-  packingLabel(step) {
-    return step === "apple" ? "Manzana" : step === "water" ? "Agua" : "Cerrar mochila";
-  }
-  selectPackingStep(idx) {
-    if (this.packingDone)
-      return;
-    if (this.packingSelectedIdx === null) {
-      this.packingSelectedIdx = idx;
-    } else {
-      const temp = this.packingBuild[this.packingSelectedIdx];
-      this.packingBuild[this.packingSelectedIdx] = this.packingBuild[idx];
-      this.packingBuild[idx] = temp;
-      this.packingSelectedIdx = null;
-    }
-  }
-  checkPacking() {
-    if (this.packingPacking || this.packingDone)
-      return;
-    const ok = PACKING_CORRECT_ORDER.every((s, i) => this.packingBuild[i] === s);
-    if (!ok) {
-      this.packingFeedback = "El orden no es correcto. Intercambia los pasos.";
-      this.packingShake = true;
-      this.cdr.detectChanges();
-      setTimeout(() => {
-        this.packingShake = false;
-        this.cdr.detectChanges();
-      }, 600);
-      return;
-    }
-    this.packingPacking = true;
-    this.packingItemsIn = [];
-    this.packingClosed = false;
-    this.packingFeedback = "Empacando... \u{1F392}";
-    this.cdr.detectChanges();
-    this.packItemsStep(0);
-  }
-  packItemsStep(idx) {
-    const itemsToPack = this.packingBuild.filter((s) => s !== "close");
-    if (idx >= itemsToPack.length) {
-      setTimeout(() => {
-        this.packingClosed = true;
-        this.cdr.detectChanges();
-        setTimeout(() => {
-          this.packingPacking = false;
-          this.packingFeedback = "\xA1Mochila lista! \u{1F389}";
-          this.packingDone = true;
-          this.cdr.detectChanges();
-        }, 700);
-      }, 500);
-      return;
-    }
-    setTimeout(() => {
-      this.packingItemsIn = [...this.packingItemsIn, itemsToPack[idx]];
-      this.cdr.detectChanges();
-      this.packItemsStep(idx + 1);
-    }, 700);
-  }
-  // ───────────────────────────────────────────────────────────
-  // ACTIVIDAD 5: RETO FINAL
-  // ───────────────────────────────────────────────────────────
-  resetFinal() {
-    this.finalBuild = [];
-    this.finalFeedback = "";
-    this.finalDone = false;
-    this.finalRunning = false;
-    this.finalCharPos = __spreadValues({}, this.finalStartPos);
-    this.finalResources = [
-      { x: 1, y: 2, type: "water", collected: false },
-      { x: 2, y: 1, type: "sun", collected: false },
-      { x: 1, y: 0, type: "soil", collected: false }
-    ];
-    this.finalCollected = [];
-    this.finalPlanted = false;
-    this.finalCurrentStep = -1;
-    this.finalSeedStageIndex = 0;
-    this.finalGrowing = false;
-  }
-  addFinalBlock(block) {
-    if (this.finalBuild.length < 12 && !this.finalDone && !this.finalRunning) {
-      this.finalBuild = [...this.finalBuild, block];
-    }
-  }
-  removeFinalBlock() {
-    if (this.finalBuild.length > 0 && !this.finalRunning) {
-      this.finalBuild = this.finalBuild.slice(0, -1);
-    }
-  }
-  finalBlockLabel(b) {
-    switch (b) {
-      case "right":
-        return "\u27A1\uFE0F Avanzar";
-      case "up":
-        return "\u2B06\uFE0F Subir";
-      case "left":
-        return "\u2B05\uFE0F Izquierda";
-      case "down":
-        return "\u2B07\uFE0F Bajar";
-      case "collect":
-        return "\u{1FAF3} Recoger";
-      case "plant":
-        return "\u{1F331} Plantar";
-    }
-  }
-  finalResourceEmoji(type) {
-    return FINAL_RESOURCE_EMOJI[type];
-  }
-  finalResourceLabel(type) {
-    return FINAL_RESOURCE_LABEL[type];
-  }
-  finalResourceAt(x, y) {
-    return this.finalResources.find((r) => r.x === x && r.y === y);
-  }
-  finalSeedEmoji() {
-    return SEED_GROWTH_STAGES[this.finalSeedStageIndex];
-  }
-  finalAllCollected() {
-    return this.finalResources.every((r) => r.collected);
-  }
-  runFinal() {
-    if (this.finalRunning || this.finalDone || this.finalBuild.length === 0)
-      return;
-    this.finalRunning = true;
-    this.finalCharPos = __spreadValues({}, this.finalStartPos);
-    this.finalResources.forEach((r) => r.collected = false);
-    this.finalCollected = [];
-    this.finalPlanted = false;
-    this.finalCurrentStep = -1;
-    this.finalSeedStageIndex = 0;
-    this.finalGrowing = false;
-    this.finalFeedback = "";
-    let i = 0;
-    const run = () => {
-      if (i >= this.finalBuild.length) {
-        this.finalRunning = false;
-        this.finalCurrentStep = -1;
-        if (this.finalPlanted) {
-          this.finishFinalChallenge();
-        } else if (this.finalAllCollected()) {
-          this.finalFeedback = "Recogiste todo, pero falta \u{1F331} PLANTAR en la semilla m\xE1gica.";
-        } else {
-          this.finalFeedback = "A\xFAn faltan recursos por recoger. \xA1Intenta otra ruta!";
-        }
-        this.cdr.detectChanges();
-        return;
-      }
-      this.finalCurrentStep = i;
-      const b = this.finalBuild[i];
-      let newX = this.finalCharPos.x;
-      let newY = this.finalCharPos.y;
-      if (b === "right")
-        newX++;
-      else if (b === "left")
-        newX--;
-      else if (b === "up")
-        newY--;
-      else if (b === "down")
-        newY++;
-      if (b === "right" || b === "left" || b === "up" || b === "down") {
-        if (newX < 0 || newX > 2 || newY < 0 || newY > 2) {
-          this.finalRunning = false;
-          this.finalCurrentStep = -1;
-          this.finalFeedback = "\xA1Nori se sali\xF3 del camino! \u{1F635}";
-          this.cdr.detectChanges();
-          return;
-        }
-        this.finalCharPos = { x: newX, y: newY };
-      } else if (b === "collect") {
-        const res = this.finalResourceAt(this.finalCharPos.x, this.finalCharPos.y);
-        if (res && !res.collected) {
-          res.collected = true;
-          this.finalCollected = [...this.finalCollected, res.type];
-          this.finalFeedback = `\xA1Recogiste ${FINAL_RESOURCE_EMOJI[res.type]} ${FINAL_RESOURCE_LABEL[res.type]}!`;
-        } else {
-          this.finalRunning = false;
-          this.finalCurrentStep = -1;
-          this.finalFeedback = "Aqu\xED no hay nada que recoger. \u{1F914}";
-          this.cdr.detectChanges();
-          return;
-        }
-      } else if (b === "plant") {
-        const onSeed = this.finalCharPos.x === this.finalSeedPos.x && this.finalCharPos.y === this.finalSeedPos.y;
-        if (!onSeed) {
-          this.finalRunning = false;
-          this.finalCurrentStep = -1;
-          this.finalFeedback = "Debes estar sobre la semilla m\xE1gica \u{1F31F} para plantar.";
-          this.cdr.detectChanges();
-          return;
-        }
-        if (!this.finalAllCollected()) {
-          this.finalRunning = false;
-          this.finalCurrentStep = -1;
-          this.finalFeedback = "Necesitas \u{1F4A7} Agua, \u2600\uFE0F Luz y \u{1F331} Tierra antes de plantar.";
-          this.cdr.detectChanges();
-          return;
-        }
-        this.finalPlanted = true;
-        this.finalFeedback = "\xA1Plantaste la semilla m\xE1gica! \u{1F331}";
-      }
-      i++;
-      this.cdr.detectChanges();
-      setTimeout(run, 500);
-    };
-    this.cdr.detectChanges();
-    setTimeout(run, 300);
-  }
-  finishFinalChallenge() {
-    this.finalGrowing = true;
-    this.finalFeedback = "";
-    this.finalSeedStageIndex = 0;
-    this.cdr.detectChanges();
-    const grow = () => {
-      if (this.finalSeedStageIndex < SEED_GROWTH_STAGES.length - 1) {
-        this.finalSeedStageIndex++;
-        this.cdr.detectChanges();
-        setTimeout(grow, 700);
-      } else {
-        this.finalGrowing = false;
-        this.finalDone = true;
-        this.cdr.detectChanges();
-      }
-    };
-    setTimeout(grow, 700);
-  }
-  // Otorga la recompensa final y pide al shell desbloquear/abrir el Mundo 2
-  unlockAndOpenWorld2() {
-    if (!this.game.level2Unlocked) {
-      this.game.applyReward({ experience: 10, seeds: 1 });
-      this.game.level2Unlocked = true;
-    }
-    this.unlockWorld2.emit();
-  }
-  static \u0275fac = function World1Component_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _World1Component)(\u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(GameStateService));
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _World1Component, selectors: [["app-world-1"]], outputs: { unlockWorld2: "unlockWorld2" }, decls: 17, vars: 5, consts: [[1, "world-screen"], [1, "world-container"], [1, "progress-section"], [1, "progress-info"], [1, "progress-bar"], [1, "progress-fill"], [1, "skip-btn", 3, "click"], [1, "activity-card"], [1, "activity-badge"], [1, "success-celebration"], [1, "story-box"], [1, "story-avatar"], [1, "story-content"], [1, "info-box"], [1, "steps-list"], [1, "step"], [1, "step-num"], [1, "btn-primary", 3, "click"], [1, "sandwich-game-v2"], [1, "ingredients-panel-v2"], [1, "panel-header"], [1, "panel-icon"], [1, "panel-title-group"], [1, "panel-subtitle"], [1, "ingredients-grid"], ["draggable", "true", 1, "ingredient-card", 3, "used", "dragging", "disabled"], [1, "order-hint"], [1, "hint-label"], [1, "order-steps"], [1, "order-step"], [1, "order-arrow"], [1, "build-panel-v2", 3, "dragover", "dragleave", "drop"], [1, "build-area"], [1, "empty-plate"], [1, "build-actions"], [1, "action-btn-reset"], [1, "btn-primary", "btn-verify"], [1, "feedback-box-v2", 3, "error", "success"], ["draggable", "true", 1, "ingredient-card", 3, "dragstart", "dragend", "click", "disabled"], [1, "ingredient-emoji"], [1, "ingredient-name"], [1, "ingredient-check"], [1, "plate-icon"], [1, "empty-text"], [1, "empty-subtext"], [1, "sandwich-3d-build"], [1, "sandwich-layer-3d", 3, "ngClass", "z-index"], [1, "build-progress"], [1, "progress-dots"], [1, "progress-dot", 3, "filled"], [1, "sandwich-layer-3d", 3, "ngClass"], [1, "layer-emoji"], [1, "layer-name"], [1, "layer-number"], [1, "progress-dot"], [1, "action-btn-reset", 3, "click"], [1, "btn-primary", "btn-verify", 3, "click"], [1, "feedback-box-v2"], [1, "feedback-icon"], [1, "feedback-text"], [1, "btn-retry"], [1, "btn-retry", 3, "click"], [1, "confetti-container"], [1, "confetti-piece", "c1"], [1, "confetti-piece", "c2"], [1, "confetti-piece", "c3"], [1, "confetti-piece", "c4"], [1, "confetti-piece", "c5"], [1, "confetti-piece", "c6"], [1, "confetti-piece", "c7"], [1, "confetti-piece", "c8"], [1, "nori-celebration"], [1, "nori-avatar"], [1, "speech-bubble"], [1, "bubble-text"], [1, "celebration-title"], [1, "title-emoji"], [1, "celebration-subtitle"], [1, "sandwich-3d-fun"], [1, "plate-base"], [1, "plate-shine"], [1, "sandwich-stack-3d"], [1, "sw-piece", "sw-top-bun"], [1, "bun-seeds"], [1, "sw-piece", "sw-lettuce-layer"], [1, "sw-piece", "sw-cheese-layer"], [1, "cheese-drip"], [1, "sw-piece", "sw-bottom-bun"], [1, "sparkles"], [1, "sparkle", "s1"], [1, "sparkle", "s2"], [1, "sparkle", "s3"], [1, "rewards-fun"], [1, "reward-badge", "xp-badge"], [1, "badge-icon"], [1, "badge-value"], [1, "badge-label"], [1, "reward-badge", "seed-badge"], [1, "btn-next-fun", 3, "click"], [1, "btn-text"], [1, "btn-icon"], [1, "activity-desc"], [1, "plant-game-v2"], [1, "plant-celebration"], [1, "garden-scene"], [1, "sky"], [1, "cloud", "cloud-1"], [1, "cloud", "cloud-2"], [1, "sun-sky"], [1, "rain-drops"], [1, "ground"], [1, "dirt-mound"], [1, "plant-container"], [1, "plant-stage", "empty-stage"], [1, "plant-stage", "seed-stage"], [1, "plant-stage", "sprout-stage"], [1, "plant-stage", "flower-stage"], [1, "garden-decor"], [1, "grass", "g1"], [1, "grass", "g2"], [1, "rock"], [1, "grass", "g3"], [1, "plant-controls-v2"], [1, "controls-header"], [1, "controls-hint"], [1, "controls-mini-label"], [1, "action-palette"], [1, "palette-block", "plant-block", 3, "click", "disabled"], [1, "action-icon"], [1, "action-text"], [1, "palette-block", "water-block", 3, "click", "disabled"], [1, "palette-block", "sun-block", 3, "click", "disabled"], [1, "plant-program"], [1, "program-empty"], [1, "program-controls"], [1, "btn-run", 3, "click", "disabled"], [1, "btn-clear", 3, "click", "disabled"], [1, "plant-feedback", 3, "error", "success"], [1, "drop", "d1"], [1, "drop", "d2"], [1, "drop", "d3"], [1, "drop", "d4"], [1, "drop", "d5"], [1, "empty-hole"], [1, "seed-icon"], [1, "stem"], [1, "leaves"], [1, "leaf", "leaf-left"], [1, "leaf", "leaf-right"], [1, "flower-head"], [1, "flower-stem"], [1, "flower-leaves"], [1, "f-leaf", "f-left"], [1, "f-leaf", "f-right"], [1, "program-slot"], [1, "slot-num"], [1, "slot-icon"], [1, "slot-label"], ["aria-label", "Quitar paso", 1, "slot-remove"], [1, "program-arrow"], ["aria-label", "Quitar paso", 1, "slot-remove", 3, "click"], [1, "plant-feedback"], [1, "feedback-emoji"], [1, "feedback-message"], [1, "celebration-scene"], [1, "butterflies"], [1, "butterfly", "b1"], [1, "butterfly", "b2"], [1, "butterfly", "b3"], [1, "big-sun"], [1, "big-flower"], [1, "flower-glow"], [1, "sunflower"], [1, "flower-sparkles"], [1, "sp", "sp1"], [1, "sp", "sp2"], [1, "sp", "sp3"], [1, "sp", "sp4"], [1, "plant-success-title"], [1, "plant-success-text"], [1, "sequence-display"], [1, "seq-step"], [1, "seq-arrow"], [1, "seq-result"], [1, "route-game-v2"], [1, "route-celebration"], [1, "map-scene"], [1, "map-sky"], [1, "map-cloud", "mc1"], [1, "map-cloud", "mc2"], [1, "map-sun"], [1, "map-ground"], [1, "game-grid-v2"], [1, "map-legend"], [1, "legend-item"], [1, "legend-icon"], [1, "route-controls-v2"], [1, "moves-counter"], [1, "route-preview-v2"], [1, "empty-route"], [1, "route-steps"], [1, "direction-pad"], [1, "dpad-row"], [1, "dpad-btn", "up", 3, "click", "disabled"], [1, "dpad-arrow"], [1, "dpad-label"], [1, "dpad-row", "middle"], [1, "dpad-btn", "left", 3, "click", "disabled"], [1, "dpad-btn", "center", "delete", 3, "click", "disabled"], [1, "dpad-btn", "right", 3, "click", "disabled"], [1, "dpad-btn", "down", 3, "click", "disabled"], [1, "btn-execute", 3, "click", "disabled"], [1, "route-feedback", 3, "success", "error", "warning"], [1, "grid-cell-v2", 3, "goal-cell", "start-cell", "obstacle-cell", "char-cell"], [1, "grid-cell-v2"], [1, "goal-house"], [1, "obstacle-icon"], [1, "nori-character", 3, "moving", "direction-right", "direction-left", "direction-up", "direction-down", "hit"], [1, "start-flag"], [1, "grass-decor"], [1, "house-icon"], [1, "nori-icon", "nori-arrived"], [1, "house-label"], [1, "nori-character"], [1, "nori-icon"], [1, "empty-icon"], [1, "route-step", 3, "executing"], [1, "route-step"], [1, "step-number"], [1, "step-arrow"], [1, "execute-icon"], [1, "execute-text"], [1, "route-feedback"], [1, "btn-retry-small"], [1, "btn-retry-small", 3, "click"], [1, "success-house"], [1, "house-glow"], [1, "big-house"], [1, "nori-home"], [1, "nori-happy"], [1, "speech-bubble", "small"], [1, "route-success-title"], [1, "route-success-text"], [1, "route-display"], [1, "route-move"], [1, "packing-game"], [1, "success-box"], [1, "backpack-scene"], [1, "bp-sun"], [1, "bp-cloud", "bp-c1"], [1, "bp-cloud", "bp-c2"], [1, "bp-bird"], [1, "bp-hill", "bp-hill-back"], [1, "bp-hill", "bp-hill-front"], [3, "class"], [1, "bp-backpack"], [1, "bp-emoji"], [1, "bp-status"], [1, "packing-controls"], [1, "packing-steps"], [1, "packing-step", 3, "selected"], [1, "feedback-box", 3, "error"], [1, "bp-sparkle", "bp-sp1"], [1, "bp-sparkle", "bp-sp2"], [1, "bp-sparkle", "bp-sp3"], [1, "packing-step", 3, "click"], [1, "pstep-num"], [1, "pstep-icon"], [1, "pstep-label"], [1, "feedback-box"], [1, "reward-text"], [1, "final-game"], [1, "completion-box"], [1, "grid-view", "small"], [1, "game-grid", "grid-3"], [1, "final-controls"], [1, "final-inventory"], [1, "inventory-label"], [1, "inventory-item", 3, "got"], [1, "final-preview"], [1, "block-preview", 3, "active"], [1, "block-buttons"], [1, "block-btn", 3, "click", "disabled"], [1, "block-btn", "delete", 3, "click", "disabled"], [1, "btn-primary", 3, "click", "disabled"], [1, "grid-cell", 3, "goal-cell", "char-cell"], [1, "grid-cell"], [1, "inventory-item"], [1, "block-preview"], [1, "btn-secondary"], [1, "btn-secondary", 3, "click"], [1, "seed-grown"], [1, "grow-sequence"], [1, "rewards-row"], [1, "reward-item"]], template: function World1Component_Template(rf, ctx) {
-    if (rf & 1) {
-      \u0275\u0275elementStart(0, "main", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "span");
-      \u0275\u0275text(5, "\u{1F331} Mundo 1: Semillas");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(6, "span");
-      \u0275\u0275text(7);
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(8, "div", 4);
-      \u0275\u0275element(9, "div", 5);
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(10, "button", 6);
-      \u0275\u0275listener("click", function World1Component_Template_button_click_10_listener() {
-        return ctx.skipActivity();
-      });
-      \u0275\u0275text(11, "Saltar \u23ED\uFE0F");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275conditionalCreate(12, World1Component_Conditional_12_Template, 8, 1, "article", 7)(13, World1Component_Conditional_13_Template, 18, 1, "article", 7)(14, World1Component_Conditional_14_Template, 9, 1, "article", 7)(15, World1Component_Conditional_15_Template, 9, 1, "article", 7)(16, World1Component_Conditional_16_Template, 9, 1, "article", 7);
-      \u0275\u0275elementEnd()();
-    }
-    if (rf & 2) {
-      \u0275\u0275advance(7);
-      \u0275\u0275textInterpolate2("", ctx.currentActivity + 1, " / ", ctx.totalActivities);
-      \u0275\u0275advance(2);
-      \u0275\u0275styleProp("width", ctx.progressPercent(), "%");
-      \u0275\u0275advance(3);
-      \u0275\u0275conditional(ctx.currentActivity === 0 ? 12 : ctx.currentActivity === 1 ? 13 : ctx.currentActivity === 2 ? 14 : ctx.currentActivity === 3 ? 15 : ctx.currentActivity === 4 ? 16 : -1);
-    }
-  }, dependencies: [CommonModule, NgClass], styles: ["\n/*# sourceMappingURL=world-1.css.map */"] });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(World1Component, [{
-    type: Component,
-    args: [{ selector: "app-world-1", standalone: true, imports: [CommonModule], template: `    <main class="world-screen">
-      <div class="world-container">
-        <div class="progress-section">
-          <div class="progress-info">
-            <span>\u{1F331} Mundo 1: Semillas</span>
-            <span>{{ currentActivity + 1 }} / {{ totalActivities }}</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" [style.width.%]="progressPercent()"></div>
-          </div>
-          <button class="skip-btn" (click)="skipActivity()">Saltar \u23ED\uFE0F</button>
-        </div>
-
-        <!-- ACTIVIDAD 1: S\xC1NDWICH -->
-        @if (currentActivity === 0) {
-          <article class="activity-card">
-            <span class="activity-badge">ACTIVIDAD 1</span>
-            <h1>Conoce a Nori \u{1F9D1}\u200D\u{1F680}</h1>
-
-            <!-- PASO INTRO -->
-            @if (sandwichStep === 'intro') {
-              <div class="story-box">
-                <div class="story-avatar">\u{1F9D1}\u200D\u{1F680}</div>
-                <div class="story-content">
-                  <h2>\xA1Hola, soy Nori!</h2>
-                  <p>Soy un astronauta explorador. \xBFMe ayudas a preparar mi s\xE1ndwich favorito antes de mi pr\xF3xima misi\xF3n?</p>
-                </div>
-              </div>
-
-              <div class="info-box">
-                <h3>\u{1F9E9} \xBFQu\xE9 es una secuencia?</h3>
-                <p>Una <strong>secuencia</strong> es una lista de pasos en orden. \xA1Como una receta!</p>
-                <div class="steps-list">
-                  <div class="step"><span class="step-num">1</span> Poner el pan \u{1F35E}</div>
-                  <div class="step"><span class="step-num">2</span> Agregar lechuga \u{1F96C}</div>
-                  <div class="step"><span class="step-num">3</span> Poner queso \u{1F9C0}</div>
-                  <div class="step"><span class="step-num">4</span> Cerrar el s\xE1ndwich \u{1F96A}</div>
-                </div>
-              </div>
-
-              <button class="btn-primary" (click)="goToSandwichGame()">\xA1Vamos a cocinar! \u2192</button>
-            }
-
-            <!-- PASO JUEGO -->
-            @else if (sandwichStep === 'game') {
-              <div class="sandwich-game-v2">
-                <!-- Panel de ingredientes -->
-                <div class="ingredients-panel-v2">
-                  <div class="panel-header">
-                    <span class="panel-icon">\u{1F9FA}</span>
-                    <div class="panel-title-group">
-                      <h3>Ingredientes</h3>
-                      <p class="panel-subtitle">Toca para agregar al s\xE1ndwich</p>
-                    </div>
-                  </div>
-                  
-                  <div class="ingredients-grid">
-                    @for (opt of sandwichOptions; track opt) {
-                      <button 
-                        class="ingredient-card" 
-                        [class.used]="sandwichBuild.includes(opt)"
-                        [class.dragging]="draggingIngredient === opt"
-                        [disabled]="sandwichBuild.includes(opt)"
-                        draggable="true" 
-                        (dragstart)="onDragStart(opt)" 
-                        (dragend)="onDragEnd()" 
-                        (click)="addIngredient(opt)">
-                        <span class="ingredient-emoji">{{ opt }}</span>
-                        <span class="ingredient-name">{{ getIngredientName(opt) }}</span>
-                        @if (sandwichBuild.includes(opt)) {
-                          <span class="ingredient-check">\u2713</span>
-                        }
-                      </button>
-                    }
-                  </div>
-
-                  <!-- Orden esperado -->
-                  <div class="order-hint">
-                    <span class="hint-label">\u{1F4CB} Orden correcto:</span>
-                    <div class="order-steps">
-                      <span class="order-step" [class.completed]="sandwichBuild.length >= 1">1. \u{1F35E}</span>
-                      <span class="order-arrow">\u2192</span>
-                      <span class="order-step" [class.completed]="sandwichBuild.length >= 2">2. \u{1F96C}</span>
-                      <span class="order-arrow">\u2192</span>
-                      <span class="order-step" [class.completed]="sandwichBuild.length >= 3">3. \u{1F9C0}</span>
-                      <span class="order-arrow">\u2192</span>
-                      <span class="order-step" [class.completed]="sandwichBuild.length >= 4">4. \u{1F96A}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Panel de construcci\xF3n -->
-                <div class="build-panel-v2" 
-                  [class.drop-active]="dropReady"
-                  [class.has-items]="sandwichBuild.length > 0"
-                  (dragover)="onDragOver($event)" 
-                  (dragleave)="onDragLeave()" 
-                  (drop)="onDrop($event)">
-                  
-                  <div class="panel-header">
-                    <span class="panel-icon">\u{1F37D}\uFE0F</span>
-                    <div class="panel-title-group">
-                      <h3>Tu S\xE1ndwich</h3>
-                      <p class="panel-subtitle">{{ sandwichBuild.length }} de 4 ingredientes</p>
-                    </div>
-                  </div>
-
-                  <div class="build-area">
-                    @if (sandwichBuild.length === 0) {
-                      <div class="empty-plate">
-                        <div class="plate-icon">\u{1F37D}\uFE0F</div>
-                        <p class="empty-text">Arrastra o toca los ingredientes</p>
-                        <p class="empty-subtext">Empieza con el pan \u{1F35E}</p>
-                      </div>
-                    } @else {
-                      <div class="sandwich-3d-build">
-                        @for (layer of sandwichBuild; track $index; let i = $index) {
-                          <div class="sandwich-layer-3d" [ngClass]="layerClass(layer)" [style.z-index]="10 - i">
-                            <span class="layer-emoji">{{ layer }}</span>
-                            <span class="layer-name">{{ getIngredientName(layer) }}</span>
-                            <span class="layer-number">{{ i + 1 }}</span>
-                          </div>
-                        }
-                      </div>
-                      
-                      <!-- Progress bar -->
-                      <div class="build-progress">
-                        <div class="progress-dots">
-                          @for (step of [1, 2, 3, 4]; track step) {
-                            <span class="progress-dot" [class.filled]="sandwichBuild.length >= step">
-                              @if (sandwichBuild.length >= step) { \u2713 }
-                            </span>
-                          }
-                        </div>
-                      </div>
-                    }
-                  </div>
-
-                  <!-- Acciones -->
-                  <div class="build-actions">
-                    @if (sandwichBuild.length > 0 && sandwichBuild.length < 4) {
-                      <button class="action-btn-reset" (click)="resetSandwich(); goToSandwichGame()">
-                        \u{1F504} Reiniciar
-                      </button>
-                    }
-                    @if (sandwichBuild.length === 4) {
-                      <button class="btn-primary btn-verify" (click)="checkSandwich()">
-                        \u2728 \xA1Verificar s\xE1ndwich!
-                      </button>
-                    }
-                  </div>
-                </div>
-              </div>
-
-              @if (sandwichFeedback) {
-                <div class="feedback-box-v2" [class.error]="!sandwichDone" [class.success]="sandwichDone">
-                  <span class="feedback-icon">{{ sandwichDone ? '\u{1F389}' : '\u{1F605}' }}</span>
-                  <span class="feedback-text">{{ sandwichFeedback }}</span>
-                  @if (!sandwichDone) {
-                    <button class="btn-retry" (click)="resetSandwich(); goToSandwichGame()">
-                      \u{1F504} Intentar de nuevo
-                    </button>
-                  }
-                </div>
-              }
-            }
-
-            <!-- PASO COMPLETADO -->
-            @else if (sandwichDone) {
-              <div class="success-celebration">
-                <!-- Confetti animado -->
-                <div class="confetti-container">
-                  <div class="confetti-piece c1">\u{1F38A}</div>
-                  <div class="confetti-piece c2">\u2B50</div>
-                  <div class="confetti-piece c3">\u{1F389}</div>
-                  <div class="confetti-piece c4">\u2728</div>
-                  <div class="confetti-piece c5">\u{1F31F}</div>
-                  <div class="confetti-piece c6">\u{1F38A}</div>
-                  <div class="confetti-piece c7">\u{1F4AB}</div>
-                  <div class="confetti-piece c8">\u{1F389}</div>
-                </div>
-
-                <!-- Nori celebrando -->
-                <div class="nori-celebration">
-                  <div class="nori-avatar">\u{1F9D1}\u200D\u{1F680}</div>
-                  <div class="speech-bubble">
-                    <span class="bubble-text">\xA1Delicioso!</span>
-                  </div>
-                </div>
-
-                <h2 class="celebration-title">
-                  <span class="title-emoji">\u{1F3C6}</span>
-                  \xA1Genial, lo lograste!
-                  <span class="title-emoji">\u{1F3C6}</span>
-                </h2>
-                <p class="celebration-subtitle">Tu s\xE1ndwich est\xE1 perfecto</p>
-
-                <!-- S\xE1ndwich 3D animado -->
-                <div class="sandwich-3d-fun">
-                  <div class="plate-base">
-                    <div class="plate-shine"></div>
-                  </div>
-                  <div class="sandwich-stack-3d">
-                    <div class="sw-piece sw-top-bun">
-                      <span class="bun-seeds">\u2022 \u2022 \u2022</span>
-                    </div>
-                    <div class="sw-piece sw-lettuce-layer"></div>
-                    <div class="sw-piece sw-cheese-layer">
-                      <span class="cheese-drip"></span>
-                    </div>
-                    <div class="sw-piece sw-bottom-bun"></div>
-                  </div>
-                  <div class="sparkles">
-                    <span class="sparkle s1">\u2728</span>
-                    <span class="sparkle s2">\u2B50</span>
-                    <span class="sparkle s3">\u2728</span>
-                  </div>
-                </div>
-
-                <!-- Recompensas -->
-                <div class="rewards-fun">
-                  <div class="reward-badge xp-badge">
-                    <span class="badge-icon">\u26A1</span>
-                    <span class="badge-value">+10</span>
-                    <span class="badge-label">XP</span>
-                  </div>
-                  <div class="reward-badge seed-badge">
-                    <span class="badge-icon">\u{1F331}</span>
-                    <span class="badge-value">+1</span>
-                    <span class="badge-label">Semilla</span>
-                  </div>
-                </div>
-
-                <button class="btn-next-fun" (click)="nextActivity()">
-                  <span class="btn-text">Siguiente aventura</span>
-                  <span class="btn-icon">\u{1F680}</span>
-                </button>
-              </div>
-            }
-          </article>
-        }
-
-        <!-- ACTIVIDAD 2: PLANTA -->
-        @else if (currentActivity === 1) {
-          <article class="activity-card">
-            <span class="activity-badge">ACTIVIDAD 2</span>
-            <h1>Haz crecer la planta \u{1F331}</h1>
-            <p class="activity-desc">Nori quiere plantar una flor. Arma la secuencia de acciones en el orden correcto \u2014primero <strong>plantar</strong>, luego <strong>regar</strong> y al final dar <strong>sol</strong>\u2014 y pulsa Ejecutar para verla crecer.</p>
-
-            @if (!plantDone) {
-              <div class="plant-game-v2">
-                <!-- Escena del jard\xEDn -->
-                <div class="garden-scene">
-                  <!-- Cielo con nubes y sol -->
-                  <div class="sky">
-                    <div class="cloud cloud-1">\u2601\uFE0F</div>
-                    <div class="cloud cloud-2">\u2601\uFE0F</div>
-                    <div class="sun-sky" [class.active]="plantActions.includes('sun')">\u{1F31E}</div>
-                  </div>
-                  
-                  <!-- Gotas de lluvia cuando se riega -->
-                  @if (plantActions.includes('water') && !plantActions.includes('sun')) {
-                    <div class="rain-drops">
-                      <span class="drop d1">\u{1F4A7}</span>
-                      <span class="drop d2">\u{1F4A7}</span>
-                      <span class="drop d3">\u{1F4A7}</span>
-                      <span class="drop d4">\u{1F4A7}</span>
-                      <span class="drop d5">\u{1F4A7}</span>
-                    </div>
-                  }
-                  
-                  <!-- Tierra y planta -->
-                  <div class="ground">
-                    <div class="dirt-mound">
-                      <div class="plant-container">
-                        @if (plantStage === 'empty') {
-                          <div class="plant-stage empty-stage">
-                            <span class="empty-hole">\u{1F573}\uFE0F</span>
-                          </div>
-                        } @else if (plantStage === 'seed') {
-                          <div class="plant-stage seed-stage">
-                            <span class="seed-icon">\u{1F331}</span>
-                          </div>
-                        } @else if (plantStage === 'sprout') {
-                          <div class="plant-stage sprout-stage">
-                            <div class="stem"></div>
-                            <div class="leaves">
-                              <span class="leaf leaf-left">\u{1F343}</span>
-                              <span class="leaf leaf-right">\u{1F343}</span>
-                            </div>
-                          </div>
-                        } @else {
-                          <div class="plant-stage flower-stage">
-                            <div class="flower-head">\u{1F33B}</div>
-                            <div class="flower-stem"></div>
-                            <div class="flower-leaves">
-                              <span class="f-leaf f-left">\u{1F33F}</span>
-                              <span class="f-leaf f-right">\u{1F33F}</span>
-                            </div>
-                          </div>
-                        }
-                      </div>
-                    </div>
-                    
-                    <!-- Decoraci\xF3n del jard\xEDn -->
-                    <div class="garden-decor">
-                      <span class="grass g1">\u{1F33E}</span>
-                      <span class="grass g2">\u{1F33F}</span>
-                      <span class="rock">\u{1FAA8}</span>
-                      <span class="grass g3">\u{1F33E}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Panel de controles -->
-                <div class="plant-controls-v2">
-                  <div class="controls-header">
-                    <h3>\u{1F9E9} Arma tu secuencia</h3>
-                    <p class="controls-hint">Elige las acciones en orden y luego pulsa Ejecutar</p>
-                  </div>
-
-                  <!-- Bloques disponibles para agregar -->
-                  <p class="controls-mini-label">Acciones disponibles</p>
-                  <div class="action-palette">
-                    <button class="palette-block plant-block"
-                      (click)="addPlantBlock('plant')"
-                      [disabled]="plantRunning || plantSequence.length >= 3">
-                      <span class="action-icon">\u{1F331}</span>
-                      <span class="action-text">Plantar</span>
-                    </button>
-                    <button class="palette-block water-block"
-                      (click)="addPlantBlock('water')"
-                      [disabled]="plantRunning || plantSequence.length >= 3">
-                      <span class="action-icon">\u{1F4A7}</span>
-                      <span class="action-text">Regar</span>
-                    </button>
-                    <button class="palette-block sun-block"
-                      (click)="addPlantBlock('sun')"
-                      [disabled]="plantRunning || plantSequence.length >= 3">
-                      <span class="action-icon">\u2600\uFE0F</span>
-                      <span class="action-text">Sol</span>
-                    </button>
-                  </div>
-
-                  <!-- Secuencia construida por el ni\xF1o -->
-                  <p class="controls-mini-label">Tu programa ({{ plantSequence.length }}/3)</p>
-                  <div class="plant-program">
-                    @if (plantSequence.length === 0) {
-                      <span class="program-empty">Toca una acci\xF3n para empezar \u{1F446}</span>
-                    }
-                    @for (step of plantSequence; track $index) {
-                      <div class="program-slot"
-                        [class.running]="plantActiveStep === $index"
-                        [class.done]="plantActiveStep > $index || plantDone">
-                        <span class="slot-num">{{ $index + 1 }}</span>
-                        <span class="slot-icon">{{ actionEmoji(step) }}</span>
-                        <span class="slot-label">{{ actionLabel(step) }}</span>
-                        @if (!plantRunning && !plantDone) {
-                          <button class="slot-remove" (click)="removePlantBlock($index)" aria-label="Quitar paso">\u2715</button>
-                        }
-                      </div>
-                      @if (!$last) { <span class="program-arrow">\u2192</span> }
-                    }
-                  </div>
-
-                  <!-- Botones de control -->
-                  <div class="program-controls">
-                    <button class="btn-run" (click)="runPlantSequence()" [disabled]="plantRunning || plantSequence.length === 0">
-                      {{ plantRunning ? '\u{1F331} Creciendo...' : '\u25B6 Ejecutar' }}
-                    </button>
-                    <button class="btn-clear" (click)="clearPlantSequence()" [disabled]="plantRunning || plantSequence.length === 0">
-                      \u{1F5D1}\uFE0F Borrar
-                    </button>
-                  </div>
-
-                  @if (plantFeedback) {
-                    <div class="plant-feedback" [class.error]="plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero')" [class.success]="!(plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero'))">
-                      <span class="feedback-emoji">{{ (plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero')) ? '\u{1F914}' : '\u2728' }}</span>
-                      <span class="feedback-message">{{ plantFeedback }}</span>
-                    </div>
-                  }
-                </div>
-              </div>
-            } @else {
-              <!-- Celebraci\xF3n de la planta -->
-              <div class="plant-celebration">
-                <div class="celebration-scene">
-                  <!-- Mariposas -->
-                  <div class="butterflies">
-                    <span class="butterfly b1">\u{1F98B}</span>
-                    <span class="butterfly b2">\u{1F98B}</span>
-                    <span class="butterfly b3">\u{1F41D}</span>
-                  </div>
-                  
-                  <!-- Sol brillante -->
-                  <div class="big-sun">\u2600\uFE0F</div>
-                  
-                  <!-- Flor grande -->
-                  <div class="big-flower">
-                    <div class="flower-glow"></div>
-                    <span class="sunflower">\u{1F33B}</span>
-                  </div>
-                  
-                  <!-- Sparkles -->
-                  <div class="flower-sparkles">
-                    <span class="sp sp1">\u2728</span>
-                    <span class="sp sp2">\u2B50</span>
-                    <span class="sp sp3">\u2728</span>
-                    <span class="sp sp4">\u{1F31F}</span>
-                  </div>
-                </div>
-
-                <h2 class="plant-success-title">\u{1F389} \xA1La planta floreci\xF3! \u{1F389}</h2>
-                <p class="plant-success-text">Seguiste la secuencia correcta</p>
-                
-                <div class="sequence-display">
-                  <span class="seq-step">\u{1F331} Plantar</span>
-                  <span class="seq-arrow">\u2192</span>
-                  <span class="seq-step">\u{1F4A7} Regar</span>
-                  <span class="seq-arrow">\u2192</span>
-                  <span class="seq-step">\u2600\uFE0F Sol</span>
-                  <span class="seq-arrow">=</span>
-                  <span class="seq-result">\u{1F33B}</span>
-                </div>
-
-                <div class="rewards-fun">
-                  <div class="reward-badge xp-badge">
-                    <span class="badge-icon">\u26A1</span>
-                    <span class="badge-value">+10</span>
-                    <span class="badge-label">XP</span>
-                  </div>
-                  <div class="reward-badge seed-badge">
-                    <span class="badge-icon">\u{1F331}</span>
-                    <span class="badge-value">+1</span>
-                    <span class="badge-label">Semilla</span>
-                  </div>
-                </div>
-
-                <button class="btn-next-fun" (click)="nextActivity()">
-                  <span class="btn-text">Siguiente aventura</span>
-                  <span class="btn-icon">\u{1F680}</span>
-                </button>
-              </div>
-            }
-          </article>
-        }
-
-        <!-- ACTIVIDAD 3: RUTA -->
-        @else if (currentActivity === 2) {
-          <article class="activity-card">
-            <span class="activity-badge">ACTIVIDAD 3</span>
-            <h1>Lleva a Nori a casa \u{1F3E0}</h1>
-            <p class="activity-desc">Programa la ruta de Nori evitando los obst\xE1culos. \xA1Cuidado con las rocas y \xE1rboles!</p>
-
-            @if (!routeDone) {
-              <div class="route-game-v2">
-                <!-- Escena del mapa -->
-                <div class="map-scene">
-                  <!-- Cielo y decoraci\xF3n -->
-                  <div class="map-sky">
-                    <div class="map-cloud mc1">\u2601\uFE0F</div>
-                    <div class="map-cloud mc2">\u2601\uFE0F</div>
-                    <div class="map-sun">\u{1F324}\uFE0F</div>
-                  </div>
-                  
-                  <!-- Grid del juego (4 columnas x 5 filas) -->
-                  <div class="map-ground">
-                    <div class="game-grid-v2">
-                      @for (row of [0, 1, 2, 3, 4]; track row) {
-                        @for (col of [0, 1, 2, 3]; track col) {
-                          <div class="grid-cell-v2" 
-                            [class.goal-cell]="col === routeGoal.x && row === routeGoal.y"
-                            [class.start-cell]="col === 0 && row === 4"
-                            [class.obstacle-cell]="isObstacle(col, row)"
-                            [class.char-cell]="col === routeCharPos.x && row === routeCharPos.y && !isObstacle(col, row)">
-                            
-                            @if (col === routeGoal.x && row === routeGoal.y) {
-                              <div class="goal-house">
-                                <span class="house-icon">\u{1F3E0}</span>
-                                @if (routeCharPos.x === routeGoal.x && routeCharPos.y === routeGoal.y) {
-                                  <span class="nori-icon nori-arrived">\u{1F9D1}\u200D\u{1F680}</span>
-                                } @else {
-                                  <span class="house-label">Casa</span>
-                                }
-                              </div>
-                            } @else if (isObstacle(col, row)) {
-                              <span class="obstacle-icon">{{ getObstacleEmoji(col, row) }}</span>
-                            } @else if (col === routeCharPos.x && row === routeCharPos.y) {
-                              <div class="nori-character" 
-                                [class.moving]="routeRunning"
-                                [class.direction-right]="routeCharDirection === 'right'"
-                                [class.direction-left]="routeCharDirection === 'left'"
-                                [class.direction-up]="routeCharDirection === 'up'"
-                                [class.direction-down]="routeCharDirection === 'down'"
-                                [class.hit]="routeHitObstacle">
-                                <span class="nori-icon">\u{1F9D1}\u200D\u{1F680}</span>
-                              </div>
-                            } @else if (col === 0 && row === 4 && !(routeCharPos.x === 0 && routeCharPos.y === 4)) {
-                              <span class="start-flag">\u{1F6A9}</span>
-                            }
-                            
-                            <!-- Hierba decorativa en celdas vac\xEDas -->
-                            @if (!(col === routeGoal.x && row === routeGoal.y) && !isObstacle(col, row) && !(col === routeCharPos.x && row === routeCharPos.y) && !(col === 0 && row === 4)) {
-                              <span class="grass-decor">{{ (col + row) % 3 === 0 ? '\u{1F33F}' : '' }}</span>
-                            }
-                          </div>
-                        }
-                      }
-                    </div>
-                    
-                    <!-- Leyenda del mapa -->
-                    <div class="map-legend">
-                      <span class="legend-item"><span class="legend-icon">\u{1F6A9}</span> Inicio</span>
-                      <span class="legend-item"><span class="legend-icon">\u{1F3E0}</span> Meta</span>
-                      <span class="legend-item"><span class="legend-icon">\u{1FAA8}\u{1F333}</span> Obst\xE1culos</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Panel de controles -->
-                <div class="route-controls-v2">
-                  <div class="controls-header">
-                    <h3>\u{1F3AE} Tu Programa</h3>
-                    <p class="moves-counter">{{ routeBuild.length }} / 6 movimientos</p>
-                  </div>
-
-                  <!-- Preview de la ruta -->
-                  <div class="route-preview-v2">
-                    @if (routeBuild.length === 0) {
-                      <div class="empty-route">
-                        <span class="empty-icon">\u{1F4DD}</span>
-                        <span class="empty-text">Agrega movimientos</span>
-                      </div>
-                    } @else {
-                      <div class="route-steps">
-                        @for (m of routeBuild; track $index; let i = $index) {
-                          <div class="route-step" [class.executing]="routeRunning && i === getCurrentStep()">
-                            <span class="step-number">{{ i + 1 }}</span>
-                            <span class="step-arrow">{{ routeMoveEmoji(m) }}</span>
-                          </div>
-                        }
-                      </div>
-                    }
-                  </div>
-
-                  <!-- Botones de direcci\xF3n -->
-                  <div class="direction-pad">
-                    <div class="dpad-row">
-                      <button class="dpad-btn up" (click)="addRouteMove('up')" [disabled]="routeBuild.length >= 6 || routeRunning">
-                        <span class="dpad-arrow">\u2B06\uFE0F</span>
-                        <span class="dpad-label">Arriba</span>
-                      </button>
-                    </div>
-                    <div class="dpad-row middle">
-                      <button class="dpad-btn left" (click)="addRouteMove('left')" [disabled]="routeBuild.length >= 6 || routeRunning">
-                        <span class="dpad-arrow">\u2B05\uFE0F</span>
-                        <span class="dpad-label">Izq</span>
-                      </button>
-                      <button class="dpad-btn center delete" (click)="removeLastMove()" [disabled]="routeBuild.length === 0 || routeRunning">
-                        <span class="dpad-arrow">\u{1F5D1}\uFE0F</span>
-                        <span class="dpad-label">Borrar</span>
-                      </button>
-                      <button class="dpad-btn right" (click)="addRouteMove('right')" [disabled]="routeBuild.length >= 6 || routeRunning">
-                        <span class="dpad-arrow">\u27A1\uFE0F</span>
-                        <span class="dpad-label">Der</span>
-                      </button>
-                    </div>
-                    <div class="dpad-row">
-                      <button class="dpad-btn down" (click)="addRouteMove('down')" [disabled]="routeBuild.length >= 6 || routeRunning">
-                        <span class="dpad-arrow">\u2B07\uFE0F</span>
-                        <span class="dpad-label">Abajo</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- Bot\xF3n ejecutar -->
-                  <button class="btn-execute" 
-                    (click)="runRoute()" 
-                    [disabled]="routeBuild.length === 0 || routeRunning"
-                    [class.running]="routeRunning">
-                    @if (routeRunning) {
-                      <span class="execute-icon">\u23F3</span>
-                      <span class="execute-text">Ejecutando...</span>
-                    } @else {
-                      <span class="execute-icon">\u25B6\uFE0F</span>
-                      <span class="execute-text">\xA1Ejecutar!</span>
-                    }
-                  </button>
-
-                  @if (routeFeedback) {
-                    <div class="route-feedback" 
-                      [class.success]="routeDone" 
-                      [class.error]="!routeDone && routeFeedback.includes('choc\xF3')"
-                      [class.warning]="!routeDone && !routeFeedback.includes('choc\xF3')">
-                      <span class="feedback-emoji">
-                        {{ routeDone ? '\u{1F389}' : (routeFeedback.includes('choc\xF3') ? '\u{1F4A5}' : '\u{1F914}') }}
-                      </span>
-                      <span class="feedback-text">{{ routeFeedback }}</span>
-                      @if (!routeDone) {
-                        <button class="btn-retry-small" (click)="resetRoute()">\u{1F504} Reintentar</button>
-                      }
-                    </div>
-                  }
-                </div>
-              </div>
-            } @else {
-              <!-- Celebraci\xF3n de la ruta -->
-              <div class="route-celebration">
-                <div class="celebration-scene">
-                  <div class="confetti-container">
-                    <div class="confetti-piece c1">\u{1F38A}</div>
-                    <div class="confetti-piece c2">\u2B50</div>
-                    <div class="confetti-piece c3">\u{1F389}</div>
-                    <div class="confetti-piece c4">\u2728</div>
-                  </div>
-                  
-                  <div class="success-house">
-                    <div class="house-glow"></div>
-                    <span class="big-house">\u{1F3E0}</span>
-                  </div>
-                  
-                  <div class="nori-home">
-                    <span class="nori-happy">\u{1F9D1}\u200D\u{1F680}</span>
-                    <div class="speech-bubble small">
-                      <span>\xA1Llegu\xE9!</span>
-                    </div>
-                  </div>
-                </div>
-
-                <h2 class="route-success-title">\u{1F3C6} \xA1Nori lleg\xF3 a casa! \u{1F3C6}</h2>
-                <p class="route-success-text">Tu programa funcion\xF3 perfectamente</p>
-                
-                <div class="route-display">
-                  @for (m of routeBuild; track $index) {
-                    <span class="route-move">{{ routeMoveEmoji(m) }}</span>
-                  }
-                </div>
-
-                <div class="rewards-fun">
-                  <div class="reward-badge xp-badge">
-                    <span class="badge-icon">\u26A1</span>
-                    <span class="badge-value">+10</span>
-                    <span class="badge-label">XP</span>
-                  </div>
-                  <div class="reward-badge seed-badge">
-                    <span class="badge-icon">\u{1F331}</span>
-                    <span class="badge-value">+1</span>
-                    <span class="badge-label">Semilla</span>
-                  </div>
-                </div>
-
-                <button class="btn-next-fun" (click)="nextActivity()">
-                  <span class="btn-text">Siguiente aventura</span>
-                  <span class="btn-icon">\u{1F680}</span>
-                </button>
-              </div>
-            }
-          </article>
-        }
-
-        <!-- ACTIVIDAD 4: MOCHILA -->
-        @else if (currentActivity === 3) {
-          <article class="activity-card">
-            <span class="activity-badge">ACTIVIDAD 4</span>
-            <h1>Arregla la mochila \u{1F392}</h1>
-            <p class="activity-desc">\xA1Nori desorden\xF3 los pasos! Intercambia los pasos para corregir el orden: Manzana \u2192 Agua \u2192 Cerrar.</p>
-
-            @if (!packingDone) {
-              <div class="packing-game">
-                <!-- Escena animada de la mochila -->
-                <div class="backpack-scene">
-                  <!-- Cielo, sol y nubes -->
-                  <span class="bp-sun">\u{1F31E}</span>
-                  <span class="bp-cloud bp-c1">\u2601\uFE0F</span>
-                  <span class="bp-cloud bp-c2">\u2601\uFE0F</span>
-                  <span class="bp-bird">\u{1F426}</span>
-
-                  <!-- Colinas -->
-                  <div class="bp-hill bp-hill-back"></div>
-                  <div class="bp-hill bp-hill-front"></div>
-
-                  <!-- Objetos cayendo dentro de la mochila -->
-                  @for (item of packingItemsIn; track $index) {
-                    <span class="bp-item bp-item-{{ $index }}">{{ packingEmoji(item) }}</span>
-                  }
-
-                  <!-- Mochila -->
-                  <div class="bp-backpack"
-                    [class.packing]="packingPacking"
-                    [class.closed]="packingClosed || packingDone"
-                    [class.shake]="packingShake">
-                    <span class="bp-emoji">\u{1F392}</span>
-                    @if (packingClosed || packingDone) {
-                      <span class="bp-sparkle bp-sp1">\u2728</span>
-                      <span class="bp-sparkle bp-sp2">\u2B50</span>
-                      <span class="bp-sparkle bp-sp3">\u2728</span>
-                    }
-                  </div>
-
-                  <!-- Contador de objetos dentro -->
-                  @if (packingPacking || packingDone) {
-                    <div class="bp-status">
-                      {{ packingClosed || packingDone ? '\xA1Todo empacado! \u{1F389}' : 'Guardando: ' + packingItemsIn.length + ' objeto(s)' }}
-                    </div>
-                  }
-                </div>
-                <div class="packing-controls">
-                  <h3>Orden actual (toca dos para intercambiar)</h3>
-                  <div class="packing-steps">
-                    @for (step of packingBuild; track $index; let i = $index) {
-                      <button class="packing-step" [class.selected]="packingSelectedIdx === i" (click)="selectPackingStep(i)">
-                        <span class="pstep-num">{{ i + 1 }}</span>
-                        <span class="pstep-icon">{{ packingEmoji(step) }}</span>
-                        <span class="pstep-label">{{ packingLabel(step) }}</span>
-                      </button>
-                    }
-                  </div>
-                  <button class="btn-primary" (click)="checkPacking()">\u2713 Verificar orden</button>
-                  @if (packingFeedback) {
-                    <div class="feedback-box" [class.error]="!packingDone">{{ packingFeedback }}</div>
-                  }
-                </div>
-              </div>
-            } @else {
-              <div class="success-box">
-                <h2>\u{1F392} \xA1Mochila lista!</h2>
-                <p>Depuraste el c\xF3digo correctamente: \u{1F34E} \u2192 \u{1F4A7} \u2192 \u{1F392}</p>
-                <p class="reward-text">+10 XP \xB7 +1 Semilla</p>
-                <button class="btn-primary" (click)="nextActivity()">Siguiente actividad \u2192</button>
-              </div>
-            }
-          </article>
-        }
-
-        <!-- ACTIVIDAD 5: RETO FINAL -->
-        @else if (currentActivity === 4) {
-          <article class="activity-card">
-            <span class="activity-badge">ACTIVIDAD 5</span>
-            <h1>Reto final: La semilla m\xE1gica \u{1F31F}</h1>
-            <p class="activity-desc">Programa a Nori para recoger \u{1F4A7} Agua, \u2600\uFE0F Luz y \u{1F331} Tierra, y llevarlos hasta la semilla m\xE1gica para plantarla.</p>
-
-            @if (!finalDone) {
-              <div class="final-game">
-                <div class="grid-view small">
-                  <div class="game-grid grid-3">
-                    @for (row of [0, 1, 2]; track row) {
-                      @for (col of [0, 1, 2]; track col) {
-                        <div class="grid-cell"
-                          [class.goal-cell]="col === finalSeedPos.x && row === finalSeedPos.y"
-                          [class.char-cell]="col === finalCharPos.x && row === finalCharPos.y">
-                          @if (col === finalCharPos.x && row === finalCharPos.y) {
-                            \u{1F9D1}\u200D\u{1F680}
-                          } @else if (finalResourceAt(col, row); as res) {
-                            @if (!res.collected) { {{ finalResourceEmoji(res.type) }} }
-                          } @else if (col === finalSeedPos.x && row === finalSeedPos.y) {
-                            @if (finalGrowing || finalPlanted) { {{ finalSeedEmoji() }} } @else { \u{1F31F} }
-                          }
-                        </div>
-                      }
-                    }
-                  </div>
-                </div>
-                <div class="final-controls">
-                  <div class="final-inventory">
-                    <span class="inventory-label">Mochila:</span>
-                    @for (r of finalResources; track r.type) {
-                      <span class="inventory-item" [class.got]="r.collected">{{ finalResourceEmoji(r.type) }}</span>
-                    }
-                  </div>
-                  <h3>Tu programa</h3>
-                  <div class="final-preview">
-                    @for (b of finalBuild; track $index) {
-                      <span class="block-preview" [class.active]="$index === finalCurrentStep">{{ finalBlockLabel(b) }}</span>
-                    }
-                    @if (finalBuild.length === 0) { <span class="empty-text">Sin bloques</span> }
-                  </div>
-                  <div class="block-buttons">
-                    <button class="block-btn" (click)="addFinalBlock('right')" [disabled]="finalRunning">\u27A1\uFE0F Avanzar</button>
-                    <button class="block-btn" (click)="addFinalBlock('up')" [disabled]="finalRunning">\u2B06\uFE0F Subir</button>
-                    <button class="block-btn" (click)="addFinalBlock('left')" [disabled]="finalRunning">\u2B05\uFE0F Izquierda</button>
-                    <button class="block-btn" (click)="addFinalBlock('down')" [disabled]="finalRunning">\u2B07\uFE0F Bajar</button>
-                    <button class="block-btn" (click)="addFinalBlock('collect')" [disabled]="finalRunning">\u{1FAF3} Recoger</button>
-                    <button class="block-btn" (click)="addFinalBlock('plant')" [disabled]="finalRunning">\u{1F331} Plantar</button>
-                    <button class="block-btn delete" (click)="removeFinalBlock()" [disabled]="finalBuild.length === 0 || finalRunning">\u{1F5D1}\uFE0F</button>
-                  </div>
-                  <button class="btn-primary" (click)="runFinal()" [disabled]="finalBuild.length === 0 || finalRunning">\u25B6\uFE0F Ejecutar</button>
-                  @if (finalFeedback) {
-                    <div class="feedback-box" [class.error]="!finalPlanted">
-                      {{ finalFeedback }}
-                      @if (!finalPlanted && !finalRunning) { <button class="btn-secondary" (click)="resetFinal()">Reintentar</button> }
-                    </div>
-                  }
-                </div>
-              </div>
-            } @else {
-              <div class="completion-box">
-                <div class="seed-grown">\u{1F332}</div>
-                <h2>\u{1F389} \xA1MUNDO 1 COMPLETADO!</h2>
-                <p class="grow-sequence">\u{1F331} \u2192 \u{1F33F} \u2192 \u{1F333} \u2192 \u{1F332}</p>
-                <p>\u{1F31F} \xA1Felicidades, peque\xF1a programadora!</p>
-                <p>Aprendiste que programar es dar instrucciones, organizarlas correctamente y encontrar errores cuando algo no funciona.</p>
-                <p>Desbloqueaste el <strong>Mundo 2: Sendero de Variables</strong></p>
-                <div class="rewards-row">
-                  <div class="reward-item"><strong>50</strong><span>XP</span></div>
-                  <div class="reward-item"><strong>5</strong><span>Semillas</span></div>
-                </div>
-                <button class="btn-primary" (click)="unlockAndOpenWorld2()">Desbloquear Mundo 2 \u2192</button>
-              </div>
-            }
-          </article>
-        }
-      </div>
-    </main>
-`, styles: ["/* src/app/worlds/world-1-seeds/world-1.css */\n/*# sourceMappingURL=world-1.css.map */\n"] }]
-  }], () => [{ type: ChangeDetectorRef }, { type: GameStateService }], { unlockWorld2: [{
-    type: Output
-  }] });
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(World1Component, { className: "World1Component", filePath: "src/app/worlds/world-1-seeds/world-1.ts", lineNumber: 31 });
-})();
-
 // node_modules/@angular/forms/fesm2022/forms.mjs
 /**
  * @license Angular v22.1.4
@@ -45245,181 +41714,4416 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
   }], null, null);
 })();
 
-// src/app/worlds/world-2-path/world-2.ts
-var _forTrack02 = ($index, $item) => $item.label;
-var _forTrack1 = ($index, $item) => $item.accepts;
-var _forTrack2 = ($index, $item) => $item.name;
-function World2Component_Conditional_12_Conditional_7_For_7_Conditional_0_Template(rf, ctx) {
+// src/app/core/auth.service.ts
+var USERS_KEY = "minicode.users";
+var SESSION_KEY = "minicode.session";
+var ROLE_PERMISSIONS = {
+  estudiante: ["jugar"],
+  profesor: ["jugar", "desbloquear-todo", "reiniciar-progreso"]
+};
+var DEFAULT_USERS = [
+  // Administrador (profesor): tiene todos los permisos.
+  { username: "admin", password: "admin123", role: "profesor" },
+  // Estudiantes de ejemplo.
+  { username: "nori", password: "nori123", role: "estudiante" },
+  { username: "lucas", password: "lucas123", role: "estudiante" },
+  { username: "sofia", password: "sofia123", role: "estudiante" }
+];
+var AuthService = class _AuthService {
+  /** Usuario autenticado (o null si no hay sesión). */
+  _currentUser = signal(
+    this.loadSession(),
+    ...ngDevMode ? [{ debugName: "_currentUser" }] : (
+      /* istanbul ignore next */
+      []
+    )
+  );
+  constructor() {
+    this.seedDefaultUsers();
+  }
+  /** Señal de solo lectura del usuario actual. */
+  currentUser = this._currentUser.asReadonly();
+  /** true si hay una sesión iniciada. */
+  isLoggedIn = computed(
+    () => this._currentUser() !== null,
+    ...ngDevMode ? [{ debugName: "isLoggedIn" }] : (
+      /* istanbul ignore next */
+      []
+    )
+  );
+  /** Registra un usuario nuevo e inicia sesión. Devuelve error si ya existe. */
+  register(username, password, role = "estudiante") {
+    const name = username.trim();
+    if (!name || !password) {
+      return { ok: false, error: "Escribe un nombre de usuario y una contrase\xF1a." };
+    }
+    const users = this.loadUsers();
+    if (users.some((u2) => u2.username.toLowerCase() === name.toLowerCase())) {
+      return { ok: false, error: "Ese nombre de usuario ya existe." };
+    }
+    users.push({ username: name, password, role });
+    this.saveUsers(users);
+    this.startSession({ username: name, role });
+    return { ok: true };
+  }
+  /** Inicia sesión con un usuario existente. */
+  login(username, password) {
+    const name = username.trim();
+    const user = this.loadUsers().find((u2) => u2.username.toLowerCase() === name.toLowerCase() && u2.password === password);
+    if (!user) {
+      return { ok: false, error: "Usuario o contrase\xF1a incorrectos." };
+    }
+    this.startSession({ username: user.username, role: user.role });
+    return { ok: true };
+  }
+  /** Cierra la sesión actual. */
+  logout() {
+    this._currentUser.set(null);
+    localStorage.removeItem(SESSION_KEY);
+  }
+  /** Comprueba si el usuario actual tiene un permiso concreto. */
+  hasPermission(permission) {
+    const user = this._currentUser();
+    if (!user)
+      return false;
+    return ROLE_PERMISSIONS[user.role].includes(permission);
+  }
+  // ── Persistencia ────────────────────────────────────────────────────────
+  /**
+   * Asegura que los usuarios predefinidos existan. Añade los que falten a la
+   * lista guardada sin sobrescribir los que el usuario haya registrado por su
+   * cuenta (se comparan por nombre, sin distinguir mayúsculas).
+   */
+  seedDefaultUsers() {
+    const users = this.loadUsers();
+    let changed = false;
+    for (const defaultUser of DEFAULT_USERS) {
+      const exists = users.some((u2) => u2.username.toLowerCase() === defaultUser.username.toLowerCase());
+      if (!exists) {
+        users.push(defaultUser);
+        changed = true;
+      }
+    }
+    if (changed) {
+      this.saveUsers(users);
+    }
+  }
+  startSession(user) {
+    this._currentUser.set(user);
+    localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+  }
+  loadSession() {
+    return this.readJson(SESSION_KEY);
+  }
+  loadUsers() {
+    return this.readJson(USERS_KEY) ?? [];
+  }
+  saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  }
+  readJson(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  static \u0275fac = function AuthService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _AuthService)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AuthService, factory: _AuthService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AuthService, [{
+    type: Injectable,
+    args: [{ providedIn: "root" }]
+  }], () => [], null);
+})();
+
+// src/app/auth/auth.ts
+function AuthComponent_Conditional_57_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 18);
-    \u0275\u0275listener("dragstart", function World2Component_Conditional_12_Conditional_7_For_7_Conditional_0_Template_button_dragstart_0_listener() {
+    \u0275\u0275elementStart(0, "label", 22)(1, "span");
+    \u0275\u0275text(2, "\u{1F393} Soy...");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "select", 27);
+    \u0275\u0275twoWayListener("ngModelChange", function AuthComponent_Conditional_57_Template_select_ngModelChange_3_listener($event) {
       \u0275\u0275restoreView(_r1);
-      const item_r2 = \u0275\u0275nextContext().$implicit;
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.startMagicDrag(item_r2));
-    })("click", function World2Component_Conditional_12_Conditional_7_For_7_Conditional_0_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r1);
-      const item_r2 = \u0275\u0275nextContext().$implicit;
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.selectMagicItem(item_r2));
+      const ctx_r1 = \u0275\u0275nextContext();
+      \u0275\u0275twoWayBindingSet(ctx_r1.role, $event) || (ctx_r1.role = $event);
+      return \u0275\u0275resetView($event);
     });
+    \u0275\u0275elementStart(4, "option", 28);
+    \u0275\u0275text(5, "Estudiante (jugar)");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "option", 29);
+    \u0275\u0275text(7, "Profesor (administrar)");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275controlCreate();
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(3);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.role);
+    \u0275\u0275control();
+  }
+}
+function AuthComponent_Conditional_58_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 25);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const item_r2 = \u0275\u0275nextContext().$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("selected", ctx_r2.magicSelectedItem === item_r2);
+    const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate2(" ", item_r2.emoji, " ", item_r2.label, " ");
+    \u0275\u0275textInterpolate1("\u26A0\uFE0F ", ctx_r1.error);
   }
 }
-function World2Component_Conditional_12_Conditional_7_For_7_Template(rf, ctx) {
+var AuthComponent = class _AuthComponent {
+  constructor(auth) {
+    this.auth = auth;
+  }
+  auth;
+  authenticated = new EventEmitter();
+  /** Modo actual del formulario. */
+  mode = "login";
+  username = "";
+  password = "";
+  role = "estudiante";
+  error = "";
+  /** Cambia entre iniciar sesión y registrarse. */
+  switchMode(mode) {
+    this.mode = mode;
+    this.error = "";
+  }
+  /** Envía el formulario según el modo activo. */
+  submit() {
+    const result = this.mode === "login" ? this.auth.login(this.username, this.password) : this.auth.register(this.username, this.password, this.role);
+    if (result.ok) {
+      this.error = "";
+      this.authenticated.emit();
+    } else {
+      this.error = result.error ?? "Ocurri\xF3 un error.";
+    }
+  }
+  static \u0275fac = function AuthComponent_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _AuthComponent)(\u0275\u0275directiveInject(AuthService));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AuthComponent, selectors: [["app-auth"]], outputs: { authenticated: "authenticated" }, decls: 61, vars: 9, consts: [[1, "auth-screen"], ["aria-hidden", "true", 1, "auth-bg"], [1, "auth-sun"], [1, "auth-cloud", "auth-cloud--1"], [1, "auth-cloud", "auth-cloud--2"], [1, "auth-cloud", "auth-cloud--3"], [1, "auth-hill", "auth-hill--back"], [1, "auth-hill", "auth-hill--mid"], [1, "auth-hill", "auth-hill--front"], [1, "auth-trees"], [1, "auth-tree"], [1, "auth-float", "auth-float--1"], [1, "auth-float", "auth-float--2"], [1, "auth-float", "auth-float--3"], [1, "auth-float", "auth-float--4"], [1, "auth-float", "auth-float--5"], [1, "auth-card"], [1, "auth-logo"], [1, "auth-subtitle"], [1, "auth-tabs"], ["type", "button", 1, "auth-tab", 3, "click"], [1, "auth-form", 3, "ngSubmit"], [1, "auth-field"], ["type", "text", "name", "username", "autocomplete", "username", "placeholder", "Tu nombre de explorador", 3, "ngModelChange", "ngModel"], ["type", "password", "name", "password", "autocomplete", "current-password", "placeholder", "Tu contrase\xF1a secreta", 3, "ngModelChange", "ngModel"], [1, "auth-error"], ["type", "submit", 1, "auth-submit"], ["name", "role", 3, "ngModelChange", "ngModel"], ["value", "estudiante"], ["value", "profesor"]], template: function AuthComponent_Template(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275elementStart(0, "div", 0)(1, "div", 1);
+      \u0275\u0275element(2, "div", 2)(3, "div", 3)(4, "div", 4)(5, "div", 5)(6, "div", 6)(7, "div", 7)(8, "div", 8);
+      \u0275\u0275elementStart(9, "div", 9)(10, "span", 10);
+      \u0275\u0275text(11, "\u{1F332}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(12, "span", 10);
+      \u0275\u0275text(13, "\u{1F333}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(14, "span", 10);
+      \u0275\u0275text(15, "\u{1F332}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(16, "span", 10);
+      \u0275\u0275text(17, "\u{1F333}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(18, "span", 10);
+      \u0275\u0275text(19, "\u{1F332}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(20, "span", 10);
+      \u0275\u0275text(21, "\u{1F333}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(22, "span", 10);
+      \u0275\u0275text(23, "\u{1F332}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(24, "span", 10);
+      \u0275\u0275text(25, "\u{1F333}");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(26, "span", 11);
+      \u0275\u0275text(27, "\u{1F343}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(28, "span", 12);
+      \u0275\u0275text(29, "\u{1F331}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(30, "span", 13);
+      \u0275\u0275text(31, "\u2728");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(32, "span", 14);
+      \u0275\u0275text(33, "\u{1F343}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(34, "span", 15);
+      \u0275\u0275text(35, "\u{1F98B}");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(36, "div", 16)(37, "div", 17);
+      \u0275\u0275text(38, "\u{1F333} ");
+      \u0275\u0275elementStart(39, "span");
+      \u0275\u0275text(40, "Bosque de Algoritmos");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(41, "p", 18);
+      \u0275\u0275text(42, "\u{1F9D1}\u200D\u{1F680} \xA1Hola explorador! Entra para empezar la aventura.");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(43, "div", 19)(44, "button", 20);
+      \u0275\u0275listener("click", function AuthComponent_Template_button_click_44_listener() {
+        return ctx.switchMode("login");
+      });
+      \u0275\u0275text(45, " Iniciar sesi\xF3n ");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(46, "button", 20);
+      \u0275\u0275listener("click", function AuthComponent_Template_button_click_46_listener() {
+        return ctx.switchMode("register");
+      });
+      \u0275\u0275text(47, " Registrarse ");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(48, "form", 21);
+      \u0275\u0275listener("ngSubmit", function AuthComponent_Template_form_ngSubmit_48_listener() {
+        return ctx.submit();
+      });
+      \u0275\u0275elementStart(49, "label", 22)(50, "span");
+      \u0275\u0275text(51, "\u{1F464} Usuario");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(52, "input", 23);
+      \u0275\u0275twoWayListener("ngModelChange", function AuthComponent_Template_input_ngModelChange_52_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.username, $event) || (ctx.username = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd();
+      \u0275\u0275controlCreate();
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(53, "label", 22)(54, "span");
+      \u0275\u0275text(55, "\u{1F511} Contrase\xF1a");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(56, "input", 24);
+      \u0275\u0275twoWayListener("ngModelChange", function AuthComponent_Template_input_ngModelChange_56_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.password, $event) || (ctx.password = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd();
+      \u0275\u0275controlCreate();
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(57, AuthComponent_Conditional_57_Template, 8, 1, "label", 22);
+      \u0275\u0275conditionalCreate(58, AuthComponent_Conditional_58_Template, 2, 1, "p", 25);
+      \u0275\u0275elementStart(59, "button", 26);
+      \u0275\u0275text(60);
+      \u0275\u0275elementEnd()()()();
+    }
+    if (rf & 2) {
+      \u0275\u0275advance(44);
+      \u0275\u0275classProp("active", ctx.mode === "login");
+      \u0275\u0275advance(2);
+      \u0275\u0275classProp("active", ctx.mode === "register");
+      \u0275\u0275advance(6);
+      \u0275\u0275twoWayProperty("ngModel", ctx.username);
+      \u0275\u0275control();
+      \u0275\u0275advance(4);
+      \u0275\u0275twoWayProperty("ngModel", ctx.password);
+      \u0275\u0275control();
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.mode === "register" ? 57 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.error ? 58 : -1);
+      \u0275\u0275advance(2);
+      \u0275\u0275textInterpolate1(" ", ctx.mode === "login" ? "Entrar" : "Crear cuenta", " ");
+    }
+  }, dependencies: [CommonModule, FormsModule, \u0275NgNoValidate, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, SelectControlValueAccessor, NgControlStatus, NgControlStatusGroup, NgModel, NgForm], styles: ['\n.auth-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 24px;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      #bfe6f5 0%,\n      #d7f0d0 45%,\n      #a8e063 100%);\n}\n.auth-bg[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.auth-sun[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 8%;\n  right: 12%;\n  width: 90px;\n  height: 90px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      #fff6c4 0%,\n      #ffe07a 55%,\n      #ffd147 100%);\n  box-shadow: 0 0 60px 20px rgba(255, 221, 87, 0.55);\n  animation: _ngcontent-%COMP%_auth-sun-pulse 6s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_auth-sun-pulse {\n  0%, 100% {\n    transform: scale(1);\n    box-shadow: 0 0 60px 20px rgba(255, 221, 87, 0.55);\n  }\n  50% {\n    transform: scale(1.06);\n    box-shadow: 0 0 80px 30px rgba(255, 221, 87, 0.7);\n  }\n}\n.auth-cloud[_ngcontent-%COMP%] {\n  position: absolute;\n  background: #ffffff;\n  border-radius: 50px;\n  opacity: 0.9;\n  filter: blur(0.3px);\n}\n.auth-cloud[_ngcontent-%COMP%]::before, \n.auth-cloud[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  background: #ffffff;\n  border-radius: 50%;\n}\n.auth-cloud--1[_ngcontent-%COMP%] {\n  top: 14%;\n  left: -160px;\n  width: 120px;\n  height: 34px;\n  animation: _ngcontent-%COMP%_auth-drift 38s linear infinite;\n}\n.auth-cloud--%NS%1[_ngcontent-%COMP%]::before {\n  width: 50px;\n  height: 50px;\n  top: -22px;\n  left: 18px;\n}\n.auth-cloud--%NS%1[_ngcontent-%COMP%]::after {\n  width: 38px;\n  height: 38px;\n  top: -14px;\n  left: 60px;\n}\n.auth-cloud--2[_ngcontent-%COMP%] {\n  top: 26%;\n  left: -220px;\n  width: 90px;\n  height: 26px;\n  animation: _ngcontent-%COMP%_auth-drift 52s linear infinite;\n  animation-delay: -12s;\n}\n.auth-cloud--%NS%2[_ngcontent-%COMP%]::before {\n  width: 38px;\n  height: 38px;\n  top: -16px;\n  left: 14px;\n}\n.auth-cloud--%NS%2[_ngcontent-%COMP%]::after {\n  width: 28px;\n  height: 28px;\n  top: -10px;\n  left: 46px;\n}\n.auth-cloud--3[_ngcontent-%COMP%] {\n  top: 9%;\n  left: -260px;\n  width: 70px;\n  height: 22px;\n  opacity: 0.75;\n  animation: _ngcontent-%COMP%_auth-drift 64s linear infinite;\n  animation-delay: -30s;\n}\n.auth-cloud--%NS%3[_ngcontent-%COMP%]::before {\n  width: 30px;\n  height: 30px;\n  top: -13px;\n  left: 12px;\n}\n.auth-cloud--%NS%3[_ngcontent-%COMP%]::after {\n  width: 22px;\n  height: 22px;\n  top: -8px;\n  left: 38px;\n}\n@keyframes _ngcontent-%COMP%_auth-drift {\n  from {\n    transform: translateX(0);\n  }\n  to {\n    transform: translateX(calc(100vw + 300px));\n  }\n}\n.auth-hill[_ngcontent-%COMP%] {\n  position: absolute;\n  left: -10%;\n  width: 120%;\n  border-radius: 50% 50% 0 0;\n}\n.auth-hill--back[_ngcontent-%COMP%] {\n  bottom: 90px;\n  height: 240px;\n  background: #7cc063;\n  opacity: 0.55;\n}\n.auth-hill--mid[_ngcontent-%COMP%] {\n  bottom: 60px;\n  height: 200px;\n  background: #62b04b;\n  opacity: 0.8;\n}\n.auth-hill--front[_ngcontent-%COMP%] {\n  bottom: 0;\n  height: 150px;\n  background: #4a9a37;\n}\n.auth-trees[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 34px;\n  left: 0;\n  right: 0;\n  display: flex;\n  justify-content: space-around;\n  font-size: 2.6rem;\n  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15));\n}\n.auth-tree[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_auth-sway 5s ease-in-out infinite;\n  transform-origin: bottom center;\n}\n.auth-tree[_ngcontent-%COMP%]:nth-child(even) {\n  animation-delay: -2.5s;\n  font-size: 3.1rem;\n}\n.auth-tree[_ngcontent-%COMP%]:nth-child(3n) {\n  animation-duration: 6.5s;\n}\n@keyframes _ngcontent-%COMP%_auth-sway {\n  0%, 100% {\n    transform: rotate(-2deg);\n  }\n  50% {\n    transform: rotate(2deg);\n  }\n}\n.auth-float[_ngcontent-%COMP%] {\n  position: absolute;\n  font-size: 1.6rem;\n  opacity: 0.85;\n  animation: _ngcontent-%COMP%_auth-floaty 9s ease-in-out infinite;\n}\n.auth-float--1[_ngcontent-%COMP%] {\n  top: 30%;\n  left: 12%;\n  animation-delay: 0s;\n}\n.auth-float--2[_ngcontent-%COMP%] {\n  top: 62%;\n  left: 8%;\n  font-size: 1.9rem;\n  animation-delay: -2s;\n}\n.auth-float--3[_ngcontent-%COMP%] {\n  top: 20%;\n  left: 40%;\n  animation-delay: -4s;\n}\n.auth-float--4[_ngcontent-%COMP%] {\n  top: 68%;\n  right: 14%;\n  animation-delay: -1s;\n}\n.auth-float--5[_ngcontent-%COMP%] {\n  top: 40%;\n  right: 10%;\n  font-size: 1.9rem;\n  animation-delay: -3s;\n}\n@keyframes _ngcontent-%COMP%_auth-floaty {\n  0%, 100% {\n    transform: translateY(0) rotate(-6deg);\n  }\n  50% {\n    transform: translateY(-22px) rotate(6deg);\n  }\n}\n.auth-card[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1;\n  width: 100%;\n  max-width: 380px;\n  background: rgba(255, 255, 255, 0.92);\n  -webkit-backdrop-filter: blur(6px);\n  backdrop-filter: blur(6px);\n  border: 1px solid rgba(255, 255, 255, 0.6);\n  border-radius: 20px;\n  padding: 32px 28px;\n  box-shadow: 0 18px 45px rgba(20, 60, 15, 0.3);\n  text-align: center;\n}\n@media (prefers-reduced-motion: reduce) {\n  .auth-sun[_ngcontent-%COMP%], \n   .auth-cloud[_ngcontent-%COMP%], \n   .auth-tree[_ngcontent-%COMP%], \n   .auth-float[_ngcontent-%COMP%] {\n    animation: none;\n  }\n}\n.auth-logo[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 800;\n  color: #2d6a1e;\n  margin-bottom: 6px;\n}\n.auth-logo[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  color: #3b7a2a;\n}\n.auth-subtitle[_ngcontent-%COMP%] {\n  margin: 0 0 20px;\n  color: #5a6b53;\n  font-size: 0.95rem;\n}\n.auth-tabs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 6px;\n  background: #eef3e6;\n  border-radius: 12px;\n  padding: 4px;\n  margin-bottom: 20px;\n}\n.auth-tab[_ngcontent-%COMP%] {\n  flex: 1;\n  border: 0;\n  background: transparent;\n  padding: 10px;\n  border-radius: 9px;\n  font-size: 0.95rem;\n  font-weight: 600;\n  color: #5a6b53;\n  cursor: pointer;\n  transition: background 0.2s, color 0.2s;\n}\n.auth-tab.active[_ngcontent-%COMP%] {\n  background: #56ab2f;\n  color: #fff;\n  box-shadow: 0 3px 8px rgba(86, 171, 47, 0.4);\n}\n.auth-form[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n  text-align: left;\n}\n.auth-field[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 6px;\n  font-size: 0.9rem;\n  font-weight: 600;\n  color: #3d4a37;\n}\n.auth-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], \n.auth-field[_ngcontent-%COMP%]   select[_ngcontent-%COMP%] {\n  padding: 11px 13px;\n  border: 2px solid #d6e2c8;\n  border-radius: 10px;\n  font-size: 1rem;\n  outline: none;\n  transition: border-color 0.2s;\n}\n.auth-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]:focus, \n.auth-field[_ngcontent-%COMP%]   select[_ngcontent-%COMP%]:focus {\n  border-color: #56ab2f;\n}\n.auth-error[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #c0392b;\n  font-size: 0.88rem;\n  font-weight: 600;\n}\n.auth-submit[_ngcontent-%COMP%] {\n  margin-top: 4px;\n  border: 0;\n  background: #56ab2f;\n  color: #fff;\n  padding: 13px;\n  border-radius: 12px;\n  font-size: 1.05rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: background 0.2s, transform 0.1s;\n}\n.auth-submit[_ngcontent-%COMP%]:hover {\n  background: #4a9528;\n}\n.auth-submit[_ngcontent-%COMP%]:active {\n  transform: scale(0.98);\n}\n/*# sourceMappingURL=auth.css.map */'] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AuthComponent, [{
+    type: Component,
+    args: [{ selector: "app-auth", standalone: true, imports: [CommonModule, FormsModule], template: `<div class="auth-screen">
+  <!-- Escena de fondo del bosque (decorativa) -->
+  <div class="auth-bg" aria-hidden="true">
+    <div class="auth-sun"></div>
+    <div class="auth-cloud auth-cloud--1"></div>
+    <div class="auth-cloud auth-cloud--2"></div>
+    <div class="auth-cloud auth-cloud--3"></div>
+    <div class="auth-hill auth-hill--back"></div>
+    <div class="auth-hill auth-hill--mid"></div>
+    <div class="auth-hill auth-hill--front"></div>
+    <div class="auth-trees">
+      <span class="auth-tree">\u{1F332}</span>
+      <span class="auth-tree">\u{1F333}</span>
+      <span class="auth-tree">\u{1F332}</span>
+      <span class="auth-tree">\u{1F333}</span>
+      <span class="auth-tree">\u{1F332}</span>
+      <span class="auth-tree">\u{1F333}</span>
+      <span class="auth-tree">\u{1F332}</span>
+      <span class="auth-tree">\u{1F333}</span>
+    </div>
+    <span class="auth-float auth-float--1">\u{1F343}</span>
+    <span class="auth-float auth-float--2">\u{1F331}</span>
+    <span class="auth-float auth-float--3">\u2728</span>
+    <span class="auth-float auth-float--4">\u{1F343}</span>
+    <span class="auth-float auth-float--5">\u{1F98B}</span>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-logo">\u{1F333} <span>Bosque de Algoritmos</span></div>
+    <p class="auth-subtitle">\u{1F9D1}\u200D\u{1F680} \xA1Hola explorador! Entra para empezar la aventura.</p>
+
+    <!-- Selector de modo -->
+    <div class="auth-tabs">
+      <button
+        type="button"
+        class="auth-tab"
+        [class.active]="mode === 'login'"
+        (click)="switchMode('login')">
+        Iniciar sesi\xF3n
+      </button>
+      <button
+        type="button"
+        class="auth-tab"
+        [class.active]="mode === 'register'"
+        (click)="switchMode('register')">
+        Registrarse
+      </button>
+    </div>
+
+    <form class="auth-form" (ngSubmit)="submit()">
+      <label class="auth-field">
+        <span>\u{1F464} Usuario</span>
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          autocomplete="username"
+          placeholder="Tu nombre de explorador" />
+      </label>
+
+      <label class="auth-field">
+        <span>\u{1F511} Contrase\xF1a</span>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          autocomplete="current-password"
+          placeholder="Tu contrase\xF1a secreta" />
+      </label>
+
+      <!-- Rol: solo al registrarse (otorga permisos) -->
+      @if (mode === 'register') {
+        <label class="auth-field">
+          <span>\u{1F393} Soy...</span>
+          <select name="role" [(ngModel)]="role">
+            <option value="estudiante">Estudiante (jugar)</option>
+            <option value="profesor">Profesor (administrar)</option>
+          </select>
+        </label>
+      }
+
+      @if (error) {
+        <p class="auth-error">\u26A0\uFE0F {{ error }}</p>
+      }
+
+      <button type="submit" class="auth-submit">
+        {{ mode === 'login' ? 'Entrar' : 'Crear cuenta' }}
+      </button>
+    </form>
+  </div>
+</div>
+`, styles: ['/* src/app/auth/auth.css */\n.auth-screen {\n  position: relative;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 24px;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      #bfe6f5 0%,\n      #d7f0d0 45%,\n      #a8e063 100%);\n}\n.auth-bg {\n  position: absolute;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.auth-sun {\n  position: absolute;\n  top: 8%;\n  right: 12%;\n  width: 90px;\n  height: 90px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      #fff6c4 0%,\n      #ffe07a 55%,\n      #ffd147 100%);\n  box-shadow: 0 0 60px 20px rgba(255, 221, 87, 0.55);\n  animation: auth-sun-pulse 6s ease-in-out infinite;\n}\n@keyframes auth-sun-pulse {\n  0%, 100% {\n    transform: scale(1);\n    box-shadow: 0 0 60px 20px rgba(255, 221, 87, 0.55);\n  }\n  50% {\n    transform: scale(1.06);\n    box-shadow: 0 0 80px 30px rgba(255, 221, 87, 0.7);\n  }\n}\n.auth-cloud {\n  position: absolute;\n  background: #ffffff;\n  border-radius: 50px;\n  opacity: 0.9;\n  filter: blur(0.3px);\n}\n.auth-cloud::before,\n.auth-cloud::after {\n  content: "";\n  position: absolute;\n  background: #ffffff;\n  border-radius: 50%;\n}\n.auth-cloud--1 {\n  top: 14%;\n  left: -160px;\n  width: 120px;\n  height: 34px;\n  animation: auth-drift 38s linear infinite;\n}\n.auth-cloud--1::before {\n  width: 50px;\n  height: 50px;\n  top: -22px;\n  left: 18px;\n}\n.auth-cloud--1::after {\n  width: 38px;\n  height: 38px;\n  top: -14px;\n  left: 60px;\n}\n.auth-cloud--2 {\n  top: 26%;\n  left: -220px;\n  width: 90px;\n  height: 26px;\n  animation: auth-drift 52s linear infinite;\n  animation-delay: -12s;\n}\n.auth-cloud--2::before {\n  width: 38px;\n  height: 38px;\n  top: -16px;\n  left: 14px;\n}\n.auth-cloud--2::after {\n  width: 28px;\n  height: 28px;\n  top: -10px;\n  left: 46px;\n}\n.auth-cloud--3 {\n  top: 9%;\n  left: -260px;\n  width: 70px;\n  height: 22px;\n  opacity: 0.75;\n  animation: auth-drift 64s linear infinite;\n  animation-delay: -30s;\n}\n.auth-cloud--3::before {\n  width: 30px;\n  height: 30px;\n  top: -13px;\n  left: 12px;\n}\n.auth-cloud--3::after {\n  width: 22px;\n  height: 22px;\n  top: -8px;\n  left: 38px;\n}\n@keyframes auth-drift {\n  from {\n    transform: translateX(0);\n  }\n  to {\n    transform: translateX(calc(100vw + 300px));\n  }\n}\n.auth-hill {\n  position: absolute;\n  left: -10%;\n  width: 120%;\n  border-radius: 50% 50% 0 0;\n}\n.auth-hill--back {\n  bottom: 90px;\n  height: 240px;\n  background: #7cc063;\n  opacity: 0.55;\n}\n.auth-hill--mid {\n  bottom: 60px;\n  height: 200px;\n  background: #62b04b;\n  opacity: 0.8;\n}\n.auth-hill--front {\n  bottom: 0;\n  height: 150px;\n  background: #4a9a37;\n}\n.auth-trees {\n  position: absolute;\n  bottom: 34px;\n  left: 0;\n  right: 0;\n  display: flex;\n  justify-content: space-around;\n  font-size: 2.6rem;\n  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15));\n}\n.auth-tree {\n  animation: auth-sway 5s ease-in-out infinite;\n  transform-origin: bottom center;\n}\n.auth-tree:nth-child(even) {\n  animation-delay: -2.5s;\n  font-size: 3.1rem;\n}\n.auth-tree:nth-child(3n) {\n  animation-duration: 6.5s;\n}\n@keyframes auth-sway {\n  0%, 100% {\n    transform: rotate(-2deg);\n  }\n  50% {\n    transform: rotate(2deg);\n  }\n}\n.auth-float {\n  position: absolute;\n  font-size: 1.6rem;\n  opacity: 0.85;\n  animation: auth-floaty 9s ease-in-out infinite;\n}\n.auth-float--1 {\n  top: 30%;\n  left: 12%;\n  animation-delay: 0s;\n}\n.auth-float--2 {\n  top: 62%;\n  left: 8%;\n  font-size: 1.9rem;\n  animation-delay: -2s;\n}\n.auth-float--3 {\n  top: 20%;\n  left: 40%;\n  animation-delay: -4s;\n}\n.auth-float--4 {\n  top: 68%;\n  right: 14%;\n  animation-delay: -1s;\n}\n.auth-float--5 {\n  top: 40%;\n  right: 10%;\n  font-size: 1.9rem;\n  animation-delay: -3s;\n}\n@keyframes auth-floaty {\n  0%, 100% {\n    transform: translateY(0) rotate(-6deg);\n  }\n  50% {\n    transform: translateY(-22px) rotate(6deg);\n  }\n}\n.auth-card {\n  position: relative;\n  z-index: 1;\n  width: 100%;\n  max-width: 380px;\n  background: rgba(255, 255, 255, 0.92);\n  -webkit-backdrop-filter: blur(6px);\n  backdrop-filter: blur(6px);\n  border: 1px solid rgba(255, 255, 255, 0.6);\n  border-radius: 20px;\n  padding: 32px 28px;\n  box-shadow: 0 18px 45px rgba(20, 60, 15, 0.3);\n  text-align: center;\n}\n@media (prefers-reduced-motion: reduce) {\n  .auth-sun,\n  .auth-cloud,\n  .auth-tree,\n  .auth-float {\n    animation: none;\n  }\n}\n.auth-logo {\n  font-size: 1.5rem;\n  font-weight: 800;\n  color: #2d6a1e;\n  margin-bottom: 6px;\n}\n.auth-logo span {\n  color: #3b7a2a;\n}\n.auth-subtitle {\n  margin: 0 0 20px;\n  color: #5a6b53;\n  font-size: 0.95rem;\n}\n.auth-tabs {\n  display: flex;\n  gap: 6px;\n  background: #eef3e6;\n  border-radius: 12px;\n  padding: 4px;\n  margin-bottom: 20px;\n}\n.auth-tab {\n  flex: 1;\n  border: 0;\n  background: transparent;\n  padding: 10px;\n  border-radius: 9px;\n  font-size: 0.95rem;\n  font-weight: 600;\n  color: #5a6b53;\n  cursor: pointer;\n  transition: background 0.2s, color 0.2s;\n}\n.auth-tab.active {\n  background: #56ab2f;\n  color: #fff;\n  box-shadow: 0 3px 8px rgba(86, 171, 47, 0.4);\n}\n.auth-form {\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n  text-align: left;\n}\n.auth-field {\n  display: flex;\n  flex-direction: column;\n  gap: 6px;\n  font-size: 0.9rem;\n  font-weight: 600;\n  color: #3d4a37;\n}\n.auth-field input,\n.auth-field select {\n  padding: 11px 13px;\n  border: 2px solid #d6e2c8;\n  border-radius: 10px;\n  font-size: 1rem;\n  outline: none;\n  transition: border-color 0.2s;\n}\n.auth-field input:focus,\n.auth-field select:focus {\n  border-color: #56ab2f;\n}\n.auth-error {\n  margin: 0;\n  color: #c0392b;\n  font-size: 0.88rem;\n  font-weight: 600;\n}\n.auth-submit {\n  margin-top: 4px;\n  border: 0;\n  background: #56ab2f;\n  color: #fff;\n  padding: 13px;\n  border-radius: 12px;\n  font-size: 1.05rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: background 0.2s, transform 0.1s;\n}\n.auth-submit:hover {\n  background: #4a9528;\n}\n.auth-submit:active {\n  transform: scale(0.98);\n}\n/*# sourceMappingURL=auth.css.map */\n'] }]
+  }], () => [{ type: AuthService }], { authenticated: [{
+    type: Output
+  }] });
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AuthComponent, { className: "AuthComponent", filePath: "src/app/auth/auth.ts", lineNumber: 18 });
+})();
+
+// src/app/core/game-state.service.ts
+var GameStateService = class _GameStateService {
+  experience = 0;
+  seeds = 0;
+  // Los mundos 2 y 3 comienzan bloqueados; se desbloquean al avanzar.
+  level2Unlocked = false;
+  level3Unlocked = false;
+  applyReward(reward) {
+    this.experience += reward.experience;
+    this.seeds += reward.seeds;
+  }
+  /** Desbloquea todos los mundos (p. ej. para el rol profesor). */
+  unlockAll() {
+    this.level2Unlocked = true;
+    this.level3Unlocked = true;
+  }
+  static \u0275fac = function GameStateService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _GameStateService)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _GameStateService, factory: _GameStateService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(GameStateService, [{
+    type: Injectable,
+    args: [{ providedIn: "root" }]
+  }], null, null);
+})();
+
+// src/app/worlds/forest/forest.ts
+function ForestComponent_Conditional_72_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, World2Component_Conditional_12_Conditional_7_For_7_Conditional_0_Template, 2, 4, "button", 17);
+    \u0275\u0275elementStart(0, "span", 43);
+    \u0275\u0275text(1, "\u{1F512}");
+    \u0275\u0275elementEnd();
+  }
+}
+function ForestComponent_Conditional_81_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 43);
+    \u0275\u0275text(1, "\u{1F512}");
+    \u0275\u0275elementEnd();
+  }
+}
+var ForestComponent = class _ForestComponent {
+  constructor(game) {
+    this.game = game;
+  }
+  game;
+  openWorld1 = new EventEmitter();
+  openWorld2 = new EventEmitter();
+  openWorld3 = new EventEmitter();
+  /** true mientras el personaje se desplaza por el sendero. */
+  walking = false;
+  /** false = el personaje sigue al inicio del sendero; true = ya avanzó al mundo. */
+  arrived = false;
+  /** Coordenadas (en %) del personaje a lo largo del sendero. */
+  positions = {
+    start: { left: "9%", top: "86%" },
+    w1: { left: "20%", top: "76%" },
+    w2: { left: "42%", top: "64%" },
+    w3: { left: "66%", top: "40%" }
+  };
+  /** Mundo desbloqueado más avanzado (destino del personaje). */
+  get currentWorld() {
+    if (this.game.level3Unlocked)
+      return 3;
+    if (this.game.level2Unlocked)
+      return 2;
+    return 1;
+  }
+  /** Posición actual del personaje: al inicio o sobre el mundo alcanzado. */
+  get characterPos() {
+    return this.arrived ? this.positions["w" + this.currentWorld] : this.positions["start"];
+  }
+  ngOnInit() {
+    setTimeout(() => {
+      this.walking = true;
+      this.arrived = true;
+    }, 500);
+    setTimeout(() => {
+      this.walking = false;
+    }, 500 + 2600);
+  }
+  static \u0275fac = function ForestComponent_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ForestComponent)(\u0275\u0275directiveInject(GameStateService));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ForestComponent, selectors: [["app-forest"]], outputs: { openWorld1: "openWorld1", openWorld2: "openWorld2", openWorld3: "openWorld3" }, decls: 86, vars: 11, consts: [[1, "forest-screen"], [1, "welcome-section"], [1, "badge"], [1, "highlight"], [1, "subtitle"], [1, "btn-primary", 3, "click"], [1, "map-section"], [1, "sky"], [1, "sun-rays"], [1, "sun"], [1, "cloud", "c1"], [1, "cloud", "c2"], [1, "cloud", "c3"], [1, "mountain", "m1"], [1, "mountain", "m2"], [1, "mountain", "m3"], [1, "treeline"], [1, "hill", "hill-back"], [1, "hill", "hill-mid"], [1, "hill", "hill-front"], [1, "mist"], ["viewBox", "0 0 1000 1000", "preserveAspectRatio", "none", 1, "forest-path"], ["d", "M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190", "fill", "none", "stroke", "#d9ad6b", "stroke-width", "34", "stroke-linecap", "round", 1, "path-base"], ["d", "M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190", "fill", "none", "stroke", "#e9c988", "stroke-width", "26", "stroke-linecap", "round", 1, "path-edge"], ["d", "M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190", "fill", "none", "stroke", "#fff", "stroke-width", "4", "stroke-linecap", "round", "stroke-dasharray", "2 30", "opacity", "0.65", 1, "path-dashes"], [1, "tree", "t1"], [1, "tree", "t2"], [1, "tree", "t3"], [1, "tree", "t4"], [1, "tree", "t5"], [1, "tree", "t6"], [1, "bush", "b1"], [1, "bush", "b2"], [1, "bush", "b3"], [1, "bush", "b4"], [1, "bird", "bird1"], [1, "bird", "bird2"], [1, "world-node", "w1", 3, "click"], [1, "node-glow"], [1, "node-icon"], [1, "node-title"], [1, "node-subtitle"], [1, "world-node", "w2", 3, "click", "disabled"], [1, "lock"], [1, "world-node", "w3", 3, "click", "disabled"], [1, "character-marker", 3, "ngStyle"], [1, "character-shadow"], [1, "character-body"]], template: function ForestComponent_Template(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275elementStart(0, "main", 0)(1, "section", 1)(2, "p", 2);
+      \u0275\u0275text(3, "\u{1F331} UNA NUEVA AVENTURA");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(4, "h1");
+      \u0275\u0275text(5, "Bienvenido al");
+      \u0275\u0275element(6, "br");
+      \u0275\u0275elementStart(7, "span", 3);
+      \u0275\u0275text(8, "Bosque de Algoritmos");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(9, "p", 4);
+      \u0275\u0275text(10, "Aprende a programar mientras exploras un bosque lleno de aventuras, desaf\xEDos y misterios.");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(11, "button", 5);
+      \u0275\u0275listener("click", function ForestComponent_Template_button_click_11_listener() {
+        return ctx.openWorld1.emit();
+      });
+      \u0275\u0275text(12, "Comenzar aventura \u{1F680}");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(13, "section", 6);
+      \u0275\u0275element(14, "div", 7)(15, "div", 8)(16, "div", 9)(17, "div", 10)(18, "div", 11)(19, "div", 12)(20, "div", 13)(21, "div", 14)(22, "div", 15)(23, "div", 16)(24, "div", 17)(25, "div", 18)(26, "div", 19)(27, "div", 20);
+      \u0275\u0275namespaceSVG();
+      \u0275\u0275elementStart(28, "svg", 21);
+      \u0275\u0275element(29, "path", 22)(30, "path", 23)(31, "path", 24);
+      \u0275\u0275elementEnd();
+      \u0275\u0275namespaceHTML();
+      \u0275\u0275elementStart(32, "div", 25);
+      \u0275\u0275text(33, "\u{1F332}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(34, "div", 26);
+      \u0275\u0275text(35, "\u{1F333}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(36, "div", 27);
+      \u0275\u0275text(37, "\u{1F332}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(38, "div", 28);
+      \u0275\u0275text(39, "\u{1F333}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(40, "div", 29);
+      \u0275\u0275text(41, "\u{1F332}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(42, "div", 30);
+      \u0275\u0275text(43, "\u{1F332}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(44, "div", 31);
+      \u0275\u0275text(45, "\u{1F33F}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(46, "div", 32);
+      \u0275\u0275text(47, "\u{1F344}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(48, "div", 33);
+      \u0275\u0275text(49, "\u{1F338}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(50, "div", 34);
+      \u0275\u0275text(51, "\u{1F33E}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(52, "div", 35);
+      \u0275\u0275text(53, "\u{1F98B}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(54, "div", 36);
+      \u0275\u0275text(55, "\u{1F426}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(56, "button", 37);
+      \u0275\u0275listener("click", function ForestComponent_Template_button_click_56_listener() {
+        return ctx.openWorld1.emit();
+      });
+      \u0275\u0275element(57, "span", 38);
+      \u0275\u0275elementStart(58, "span", 39);
+      \u0275\u0275text(59, "\u{1F331}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(60, "span", 40);
+      \u0275\u0275text(61, "Semillas");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(62, "span", 41);
+      \u0275\u0275text(63, "Secuencias");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(64, "button", 42);
+      \u0275\u0275listener("click", function ForestComponent_Template_button_click_64_listener() {
+        return ctx.openWorld2.emit();
+      });
+      \u0275\u0275element(65, "span", 38);
+      \u0275\u0275elementStart(66, "span", 39);
+      \u0275\u0275text(67, "\u{1F33F}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(68, "span", 40);
+      \u0275\u0275text(69, "Sendero");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(70, "span", 41);
+      \u0275\u0275text(71, "Variables");
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(72, ForestComponent_Conditional_72_Template, 2, 0, "span", 43);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(73, "button", 44);
+      \u0275\u0275listener("click", function ForestComponent_Template_button_click_73_listener() {
+        return ctx.openWorld3.emit();
+      });
+      \u0275\u0275element(74, "span", 38);
+      \u0275\u0275elementStart(75, "span", 39);
+      \u0275\u0275text(76, "\u{1F30A}");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(77, "span", 40);
+      \u0275\u0275text(78, "R\xEDo");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(79, "span", 41);
+      \u0275\u0275text(80, "Condicionales");
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(81, ForestComponent_Conditional_81_Template, 2, 0, "span", 43);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(82, "div", 45);
+      \u0275\u0275element(83, "span", 46);
+      \u0275\u0275elementStart(84, "span", 47);
+      \u0275\u0275text(85, "\u{1F9D1}\u200D\u{1F680}");
+      \u0275\u0275elementEnd()()()();
+    }
+    if (rf & 2) {
+      \u0275\u0275advance(64);
+      \u0275\u0275classProp("locked", !ctx.game.level2Unlocked);
+      \u0275\u0275property("disabled", !ctx.game.level2Unlocked);
+      \u0275\u0275advance(8);
+      \u0275\u0275conditional(!ctx.game.level2Unlocked ? 72 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275classProp("locked", !ctx.game.level3Unlocked);
+      \u0275\u0275property("disabled", !ctx.game.level3Unlocked);
+      \u0275\u0275advance(8);
+      \u0275\u0275conditional(!ctx.game.level3Unlocked ? 81 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275classProp("walking", ctx.walking);
+      \u0275\u0275property("ngStyle", ctx.characterPos);
+    }
+  }, dependencies: [CommonModule, NgStyle], styles: ["\n/*# sourceMappingURL=forest.css.map */"] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ForestComponent, [{
+    type: Component,
+    args: [{ selector: "app-forest", standalone: true, imports: [CommonModule], template: '<main class="forest-screen">\n  <section class="welcome-section">\n    <p class="badge">\u{1F331} UNA NUEVA AVENTURA</p>\n    <h1>Bienvenido al<br><span class="highlight">Bosque de Algoritmos</span></h1>\n    <p class="subtitle">Aprende a programar mientras exploras un bosque lleno de aventuras, desaf\xEDos y misterios.</p>\n    <button class="btn-primary" (click)="openWorld1.emit()">Comenzar aventura \u{1F680}</button>\n  </section>\n\n  <section class="map-section">\n    <!-- Cielo con degradado atmosf\xE9rico -->\n    <div class="sky"></div>\n    <!-- Rayos de sol difusos -->\n    <div class="sun-rays"></div>\n    <div class="sun"></div>\n    <div class="cloud c1"></div>\n    <div class="cloud c2"></div>\n    <div class="cloud c3"></div>\n\n    <!-- Monta\xF1as lejanas para dar escala y profundidad -->\n    <div class="mountain m1"></div>\n    <div class="mountain m2"></div>\n    <div class="mountain m3"></div>\n\n    <!-- L\xEDnea de \xE1rboles del bosque de fondo -->\n    <div class="treeline"></div>\n\n    <!-- Colinas en capas -->\n    <div class="hill hill-back"></div>\n    <div class="hill hill-mid"></div>\n    <div class="hill hill-front"></div>\n\n    <!-- Bruma suave sobre las colinas -->\n    <div class="mist"></div>\n\n    <!-- Sendero serpenteante que recorre los tres mundos -->\n    <svg class="forest-path" viewBox="0 0 1000 1000" preserveAspectRatio="none">\n      <path class="path-base"\n            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"\n            fill="none" stroke="#d9ad6b" stroke-width="34" stroke-linecap="round"/>\n      <path class="path-edge"\n            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"\n            fill="none" stroke="#e9c988" stroke-width="26" stroke-linecap="round"/>\n      <path class="path-dashes"\n            d="M 90 900 C 60 780, 230 790, 250 700 C 275 590, 380 640, 470 560 C 560 480, 600 430, 720 340 C 810 270, 870 250, 960 190"\n            fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 30" opacity="0.65"/>\n    </svg>\n\n    <!-- \xC1rboles decorativos con profundidad (parallax por tama\xF1o y opacidad) -->\n    <div class="tree t1">\u{1F332}</div>\n    <div class="tree t2">\u{1F333}</div>\n    <div class="tree t3">\u{1F332}</div>\n    <div class="tree t4">\u{1F333}</div>\n    <div class="tree t5">\u{1F332}</div>\n    <div class="tree t6">\u{1F332}</div>\n    <div class="bush b1">\u{1F33F}</div>\n    <div class="bush b2">\u{1F344}</div>\n    <div class="bush b3">\u{1F338}</div>\n    <div class="bush b4">\u{1F33E}</div>\n    <div class="bird bird1">\u{1F98B}</div>\n    <div class="bird bird2">\u{1F426}</div>\n\n    <button class="world-node w1" (click)="openWorld1.emit()">\n      <span class="node-glow"></span>\n      <span class="node-icon">\u{1F331}</span>\n      <span class="node-title">Semillas</span>\n      <span class="node-subtitle">Secuencias</span>\n    </button>\n\n    <button class="world-node w2" [class.locked]="!game.level2Unlocked" [disabled]="!game.level2Unlocked" (click)="openWorld2.emit()">\n      <span class="node-glow"></span>\n      <span class="node-icon">\u{1F33F}</span>\n      <span class="node-title">Sendero</span>\n      <span class="node-subtitle">Variables</span>\n      @if (!game.level2Unlocked) { <span class="lock">\u{1F512}</span> }\n    </button>\n\n    <button class="world-node w3" [class.locked]="!game.level3Unlocked" [disabled]="!game.level3Unlocked" (click)="openWorld3.emit()">\n      <span class="node-glow"></span>\n      <span class="node-icon">\u{1F30A}</span>\n      <span class="node-title">R\xEDo</span>\n      <span class="node-subtitle">Condicionales</span>\n      @if (!game.level3Unlocked) { <span class="lock">\u{1F512}</span> }\n    </button>\n\n    <!-- El explorador camina por el sendero hasta el mundo desbloqueado -->\n    <div class="character-marker" [class.walking]="walking" [ngStyle]="characterPos">\n      <span class="character-shadow"></span>\n      <span class="character-body">\u{1F9D1}\u200D\u{1F680}</span>\n    </div>\n  </section>\n</main>\n', styles: ["/* src/app/worlds/forest/forest.css */\n/*# sourceMappingURL=forest.css.map */\n"] }]
+  }], () => [{ type: GameStateService }], { openWorld1: [{
+    type: Output
+  }], openWorld2: [{
+    type: Output
+  }], openWorld3: [{
+    type: Output
+  }] });
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ForestComponent, { className: "ForestComponent", filePath: "src/app/worlds/forest/forest.ts", lineNumber: 19 });
+})();
+
+// src/app/models/activities.ts
+var SANDWICH_CORRECT_ORDER = ["\u{1F35E}", "\u{1F96C}", "\u{1F345}", "\u{1F9C0}", "\u{1F96A}"];
+var PLANT_GROWTH_ORDER = ["plant", "water", "sun"];
+var PACKING_INITIAL_ORDER = ["apple", "close", "water"];
+var PACKING_CORRECT_ORDER = ["apple", "water", "close"];
+var FINAL_RESOURCE_EMOJI = {
+  water: "\u{1F4A7}",
+  sun: "\u2600\uFE0F",
+  soil: "\u{1F331}"
+};
+var FINAL_RESOURCE_LABEL = {
+  water: "Agua",
+  sun: "Luz",
+  soil: "Tierra"
+};
+var SEED_GROWTH_STAGES = ["\u{1F331}", "\u{1F33F}", "\u{1F333}", "\u{1F332}"];
+
+// src/app/worlds/world-1-seeds/world-1.ts
+var _c0 = () => [0, 1, 2, 3, 4, 5];
+var _c1 = () => [1, 2, 3, 4, 5];
+var _c2 = () => [0, 1, 2, 3, 4];
+var _c3 = () => [0, 1, 2, 3];
+var _c4 = () => [0, 1, 2];
+var _forTrack0 = ($index, $item) => $item.type;
+function World1Component_Conditional_1_For_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 13);
   }
   if (rf & 2) {
-    const item_r2 = ctx.$implicit;
-    \u0275\u0275conditional(!item_r2.placed ? 0 : -1);
+    const line_r3 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("active", line_r3 === ctx_r1.dialogueIndex)("seen", line_r3 < ctx_r1.dialogueIndex);
   }
 }
-function World2Component_Conditional_12_Conditional_7_For_12_Conditional_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 21);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const box_r6 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(box_r6.emoji);
-  }
-}
-function World2Component_Conditional_12_Conditional_7_For_12_Conditional_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 22);
-    \u0275\u0275text(1, "vac\xEDa");
-    \u0275\u0275elementEnd();
-  }
-}
-function World2Component_Conditional_12_Conditional_7_For_12_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 19);
-    \u0275\u0275listener("dragover", function World2Component_Conditional_12_Conditional_7_For_12_Template_div_dragover_0_listener($event) {
-      return $event.preventDefault();
-    })("drop", function World2Component_Conditional_12_Conditional_7_For_12_Template_div_drop_0_listener($event) {
-      const $index_r5 = \u0275\u0275restoreView(_r4).$index;
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      $event.preventDefault();
-      return \u0275\u0275resetView(ctx_r2.dropMagicItem($index_r5));
-    })("click", function World2Component_Conditional_12_Conditional_7_For_12_Template_div_click_0_listener() {
-      const $index_r5 = \u0275\u0275restoreView(_r4).$index;
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.dropMagicItem($index_r5));
-    });
-    \u0275\u0275elementStart(1, "span", 20);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(3, World2Component_Conditional_12_Conditional_7_For_12_Conditional_3_Template, 2, 1, "span", 21)(4, World2Component_Conditional_12_Conditional_7_For_12_Conditional_4_Template, 2, 0, "span", 22);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const box_r6 = ctx.$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("filled", box_r6.filled)("droppable", !box_r6.filled && (ctx_r2.magicSelectedItem || ctx_r2.magicDragItem));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("caja_", box_r6.accepts);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(box_r6.filled ? 3 : 4);
-  }
-}
-function World2Component_Conditional_12_Conditional_7_Conditional_13_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", ctx_r2.magicFeedback.includes("no es"));
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.magicFeedback);
-  }
-}
-function World2Component_Conditional_12_Conditional_7_Template(rf, ctx) {
+function World1Component_Conditional_1_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "p", 11);
-    \u0275\u0275text(1, "Arrastra cada elemento a su caja, o toca un elemento y luego la caja donde crees que va.");
+    \u0275\u0275text(1, "\u{1F446} Toca la pantalla para continuar");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "div", 12)(3, "div", 13)(4, "h3");
-    \u0275\u0275text(5, "Elementos");
-    \u0275\u0275elementEnd();
-    \u0275\u0275repeaterCreate(6, World2Component_Conditional_12_Conditional_7_For_7_Template, 1, 1, null, null, _forTrack02);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 14)(9, "h3");
-    \u0275\u0275text(10, "Cajas (variables)");
-    \u0275\u0275elementEnd();
-    \u0275\u0275repeaterCreate(11, World2Component_Conditional_12_Conditional_7_For_12_Template, 5, 6, "div", 15, _forTrack1);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(13, World2Component_Conditional_12_Conditional_7_Conditional_13_Template, 2, 3, "div", 16);
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(ctx_r2.magicItems);
-    \u0275\u0275advance(5);
-    \u0275\u0275repeater(ctx_r2.magicBoxes);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.magicFeedback ? 13 : -1);
   }
 }
-function World2Component_Conditional_12_Conditional_8_Template(rf, ctx) {
+function World1Component_Conditional_1_Conditional_14_Template(rf, ctx) {
   if (rf & 1) {
-    const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "h2");
-    \u0275\u0275text(2, "\u{1F4E6} \xA1Todas las cajas llenas!");
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 14);
+    \u0275\u0275listener("click", function World1Component_Conditional_1_Conditional_14_Template_button_click_0_listener($event) {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      ctx_r1.startWorld();
+      return \u0275\u0275resetView($event.stopPropagation());
+    });
+    \u0275\u0275text(1, " \xA1Empezar la aventura! \u{1F680} ");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 3);
+    \u0275\u0275listener("click", function World1Component_Conditional_1_Template_div_click_0_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.advanceDialogue());
+    });
+    \u0275\u0275elementStart(1, "span", 4);
+    \u0275\u0275text(2, "\u{1F331} MUNDO 1 \xB7 SEMILLAS");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 5)(4, "p", 6);
+    \u0275\u0275text(5);
+    \u0275\u0275elementStart(6, "span", 7);
+    \u0275\u0275text(7, "\u258B");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(8, "div", 8);
+    \u0275\u0275text(9, "\u{1F9D1}\u200D\u{1F680}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "div", 9);
+    \u0275\u0275repeaterCreate(11, World1Component_Conditional_1_For_12_Template, 1, 4, "span", 10, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(13, World1Component_Conditional_1_Conditional_13_Template, 2, 0, "p", 11)(14, World1Component_Conditional_1_Conditional_14_Template, 2, 0, "button", 12);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r1.displayedText);
+    \u0275\u0275advance();
+    \u0275\u0275classProp("hidden", !ctx_r1.typing);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("talking", ctx_r1.typing);
+    \u0275\u0275advance(3);
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(6, _c0));
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(!ctx_r1.dialogueFinished ? 13 : 14);
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_5_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 23)(1, "h3");
+    \u0275\u0275text(2, "\u{1F9E9} \xBFQu\xE9 es una secuencia?");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "p");
-    \u0275\u0275text(4, "Aprendiste que las variables guardan informaci\xF3n.");
+    \u0275\u0275text(4, "Una ");
+    \u0275\u0275elementStart(5, "strong");
+    \u0275\u0275text(6, "secuencia");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 24);
+    \u0275\u0275text(7, " es una lista de pasos en orden. \xA1Como una receta!");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "div", 24)(9, "div", 25)(10, "span", 26);
+    \u0275\u0275text(11, "1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(12, " Poner el pan \u{1F35E}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "div", 25)(14, "span", 26);
+    \u0275\u0275text(15, "2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(16, " Agregar lechuga \u{1F96C}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "div", 25)(18, "span", 26);
+    \u0275\u0275text(19, "3");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(20, " Agregar tomate \u{1F345}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(21, "div", 25)(22, "span", 26);
+    \u0275\u0275text(23, "4");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(24, " Poner queso \u{1F9C0}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "div", 25)(26, "span", 26);
+    \u0275\u0275text(27, "5");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(28, " Cerrar el s\xE1ndwich \u{1F96A}");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(29, "button", 27);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_11_Conditional_5_Template_button_click_29_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.goToSandwichGame());
+    });
+    \u0275\u0275text(30, "\xA1Vamos a cocinar! \u2192");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_For_12_Conditional_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 51);
+    \u0275\u0275text(1, "\u2713");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_For_12_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r8 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 48);
+    \u0275\u0275listener("dragstart", function World1Component_Conditional_2_Conditional_11_Conditional_6_For_12_Template_button_dragstart_0_listener() {
+      const opt_r9 = \u0275\u0275restoreView(_r8).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.onDragStart(opt_r9));
+    })("dragend", function World1Component_Conditional_2_Conditional_11_Conditional_6_For_12_Template_button_dragend_0_listener() {
+      \u0275\u0275restoreView(_r8);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.onDragEnd());
+    })("click", function World1Component_Conditional_2_Conditional_11_Conditional_6_For_12_Template_button_click_0_listener() {
+      const opt_r9 = \u0275\u0275restoreView(_r8).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.addIngredient(opt_r9));
+    });
+    \u0275\u0275elementStart(1, "span", 49);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 50);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(5, World1Component_Conditional_2_Conditional_11_Conditional_6_For_12_Conditional_5_Template, 2, 0, "span", 51);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const opt_r9 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("used", ctx_r1.sandwichBuild.includes(opt_r9))("dragging", ctx_r1.draggingIngredient === opt_r9);
+    \u0275\u0275property("disabled", ctx_r1.sandwichBuild.includes(opt_r9));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(opt_r9);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.getIngredientName(opt_r9));
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.sandwichBuild.includes(opt_r9) ? 5 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_45_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 43)(1, "div", 52);
+    \u0275\u0275text(2, "\u{1F37D}\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "p", 53);
+    \u0275\u0275text(4, "Arrastra o toca los ingredientes");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 54);
+    \u0275\u0275text(6, "Empieza con el pan \u{1F35E}");
+    \u0275\u0275elementEnd()();
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_46_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 60)(1, "span", 61);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 62);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 63);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const layer_r10 = ctx.$implicit;
+    const \u0275$index_209_r11 = ctx.$index;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275styleProp("z-index", 10 - \u0275$index_209_r11);
+    \u0275\u0275property("ngClass", ctx_r1.layerClass(layer_r10));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(layer_r10);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.getIngredientName(layer_r10));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275$index_209_r11 + 1);
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_46_For_6_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275text(0, " \u2713 ");
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_46_For_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 64);
+    \u0275\u0275conditionalCreate(1, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_46_For_6_Conditional_1_Template, 1, 0);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const step_r12 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("filled", ctx_r1.sandwichBuild.length >= step_r12);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.sandwichBuild.length >= step_r12 ? 1 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_46_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 55);
+    \u0275\u0275repeaterCreate(1, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_46_For_2_Template, 7, 6, "div", 56, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 57)(4, "div", 58);
+    \u0275\u0275repeaterCreate(5, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_46_For_6_Template, 2, 3, "span", 59, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.sandwichBuild);
+    \u0275\u0275advance(4);
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(0, _c1));
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_48_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r13 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 65);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_48_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r13);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      ctx_r1.resetSandwich();
+      return \u0275\u0275resetView(ctx_r1.goToSandwichGame());
+    });
+    \u0275\u0275text(1, " \u{1F504} Reiniciar ");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_49_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r14 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 66);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_49_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r14);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.checkSandwich());
+    });
+    \u0275\u0275text(1, " \u2728 \xA1Verificar s\xE1ndwich! ");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_50_Conditional_5_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r15 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 71);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_50_Conditional_5_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r15);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      ctx_r1.resetSandwich();
+      return \u0275\u0275resetView(ctx_r1.goToSandwichGame());
+    });
+    \u0275\u0275text(1, " \u{1F504} Intentar de nuevo ");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_50_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 67)(1, "span", 68);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 69);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(5, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_50_Conditional_5_Template, 2, 0, "button", 70);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", !ctx_r1.sandwichDone)("success", ctx_r1.sandwichDone);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.sandwichDone ? "\u{1F389}" : "\u{1F605}");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.sandwichFeedback);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!ctx_r1.sandwichDone ? 5 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_6_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 28)(1, "div", 29)(2, "div", 30)(3, "span", 31);
+    \u0275\u0275text(4, "\u{1F9FA}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div", 32)(6, "h3");
+    \u0275\u0275text(7, "Ingredientes");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "p", 33);
+    \u0275\u0275text(9, "Toca para agregar al s\xE1ndwich");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(10, "div", 34);
+    \u0275\u0275repeaterCreate(11, World1Component_Conditional_2_Conditional_11_Conditional_6_For_12_Template, 6, 8, "button", 35, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "div", 36)(14, "span", 37);
+    \u0275\u0275text(15, "\u{1F4CB} Orden correcto:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(16, "div", 38)(17, "span", 39);
+    \u0275\u0275text(18, "1. \u{1F35E}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(19, "span", 40);
+    \u0275\u0275text(20, "\u2192");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(21, "span", 39);
+    \u0275\u0275text(22, "2. \u{1F96C}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(23, "span", 40);
+    \u0275\u0275text(24, "\u2192");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "span", 39);
+    \u0275\u0275text(26, "3. \u{1F345}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(27, "span", 40);
+    \u0275\u0275text(28, "\u2192");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(29, "span", 39);
+    \u0275\u0275text(30, "4. \u{1F9C0}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(31, "span", 40);
+    \u0275\u0275text(32, "\u2192");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(33, "span", 39);
+    \u0275\u0275text(34, "5. \u{1F96A}");
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(35, "div", 41);
+    \u0275\u0275listener("dragover", function World1Component_Conditional_2_Conditional_11_Conditional_6_Template_div_dragover_35_listener($event) {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.onDragOver($event));
+    })("dragleave", function World1Component_Conditional_2_Conditional_11_Conditional_6_Template_div_dragleave_35_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.onDragLeave());
+    })("drop", function World1Component_Conditional_2_Conditional_11_Conditional_6_Template_div_drop_35_listener($event) {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.onDrop($event));
+    });
+    \u0275\u0275elementStart(36, "div", 30)(37, "span", 31);
+    \u0275\u0275text(38, "\u{1F37D}\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(39, "div", 32)(40, "h3");
+    \u0275\u0275text(41, "Tu S\xE1ndwich");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(42, "p", 33);
+    \u0275\u0275text(43);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(44, "div", 42);
+    \u0275\u0275conditionalCreate(45, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_45_Template, 7, 0, "div", 43)(46, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_46_Template, 7, 1);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(47, "div", 44);
+    \u0275\u0275conditionalCreate(48, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_48_Template, 2, 0, "button", 45);
+    \u0275\u0275conditionalCreate(49, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_49_Template, 2, 0, "button", 46);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275conditionalCreate(50, World1Component_Conditional_2_Conditional_11_Conditional_6_Conditional_50_Template, 6, 7, "div", 47);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(11);
+    \u0275\u0275repeater(ctx_r1.sandwichOptions);
+    \u0275\u0275advance(6);
+    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 1);
+    \u0275\u0275advance(4);
+    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 2);
+    \u0275\u0275advance(4);
+    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 3);
+    \u0275\u0275advance(4);
+    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 4);
+    \u0275\u0275advance(4);
+    \u0275\u0275classProp("completed", ctx_r1.sandwichBuild.length >= 5);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("drop-active", ctx_r1.dropReady)("has-items", ctx_r1.sandwichBuild.length > 0);
+    \u0275\u0275advance(8);
+    \u0275\u0275textInterpolate1("", ctx_r1.sandwichBuild.length, " de 5 ingredientes");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.sandwichBuild.length === 0 ? 45 : 46);
+    \u0275\u0275advance(3);
+    \u0275\u0275conditional(ctx_r1.sandwichBuild.length > 0 && ctx_r1.sandwichBuild.length < 5 ? 48 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.sandwichBuild.length === 5 ? 49 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.sandwichFeedback ? 50 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r16 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 22)(1, "div", 72)(2, "div", 73);
+    \u0275\u0275text(3, "\u{1F38A}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "div", 74);
+    \u0275\u0275text(5, "\u2B50");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "div", 75);
+    \u0275\u0275text(7, "\u{1F389}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "div", 76);
+    \u0275\u0275text(9, "\u2728");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "div", 77);
+    \u0275\u0275text(11, "\u{1F31F}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "div", 78);
+    \u0275\u0275text(13, "\u{1F38A}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(14, "div", 79);
+    \u0275\u0275text(15, "\u{1F4AB}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(16, "div", 80);
+    \u0275\u0275text(17, "\u{1F389}");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(18, "div", 81)(19, "div", 82);
+    \u0275\u0275text(20, "\u{1F9D1}\u200D\u{1F680}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(21, "div", 83)(22, "span", 84);
+    \u0275\u0275text(23, "\xA1Delicioso!");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(24, "h2", 85)(25, "span", 86);
+    \u0275\u0275text(26, "\u{1F3C6}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(27, " \xA1Genial, lo lograste! ");
+    \u0275\u0275elementStart(28, "span", 86);
+    \u0275\u0275text(29, "\u{1F3C6}");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(30, "p", 87);
+    \u0275\u0275text(31, "Tu s\xE1ndwich est\xE1 perfecto");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(32, "div", 88)(33, "div", 89);
+    \u0275\u0275element(34, "div", 90);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(35, "div", 91)(36, "div", 92);
+    \u0275\u0275element(37, "span", 93)(38, "span", 94)(39, "span", 95)(40, "span", 96)(41, "span", 97)(42, "span", 98)(43, "span", 99);
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(44, "div", 100)(45, "div", 101);
+    \u0275\u0275elementStart(46, "div", 102);
+    \u0275\u0275element(47, "span", 103)(48, "span", 104);
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(49, "div", 105)(50, "div", 106);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(51, "div", 107)(52, "span", 108);
+    \u0275\u0275text(53, "\u2728");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(54, "span", 109);
+    \u0275\u0275text(55, "\u2B50");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(56, "span", 110);
+    \u0275\u0275text(57, "\u2728");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(58, "div", 111)(59, "div", 112)(60, "span", 113);
+    \u0275\u0275text(61, "\u26A1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(62, "span", 114);
+    \u0275\u0275text(63, "+10");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(64, "span", 115);
+    \u0275\u0275text(65, "XP");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(66, "div", 116)(67, "span", 113);
+    \u0275\u0275text(68, "\u{1F331}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(69, "span", 114);
+    \u0275\u0275text(70, "+1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(71, "span", 115);
+    \u0275\u0275text(72, "Semilla");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(73, "button", 117);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_11_Conditional_7_Template_button_click_73_listener() {
+      \u0275\u0275restoreView(_r16);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextActivity());
+    });
+    \u0275\u0275elementStart(74, "span", 118);
+    \u0275\u0275text(75, "Siguiente aventura");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(76, "span", 119);
+    \u0275\u0275text(77, "\u{1F680}");
+    \u0275\u0275elementEnd()()();
+  }
+}
+function World1Component_Conditional_2_Conditional_11_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
+    \u0275\u0275text(2, "ACTIVIDAD 1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "h1");
+    \u0275\u0275text(4, "Prepara el s\xE1ndwich de Nori \u{1F96A}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(5, World1Component_Conditional_2_Conditional_11_Conditional_5_Template, 31, 0)(6, World1Component_Conditional_2_Conditional_11_Conditional_6_Template, 51, 19)(7, World1Component_Conditional_2_Conditional_11_Conditional_7_Template, 78, 0, "div", 22);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(5);
+    \u0275\u0275conditional(ctx_r1.sandwichStep === "intro" ? 5 : ctx_r1.sandwichStep === "game" ? 6 : ctx_r1.sandwichDone ? 7 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 128)(1, "span", 157);
+    \u0275\u0275text(2, "\u{1F4A7}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 158);
+    \u0275\u0275text(4, "\u{1F4A7}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 159);
+    \u0275\u0275text(6, "\u{1F4A7}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "span", 160);
+    \u0275\u0275text(8, "\u{1F4A7}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "span", 161);
+    \u0275\u0275text(10, "\u{1F4A7}");
+    \u0275\u0275elementEnd()();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 132)(1, "span", 162);
+    \u0275\u0275text(2, "\u{1F573}\uFE0F");
+    \u0275\u0275elementEnd()();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 133)(1, "span", 163);
+    \u0275\u0275text(2, "\u{1F331}");
+    \u0275\u0275elementEnd()();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_15_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 134);
+    \u0275\u0275element(1, "div", 164);
+    \u0275\u0275elementStart(2, "div", 165)(3, "span", 166);
+    \u0275\u0275text(4, "\u{1F343}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 167);
+    \u0275\u0275text(6, "\u{1F343}");
+    \u0275\u0275elementEnd()()();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_16_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 135)(1, "div", 168);
+    \u0275\u0275text(2, "\u{1F33B}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(3, "div", 169);
+    \u0275\u0275elementStart(4, "div", 170)(5, "span", 171);
+    \u0275\u0275text(6, "\u{1F33F}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "span", 172);
+    \u0275\u0275text(8, "\u{1F33F}");
+    \u0275\u0275elementEnd()()();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_53_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 152);
+    \u0275\u0275text(1, "Toca una acci\xF3n para empezar \u{1F446}");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_For_55_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r18 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 179);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_12_Conditional_16_For_55_Conditional_7_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r18);
+      const $index_r19 = \u0275\u0275nextContext().$index;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.removePlantBlock($index_r19));
+    });
+    \u0275\u0275text(1, "\u2715");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_For_55_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 178);
+    \u0275\u0275text(1, "\u2192");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_For_55_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 173)(1, "span", 174);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 175);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 176);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(7, World1Component_Conditional_2_Conditional_12_Conditional_16_For_55_Conditional_7_Template, 2, 0, "button", 177);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(8, World1Component_Conditional_2_Conditional_12_Conditional_16_For_55_Conditional_8_Template, 2, 0, "span", 178);
+  }
+  if (rf & 2) {
+    const step_r20 = ctx.$implicit;
+    const $index_r19 = ctx.$index;
+    const \u0275$index_552_r21 = ctx.$index;
+    const \u0275$count_552_r22 = ctx.$count;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("running", ctx_r1.plantActiveStep === $index_r19)("done", ctx_r1.plantActiveStep > $index_r19 || ctx_r1.plantDone);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate($index_r19 + 1);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.actionEmoji(step_r20));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.actionLabel(step_r20));
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!ctx_r1.plantRunning && !ctx_r1.plantDone ? 7 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!(\u0275$index_552_r21 === \u0275$count_552_r22 - 1) ? 8 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_61_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 180)(1, "span", 181);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 182);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", ctx_r1.plantFeedback.includes("Ups") || ctx_r1.plantFeedback.includes("Casi") || ctx_r1.plantFeedback.includes("Primero"))("success", !(ctx_r1.plantFeedback.includes("Ups") || ctx_r1.plantFeedback.includes("Casi") || ctx_r1.plantFeedback.includes("Primero")));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.plantFeedback.includes("Ups") || ctx_r1.plantFeedback.includes("Casi") || ctx_r1.plantFeedback.includes("Primero") ? "\u{1F914}" : "\u2728");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.plantFeedback);
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_16_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r17 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 121)(1, "div", 123)(2, "div", 124)(3, "div", 125);
+    \u0275\u0275text(4, "\u2601\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div", 126);
+    \u0275\u0275text(6, "\u2601\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "div", 127);
+    \u0275\u0275text(8, "\u{1F31E}");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275conditionalCreate(9, World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_9_Template, 11, 0, "div", 128);
+    \u0275\u0275elementStart(10, "div", 129)(11, "div", 130)(12, "div", 131);
+    \u0275\u0275conditionalCreate(13, World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_13_Template, 3, 0, "div", 132)(14, World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_14_Template, 3, 0, "div", 133)(15, World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_15_Template, 7, 0, "div", 134)(16, World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_16_Template, 9, 0, "div", 135);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(17, "div", 136)(18, "span", 137);
+    \u0275\u0275text(19, "\u{1F33E}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(20, "span", 138);
+    \u0275\u0275text(21, "\u{1F33F}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "span", 139);
+    \u0275\u0275text(23, "\u{1FAA8}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(24, "span", 140);
+    \u0275\u0275text(25, "\u{1F33E}");
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(26, "div", 141)(27, "div", 142)(28, "h3");
+    \u0275\u0275text(29, "\u{1F9E9} Arma tu secuencia");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(30, "p", 143);
+    \u0275\u0275text(31, "Elige las acciones en orden y luego pulsa Ejecutar");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(32, "p", 144);
+    \u0275\u0275text(33, "Acciones disponibles");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(34, "div", 145)(35, "button", 146);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_12_Conditional_16_Template_button_click_35_listener() {
+      \u0275\u0275restoreView(_r17);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addPlantBlock("plant"));
+    });
+    \u0275\u0275elementStart(36, "span", 147);
+    \u0275\u0275text(37, "\u{1F331}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(38, "span", 148);
+    \u0275\u0275text(39, "Plantar");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(40, "button", 149);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_12_Conditional_16_Template_button_click_40_listener() {
+      \u0275\u0275restoreView(_r17);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addPlantBlock("water"));
+    });
+    \u0275\u0275elementStart(41, "span", 147);
+    \u0275\u0275text(42, "\u{1F4A7}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(43, "span", 148);
+    \u0275\u0275text(44, "Regar");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(45, "button", 150);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_12_Conditional_16_Template_button_click_45_listener() {
+      \u0275\u0275restoreView(_r17);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addPlantBlock("sun"));
+    });
+    \u0275\u0275elementStart(46, "span", 147);
+    \u0275\u0275text(47, "\u2600\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(48, "span", 148);
+    \u0275\u0275text(49, "Sol");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(50, "p", 144);
+    \u0275\u0275text(51);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(52, "div", 151);
+    \u0275\u0275conditionalCreate(53, World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_53_Template, 2, 0, "span", 152);
+    \u0275\u0275repeaterCreate(54, World1Component_Conditional_2_Conditional_12_Conditional_16_For_55_Template, 9, 9, null, null, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(56, "div", 153)(57, "button", 154);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_12_Conditional_16_Template_button_click_57_listener() {
+      \u0275\u0275restoreView(_r17);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.runPlantSequence());
+    });
+    \u0275\u0275text(58);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(59, "button", 155);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_12_Conditional_16_Template_button_click_59_listener() {
+      \u0275\u0275restoreView(_r17);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.clearPlantSequence());
+    });
+    \u0275\u0275text(60, " \u{1F5D1}\uFE0F Borrar ");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275conditionalCreate(61, World1Component_Conditional_2_Conditional_12_Conditional_16_Conditional_61_Template, 5, 6, "div", 156);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(7);
+    \u0275\u0275classProp("active", ctx_r1.plantActions.includes("sun"));
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.plantActions.includes("water") && !ctx_r1.plantActions.includes("sun") ? 9 : -1);
+    \u0275\u0275advance(4);
+    \u0275\u0275conditional(ctx_r1.plantStage === "empty" ? 13 : ctx_r1.plantStage === "seed" ? 14 : ctx_r1.plantStage === "sprout" ? 15 : 16);
+    \u0275\u0275advance(22);
+    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length >= 3);
+    \u0275\u0275advance(5);
+    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length >= 3);
+    \u0275\u0275advance(5);
+    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length >= 3);
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1("Tu programa (", ctx_r1.plantSequence.length, "/3)");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.plantSequence.length === 0 ? 53 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.plantSequence);
+    \u0275\u0275advance(3);
+    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length === 0);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.plantRunning ? "\u{1F331} Creciendo..." : "\u25B6 Ejecutar", " ");
+    \u0275\u0275advance();
+    \u0275\u0275property("disabled", ctx_r1.plantRunning || ctx_r1.plantSequence.length === 0);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.plantFeedback ? 61 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Conditional_17_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r23 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 122)(1, "div", 183)(2, "div", 184)(3, "span", 185);
+    \u0275\u0275text(4, "\u{1F98B}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 186);
+    \u0275\u0275text(6, "\u{1F98B}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "span", 187);
+    \u0275\u0275text(8, "\u{1F41D}");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "div", 188);
+    \u0275\u0275text(10, "\u2600\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "div", 189);
+    \u0275\u0275element(12, "div", 190);
+    \u0275\u0275elementStart(13, "span", 191);
+    \u0275\u0275text(14, "\u{1F33B}");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "div", 192)(16, "span", 193);
+    \u0275\u0275text(17, "\u2728");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(18, "span", 194);
+    \u0275\u0275text(19, "\u2B50");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(20, "span", 195);
+    \u0275\u0275text(21, "\u2728");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "span", 196);
+    \u0275\u0275text(23, "\u{1F31F}");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(24, "h2", 197);
+    \u0275\u0275text(25, "\u{1F389} \xA1La planta floreci\xF3! \u{1F389}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(26, "p", 198);
+    \u0275\u0275text(27, "Seguiste la secuencia correcta");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(28, "div", 199)(29, "span", 200);
+    \u0275\u0275text(30, "\u{1F331} Plantar");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(31, "span", 201);
+    \u0275\u0275text(32, "\u2192");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(33, "span", 200);
+    \u0275\u0275text(34, "\u{1F4A7} Regar");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(35, "span", 201);
+    \u0275\u0275text(36, "\u2192");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(37, "span", 200);
+    \u0275\u0275text(38, "\u2600\uFE0F Sol");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(39, "span", 201);
+    \u0275\u0275text(40, "=");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(41, "span", 202);
+    \u0275\u0275text(42, "\u{1F33B}");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(43, "div", 111)(44, "div", 112)(45, "span", 113);
+    \u0275\u0275text(46, "\u26A1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(47, "span", 114);
+    \u0275\u0275text(48, "+10");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(49, "span", 115);
+    \u0275\u0275text(50, "XP");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(51, "div", 116)(52, "span", 113);
+    \u0275\u0275text(53, "\u{1F331}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(54, "span", 114);
+    \u0275\u0275text(55, "+1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(56, "span", 115);
+    \u0275\u0275text(57, "Semilla");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(58, "button", 117);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_12_Conditional_17_Template_button_click_58_listener() {
+      \u0275\u0275restoreView(_r23);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextActivity());
+    });
+    \u0275\u0275elementStart(59, "span", 118);
+    \u0275\u0275text(60, "Siguiente aventura");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(61, "span", 119);
+    \u0275\u0275text(62, "\u{1F680}");
+    \u0275\u0275elementEnd()()();
+  }
+}
+function World1Component_Conditional_2_Conditional_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
+    \u0275\u0275text(2, "ACTIVIDAD 2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "h1");
+    \u0275\u0275text(4, "Haz crecer la planta \u{1F331}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 120);
+    \u0275\u0275text(6, "Nori quiere plantar una flor. Arma la secuencia de acciones en el orden correcto \u2014primero ");
+    \u0275\u0275elementStart(7, "strong");
+    \u0275\u0275text(8, "plantar");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(9, ", luego ");
+    \u0275\u0275elementStart(10, "strong");
+    \u0275\u0275text(11, "regar");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(12, " y al final dar ");
+    \u0275\u0275elementStart(13, "strong");
+    \u0275\u0275text(14, "sol");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(15, "\u2014 y pulsa Ejecutar para verla crecer.");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(16, World1Component_Conditional_2_Conditional_12_Conditional_16_Template, 62, 13, "div", 121)(17, World1Component_Conditional_2_Conditional_12_Conditional_17_Template, 63, 0, "div", 122);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(16);
+    \u0275\u0275conditional(!ctx_r1.plantDone ? 16 : 17);
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_1_Conditional_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 240);
+    \u0275\u0275text(1, "\u{1F9D1}\u200D\u{1F680}");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_1_Conditional_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 241);
+    \u0275\u0275text(1, "Casa");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 234)(1, "span", 239);
+    \u0275\u0275text(2, "\u{1F3E0}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(3, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_1_Conditional_3_Template, 2, 0, "span", 240)(4, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_1_Conditional_4_Template, 2, 0, "span", 241);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275advance(3);
+    \u0275\u0275conditional(ctx_r1.routeCharPos.x === ctx_r1.routeGoal.x && ctx_r1.routeCharPos.y === ctx_r1.routeGoal.y ? 3 : 4);
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 235);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const col_r25 = \u0275\u0275nextContext().$implicit;
+    const row_r26 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.getObstacleEmoji(col_r25, row_r26));
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 242)(1, "span", 243);
+    \u0275\u0275text(2, "\u{1F9D1}\u200D\u{1F680}");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275classProp("moving", ctx_r1.routeRunning)("direction-right", ctx_r1.routeCharDirection === "right")("direction-left", ctx_r1.routeCharDirection === "left")("direction-up", ctx_r1.routeCharDirection === "up")("direction-down", ctx_r1.routeCharDirection === "down")("hit", ctx_r1.routeHitObstacle);
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 237);
+    \u0275\u0275text(1, "\u{1F6A9}");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 238);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const col_r25 = \u0275\u0275nextContext().$implicit;
+    const row_r26 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate((col_r25 + row_r26) % 3 === 0 ? "\u{1F33F}" : "");
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 233);
+    \u0275\u0275conditionalCreate(1, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_1_Template, 5, 1, "div", 234)(2, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_2_Template, 2, 1, "span", 235)(3, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_3_Template, 3, 12, "div", 236)(4, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_4_Template, 2, 0, "span", 237);
+    \u0275\u0275conditionalCreate(5, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Conditional_5_Template, 2, 1, "span", 238);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const col_r25 = ctx.$implicit;
+    const row_r26 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("goal-cell", col_r25 === ctx_r1.routeGoal.x && row_r26 === ctx_r1.routeGoal.y)("start-cell", col_r25 === 0 && row_r26 === 4)("obstacle-cell", ctx_r1.isObstacle(col_r25, row_r26))("char-cell", col_r25 === ctx_r1.routeCharPos.x && row_r26 === ctx_r1.routeCharPos.y && !ctx_r1.isObstacle(col_r25, row_r26));
+    \u0275\u0275advance();
+    \u0275\u0275conditional(col_r25 === ctx_r1.routeGoal.x && row_r26 === ctx_r1.routeGoal.y ? 1 : ctx_r1.isObstacle(col_r25, row_r26) ? 2 : col_r25 === ctx_r1.routeCharPos.x && row_r26 === ctx_r1.routeCharPos.y ? 3 : col_r25 === 0 && row_r26 === 4 && !(ctx_r1.routeCharPos.x === 0 && ctx_r1.routeCharPos.y === 4) ? 4 : -1);
+    \u0275\u0275advance(4);
+    \u0275\u0275conditional(!(col_r25 === ctx_r1.routeGoal.x && row_r26 === ctx_r1.routeGoal.y) && !ctx_r1.isObstacle(col_r25, row_r26) && !(col_r25 === ctx_r1.routeCharPos.x && row_r26 === ctx_r1.routeCharPos.y) && !(col_r25 === 0 && row_r26 === 4) ? 5 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275repeaterCreate(0, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_For_1_Template, 6, 10, "div", 232, \u0275\u0275repeaterTrackByIdentity);
+  }
+  if (rf & 2) {
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(0, _c3));
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_33_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 218)(1, "span", 244);
+    \u0275\u0275text(2, "\u{1F4DD}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 53);
+    \u0275\u0275text(4, "Agrega movimientos");
+    \u0275\u0275elementEnd()();
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_34_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 246)(1, "span", 247);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 248);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const m_r27 = ctx.$implicit;
+    const \u0275$index_802_r28 = ctx.$index;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("executing", ctx_r1.routeRunning && \u0275$index_802_r28 === ctx_r1.getCurrentStep());
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275$index_802_r28 + 1);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.routeMoveEmoji(m_r27));
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_34_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 219);
+    \u0275\u0275repeaterCreate(1, World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_34_For_2_Template, 5, 4, "div", 245, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.routeBuild);
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_65_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 249);
+    \u0275\u0275text(1, "\u23F3");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(2, "span", 250);
+    \u0275\u0275text(3, "Ejecutando...");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_66_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 249);
+    \u0275\u0275text(1, "\u25B6\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(2, "span", 250);
+    \u0275\u0275text(3, "\xA1Ejecutar!");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_67_Conditional_5_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r29 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 253);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_67_Conditional_5_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r29);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.resetRoute());
+    });
+    \u0275\u0275text(1, "\u{1F504} Reintentar");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_67_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 251)(1, "span", 181);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 69);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(5, World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_67_Conditional_5_Template, 2, 0, "button", 252);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("success", ctx_r1.routeDone)("error", !ctx_r1.routeDone && ctx_r1.routeFeedback.includes("choc\xF3"))("warning", !ctx_r1.routeDone && !ctx_r1.routeFeedback.includes("choc\xF3"));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.routeDone ? "\u{1F389}" : ctx_r1.routeFeedback.includes("choc\xF3") ? "\u{1F4A5}" : "\u{1F914}", " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.routeFeedback);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!ctx_r1.routeDone ? 5 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r24 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 203)(1, "div", 205)(2, "div", 206)(3, "div", 207);
+    \u0275\u0275text(4, "\u2601\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div", 208);
+    \u0275\u0275text(6, "\u2601\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "div", 209);
+    \u0275\u0275text(8, "\u{1F324}\uFE0F");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "div", 210)(10, "div", 211);
+    \u0275\u0275repeaterCreate(11, World1Component_Conditional_2_Conditional_13_Conditional_7_For_12_Template, 2, 1, null, null, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "div", 212)(14, "span", 213)(15, "span", 214);
+    \u0275\u0275text(16, "\u{1F6A9}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(17, " Inicio");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(18, "span", 213)(19, "span", 214);
+    \u0275\u0275text(20, "\u{1F3E0}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(21, " Meta");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "span", 213)(23, "span", 214);
+    \u0275\u0275text(24, "\u{1FAA8}\u{1F333}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(25, " Obst\xE1culos");
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(26, "div", 215)(27, "div", 142)(28, "h3");
+    \u0275\u0275text(29, "\u{1F3AE} Tu Programa");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(30, "p", 216);
+    \u0275\u0275text(31);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(32, "div", 217);
+    \u0275\u0275conditionalCreate(33, World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_33_Template, 5, 0, "div", 218)(34, World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_34_Template, 3, 0, "div", 219);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(35, "div", 220)(36, "div", 221)(37, "button", 222);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_37_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addRouteMove("up"));
+    });
+    \u0275\u0275elementStart(38, "span", 223);
+    \u0275\u0275text(39, "\u2B06\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(40, "span", 224);
+    \u0275\u0275text(41, "Arriba");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(42, "div", 225)(43, "button", 226);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_43_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addRouteMove("left"));
+    });
+    \u0275\u0275elementStart(44, "span", 223);
+    \u0275\u0275text(45, "\u2B05\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(46, "span", 224);
+    \u0275\u0275text(47, "Izq");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(48, "button", 227);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_48_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.removeLastMove());
+    });
+    \u0275\u0275elementStart(49, "span", 223);
+    \u0275\u0275text(50, "\u{1F5D1}\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(51, "span", 224);
+    \u0275\u0275text(52, "Borrar");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(53, "button", 228);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_53_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addRouteMove("right"));
+    });
+    \u0275\u0275elementStart(54, "span", 223);
+    \u0275\u0275text(55, "\u27A1\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(56, "span", 224);
+    \u0275\u0275text(57, "Der");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(58, "div", 221)(59, "button", 229);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_59_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addRouteMove("down"));
+    });
+    \u0275\u0275elementStart(60, "span", 223);
+    \u0275\u0275text(61, "\u2B07\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(62, "span", 224);
+    \u0275\u0275text(63, "Abajo");
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(64, "button", 230);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_64_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.runRoute());
+    });
+    \u0275\u0275conditionalCreate(65, World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_65_Template, 4, 0)(66, World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_66_Template, 4, 0);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(67, World1Component_Conditional_2_Conditional_13_Conditional_7_Conditional_67_Template, 6, 9, "div", 231);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(11);
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(12, _c2));
+    \u0275\u0275advance(20);
+    \u0275\u0275textInterpolate1("", ctx_r1.routeBuild.length, " / 6 movimientos");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.routeBuild.length === 0 ? 33 : 34);
+    \u0275\u0275advance(4);
+    \u0275\u0275property("disabled", ctx_r1.routeBuild.length >= 6 || ctx_r1.routeRunning);
+    \u0275\u0275advance(6);
+    \u0275\u0275property("disabled", ctx_r1.routeBuild.length >= 6 || ctx_r1.routeRunning);
+    \u0275\u0275advance(5);
+    \u0275\u0275property("disabled", ctx_r1.routeBuild.length === 0 || ctx_r1.routeRunning);
+    \u0275\u0275advance(5);
+    \u0275\u0275property("disabled", ctx_r1.routeBuild.length >= 6 || ctx_r1.routeRunning);
+    \u0275\u0275advance(6);
+    \u0275\u0275property("disabled", ctx_r1.routeBuild.length >= 6 || ctx_r1.routeRunning);
+    \u0275\u0275advance(5);
+    \u0275\u0275classProp("running", ctx_r1.routeRunning);
+    \u0275\u0275property("disabled", ctx_r1.routeBuild.length === 0 || ctx_r1.routeRunning);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.routeRunning ? 65 : 66);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.routeFeedback ? 67 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_8_For_27_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 263);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const m_r31 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.routeMoveEmoji(m_r31));
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r30 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 204)(1, "div", 183)(2, "div", 72)(3, "div", 73);
+    \u0275\u0275text(4, "\u{1F38A}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div", 74);
+    \u0275\u0275text(6, "\u2B50");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "div", 75);
+    \u0275\u0275text(8, "\u{1F389}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "div", 76);
+    \u0275\u0275text(10, "\u2728");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(11, "div", 254);
+    \u0275\u0275element(12, "div", 255);
+    \u0275\u0275elementStart(13, "span", 256);
+    \u0275\u0275text(14, "\u{1F3E0}");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "div", 257)(16, "span", 258);
+    \u0275\u0275text(17, "\u{1F9D1}\u200D\u{1F680}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(18, "div", 259)(19, "span");
+    \u0275\u0275text(20, "\xA1Llegu\xE9!");
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(21, "h2", 260);
+    \u0275\u0275text(22, "\u{1F3C6} \xA1Nori lleg\xF3 a casa! \u{1F3C6}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(23, "p", 261);
+    \u0275\u0275text(24, "Tu programa funcion\xF3 perfectamente");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "div", 262);
+    \u0275\u0275repeaterCreate(26, World1Component_Conditional_2_Conditional_13_Conditional_8_For_27_Template, 2, 1, "span", 263, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(28, "div", 111)(29, "div", 112)(30, "span", 113);
+    \u0275\u0275text(31, "\u26A1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(32, "span", 114);
+    \u0275\u0275text(33, "+10");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(34, "span", 115);
+    \u0275\u0275text(35, "XP");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(36, "div", 116)(37, "span", 113);
+    \u0275\u0275text(38, "\u{1F331}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(39, "span", 114);
+    \u0275\u0275text(40, "+1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(41, "span", 115);
+    \u0275\u0275text(42, "Semilla");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(43, "button", 117);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_13_Conditional_8_Template_button_click_43_listener() {
+      \u0275\u0275restoreView(_r30);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextActivity());
+    });
+    \u0275\u0275elementStart(44, "span", 118);
+    \u0275\u0275text(45, "Siguiente aventura");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(46, "span", 119);
+    \u0275\u0275text(47, "\u{1F680}");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(26);
+    \u0275\u0275repeater(ctx_r1.routeBuild);
+  }
+}
+function World1Component_Conditional_2_Conditional_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
+    \u0275\u0275text(2, "ACTIVIDAD 3");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "h1");
+    \u0275\u0275text(4, "Lleva a Nori a casa \u{1F3E0}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 120);
+    \u0275\u0275text(6, "Programa la ruta de Nori evitando los obst\xE1culos. \xA1Cuidado con las rocas y \xE1rboles!");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(7, World1Component_Conditional_2_Conditional_13_Conditional_7_Template, 68, 13, "div", 203)(8, World1Component_Conditional_2_Conditional_13_Conditional_8_Template, 48, 0, "div", 204);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(7);
+    \u0275\u0275conditional(!ctx_r1.routeDone ? 7 : 8);
+  }
+}
+function World1Component_Conditional_2_Conditional_14_Conditional_7_For_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const item_r33 = ctx.$implicit;
+    const $index_r34 = ctx.$index;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classMap(\u0275\u0275interpolate1("bp-item bp-item-", $index_r34));
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.packingEmoji(item_r33));
+  }
+}
+function World1Component_Conditional_2_Conditional_14_Conditional_7_Conditional_17_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 281);
+    \u0275\u0275text(1, "\u2728");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(2, "span", 282);
+    \u0275\u0275text(3, "\u2B50");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span", 283);
+    \u0275\u0275text(5, "\u2728");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_14_Conditional_7_Conditional_18_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 276);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.packingClosed || ctx_r1.packingDone ? "\xA1Todo empacado! \u{1F389}" : "Guardando: " + ctx_r1.packingItemsIn.length + " objeto(s)", " ");
+  }
+}
+function World1Component_Conditional_2_Conditional_14_Conditional_7_For_24_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r35 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 284);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_14_Conditional_7_For_24_Template_button_click_0_listener() {
+      const \u0275$index_1031_r36 = \u0275\u0275restoreView(_r35).$index;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.selectPackingStep(\u0275$index_1031_r36));
+    });
+    \u0275\u0275elementStart(1, "span", 285);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 286);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 287);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const step_r37 = ctx.$implicit;
+    const \u0275$index_1031_r36 = ctx.$index;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("selected", ctx_r1.packingSelectedIdx === \u0275$index_1031_r36);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275$index_1031_r36 + 1);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.packingEmoji(step_r37));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.packingLabel(step_r37));
+  }
+}
+function World1Component_Conditional_2_Conditional_14_Conditional_7_Conditional_27_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 288);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", !ctx_r1.packingDone);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.packingFeedback);
+  }
+}
+function World1Component_Conditional_2_Conditional_14_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r32 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 264)(1, "div", 266)(2, "span", 267);
+    \u0275\u0275text(3, "\u{1F31E}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span", 268);
+    \u0275\u0275text(5, "\u2601\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "span", 269);
+    \u0275\u0275text(7, "\u2601\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "span", 270);
+    \u0275\u0275text(9, "\u{1F426}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(10, "div", 271)(11, "div", 272);
+    \u0275\u0275repeaterCreate(12, World1Component_Conditional_2_Conditional_14_Conditional_7_For_13_Template, 2, 4, "span", 273, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(14, "div", 274)(15, "span", 275);
+    \u0275\u0275text(16, "\u{1F392}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(17, World1Component_Conditional_2_Conditional_14_Conditional_7_Conditional_17_Template, 6, 0);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(18, World1Component_Conditional_2_Conditional_14_Conditional_7_Conditional_18_Template, 2, 1, "div", 276);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(19, "div", 277)(20, "h3");
+    \u0275\u0275text(21, "Orden actual (toca dos para intercambiar)");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "div", 278);
+    \u0275\u0275repeaterCreate(23, World1Component_Conditional_2_Conditional_14_Conditional_7_For_24_Template, 7, 5, "button", 279, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "button", 27);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_14_Conditional_7_Template_button_click_25_listener() {
+      \u0275\u0275restoreView(_r32);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.checkPacking());
+    });
+    \u0275\u0275text(26, "\u2713 Verificar orden");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(27, World1Component_Conditional_2_Conditional_14_Conditional_7_Conditional_27_Template, 2, 3, "div", 280);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(12);
+    \u0275\u0275repeater(ctx_r1.packingItemsIn);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("packing", ctx_r1.packingPacking)("closed", ctx_r1.packingClosed || ctx_r1.packingDone)("shake", ctx_r1.packingShake);
+    \u0275\u0275advance(3);
+    \u0275\u0275conditional(ctx_r1.packingClosed || ctx_r1.packingDone ? 17 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.packingPacking || ctx_r1.packingDone ? 18 : -1);
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(ctx_r1.packingBuild);
+    \u0275\u0275advance(4);
+    \u0275\u0275conditional(ctx_r1.packingFeedback ? 27 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_14_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r38 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 265)(1, "h2");
+    \u0275\u0275text(2, "\u{1F392} \xA1Mochila lista!");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "p");
+    \u0275\u0275text(4, "Depuraste el c\xF3digo correctamente: \u{1F34E} \u2192 \u{1F4A7} \u2192 \u{1F392}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 289);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_12_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.nextWorld2Activity());
+    \u0275\u0275elementStart(7, "button", 27);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_14_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r38);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextActivity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275elementEnd()();
   }
 }
-function World2Component_Conditional_12_Template(rf, ctx) {
+function World1Component_Conditional_2_Conditional_14_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
+    \u0275\u0275text(2, "ACTIVIDAD 4");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "h1");
+    \u0275\u0275text(4, "Arregla la mochila \u{1F392}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 120);
+    \u0275\u0275text(6, "\xA1Nori desorden\xF3 los pasos! Intercambia los pasos para corregir el orden: Manzana \u2192 Agua \u2192 Cerrar.");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(7, World1Component_Conditional_2_Conditional_14_Conditional_7_Template, 28, 9, "div", 264)(8, World1Component_Conditional_2_Conditional_14_Conditional_8_Template, 9, 0, "div", 265);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(7);
+    \u0275\u0275conditional(!ctx_r1.packingDone ? 7 : 8);
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275text(0, " \u{1F9D1}\u200D\u{1F680} ");
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_2_Conditional_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275text(0);
+  }
+  if (rf & 2) {
+    const res_r40 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.finalResourceEmoji(res_r40.type), " ");
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275conditionalCreate(0, World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_2_Conditional_0_Template, 1, 1);
+  }
+  if (rf & 2) {
+    \u0275\u0275conditional(!ctx.collected ? 0 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_3_Conditional_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275text(0);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(7);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.finalSeedEmoji(), " ");
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_3_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275text(0, " \u{1F31F} ");
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275conditionalCreate(0, World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_3_Conditional_0_Template, 1, 1)(1, World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_3_Conditional_1_Template, 1, 0);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275conditional(ctx_r1.finalGrowing || ctx_r1.finalPlanted ? 0 : 1);
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 305);
+    \u0275\u0275conditionalCreate(1, World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_1_Template, 1, 0)(2, World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_2_Template, 1, 1)(3, World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Conditional_3_Template, 2, 1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    let tmp_25_0;
+    const col_r41 = ctx.$implicit;
+    const row_r42 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("goal-cell", col_r41 === ctx_r1.finalSeedPos.x && row_r42 === ctx_r1.finalSeedPos.y)("char-cell", col_r41 === ctx_r1.finalCharPos.x && row_r42 === ctx_r1.finalCharPos.y);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(col_r41 === ctx_r1.finalCharPos.x && row_r42 === ctx_r1.finalCharPos.y ? 1 : (tmp_25_0 = ctx_r1.finalResourceAt(col_r41, row_r42)) ? 2 : col_r41 === ctx_r1.finalSeedPos.x && row_r42 === ctx_r1.finalSeedPos.y ? 3 : -1, tmp_25_0);
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275repeaterCreate(0, World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_For_1_Template, 4, 5, "div", 304, \u0275\u0275repeaterTrackByIdentity);
+  }
+  if (rf & 2) {
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(0, _c4));
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_10_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 306);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const r_r43 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("got", r_r43.collected);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.finalResourceEmoji(r_r43.type));
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_For_15_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 307);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const b_r44 = ctx.$implicit;
+    const $index_r45 = ctx.$index;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("active", $index_r45 === ctx_r1.finalCurrentStep);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.finalBlockLabel(b_r44));
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_Conditional_16_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 53);
+    \u0275\u0275text(1, "Sin bloques");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_Conditional_34_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r46 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 309);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Conditional_34_Conditional_2_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r46);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.resetFinal());
+    });
+    \u0275\u0275text(1, "Reintentar");
+    \u0275\u0275elementEnd();
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_Conditional_34_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 288);
+    \u0275\u0275text(1);
+    \u0275\u0275conditionalCreate(2, World1Component_Conditional_2_Conditional_15_Conditional_7_Conditional_34_Conditional_2_Template, 2, 0, "button", 308);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", !ctx_r1.finalPlanted);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.finalFeedback, " ");
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!ctx_r1.finalPlanted && !ctx_r1.finalRunning ? 2 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r39 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 290)(1, "div", 292)(2, "div", 293);
+    \u0275\u0275repeaterCreate(3, World1Component_Conditional_2_Conditional_15_Conditional_7_For_4_Template, 2, 1, null, null, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 294)(6, "div", 295)(7, "span", 296);
+    \u0275\u0275text(8, "Mochila:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275repeaterCreate(9, World1Component_Conditional_2_Conditional_15_Conditional_7_For_10_Template, 2, 3, "span", 297, _forTrack0);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "h3");
+    \u0275\u0275text(12, "Tu programa");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "div", 298);
+    \u0275\u0275repeaterCreate(14, World1Component_Conditional_2_Conditional_15_Conditional_7_For_15_Template, 2, 3, "span", 299, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275conditionalCreate(16, World1Component_Conditional_2_Conditional_15_Conditional_7_Conditional_16_Template, 2, 0, "span", 53);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "div", 300)(18, "button", 301);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Template_button_click_18_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addFinalBlock("right"));
+    });
+    \u0275\u0275text(19, "\u27A1\uFE0F Avanzar");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(20, "button", 301);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Template_button_click_20_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addFinalBlock("up"));
+    });
+    \u0275\u0275text(21, "\u2B06\uFE0F Subir");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "button", 301);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Template_button_click_22_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addFinalBlock("left"));
+    });
+    \u0275\u0275text(23, "\u2B05\uFE0F Izquierda");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(24, "button", 301);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Template_button_click_24_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addFinalBlock("down"));
+    });
+    \u0275\u0275text(25, "\u2B07\uFE0F Bajar");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(26, "button", 301);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Template_button_click_26_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addFinalBlock("collect"));
+    });
+    \u0275\u0275text(27, "\u{1FAF3} Recoger");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(28, "button", 301);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Template_button_click_28_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.addFinalBlock("plant"));
+    });
+    \u0275\u0275text(29, "\u{1F331} Plantar");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(30, "button", 302);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Template_button_click_30_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.removeFinalBlock());
+    });
+    \u0275\u0275text(31, "\u{1F5D1}\uFE0F");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(32, "button", 303);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_7_Template_button_click_32_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.runFinal());
+    });
+    \u0275\u0275text(33, "\u25B6\uFE0F Ejecutar");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(34, World1Component_Conditional_2_Conditional_15_Conditional_7_Conditional_34_Template, 3, 4, "div", 280);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(3);
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(10, _c4));
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(ctx_r1.finalResources);
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(ctx_r1.finalBuild);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.finalBuild.length === 0 ? 16 : -1);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.finalRunning);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.finalRunning);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.finalRunning);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.finalRunning);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.finalRunning);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.finalRunning);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.finalBuild.length === 0 || ctx_r1.finalRunning);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.finalBuild.length === 0 || ctx_r1.finalRunning);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.finalFeedback ? 34 : -1);
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r47 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 291)(1, "div", 310);
+    \u0275\u0275text(2, "\u{1F332}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "h2");
+    \u0275\u0275text(4, "\u{1F389} \xA1MUNDO 1 COMPLETADO!");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 311);
+    \u0275\u0275text(6, "\u{1F331} \u2192 \u{1F33F} \u2192 \u{1F333} \u2192 \u{1F332}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "p");
+    \u0275\u0275text(8, "\u{1F31F} \xA1Felicidades, peque\xF1a programadora!");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "p");
+    \u0275\u0275text(10, "Aprendiste que programar es dar instrucciones, organizarlas correctamente y encontrar errores cuando algo no funciona.");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "p");
+    \u0275\u0275text(12, "Desbloqueaste el ");
+    \u0275\u0275elementStart(13, "strong");
+    \u0275\u0275text(14, "Mundo 2: Sendero de Variables");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "div", 312)(16, "div", 313)(17, "strong");
+    \u0275\u0275text(18, "50");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(19, "span");
+    \u0275\u0275text(20, "XP");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(21, "div", 313)(22, "strong");
+    \u0275\u0275text(23, "5");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(24, "span");
+    \u0275\u0275text(25, "Semillas");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(26, "button", 27);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Conditional_15_Conditional_8_Template_button_click_26_listener() {
+      \u0275\u0275restoreView(_r47);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.unlockAndOpenWorld2());
+    });
+    \u0275\u0275text(27, "Desbloquear Mundo 2 \u2192");
+    \u0275\u0275elementEnd()();
+  }
+}
+function World1Component_Conditional_2_Conditional_15_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
+    \u0275\u0275text(2, "ACTIVIDAD 5");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "h1");
+    \u0275\u0275text(4, "Reto final: La semilla m\xE1gica \u{1F31F}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 120);
+    \u0275\u0275text(6, "Programa a Nori para recoger \u{1F4A7} Agua, \u2600\uFE0F Luz y \u{1F331} Tierra, y llevarlos hasta la semilla m\xE1gica para plantarla.");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(7, World1Component_Conditional_2_Conditional_15_Conditional_7_Template, 35, 11, "div", 290)(8, World1Component_Conditional_2_Conditional_15_Conditional_8_Template, 28, 0, "div", 291);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(7);
+    \u0275\u0275conditional(!ctx_r1.finalDone ? 7 : 8);
+  }
+}
+function World1Component_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 2)(1, "div", 15)(2, "div", 16)(3, "span");
+    \u0275\u0275text(4, "\u{1F331} Mundo 1: Semillas");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span");
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "div", 17);
+    \u0275\u0275element(8, "div", 18);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "button", 19);
+    \u0275\u0275listener("click", function World1Component_Conditional_2_Template_button_click_9_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.skipActivity());
+    });
+    \u0275\u0275text(10, "Saltar \u23ED\uFE0F");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275conditionalCreate(11, World1Component_Conditional_2_Conditional_11_Template, 8, 1, "article", 20)(12, World1Component_Conditional_2_Conditional_12_Template, 18, 1, "article", 20)(13, World1Component_Conditional_2_Conditional_13_Template, 9, 1, "article", 20)(14, World1Component_Conditional_2_Conditional_14_Template, 9, 1, "article", 20)(15, World1Component_Conditional_2_Conditional_15_Template, 9, 1, "article", 20);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate2("", ctx_r1.currentActivity + 1, " / ", ctx_r1.totalActivities);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", ctx_r1.progressPercent(), "%");
+    \u0275\u0275advance(3);
+    \u0275\u0275conditional(ctx_r1.currentActivity === 0 ? 11 : ctx_r1.currentActivity === 1 ? 12 : ctx_r1.currentActivity === 2 ? 13 : ctx_r1.currentActivity === 3 ? 14 : ctx_r1.currentActivity === 4 ? 15 : -1);
+  }
+}
+var World1Component = class _World1Component {
+  constructor(cdr, game) {
+    this.cdr = cdr;
+    this.game = game;
+    this.resetWorld1Activities();
+  }
+  cdr;
+  game;
+  unlockWorld2 = new EventEmitter();
+  ngOnInit() {
+    this.startDialogue();
+  }
+  currentActivity = 0;
+  totalActivities = 5;
+  // ═══════════════════════════════════════════════════════════
+  // INTRO CON DIÁLOGO (el personaje aparece en grande y "habla")
+  // ═══════════════════════════════════════════════════════════
+  showIntro = true;
+  /** Líneas que Nori va diciendo; avanzan al hacer click. */
+  dialogue = [
+    "\xA1Hola! Soy Nori \u{1F44B} Soy un astronauta explorador.",
+    "Bienvenid@ al Bosque de Algoritmos. \xA1Qu\xE9 emoci\xF3n que me acompa\xF1es!",
+    "En este mundo vas a aprender las secuencias: una lista de pasos en orden. \u{1F9E9}",
+    "Es como una receta: si sigues los pasos en el orden correcto, \xA1todo sale bien! \u{1F96A}",
+    "Recuerda: cada acci\xF3n es un paso y el orden importa much\xEDsimo. \u{1F522}",
+    "\xBFList@ para la aventura? Resolveremos 5 retos juntos. \u{1F680}"
+  ];
+  dialogueIndex = 0;
+  // línea actual
+  displayedText = "";
+  // texto ya "escrito" en pantalla
+  typing = false;
+  // true mientras aparecen las letras
+  typeTimer = null;
+  /** Al abrir la intro empieza a escribir la primera línea. */
+  startDialogue() {
+    this.dialogueIndex = 0;
+    this.typeLine();
+  }
+  /** Escribe la línea actual letra por letra (efecto de habla). */
+  typeLine() {
+    clearInterval(this.typeTimer);
+    const full = this.dialogue[this.dialogueIndex];
+    this.displayedText = "";
+    this.typing = true;
+    let i = 0;
+    this.typeTimer = setInterval(() => {
+      this.displayedText = full.slice(0, ++i);
+      if (i >= full.length) {
+        clearInterval(this.typeTimer);
+        this.typing = false;
+      }
+      this.cdr.detectChanges();
+    }, 32);
+  }
+  /** true cuando ya se mostró la última línea completa. */
+  get dialogueFinished() {
+    return this.dialogueIndex >= this.dialogue.length - 1 && !this.typing;
+  }
+  /**
+   * Click sobre la escena:
+   * - Si está escribiendo, completa la línea al instante.
+   * - Si terminó la línea, pasa a la siguiente.
+   */
+  advanceDialogue() {
+    if (this.typing) {
+      clearInterval(this.typeTimer);
+      this.displayedText = this.dialogue[this.dialogueIndex];
+      this.typing = false;
+      return;
+    }
+    if (this.dialogueIndex < this.dialogue.length - 1) {
+      this.dialogueIndex++;
+      this.typeLine();
+    }
+  }
+  /** Cierra la intro y comienza con las actividades. */
+  startWorld() {
+    clearInterval(this.typeTimer);
+    this.showIntro = false;
+  }
+  // Actividad 1 – Sándwich
+  sandwichStep = "intro";
+  sandwichOptions = [];
+  sandwichBuild = [];
+  sandwichFeedback = "";
+  sandwichDone = false;
+  draggingIngredient = null;
+  dropReady = false;
+  // Actividad 2 – Planta
+  plantStage = "empty";
+  plantActions = [];
+  plantSequence = [];
+  plantFeedback = "";
+  plantDone = false;
+  plantRunning = false;
+  plantActiveStep = -1;
+  // Actividad 3 – Ruta (grid 4x5)
+  routeBuild = [];
+  routeFeedback = "";
+  routeDone = false;
+  routeRunning = false;
+  routeCharPos = { x: 0, y: 4 };
+  routeGoal = { x: 3, y: 2 };
+  routeObstacles = [
+    { x: 1, y: 1, emoji: "\u{1FAA8}" },
+    { x: 3, y: 4, emoji: "\u{1F333}" }
+  ];
+  routeCharDirection = "right";
+  routeHitObstacle = false;
+  routeCurrentStep = -1;
+  routeGridRows = 5;
+  routeGridCols = 4;
+  // Actividad 4 – Depuración (mochila)
+  packingBuild = [...PACKING_INITIAL_ORDER];
+  packingFeedback = "";
+  packingDone = false;
+  packingSelectedIdx = null;
+  packingPacking = false;
+  packingItemsIn = [];
+  packingClosed = false;
+  packingShake = false;
+  // Actividad 5 – Reto final
+  finalBuild = [];
+  finalFeedback = "";
+  finalDone = false;
+  finalRunning = false;
+  finalCharPos = { x: 0, y: 2 };
+  finalStartPos = { x: 0, y: 2 };
+  finalSeedPos = { x: 2, y: 0 };
+  finalResources = [
+    { x: 1, y: 2, type: "water", collected: false },
+    { x: 2, y: 1, type: "sun", collected: false },
+    { x: 1, y: 0, type: "soil", collected: false }
+  ];
+  finalCollected = [];
+  finalPlanted = false;
+  finalCurrentStep = -1;
+  finalSeedStageIndex = 0;
+  finalGrowing = false;
+  // ═══════════════════════════════════════════════════════════
+  // MÉTODOS GENERALES
+  // ═══════════════════════════════════════════════════════════
+  nextActivity() {
+    const reward = { experience: 10, seeds: 1 };
+    this.game.applyReward(reward);
+    if (this.currentActivity < this.totalActivities - 1) {
+      this.currentActivity++;
+      this.resetCurrentActivity();
+    } else {
+      this.game.level2Unlocked = true;
+    }
+  }
+  skipActivity() {
+    if (this.currentActivity < this.totalActivities - 1) {
+      this.currentActivity++;
+      this.resetCurrentActivity();
+    } else {
+      this.game.level2Unlocked = true;
+    }
+  }
+  progressPercent() {
+    return Math.round(this.currentActivity / this.totalActivities * 100);
+  }
+  resetWorld1Activities() {
+    this.resetSandwich();
+    this.resetPlant();
+    this.resetRoute();
+    this.resetPacking();
+    this.resetFinal();
+  }
+  resetCurrentActivity() {
+    switch (this.currentActivity) {
+      case 0:
+        this.resetSandwich();
+        break;
+      case 1:
+        this.resetPlant();
+        break;
+      case 2:
+        this.resetRoute();
+        break;
+      case 3:
+        this.resetPacking();
+        break;
+      case 4:
+        this.resetFinal();
+        break;
+    }
+  }
+  // ───────────────────────────────────────────────────────────
+  // ACTIVIDAD 1: SÁNDWICH
+  // ───────────────────────────────────────────────────────────
+  resetSandwich() {
+    this.sandwichStep = "intro";
+    this.sandwichOptions = this.shuffleArray([...SANDWICH_CORRECT_ORDER]);
+    this.sandwichBuild = [];
+    this.sandwichFeedback = "";
+    this.sandwichDone = false;
+    this.draggingIngredient = null;
+    this.dropReady = false;
+  }
+  goToSandwichGame() {
+    this.sandwichStep = "game";
+  }
+  shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+  layerClass(emoji) {
+    const map2 = {
+      "\u{1F35E}": "bread-layer",
+      "\u{1F96C}": "lettuce-layer",
+      "\u{1F345}": "tomato-layer",
+      "\u{1F9C0}": "cheese-layer",
+      "\u{1F96A}": "close-layer"
+    };
+    return map2[emoji] || "";
+  }
+  getIngredientName(emoji) {
+    const names = {
+      "\u{1F35E}": "Pan",
+      "\u{1F96C}": "Lechuga",
+      "\u{1F345}": "Tomate",
+      "\u{1F9C0}": "Queso",
+      "\u{1F96A}": "Cerrar"
+    };
+    return names[emoji] || "";
+  }
+  onDragStart(ingredient) {
+    this.draggingIngredient = ingredient;
+  }
+  onDragEnd() {
+    this.draggingIngredient = null;
+    this.dropReady = false;
+  }
+  onDragOver(event) {
+    event.preventDefault();
+    this.dropReady = true;
+  }
+  onDragLeave() {
+    this.dropReady = false;
+  }
+  onDrop(event) {
+    event.preventDefault();
+    this.dropReady = false;
+    if (this.draggingIngredient && !this.sandwichBuild.includes(this.draggingIngredient)) {
+      this.sandwichBuild = [...this.sandwichBuild, this.draggingIngredient];
+    }
+    this.draggingIngredient = null;
+  }
+  addIngredient(ingredient) {
+    if (!this.sandwichBuild.includes(ingredient)) {
+      this.sandwichBuild = [...this.sandwichBuild, ingredient];
+    }
+  }
+  checkSandwich() {
+    const correct = SANDWICH_CORRECT_ORDER.every((s, i) => this.sandwichBuild[i] === s);
+    if (correct) {
+      this.sandwichFeedback = "\xA1Perfecto! \u{1F389}";
+      this.sandwichDone = true;
+      this.sandwichStep = "done";
+    } else {
+      this.sandwichFeedback = "Orden incorrecto. \xA1Int\xE9ntalo de nuevo!";
+      this.sandwichBuild = [];
+    }
+  }
+  // ───────────────────────────────────────────────────────────
+  // ACTIVIDAD 2: PLANTA
+  // ───────────────────────────────────────────────────────────
+  resetPlant() {
+    this.plantStage = "empty";
+    this.plantActions = [];
+    this.plantSequence = [];
+    this.plantFeedback = "";
+    this.plantDone = false;
+    this.plantRunning = false;
+    this.plantActiveStep = -1;
+  }
+  plantEmoji() {
+    return this.plantStage === "seed" ? "\u{1F331}" : this.plantStage === "sprout" ? "\u{1F33F}" : "\u{1F33B}";
+  }
+  actionLabel(action) {
+    return action === "plant" ? "Plantar" : action === "water" ? "Regar" : "Sol";
+  }
+  actionEmoji(action) {
+    return action === "plant" ? "\u{1F331}" : action === "water" ? "\u{1F4A7}" : "\u2600\uFE0F";
+  }
+  addPlantBlock(action) {
+    if (this.plantRunning || this.plantDone)
+      return;
+    if (this.plantSequence.length >= PLANT_GROWTH_ORDER.length)
+      return;
+    this.plantSequence.push(action);
+    this.plantFeedback = "";
+  }
+  removePlantBlock(index) {
+    if (this.plantRunning || this.plantDone)
+      return;
+    this.plantSequence.splice(index, 1);
+    this.plantFeedback = "";
+  }
+  clearPlantSequence() {
+    if (this.plantRunning)
+      return;
+    this.plantSequence = [];
+    this.plantFeedback = "";
+  }
+  runPlantSequence() {
+    if (this.plantRunning || this.plantDone)
+      return;
+    if (this.plantSequence.length === 0) {
+      this.plantFeedback = "Primero arma tu secuencia con los bloques \u{1F331}\u{1F4A7}\u2600\uFE0F";
+      return;
+    }
+    this.plantRunning = true;
+    this.plantActions = [];
+    this.plantStage = "empty";
+    this.plantFeedback = "";
+    this.plantActiveStep = -1;
+    this.cdr.detectChanges();
+    setTimeout(() => this.runPlantStep(0), 400);
+  }
+  runPlantStep(idx) {
+    if (idx >= this.plantSequence.length) {
+      this.finishPlantRun();
+      return;
+    }
+    this.plantActiveStep = idx;
+    const action = this.plantSequence[idx];
+    setTimeout(() => {
+      if (PLANT_GROWTH_ORDER[idx] !== action) {
+        this.plantActiveStep = -1;
+        this.plantRunning = false;
+        this.plantFeedback = `\xA1Ups! El paso ${idx + 1} no va en ese orden. Recuerda: primero Plantar \u{1F331}, luego Regar \u{1F4A7} y al final Sol \u2600\uFE0F.`;
+        this.plantStage = "empty";
+        this.plantActions = [];
+        this.cdr.detectChanges();
+        return;
+      }
+      this.plantActions.push(action);
+      if (action === "plant")
+        this.plantStage = "seed";
+      else if (action === "water")
+        this.plantStage = "sprout";
+      else if (action === "sun")
+        this.plantStage = "flower";
+      this.cdr.detectChanges();
+      this.runPlantStep(idx + 1);
+    }, 700);
+  }
+  finishPlantRun() {
+    this.plantActiveStep = -1;
+    this.plantRunning = false;
+    const correct = this.plantSequence.length === PLANT_GROWTH_ORDER.length && this.plantSequence.every((a, i) => a === PLANT_GROWTH_ORDER[i]);
+    if (correct) {
+      this.plantStage = "flower";
+      this.plantDone = true;
+    } else {
+      this.plantFeedback = "Casi. Faltan pasos o el orden no es completo. Prueba: \u{1F331} \u2192 \u{1F4A7} \u2192 \u2600\uFE0F";
+      this.plantStage = "empty";
+      this.plantActions = [];
+    }
+    this.cdr.detectChanges();
+  }
+  // ───────────────────────────────────────────────────────────
+  // ACTIVIDAD 3: RUTA
+  // ───────────────────────────────────────────────────────────
+  resetRoute() {
+    this.routeBuild = [];
+    this.routeFeedback = "";
+    this.routeDone = false;
+    this.routeRunning = false;
+    this.routeCharPos = { x: 0, y: 4 };
+    this.routeCharDirection = "right";
+    this.routeHitObstacle = false;
+    this.routeCurrentStep = -1;
+  }
+  addRouteMove(move) {
+    if (this.routeBuild.length < 6 && !this.routeDone && !this.routeRunning) {
+      this.routeBuild = [...this.routeBuild, move];
+    }
+  }
+  removeLastMove() {
+    if (this.routeBuild.length > 0 && !this.routeRunning) {
+      this.routeBuild = this.routeBuild.slice(0, -1);
+    }
+  }
+  routeMoveEmoji(m) {
+    return m === "right" ? "\u27A1\uFE0F" : m === "up" ? "\u2B06\uFE0F" : m === "left" ? "\u2B05\uFE0F" : "\u2B07\uFE0F";
+  }
+  getCurrentStep() {
+    return this.routeCurrentStep;
+  }
+  isObstacle(x, y) {
+    return this.routeObstacles.some((o) => o.x === x && o.y === y);
+  }
+  getObstacleEmoji(x, y) {
+    const obstacle = this.routeObstacles.find((o) => o.x === x && o.y === y);
+    return obstacle ? obstacle.emoji : "";
+  }
+  runRoute() {
+    if (this.routeRunning || this.routeDone || this.routeBuild.length === 0) {
+      return;
+    }
+    this.routeRunning = true;
+    this.routeCharPos = { x: 0, y: 4 };
+    this.routeFeedback = "";
+    this.routeHitObstacle = false;
+    this.routeCurrentStep = -1;
+    let stepIndex = 0;
+    const executeStep = () => {
+      if (stepIndex >= this.routeBuild.length) {
+        this.routeRunning = false;
+        this.routeCurrentStep = -1;
+        if (this.routeCharPos.x === this.routeGoal.x && this.routeCharPos.y === this.routeGoal.y) {
+          this.routeFeedback = "\xA1Nori lleg\xF3 a casa! \u{1F389}";
+          this.routeDone = true;
+        } else {
+          this.routeFeedback = "Nori no lleg\xF3 a casa. \xA1Intenta otra ruta!";
+        }
+        this.cdr.detectChanges();
+        return;
+      }
+      this.routeCurrentStep = stepIndex;
+      const move = this.routeBuild[stepIndex];
+      this.routeCharDirection = move;
+      let newX = this.routeCharPos.x;
+      let newY = this.routeCharPos.y;
+      if (move === "right")
+        newX++;
+      else if (move === "left")
+        newX--;
+      else if (move === "up")
+        newY--;
+      else if (move === "down")
+        newY++;
+      if (newX < 0 || newX > 3 || newY < 0 || newY > 4) {
+        this.routeRunning = false;
+        this.routeCurrentStep = -1;
+        this.routeFeedback = "\xA1Nori se sali\xF3 del camino! \u{1F635}";
+        this.cdr.detectChanges();
+        return;
+      }
+      if (this.isObstacle(newX, newY)) {
+        this.routeHitObstacle = true;
+        this.routeRunning = false;
+        this.routeCurrentStep = -1;
+        this.routeFeedback = "\xA1Nori choc\xF3 con un obst\xE1culo! \u{1F4A5}";
+        this.cdr.detectChanges();
+        return;
+      }
+      this.routeCharPos = { x: newX, y: newY };
+      stepIndex++;
+      if (newX === this.routeGoal.x && newY === this.routeGoal.y) {
+        this.routeRunning = false;
+        this.routeCurrentStep = -1;
+        this.routeFeedback = "\xA1Nori lleg\xF3 a casa! \u{1F389}";
+        this.routeDone = true;
+        this.cdr.detectChanges();
+        return;
+      }
+      this.cdr.detectChanges();
+      setTimeout(() => executeStep(), 600);
+    };
+    this.cdr.detectChanges();
+    setTimeout(() => executeStep(), 300);
+  }
+  // ───────────────────────────────────────────────────────────
+  // ACTIVIDAD 4: DEPURACIÓN MOCHILA
+  // ───────────────────────────────────────────────────────────
+  resetPacking() {
+    this.packingBuild = [...PACKING_INITIAL_ORDER];
+    this.packingFeedback = "";
+    this.packingDone = false;
+    this.packingSelectedIdx = null;
+    this.packingPacking = false;
+    this.packingItemsIn = [];
+    this.packingClosed = false;
+    this.packingShake = false;
+  }
+  packingEmoji(step) {
+    return step === "apple" ? "\u{1F34E}" : step === "water" ? "\u{1F4A7}" : "\u{1F392}";
+  }
+  packingLabel(step) {
+    return step === "apple" ? "Manzana" : step === "water" ? "Agua" : "Cerrar mochila";
+  }
+  selectPackingStep(idx) {
+    if (this.packingDone)
+      return;
+    if (this.packingSelectedIdx === null) {
+      this.packingSelectedIdx = idx;
+    } else {
+      const temp = this.packingBuild[this.packingSelectedIdx];
+      this.packingBuild[this.packingSelectedIdx] = this.packingBuild[idx];
+      this.packingBuild[idx] = temp;
+      this.packingSelectedIdx = null;
+    }
+  }
+  checkPacking() {
+    if (this.packingPacking || this.packingDone)
+      return;
+    const ok = PACKING_CORRECT_ORDER.every((s, i) => this.packingBuild[i] === s);
+    if (!ok) {
+      this.packingFeedback = "El orden no es correcto. Intercambia los pasos.";
+      this.packingShake = true;
+      this.cdr.detectChanges();
+      setTimeout(() => {
+        this.packingShake = false;
+        this.cdr.detectChanges();
+      }, 600);
+      return;
+    }
+    this.packingPacking = true;
+    this.packingItemsIn = [];
+    this.packingClosed = false;
+    this.packingFeedback = "Empacando... \u{1F392}";
+    this.cdr.detectChanges();
+    this.packItemsStep(0);
+  }
+  packItemsStep(idx) {
+    const itemsToPack = this.packingBuild.filter((s) => s !== "close");
+    if (idx >= itemsToPack.length) {
+      setTimeout(() => {
+        this.packingClosed = true;
+        this.cdr.detectChanges();
+        setTimeout(() => {
+          this.packingPacking = false;
+          this.packingFeedback = "\xA1Mochila lista! \u{1F389}";
+          this.packingDone = true;
+          this.cdr.detectChanges();
+        }, 700);
+      }, 500);
+      return;
+    }
+    setTimeout(() => {
+      this.packingItemsIn = [...this.packingItemsIn, itemsToPack[idx]];
+      this.cdr.detectChanges();
+      this.packItemsStep(idx + 1);
+    }, 700);
+  }
+  // ───────────────────────────────────────────────────────────
+  // ACTIVIDAD 5: RETO FINAL
+  // ───────────────────────────────────────────────────────────
+  resetFinal() {
+    this.finalBuild = [];
+    this.finalFeedback = "";
+    this.finalDone = false;
+    this.finalRunning = false;
+    this.finalCharPos = __spreadValues({}, this.finalStartPos);
+    this.finalResources = [
+      { x: 1, y: 2, type: "water", collected: false },
+      { x: 2, y: 1, type: "sun", collected: false },
+      { x: 1, y: 0, type: "soil", collected: false }
+    ];
+    this.finalCollected = [];
+    this.finalPlanted = false;
+    this.finalCurrentStep = -1;
+    this.finalSeedStageIndex = 0;
+    this.finalGrowing = false;
+  }
+  addFinalBlock(block) {
+    if (this.finalBuild.length < 12 && !this.finalDone && !this.finalRunning) {
+      this.finalBuild = [...this.finalBuild, block];
+    }
+  }
+  removeFinalBlock() {
+    if (this.finalBuild.length > 0 && !this.finalRunning) {
+      this.finalBuild = this.finalBuild.slice(0, -1);
+    }
+  }
+  finalBlockLabel(b) {
+    switch (b) {
+      case "right":
+        return "\u27A1\uFE0F Avanzar";
+      case "up":
+        return "\u2B06\uFE0F Subir";
+      case "left":
+        return "\u2B05\uFE0F Izquierda";
+      case "down":
+        return "\u2B07\uFE0F Bajar";
+      case "collect":
+        return "\u{1FAF3} Recoger";
+      case "plant":
+        return "\u{1F331} Plantar";
+    }
+  }
+  finalResourceEmoji(type) {
+    return FINAL_RESOURCE_EMOJI[type];
+  }
+  finalResourceLabel(type) {
+    return FINAL_RESOURCE_LABEL[type];
+  }
+  finalResourceAt(x, y) {
+    return this.finalResources.find((r) => r.x === x && r.y === y);
+  }
+  finalSeedEmoji() {
+    return SEED_GROWTH_STAGES[this.finalSeedStageIndex];
+  }
+  finalAllCollected() {
+    return this.finalResources.every((r) => r.collected);
+  }
+  runFinal() {
+    if (this.finalRunning || this.finalDone || this.finalBuild.length === 0)
+      return;
+    this.finalRunning = true;
+    this.finalCharPos = __spreadValues({}, this.finalStartPos);
+    this.finalResources.forEach((r) => r.collected = false);
+    this.finalCollected = [];
+    this.finalPlanted = false;
+    this.finalCurrentStep = -1;
+    this.finalSeedStageIndex = 0;
+    this.finalGrowing = false;
+    this.finalFeedback = "";
+    let i = 0;
+    const run = () => {
+      if (i >= this.finalBuild.length) {
+        this.finalRunning = false;
+        this.finalCurrentStep = -1;
+        if (this.finalPlanted) {
+          this.finishFinalChallenge();
+        } else if (this.finalAllCollected()) {
+          this.finalFeedback = "Recogiste todo, pero falta \u{1F331} PLANTAR en la semilla m\xE1gica.";
+        } else {
+          this.finalFeedback = "A\xFAn faltan recursos por recoger. \xA1Intenta otra ruta!";
+        }
+        this.cdr.detectChanges();
+        return;
+      }
+      this.finalCurrentStep = i;
+      const b = this.finalBuild[i];
+      let newX = this.finalCharPos.x;
+      let newY = this.finalCharPos.y;
+      if (b === "right")
+        newX++;
+      else if (b === "left")
+        newX--;
+      else if (b === "up")
+        newY--;
+      else if (b === "down")
+        newY++;
+      if (b === "right" || b === "left" || b === "up" || b === "down") {
+        if (newX < 0 || newX > 2 || newY < 0 || newY > 2) {
+          this.finalRunning = false;
+          this.finalCurrentStep = -1;
+          this.finalFeedback = "\xA1Nori se sali\xF3 del camino! \u{1F635}";
+          this.cdr.detectChanges();
+          return;
+        }
+        this.finalCharPos = { x: newX, y: newY };
+      } else if (b === "collect") {
+        const res = this.finalResourceAt(this.finalCharPos.x, this.finalCharPos.y);
+        if (res && !res.collected) {
+          res.collected = true;
+          this.finalCollected = [...this.finalCollected, res.type];
+          this.finalFeedback = `\xA1Recogiste ${FINAL_RESOURCE_EMOJI[res.type]} ${FINAL_RESOURCE_LABEL[res.type]}!`;
+        } else {
+          this.finalRunning = false;
+          this.finalCurrentStep = -1;
+          this.finalFeedback = "Aqu\xED no hay nada que recoger. \u{1F914}";
+          this.cdr.detectChanges();
+          return;
+        }
+      } else if (b === "plant") {
+        const onSeed = this.finalCharPos.x === this.finalSeedPos.x && this.finalCharPos.y === this.finalSeedPos.y;
+        if (!onSeed) {
+          this.finalRunning = false;
+          this.finalCurrentStep = -1;
+          this.finalFeedback = "Debes estar sobre la semilla m\xE1gica \u{1F31F} para plantar.";
+          this.cdr.detectChanges();
+          return;
+        }
+        if (!this.finalAllCollected()) {
+          this.finalRunning = false;
+          this.finalCurrentStep = -1;
+          this.finalFeedback = "Necesitas \u{1F4A7} Agua, \u2600\uFE0F Luz y \u{1F331} Tierra antes de plantar.";
+          this.cdr.detectChanges();
+          return;
+        }
+        this.finalPlanted = true;
+        this.finalFeedback = "\xA1Plantaste la semilla m\xE1gica! \u{1F331}";
+      }
+      i++;
+      this.cdr.detectChanges();
+      setTimeout(run, 500);
+    };
+    this.cdr.detectChanges();
+    setTimeout(run, 300);
+  }
+  finishFinalChallenge() {
+    this.finalGrowing = true;
+    this.finalFeedback = "";
+    this.finalSeedStageIndex = 0;
+    this.cdr.detectChanges();
+    const grow = () => {
+      if (this.finalSeedStageIndex < SEED_GROWTH_STAGES.length - 1) {
+        this.finalSeedStageIndex++;
+        this.cdr.detectChanges();
+        setTimeout(grow, 700);
+      } else {
+        this.finalGrowing = false;
+        this.finalDone = true;
+        this.cdr.detectChanges();
+      }
+    };
+    setTimeout(grow, 700);
+  }
+  // Otorga la recompensa final y pide al shell desbloquear/abrir el Mundo 2
+  unlockAndOpenWorld2() {
+    if (!this.game.level2Unlocked) {
+      this.game.applyReward({ experience: 10, seeds: 1 });
+      this.game.level2Unlocked = true;
+    }
+    this.unlockWorld2.emit();
+  }
+  static \u0275fac = function World1Component_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _World1Component)(\u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(GameStateService));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _World1Component, selectors: [["app-world-1"]], outputs: { unlockWorld2: "unlockWorld2" }, decls: 3, vars: 1, consts: [[1, "world-screen"], [1, "world-intro"], [1, "world-container"], [1, "world-intro", 3, "click"], [1, "intro-badge"], [1, "dialogue-bubble"], [1, "dialogue-text"], [1, "type-caret"], [1, "intro-character-xl"], [1, "dialogue-dots"], [1, "dlg-dot", 3, "active", "seen"], [1, "tap-hint"], [1, "btn-primary", "intro-start"], [1, "dlg-dot"], [1, "btn-primary", "intro-start", 3, "click"], [1, "progress-section"], [1, "progress-info"], [1, "progress-bar"], [1, "progress-fill"], [1, "skip-btn", 3, "click"], [1, "activity-card"], [1, "activity-badge"], [1, "success-celebration"], [1, "info-box"], [1, "steps-list"], [1, "step"], [1, "step-num"], [1, "btn-primary", 3, "click"], [1, "sandwich-game-v2"], [1, "ingredients-panel-v2"], [1, "panel-header"], [1, "panel-icon"], [1, "panel-title-group"], [1, "panel-subtitle"], [1, "ingredients-grid"], ["draggable", "true", 1, "ingredient-card", 3, "used", "dragging", "disabled"], [1, "order-hint"], [1, "hint-label"], [1, "order-steps"], [1, "order-step"], [1, "order-arrow"], [1, "build-panel-v2", 3, "dragover", "dragleave", "drop"], [1, "build-area"], [1, "empty-plate"], [1, "build-actions"], [1, "action-btn-reset"], [1, "btn-primary", "btn-verify"], [1, "feedback-box-v2", 3, "error", "success"], ["draggable", "true", 1, "ingredient-card", 3, "dragstart", "dragend", "click", "disabled"], [1, "ingredient-emoji"], [1, "ingredient-name"], [1, "ingredient-check"], [1, "plate-icon"], [1, "empty-text"], [1, "empty-subtext"], [1, "sandwich-3d-build"], [1, "sandwich-layer-3d", 3, "ngClass", "z-index"], [1, "build-progress"], [1, "progress-dots"], [1, "progress-dot", 3, "filled"], [1, "sandwich-layer-3d", 3, "ngClass"], [1, "layer-emoji"], [1, "layer-name"], [1, "layer-number"], [1, "progress-dot"], [1, "action-btn-reset", 3, "click"], [1, "btn-primary", "btn-verify", 3, "click"], [1, "feedback-box-v2"], [1, "feedback-icon"], [1, "feedback-text"], [1, "btn-retry"], [1, "btn-retry", 3, "click"], [1, "confetti-container"], [1, "confetti-piece", "c1"], [1, "confetti-piece", "c2"], [1, "confetti-piece", "c3"], [1, "confetti-piece", "c4"], [1, "confetti-piece", "c5"], [1, "confetti-piece", "c6"], [1, "confetti-piece", "c7"], [1, "confetti-piece", "c8"], [1, "nori-celebration"], [1, "nori-avatar"], [1, "speech-bubble"], [1, "bubble-text"], [1, "celebration-title"], [1, "title-emoji"], [1, "celebration-subtitle"], [1, "sandwich-3d-fun"], [1, "plate-base"], [1, "plate-shine"], [1, "sandwich-stack-3d"], [1, "sw-piece", "sw-top-bun"], [1, "bun-shine"], [1, "seed", "sd1"], [1, "seed", "sd2"], [1, "seed", "sd3"], [1, "seed", "sd4"], [1, "seed", "sd5"], [1, "seed", "sd6"], [1, "sw-piece", "sw-lettuce-layer"], [1, "sw-piece", "sw-tomato-layer"], [1, "sw-piece", "sw-cheese-layer"], [1, "cheese-drip", "drip-a"], [1, "cheese-drip", "drip-b"], [1, "sw-piece", "sw-patty-layer"], [1, "sw-piece", "sw-bottom-bun"], [1, "sparkles"], [1, "sparkle", "s1"], [1, "sparkle", "s2"], [1, "sparkle", "s3"], [1, "rewards-fun"], [1, "reward-badge", "xp-badge"], [1, "badge-icon"], [1, "badge-value"], [1, "badge-label"], [1, "reward-badge", "seed-badge"], [1, "btn-next-fun", 3, "click"], [1, "btn-text"], [1, "btn-icon"], [1, "activity-desc"], [1, "plant-game-v2"], [1, "plant-celebration"], [1, "garden-scene"], [1, "sky"], [1, "cloud", "cloud-1"], [1, "cloud", "cloud-2"], [1, "sun-sky"], [1, "rain-drops"], [1, "ground"], [1, "dirt-mound"], [1, "plant-container"], [1, "plant-stage", "empty-stage"], [1, "plant-stage", "seed-stage"], [1, "plant-stage", "sprout-stage"], [1, "plant-stage", "flower-stage"], [1, "garden-decor"], [1, "grass", "g1"], [1, "grass", "g2"], [1, "rock"], [1, "grass", "g3"], [1, "plant-controls-v2"], [1, "controls-header"], [1, "controls-hint"], [1, "controls-mini-label"], [1, "action-palette"], [1, "palette-block", "plant-block", 3, "click", "disabled"], [1, "action-icon"], [1, "action-text"], [1, "palette-block", "water-block", 3, "click", "disabled"], [1, "palette-block", "sun-block", 3, "click", "disabled"], [1, "plant-program"], [1, "program-empty"], [1, "program-controls"], [1, "btn-run", 3, "click", "disabled"], [1, "btn-clear", 3, "click", "disabled"], [1, "plant-feedback", 3, "error", "success"], [1, "drop", "d1"], [1, "drop", "d2"], [1, "drop", "d3"], [1, "drop", "d4"], [1, "drop", "d5"], [1, "empty-hole"], [1, "seed-icon"], [1, "stem"], [1, "leaves"], [1, "leaf", "leaf-left"], [1, "leaf", "leaf-right"], [1, "flower-head"], [1, "flower-stem"], [1, "flower-leaves"], [1, "f-leaf", "f-left"], [1, "f-leaf", "f-right"], [1, "program-slot"], [1, "slot-num"], [1, "slot-icon"], [1, "slot-label"], ["aria-label", "Quitar paso", 1, "slot-remove"], [1, "program-arrow"], ["aria-label", "Quitar paso", 1, "slot-remove", 3, "click"], [1, "plant-feedback"], [1, "feedback-emoji"], [1, "feedback-message"], [1, "celebration-scene"], [1, "butterflies"], [1, "butterfly", "b1"], [1, "butterfly", "b2"], [1, "butterfly", "b3"], [1, "big-sun"], [1, "big-flower"], [1, "flower-glow"], [1, "sunflower"], [1, "flower-sparkles"], [1, "sp", "sp1"], [1, "sp", "sp2"], [1, "sp", "sp3"], [1, "sp", "sp4"], [1, "plant-success-title"], [1, "plant-success-text"], [1, "sequence-display"], [1, "seq-step"], [1, "seq-arrow"], [1, "seq-result"], [1, "route-game-v2"], [1, "route-celebration"], [1, "map-scene"], [1, "map-sky"], [1, "map-cloud", "mc1"], [1, "map-cloud", "mc2"], [1, "map-sun"], [1, "map-ground"], [1, "game-grid-v2"], [1, "map-legend"], [1, "legend-item"], [1, "legend-icon"], [1, "route-controls-v2"], [1, "moves-counter"], [1, "route-preview-v2"], [1, "empty-route"], [1, "route-steps"], [1, "direction-pad"], [1, "dpad-row"], [1, "dpad-btn", "up", 3, "click", "disabled"], [1, "dpad-arrow"], [1, "dpad-label"], [1, "dpad-row", "middle"], [1, "dpad-btn", "left", 3, "click", "disabled"], [1, "dpad-btn", "center", "delete", 3, "click", "disabled"], [1, "dpad-btn", "right", 3, "click", "disabled"], [1, "dpad-btn", "down", 3, "click", "disabled"], [1, "btn-execute", 3, "click", "disabled"], [1, "route-feedback", 3, "success", "error", "warning"], [1, "grid-cell-v2", 3, "goal-cell", "start-cell", "obstacle-cell", "char-cell"], [1, "grid-cell-v2"], [1, "goal-house"], [1, "obstacle-icon"], [1, "nori-character", 3, "moving", "direction-right", "direction-left", "direction-up", "direction-down", "hit"], [1, "start-flag"], [1, "grass-decor"], [1, "house-icon"], [1, "nori-icon", "nori-arrived"], [1, "house-label"], [1, "nori-character"], [1, "nori-icon"], [1, "empty-icon"], [1, "route-step", 3, "executing"], [1, "route-step"], [1, "step-number"], [1, "step-arrow"], [1, "execute-icon"], [1, "execute-text"], [1, "route-feedback"], [1, "btn-retry-small"], [1, "btn-retry-small", 3, "click"], [1, "success-house"], [1, "house-glow"], [1, "big-house"], [1, "nori-home"], [1, "nori-happy"], [1, "speech-bubble", "small"], [1, "route-success-title"], [1, "route-success-text"], [1, "route-display"], [1, "route-move"], [1, "packing-game"], [1, "success-box"], [1, "backpack-scene"], [1, "bp-sun"], [1, "bp-cloud", "bp-c1"], [1, "bp-cloud", "bp-c2"], [1, "bp-bird"], [1, "bp-hill", "bp-hill-back"], [1, "bp-hill", "bp-hill-front"], [3, "class"], [1, "bp-backpack"], [1, "bp-emoji"], [1, "bp-status"], [1, "packing-controls"], [1, "packing-steps"], [1, "packing-step", 3, "selected"], [1, "feedback-box", 3, "error"], [1, "bp-sparkle", "bp-sp1"], [1, "bp-sparkle", "bp-sp2"], [1, "bp-sparkle", "bp-sp3"], [1, "packing-step", 3, "click"], [1, "pstep-num"], [1, "pstep-icon"], [1, "pstep-label"], [1, "feedback-box"], [1, "reward-text"], [1, "final-game"], [1, "completion-box"], [1, "grid-view", "small"], [1, "game-grid", "grid-3"], [1, "final-controls"], [1, "final-inventory"], [1, "inventory-label"], [1, "inventory-item", 3, "got"], [1, "final-preview"], [1, "block-preview", 3, "active"], [1, "block-buttons"], [1, "block-btn", 3, "click", "disabled"], [1, "block-btn", "delete", 3, "click", "disabled"], [1, "btn-primary", 3, "click", "disabled"], [1, "grid-cell", 3, "goal-cell", "char-cell"], [1, "grid-cell"], [1, "inventory-item"], [1, "block-preview"], [1, "btn-secondary"], [1, "btn-secondary", 3, "click"], [1, "seed-grown"], [1, "grow-sequence"], [1, "rewards-row"], [1, "reward-item"]], template: function World1Component_Template(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275elementStart(0, "main", 0);
+      \u0275\u0275conditionalCreate(1, World1Component_Conditional_1_Template, 15, 7, "div", 1)(2, World1Component_Conditional_2_Template, 16, 5, "div", 2);
+      \u0275\u0275elementEnd();
+    }
+    if (rf & 2) {
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.showIntro ? 1 : 2);
+    }
+  }, dependencies: [CommonModule, NgClass], styles: ["\n/*# sourceMappingURL=world-1.css.map */"] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(World1Component, [{
+    type: Component,
+    args: [{ selector: "app-world-1", standalone: true, imports: [CommonModule], template: `    <main class="world-screen">
+      <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+           INTRO: el explorador aparece y explica lo b\xE1sico del Mundo 1
+           \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+      @if (showIntro) {
+        <div class="world-intro" (click)="advanceDialogue()">
+          <span class="intro-badge">\u{1F331} MUNDO 1 \xB7 SEMILLAS</span>
+
+          <!-- Burbuja de di\xE1logo: el texto aparece letra por letra -->
+          <div class="dialogue-bubble">
+            <p class="dialogue-text">{{ displayedText }}<span class="type-caret" [class.hidden]="!typing">\u258B</span></p>
+          </div>
+
+          <!-- Personaje grande que "habla" -->
+          <div class="intro-character-xl" [class.talking]="typing">\u{1F9D1}\u200D\u{1F680}</div>
+
+          <!-- Progreso del di\xE1logo -->
+          <div class="dialogue-dots">
+            @for (line of [0,1,2,3,4,5]; track line) {
+              <span class="dlg-dot" [class.active]="line === dialogueIndex" [class.seen]="line < dialogueIndex"></span>
+            }
+          </div>
+
+          <!-- Pista o bot\xF3n de empezar -->
+          @if (!dialogueFinished) {
+            <p class="tap-hint">\u{1F446} Toca la pantalla para continuar</p>
+          } @else {
+            <button class="btn-primary intro-start" (click)="startWorld(); $event.stopPropagation()">
+              \xA1Empezar la aventura! \u{1F680}
+            </button>
+          }
+        </div>
+      }
+
+      @else {
+      <div class="world-container">
+        <div class="progress-section">
+          <div class="progress-info">
+            <span>\u{1F331} Mundo 1: Semillas</span>
+            <span>{{ currentActivity + 1 }} / {{ totalActivities }}</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="progressPercent()"></div>
+          </div>
+          <button class="skip-btn" (click)="skipActivity()">Saltar \u23ED\uFE0F</button>
+        </div>
+
+        <!-- ACTIVIDAD 1: S\xC1NDWICH -->
+        @if (currentActivity === 0) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 1</span>
+            <h1>Prepara el s\xE1ndwich de Nori \u{1F96A}</h1>
+
+            <!-- PASO INTRO: explicaci\xF3n de qu\xE9 es una secuencia -->
+            @if (sandwichStep === 'intro') {
+              <div class="info-box">
+                <h3>\u{1F9E9} \xBFQu\xE9 es una secuencia?</h3>
+                <p>Una <strong>secuencia</strong> es una lista de pasos en orden. \xA1Como una receta!</p>
+                <div class="steps-list">
+                  <div class="step"><span class="step-num">1</span> Poner el pan \u{1F35E}</div>
+                  <div class="step"><span class="step-num">2</span> Agregar lechuga \u{1F96C}</div>
+                  <div class="step"><span class="step-num">3</span> Agregar tomate \u{1F345}</div>
+                  <div class="step"><span class="step-num">4</span> Poner queso \u{1F9C0}</div>
+                  <div class="step"><span class="step-num">5</span> Cerrar el s\xE1ndwich \u{1F96A}</div>
+                </div>
+              </div>
+
+              <button class="btn-primary" (click)="goToSandwichGame()">\xA1Vamos a cocinar! \u2192</button>
+            }
+
+            <!-- PASO JUEGO -->
+            @else if (sandwichStep === 'game') {
+              <div class="sandwich-game-v2">
+                <!-- Panel de ingredientes -->
+                <div class="ingredients-panel-v2">
+                  <div class="panel-header">
+                    <span class="panel-icon">\u{1F9FA}</span>
+                    <div class="panel-title-group">
+                      <h3>Ingredientes</h3>
+                      <p class="panel-subtitle">Toca para agregar al s\xE1ndwich</p>
+                    </div>
+                  </div>
+                  
+                  <div class="ingredients-grid">
+                    @for (opt of sandwichOptions; track opt) {
+                      <button 
+                        class="ingredient-card" 
+                        [class.used]="sandwichBuild.includes(opt)"
+                        [class.dragging]="draggingIngredient === opt"
+                        [disabled]="sandwichBuild.includes(opt)"
+                        draggable="true" 
+                        (dragstart)="onDragStart(opt)" 
+                        (dragend)="onDragEnd()" 
+                        (click)="addIngredient(opt)">
+                        <span class="ingredient-emoji">{{ opt }}</span>
+                        <span class="ingredient-name">{{ getIngredientName(opt) }}</span>
+                        @if (sandwichBuild.includes(opt)) {
+                          <span class="ingredient-check">\u2713</span>
+                        }
+                      </button>
+                    }
+                  </div>
+
+                  <!-- Orden esperado -->
+                  <div class="order-hint">
+                    <span class="hint-label">\u{1F4CB} Orden correcto:</span>
+                    <div class="order-steps">
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 1">1. \u{1F35E}</span>
+                      <span class="order-arrow">\u2192</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 2">2. \u{1F96C}</span>
+                      <span class="order-arrow">\u2192</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 3">3. \u{1F345}</span>
+                      <span class="order-arrow">\u2192</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 4">4. \u{1F9C0}</span>
+                      <span class="order-arrow">\u2192</span>
+                      <span class="order-step" [class.completed]="sandwichBuild.length >= 5">5. \u{1F96A}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panel de construcci\xF3n -->
+                <div class="build-panel-v2" 
+                  [class.drop-active]="dropReady"
+                  [class.has-items]="sandwichBuild.length > 0"
+                  (dragover)="onDragOver($event)" 
+                  (dragleave)="onDragLeave()" 
+                  (drop)="onDrop($event)">
+                  
+                  <div class="panel-header">
+                    <span class="panel-icon">\u{1F37D}\uFE0F</span>
+                    <div class="panel-title-group">
+                      <h3>Tu S\xE1ndwich</h3>
+                      <p class="panel-subtitle">{{ sandwichBuild.length }} de 5 ingredientes</p>
+                    </div>
+                  </div>
+
+                  <div class="build-area">
+                    @if (sandwichBuild.length === 0) {
+                      <div class="empty-plate">
+                        <div class="plate-icon">\u{1F37D}\uFE0F</div>
+                        <p class="empty-text">Arrastra o toca los ingredientes</p>
+                        <p class="empty-subtext">Empieza con el pan \u{1F35E}</p>
+                      </div>
+                    } @else {
+                      <div class="sandwich-3d-build">
+                        @for (layer of sandwichBuild; track $index; let i = $index) {
+                          <div class="sandwich-layer-3d" [ngClass]="layerClass(layer)" [style.z-index]="10 - i">
+                            <span class="layer-emoji">{{ layer }}</span>
+                            <span class="layer-name">{{ getIngredientName(layer) }}</span>
+                            <span class="layer-number">{{ i + 1 }}</span>
+                          </div>
+                        }
+                      </div>
+                      
+                      <!-- Progress bar -->
+                      <div class="build-progress">
+                        <div class="progress-dots">
+                          @for (step of [1, 2, 3, 4, 5]; track step) {
+                            <span class="progress-dot" [class.filled]="sandwichBuild.length >= step">
+                              @if (sandwichBuild.length >= step) { \u2713 }
+                            </span>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Acciones -->
+                  <div class="build-actions">
+                    @if (sandwichBuild.length > 0 && sandwichBuild.length < 5) {
+                      <button class="action-btn-reset" (click)="resetSandwich(); goToSandwichGame()">
+                        \u{1F504} Reiniciar
+                      </button>
+                    }
+                    @if (sandwichBuild.length === 5) {
+                      <button class="btn-primary btn-verify" (click)="checkSandwich()">
+                        \u2728 \xA1Verificar s\xE1ndwich!
+                      </button>
+                    }
+                  </div>
+                </div>
+              </div>
+
+              @if (sandwichFeedback) {
+                <div class="feedback-box-v2" [class.error]="!sandwichDone" [class.success]="sandwichDone">
+                  <span class="feedback-icon">{{ sandwichDone ? '\u{1F389}' : '\u{1F605}' }}</span>
+                  <span class="feedback-text">{{ sandwichFeedback }}</span>
+                  @if (!sandwichDone) {
+                    <button class="btn-retry" (click)="resetSandwich(); goToSandwichGame()">
+                      \u{1F504} Intentar de nuevo
+                    </button>
+                  }
+                </div>
+              }
+            }
+
+            <!-- PASO COMPLETADO -->
+            @else if (sandwichDone) {
+              <div class="success-celebration">
+                <!-- Confetti animado -->
+                <div class="confetti-container">
+                  <div class="confetti-piece c1">\u{1F38A}</div>
+                  <div class="confetti-piece c2">\u2B50</div>
+                  <div class="confetti-piece c3">\u{1F389}</div>
+                  <div class="confetti-piece c4">\u2728</div>
+                  <div class="confetti-piece c5">\u{1F31F}</div>
+                  <div class="confetti-piece c6">\u{1F38A}</div>
+                  <div class="confetti-piece c7">\u{1F4AB}</div>
+                  <div class="confetti-piece c8">\u{1F389}</div>
+                </div>
+
+                <!-- Nori celebrando -->
+                <div class="nori-celebration">
+                  <div class="nori-avatar">\u{1F9D1}\u200D\u{1F680}</div>
+                  <div class="speech-bubble">
+                    <span class="bubble-text">\xA1Delicioso!</span>
+                  </div>
+                </div>
+
+                <h2 class="celebration-title">
+                  <span class="title-emoji">\u{1F3C6}</span>
+                  \xA1Genial, lo lograste!
+                  <span class="title-emoji">\u{1F3C6}</span>
+                </h2>
+                <p class="celebration-subtitle">Tu s\xE1ndwich est\xE1 perfecto</p>
+
+                <!-- S\xE1ndwich 3D animado -->
+                <div class="sandwich-3d-fun">
+                  <div class="plate-base">
+                    <div class="plate-shine"></div>
+                  </div>
+                  <div class="sandwich-stack-3d">
+                    <!-- Pan superior con domo y semillas de s\xE9samo -->
+                    <div class="sw-piece sw-top-bun">
+                      <span class="bun-shine"></span>
+                      <span class="seed sd1"></span>
+                      <span class="seed sd2"></span>
+                      <span class="seed sd3"></span>
+                      <span class="seed sd4"></span>
+                      <span class="seed sd5"></span>
+                      <span class="seed sd6"></span>
+                    </div>
+                    <!-- Lechuga con borde ondulado -->
+                    <div class="sw-piece sw-lettuce-layer"></div>
+                    <!-- Tomate -->
+                    <div class="sw-piece sw-tomato-layer"></div>
+                    <!-- Queso con goteo -->
+                    <div class="sw-piece sw-cheese-layer">
+                      <span class="cheese-drip drip-a"></span>
+                      <span class="cheese-drip drip-b"></span>
+                    </div>
+                    <!-- Carne / relleno -->
+                    <div class="sw-piece sw-patty-layer"></div>
+                    <!-- Pan inferior -->
+                    <div class="sw-piece sw-bottom-bun"></div>
+                  </div>
+                  <div class="sparkles">
+                    <span class="sparkle s1">\u2728</span>
+                    <span class="sparkle s2">\u2B50</span>
+                    <span class="sparkle s3">\u2728</span>
+                  </div>
+                </div>
+
+                <!-- Recompensas -->
+                <div class="rewards-fun">
+                  <div class="reward-badge xp-badge">
+                    <span class="badge-icon">\u26A1</span>
+                    <span class="badge-value">+10</span>
+                    <span class="badge-label">XP</span>
+                  </div>
+                  <div class="reward-badge seed-badge">
+                    <span class="badge-icon">\u{1F331}</span>
+                    <span class="badge-value">+1</span>
+                    <span class="badge-label">Semilla</span>
+                  </div>
+                </div>
+
+                <button class="btn-next-fun" (click)="nextActivity()">
+                  <span class="btn-text">Siguiente aventura</span>
+                  <span class="btn-icon">\u{1F680}</span>
+                </button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 2: PLANTA -->
+        @else if (currentActivity === 1) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 2</span>
+            <h1>Haz crecer la planta \u{1F331}</h1>
+            <p class="activity-desc">Nori quiere plantar una flor. Arma la secuencia de acciones en el orden correcto \u2014primero <strong>plantar</strong>, luego <strong>regar</strong> y al final dar <strong>sol</strong>\u2014 y pulsa Ejecutar para verla crecer.</p>
+
+            @if (!plantDone) {
+              <div class="plant-game-v2">
+                <!-- Escena del jard\xEDn -->
+                <div class="garden-scene">
+                  <!-- Cielo con nubes y sol -->
+                  <div class="sky">
+                    <div class="cloud cloud-1">\u2601\uFE0F</div>
+                    <div class="cloud cloud-2">\u2601\uFE0F</div>
+                    <div class="sun-sky" [class.active]="plantActions.includes('sun')">\u{1F31E}</div>
+                  </div>
+                  
+                  <!-- Gotas de lluvia cuando se riega -->
+                  @if (plantActions.includes('water') && !plantActions.includes('sun')) {
+                    <div class="rain-drops">
+                      <span class="drop d1">\u{1F4A7}</span>
+                      <span class="drop d2">\u{1F4A7}</span>
+                      <span class="drop d3">\u{1F4A7}</span>
+                      <span class="drop d4">\u{1F4A7}</span>
+                      <span class="drop d5">\u{1F4A7}</span>
+                    </div>
+                  }
+                  
+                  <!-- Tierra y planta -->
+                  <div class="ground">
+                    <div class="dirt-mound">
+                      <div class="plant-container">
+                        @if (plantStage === 'empty') {
+                          <div class="plant-stage empty-stage">
+                            <span class="empty-hole">\u{1F573}\uFE0F</span>
+                          </div>
+                        } @else if (plantStage === 'seed') {
+                          <div class="plant-stage seed-stage">
+                            <span class="seed-icon">\u{1F331}</span>
+                          </div>
+                        } @else if (plantStage === 'sprout') {
+                          <div class="plant-stage sprout-stage">
+                            <div class="stem"></div>
+                            <div class="leaves">
+                              <span class="leaf leaf-left">\u{1F343}</span>
+                              <span class="leaf leaf-right">\u{1F343}</span>
+                            </div>
+                          </div>
+                        } @else {
+                          <div class="plant-stage flower-stage">
+                            <div class="flower-head">\u{1F33B}</div>
+                            <div class="flower-stem"></div>
+                            <div class="flower-leaves">
+                              <span class="f-leaf f-left">\u{1F33F}</span>
+                              <span class="f-leaf f-right">\u{1F33F}</span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                    
+                    <!-- Decoraci\xF3n del jard\xEDn -->
+                    <div class="garden-decor">
+                      <span class="grass g1">\u{1F33E}</span>
+                      <span class="grass g2">\u{1F33F}</span>
+                      <span class="rock">\u{1FAA8}</span>
+                      <span class="grass g3">\u{1F33E}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panel de controles -->
+                <div class="plant-controls-v2">
+                  <div class="controls-header">
+                    <h3>\u{1F9E9} Arma tu secuencia</h3>
+                    <p class="controls-hint">Elige las acciones en orden y luego pulsa Ejecutar</p>
+                  </div>
+
+                  <!-- Bloques disponibles para agregar -->
+                  <p class="controls-mini-label">Acciones disponibles</p>
+                  <div class="action-palette">
+                    <button class="palette-block plant-block"
+                      (click)="addPlantBlock('plant')"
+                      [disabled]="plantRunning || plantSequence.length >= 3">
+                      <span class="action-icon">\u{1F331}</span>
+                      <span class="action-text">Plantar</span>
+                    </button>
+                    <button class="palette-block water-block"
+                      (click)="addPlantBlock('water')"
+                      [disabled]="plantRunning || plantSequence.length >= 3">
+                      <span class="action-icon">\u{1F4A7}</span>
+                      <span class="action-text">Regar</span>
+                    </button>
+                    <button class="palette-block sun-block"
+                      (click)="addPlantBlock('sun')"
+                      [disabled]="plantRunning || plantSequence.length >= 3">
+                      <span class="action-icon">\u2600\uFE0F</span>
+                      <span class="action-text">Sol</span>
+                    </button>
+                  </div>
+
+                  <!-- Secuencia construida por el ni\xF1o -->
+                  <p class="controls-mini-label">Tu programa ({{ plantSequence.length }}/3)</p>
+                  <div class="plant-program">
+                    @if (plantSequence.length === 0) {
+                      <span class="program-empty">Toca una acci\xF3n para empezar \u{1F446}</span>
+                    }
+                    @for (step of plantSequence; track $index) {
+                      <div class="program-slot"
+                        [class.running]="plantActiveStep === $index"
+                        [class.done]="plantActiveStep > $index || plantDone">
+                        <span class="slot-num">{{ $index + 1 }}</span>
+                        <span class="slot-icon">{{ actionEmoji(step) }}</span>
+                        <span class="slot-label">{{ actionLabel(step) }}</span>
+                        @if (!plantRunning && !plantDone) {
+                          <button class="slot-remove" (click)="removePlantBlock($index)" aria-label="Quitar paso">\u2715</button>
+                        }
+                      </div>
+                      @if (!$last) { <span class="program-arrow">\u2192</span> }
+                    }
+                  </div>
+
+                  <!-- Botones de control -->
+                  <div class="program-controls">
+                    <button class="btn-run" (click)="runPlantSequence()" [disabled]="plantRunning || plantSequence.length === 0">
+                      {{ plantRunning ? '\u{1F331} Creciendo...' : '\u25B6 Ejecutar' }}
+                    </button>
+                    <button class="btn-clear" (click)="clearPlantSequence()" [disabled]="plantRunning || plantSequence.length === 0">
+                      \u{1F5D1}\uFE0F Borrar
+                    </button>
+                  </div>
+
+                  @if (plantFeedback) {
+                    <div class="plant-feedback" [class.error]="plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero')" [class.success]="!(plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero'))">
+                      <span class="feedback-emoji">{{ (plantFeedback.includes('Ups') || plantFeedback.includes('Casi') || plantFeedback.includes('Primero')) ? '\u{1F914}' : '\u2728' }}</span>
+                      <span class="feedback-message">{{ plantFeedback }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
+            } @else {
+              <!-- Celebraci\xF3n de la planta -->
+              <div class="plant-celebration">
+                <div class="celebration-scene">
+                  <!-- Mariposas -->
+                  <div class="butterflies">
+                    <span class="butterfly b1">\u{1F98B}</span>
+                    <span class="butterfly b2">\u{1F98B}</span>
+                    <span class="butterfly b3">\u{1F41D}</span>
+                  </div>
+                  
+                  <!-- Sol brillante -->
+                  <div class="big-sun">\u2600\uFE0F</div>
+                  
+                  <!-- Flor grande -->
+                  <div class="big-flower">
+                    <div class="flower-glow"></div>
+                    <span class="sunflower">\u{1F33B}</span>
+                  </div>
+                  
+                  <!-- Sparkles -->
+                  <div class="flower-sparkles">
+                    <span class="sp sp1">\u2728</span>
+                    <span class="sp sp2">\u2B50</span>
+                    <span class="sp sp3">\u2728</span>
+                    <span class="sp sp4">\u{1F31F}</span>
+                  </div>
+                </div>
+
+                <h2 class="plant-success-title">\u{1F389} \xA1La planta floreci\xF3! \u{1F389}</h2>
+                <p class="plant-success-text">Seguiste la secuencia correcta</p>
+                
+                <div class="sequence-display">
+                  <span class="seq-step">\u{1F331} Plantar</span>
+                  <span class="seq-arrow">\u2192</span>
+                  <span class="seq-step">\u{1F4A7} Regar</span>
+                  <span class="seq-arrow">\u2192</span>
+                  <span class="seq-step">\u2600\uFE0F Sol</span>
+                  <span class="seq-arrow">=</span>
+                  <span class="seq-result">\u{1F33B}</span>
+                </div>
+
+                <div class="rewards-fun">
+                  <div class="reward-badge xp-badge">
+                    <span class="badge-icon">\u26A1</span>
+                    <span class="badge-value">+10</span>
+                    <span class="badge-label">XP</span>
+                  </div>
+                  <div class="reward-badge seed-badge">
+                    <span class="badge-icon">\u{1F331}</span>
+                    <span class="badge-value">+1</span>
+                    <span class="badge-label">Semilla</span>
+                  </div>
+                </div>
+
+                <button class="btn-next-fun" (click)="nextActivity()">
+                  <span class="btn-text">Siguiente aventura</span>
+                  <span class="btn-icon">\u{1F680}</span>
+                </button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 3: RUTA -->
+        @else if (currentActivity === 2) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 3</span>
+            <h1>Lleva a Nori a casa \u{1F3E0}</h1>
+            <p class="activity-desc">Programa la ruta de Nori evitando los obst\xE1culos. \xA1Cuidado con las rocas y \xE1rboles!</p>
+
+            @if (!routeDone) {
+              <div class="route-game-v2">
+                <!-- Escena del mapa -->
+                <div class="map-scene">
+                  <!-- Cielo y decoraci\xF3n -->
+                  <div class="map-sky">
+                    <div class="map-cloud mc1">\u2601\uFE0F</div>
+                    <div class="map-cloud mc2">\u2601\uFE0F</div>
+                    <div class="map-sun">\u{1F324}\uFE0F</div>
+                  </div>
+                  
+                  <!-- Grid del juego (4 columnas x 5 filas) -->
+                  <div class="map-ground">
+                    <div class="game-grid-v2">
+                      @for (row of [0, 1, 2, 3, 4]; track row) {
+                        @for (col of [0, 1, 2, 3]; track col) {
+                          <div class="grid-cell-v2" 
+                            [class.goal-cell]="col === routeGoal.x && row === routeGoal.y"
+                            [class.start-cell]="col === 0 && row === 4"
+                            [class.obstacle-cell]="isObstacle(col, row)"
+                            [class.char-cell]="col === routeCharPos.x && row === routeCharPos.y && !isObstacle(col, row)">
+                            
+                            @if (col === routeGoal.x && row === routeGoal.y) {
+                              <div class="goal-house">
+                                <span class="house-icon">\u{1F3E0}</span>
+                                @if (routeCharPos.x === routeGoal.x && routeCharPos.y === routeGoal.y) {
+                                  <span class="nori-icon nori-arrived">\u{1F9D1}\u200D\u{1F680}</span>
+                                } @else {
+                                  <span class="house-label">Casa</span>
+                                }
+                              </div>
+                            } @else if (isObstacle(col, row)) {
+                              <span class="obstacle-icon">{{ getObstacleEmoji(col, row) }}</span>
+                            } @else if (col === routeCharPos.x && row === routeCharPos.y) {
+                              <div class="nori-character" 
+                                [class.moving]="routeRunning"
+                                [class.direction-right]="routeCharDirection === 'right'"
+                                [class.direction-left]="routeCharDirection === 'left'"
+                                [class.direction-up]="routeCharDirection === 'up'"
+                                [class.direction-down]="routeCharDirection === 'down'"
+                                [class.hit]="routeHitObstacle">
+                                <span class="nori-icon">\u{1F9D1}\u200D\u{1F680}</span>
+                              </div>
+                            } @else if (col === 0 && row === 4 && !(routeCharPos.x === 0 && routeCharPos.y === 4)) {
+                              <span class="start-flag">\u{1F6A9}</span>
+                            }
+                            
+                            <!-- Hierba decorativa en celdas vac\xEDas -->
+                            @if (!(col === routeGoal.x && row === routeGoal.y) && !isObstacle(col, row) && !(col === routeCharPos.x && row === routeCharPos.y) && !(col === 0 && row === 4)) {
+                              <span class="grass-decor">{{ (col + row) % 3 === 0 ? '\u{1F33F}' : '' }}</span>
+                            }
+                          </div>
+                        }
+                      }
+                    </div>
+                    
+                    <!-- Leyenda del mapa -->
+                    <div class="map-legend">
+                      <span class="legend-item"><span class="legend-icon">\u{1F6A9}</span> Inicio</span>
+                      <span class="legend-item"><span class="legend-icon">\u{1F3E0}</span> Meta</span>
+                      <span class="legend-item"><span class="legend-icon">\u{1FAA8}\u{1F333}</span> Obst\xE1culos</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panel de controles -->
+                <div class="route-controls-v2">
+                  <div class="controls-header">
+                    <h3>\u{1F3AE} Tu Programa</h3>
+                    <p class="moves-counter">{{ routeBuild.length }} / 6 movimientos</p>
+                  </div>
+
+                  <!-- Preview de la ruta -->
+                  <div class="route-preview-v2">
+                    @if (routeBuild.length === 0) {
+                      <div class="empty-route">
+                        <span class="empty-icon">\u{1F4DD}</span>
+                        <span class="empty-text">Agrega movimientos</span>
+                      </div>
+                    } @else {
+                      <div class="route-steps">
+                        @for (m of routeBuild; track $index; let i = $index) {
+                          <div class="route-step" [class.executing]="routeRunning && i === getCurrentStep()">
+                            <span class="step-number">{{ i + 1 }}</span>
+                            <span class="step-arrow">{{ routeMoveEmoji(m) }}</span>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Botones de direcci\xF3n -->
+                  <div class="direction-pad">
+                    <div class="dpad-row">
+                      <button class="dpad-btn up" (click)="addRouteMove('up')" [disabled]="routeBuild.length >= 6 || routeRunning">
+                        <span class="dpad-arrow">\u2B06\uFE0F</span>
+                        <span class="dpad-label">Arriba</span>
+                      </button>
+                    </div>
+                    <div class="dpad-row middle">
+                      <button class="dpad-btn left" (click)="addRouteMove('left')" [disabled]="routeBuild.length >= 6 || routeRunning">
+                        <span class="dpad-arrow">\u2B05\uFE0F</span>
+                        <span class="dpad-label">Izq</span>
+                      </button>
+                      <button class="dpad-btn center delete" (click)="removeLastMove()" [disabled]="routeBuild.length === 0 || routeRunning">
+                        <span class="dpad-arrow">\u{1F5D1}\uFE0F</span>
+                        <span class="dpad-label">Borrar</span>
+                      </button>
+                      <button class="dpad-btn right" (click)="addRouteMove('right')" [disabled]="routeBuild.length >= 6 || routeRunning">
+                        <span class="dpad-arrow">\u27A1\uFE0F</span>
+                        <span class="dpad-label">Der</span>
+                      </button>
+                    </div>
+                    <div class="dpad-row">
+                      <button class="dpad-btn down" (click)="addRouteMove('down')" [disabled]="routeBuild.length >= 6 || routeRunning">
+                        <span class="dpad-arrow">\u2B07\uFE0F</span>
+                        <span class="dpad-label">Abajo</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Bot\xF3n ejecutar -->
+                  <button class="btn-execute" 
+                    (click)="runRoute()" 
+                    [disabled]="routeBuild.length === 0 || routeRunning"
+                    [class.running]="routeRunning">
+                    @if (routeRunning) {
+                      <span class="execute-icon">\u23F3</span>
+                      <span class="execute-text">Ejecutando...</span>
+                    } @else {
+                      <span class="execute-icon">\u25B6\uFE0F</span>
+                      <span class="execute-text">\xA1Ejecutar!</span>
+                    }
+                  </button>
+
+                  @if (routeFeedback) {
+                    <div class="route-feedback" 
+                      [class.success]="routeDone" 
+                      [class.error]="!routeDone && routeFeedback.includes('choc\xF3')"
+                      [class.warning]="!routeDone && !routeFeedback.includes('choc\xF3')">
+                      <span class="feedback-emoji">
+                        {{ routeDone ? '\u{1F389}' : (routeFeedback.includes('choc\xF3') ? '\u{1F4A5}' : '\u{1F914}') }}
+                      </span>
+                      <span class="feedback-text">{{ routeFeedback }}</span>
+                      @if (!routeDone) {
+                        <button class="btn-retry-small" (click)="resetRoute()">\u{1F504} Reintentar</button>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            } @else {
+              <!-- Celebraci\xF3n de la ruta -->
+              <div class="route-celebration">
+                <div class="celebration-scene">
+                  <div class="confetti-container">
+                    <div class="confetti-piece c1">\u{1F38A}</div>
+                    <div class="confetti-piece c2">\u2B50</div>
+                    <div class="confetti-piece c3">\u{1F389}</div>
+                    <div class="confetti-piece c4">\u2728</div>
+                  </div>
+                  
+                  <div class="success-house">
+                    <div class="house-glow"></div>
+                    <span class="big-house">\u{1F3E0}</span>
+                  </div>
+                  
+                  <div class="nori-home">
+                    <span class="nori-happy">\u{1F9D1}\u200D\u{1F680}</span>
+                    <div class="speech-bubble small">
+                      <span>\xA1Llegu\xE9!</span>
+                    </div>
+                  </div>
+                </div>
+
+                <h2 class="route-success-title">\u{1F3C6} \xA1Nori lleg\xF3 a casa! \u{1F3C6}</h2>
+                <p class="route-success-text">Tu programa funcion\xF3 perfectamente</p>
+                
+                <div class="route-display">
+                  @for (m of routeBuild; track $index) {
+                    <span class="route-move">{{ routeMoveEmoji(m) }}</span>
+                  }
+                </div>
+
+                <div class="rewards-fun">
+                  <div class="reward-badge xp-badge">
+                    <span class="badge-icon">\u26A1</span>
+                    <span class="badge-value">+10</span>
+                    <span class="badge-label">XP</span>
+                  </div>
+                  <div class="reward-badge seed-badge">
+                    <span class="badge-icon">\u{1F331}</span>
+                    <span class="badge-value">+1</span>
+                    <span class="badge-label">Semilla</span>
+                  </div>
+                </div>
+
+                <button class="btn-next-fun" (click)="nextActivity()">
+                  <span class="btn-text">Siguiente aventura</span>
+                  <span class="btn-icon">\u{1F680}</span>
+                </button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 4: MOCHILA -->
+        @else if (currentActivity === 3) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 4</span>
+            <h1>Arregla la mochila \u{1F392}</h1>
+            <p class="activity-desc">\xA1Nori desorden\xF3 los pasos! Intercambia los pasos para corregir el orden: Manzana \u2192 Agua \u2192 Cerrar.</p>
+
+            @if (!packingDone) {
+              <div class="packing-game">
+                <!-- Escena animada de la mochila -->
+                <div class="backpack-scene">
+                  <!-- Cielo, sol y nubes -->
+                  <span class="bp-sun">\u{1F31E}</span>
+                  <span class="bp-cloud bp-c1">\u2601\uFE0F</span>
+                  <span class="bp-cloud bp-c2">\u2601\uFE0F</span>
+                  <span class="bp-bird">\u{1F426}</span>
+
+                  <!-- Colinas -->
+                  <div class="bp-hill bp-hill-back"></div>
+                  <div class="bp-hill bp-hill-front"></div>
+
+                  <!-- Objetos cayendo dentro de la mochila -->
+                  @for (item of packingItemsIn; track $index) {
+                    <span class="bp-item bp-item-{{ $index }}">{{ packingEmoji(item) }}</span>
+                  }
+
+                  <!-- Mochila -->
+                  <div class="bp-backpack"
+                    [class.packing]="packingPacking"
+                    [class.closed]="packingClosed || packingDone"
+                    [class.shake]="packingShake">
+                    <span class="bp-emoji">\u{1F392}</span>
+                    @if (packingClosed || packingDone) {
+                      <span class="bp-sparkle bp-sp1">\u2728</span>
+                      <span class="bp-sparkle bp-sp2">\u2B50</span>
+                      <span class="bp-sparkle bp-sp3">\u2728</span>
+                    }
+                  </div>
+
+                  <!-- Contador de objetos dentro -->
+                  @if (packingPacking || packingDone) {
+                    <div class="bp-status">
+                      {{ packingClosed || packingDone ? '\xA1Todo empacado! \u{1F389}' : 'Guardando: ' + packingItemsIn.length + ' objeto(s)' }}
+                    </div>
+                  }
+                </div>
+                <div class="packing-controls">
+                  <h3>Orden actual (toca dos para intercambiar)</h3>
+                  <div class="packing-steps">
+                    @for (step of packingBuild; track $index; let i = $index) {
+                      <button class="packing-step" [class.selected]="packingSelectedIdx === i" (click)="selectPackingStep(i)">
+                        <span class="pstep-num">{{ i + 1 }}</span>
+                        <span class="pstep-icon">{{ packingEmoji(step) }}</span>
+                        <span class="pstep-label">{{ packingLabel(step) }}</span>
+                      </button>
+                    }
+                  </div>
+                  <button class="btn-primary" (click)="checkPacking()">\u2713 Verificar orden</button>
+                  @if (packingFeedback) {
+                    <div class="feedback-box" [class.error]="!packingDone">{{ packingFeedback }}</div>
+                  }
+                </div>
+              </div>
+            } @else {
+              <div class="success-box">
+                <h2>\u{1F392} \xA1Mochila lista!</h2>
+                <p>Depuraste el c\xF3digo correctamente: \u{1F34E} \u2192 \u{1F4A7} \u2192 \u{1F392}</p>
+                <p class="reward-text">+10 XP \xB7 +1 Semilla</p>
+                <button class="btn-primary" (click)="nextActivity()">Siguiente actividad \u2192</button>
+              </div>
+            }
+          </article>
+        }
+
+        <!-- ACTIVIDAD 5: RETO FINAL -->
+        @else if (currentActivity === 4) {
+          <article class="activity-card">
+            <span class="activity-badge">ACTIVIDAD 5</span>
+            <h1>Reto final: La semilla m\xE1gica \u{1F31F}</h1>
+            <p class="activity-desc">Programa a Nori para recoger \u{1F4A7} Agua, \u2600\uFE0F Luz y \u{1F331} Tierra, y llevarlos hasta la semilla m\xE1gica para plantarla.</p>
+
+            @if (!finalDone) {
+              <div class="final-game">
+                <div class="grid-view small">
+                  <div class="game-grid grid-3">
+                    @for (row of [0, 1, 2]; track row) {
+                      @for (col of [0, 1, 2]; track col) {
+                        <div class="grid-cell"
+                          [class.goal-cell]="col === finalSeedPos.x && row === finalSeedPos.y"
+                          [class.char-cell]="col === finalCharPos.x && row === finalCharPos.y">
+                          @if (col === finalCharPos.x && row === finalCharPos.y) {
+                            \u{1F9D1}\u200D\u{1F680}
+                          } @else if (finalResourceAt(col, row); as res) {
+                            @if (!res.collected) { {{ finalResourceEmoji(res.type) }} }
+                          } @else if (col === finalSeedPos.x && row === finalSeedPos.y) {
+                            @if (finalGrowing || finalPlanted) { {{ finalSeedEmoji() }} } @else { \u{1F31F} }
+                          }
+                        </div>
+                      }
+                    }
+                  </div>
+                </div>
+                <div class="final-controls">
+                  <div class="final-inventory">
+                    <span class="inventory-label">Mochila:</span>
+                    @for (r of finalResources; track r.type) {
+                      <span class="inventory-item" [class.got]="r.collected">{{ finalResourceEmoji(r.type) }}</span>
+                    }
+                  </div>
+                  <h3>Tu programa</h3>
+                  <div class="final-preview">
+                    @for (b of finalBuild; track $index) {
+                      <span class="block-preview" [class.active]="$index === finalCurrentStep">{{ finalBlockLabel(b) }}</span>
+                    }
+                    @if (finalBuild.length === 0) { <span class="empty-text">Sin bloques</span> }
+                  </div>
+                  <div class="block-buttons">
+                    <button class="block-btn" (click)="addFinalBlock('right')" [disabled]="finalRunning">\u27A1\uFE0F Avanzar</button>
+                    <button class="block-btn" (click)="addFinalBlock('up')" [disabled]="finalRunning">\u2B06\uFE0F Subir</button>
+                    <button class="block-btn" (click)="addFinalBlock('left')" [disabled]="finalRunning">\u2B05\uFE0F Izquierda</button>
+                    <button class="block-btn" (click)="addFinalBlock('down')" [disabled]="finalRunning">\u2B07\uFE0F Bajar</button>
+                    <button class="block-btn" (click)="addFinalBlock('collect')" [disabled]="finalRunning">\u{1FAF3} Recoger</button>
+                    <button class="block-btn" (click)="addFinalBlock('plant')" [disabled]="finalRunning">\u{1F331} Plantar</button>
+                    <button class="block-btn delete" (click)="removeFinalBlock()" [disabled]="finalBuild.length === 0 || finalRunning">\u{1F5D1}\uFE0F</button>
+                  </div>
+                  <button class="btn-primary" (click)="runFinal()" [disabled]="finalBuild.length === 0 || finalRunning">\u25B6\uFE0F Ejecutar</button>
+                  @if (finalFeedback) {
+                    <div class="feedback-box" [class.error]="!finalPlanted">
+                      {{ finalFeedback }}
+                      @if (!finalPlanted && !finalRunning) { <button class="btn-secondary" (click)="resetFinal()">Reintentar</button> }
+                    </div>
+                  }
+                </div>
+              </div>
+            } @else {
+              <div class="completion-box">
+                <div class="seed-grown">\u{1F332}</div>
+                <h2>\u{1F389} \xA1MUNDO 1 COMPLETADO!</h2>
+                <p class="grow-sequence">\u{1F331} \u2192 \u{1F33F} \u2192 \u{1F333} \u2192 \u{1F332}</p>
+                <p>\u{1F31F} \xA1Felicidades, peque\xF1a programadora!</p>
+                <p>Aprendiste que programar es dar instrucciones, organizarlas correctamente y encontrar errores cuando algo no funciona.</p>
+                <p>Desbloqueaste el <strong>Mundo 2: Sendero de Variables</strong></p>
+                <div class="rewards-row">
+                  <div class="reward-item"><strong>50</strong><span>XP</span></div>
+                  <div class="reward-item"><strong>5</strong><span>Semillas</span></div>
+                </div>
+                <button class="btn-primary" (click)="unlockAndOpenWorld2()">Desbloquear Mundo 2 \u2192</button>
+              </div>
+            }
+          </article>
+        }
+      </div>
+      }
+    </main>
+`, styles: ["/* src/app/worlds/world-1-seeds/world-1.css */\n/*# sourceMappingURL=world-1.css.map */\n"] }]
+  }], () => [{ type: ChangeDetectorRef }, { type: GameStateService }], { unlockWorld2: [{
+    type: Output
+  }] });
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(World1Component, { className: "World1Component", filePath: "src/app/worlds/world-1-seeds/world-1.ts", lineNumber: 31 });
+})();
+
+// src/app/worlds/world-2-path/world-2.ts
+var _c02 = () => [0, 1, 2, 3, 4, 5];
+var _forTrack02 = ($index, $item) => $item.label;
+var _forTrack1 = ($index, $item) => $item.accepts;
+var _forTrack2 = ($index, $item) => $item.name;
+function World2Component_Conditional_1_For_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 13);
+  }
+  if (rf & 2) {
+    const line_r3 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("active", line_r3 === ctx_r1.w2DialogueIndex)("seen", line_r3 < ctx_r1.w2DialogueIndex);
+  }
+}
+function World2Component_Conditional_1_Conditional_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 11);
+    \u0275\u0275text(1, "\u{1F446} Toca la pantalla para continuar");
+    \u0275\u0275elementEnd();
+  }
+}
+function World2Component_Conditional_1_Conditional_14_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 14);
+    \u0275\u0275listener("click", function World2Component_Conditional_1_Conditional_14_Template_button_click_0_listener($event) {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      ctx_r1.startWorld2();
+      return \u0275\u0275resetView($event.stopPropagation());
+    });
+    \u0275\u0275text(1, " \xA1Comenzar el sendero! \u{1F31F} ");
+    \u0275\u0275elementEnd();
+  }
+}
+function World2Component_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 3);
+    \u0275\u0275listener("click", function World2Component_Conditional_1_Template_div_click_0_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.advanceW2Dialogue());
+    });
+    \u0275\u0275elementStart(1, "span", 4);
+    \u0275\u0275text(2, "\u{1F33F} MUNDO 2 \xB7 VARIABLES");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 5)(4, "p", 6);
+    \u0275\u0275text(5);
+    \u0275\u0275elementStart(6, "span", 7);
+    \u0275\u0275text(7, "\u258B");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(8, "div", 8);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "div", 9);
+    \u0275\u0275repeaterCreate(11, World2Component_Conditional_1_For_12_Template, 1, 4, "span", 10, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(13, World2Component_Conditional_1_Conditional_13_Template, 2, 0, "p", 11)(14, World2Component_Conditional_1_Conditional_14_Template, 2, 0, "button", 12);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r1.w2DisplayedText);
+    \u0275\u0275advance();
+    \u0275\u0275classProp("hidden", !ctx_r1.w2Typing);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("talking", ctx_r1.w2Typing);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.w2Character);
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(7, _c02));
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(!ctx_r1.w2DialogueFinished ? 13 : 14);
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Conditional_7_For_7_Conditional_0_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 31);
+    \u0275\u0275listener("dragstart", function World2Component_Conditional_2_Conditional_11_Conditional_7_For_7_Conditional_0_Template_button_dragstart_0_listener() {
+      \u0275\u0275restoreView(_r6);
+      const item_r7 = \u0275\u0275nextContext().$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.startMagicDrag(item_r7));
+    })("click", function World2Component_Conditional_2_Conditional_11_Conditional_7_For_7_Conditional_0_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r6);
+      const item_r7 = \u0275\u0275nextContext().$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.selectMagicItem(item_r7));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const item_r7 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("selected", ctx_r1.magicSelectedItem === item_r7);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate2(" ", item_r7.emoji, " ", item_r7.label, " ");
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Conditional_7_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275conditionalCreate(0, World2Component_Conditional_2_Conditional_11_Conditional_7_For_7_Conditional_0_Template, 2, 4, "button", 30);
+  }
+  if (rf & 2) {
+    const item_r7 = ctx.$implicit;
+    \u0275\u0275conditional(!item_r7.placed ? 0 : -1);
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Conditional_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 34);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const box_r10 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(box_r10.emoji);
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Conditional_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 35);
+    \u0275\u0275text(1, "vac\xEDa");
+    \u0275\u0275elementEnd();
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r8 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 32);
+    \u0275\u0275listener("dragover", function World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Template_div_dragover_0_listener($event) {
+      return $event.preventDefault();
+    })("drop", function World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Template_div_drop_0_listener($event) {
+      const $index_r9 = \u0275\u0275restoreView(_r8).$index;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      $event.preventDefault();
+      return \u0275\u0275resetView(ctx_r1.dropMagicItem($index_r9));
+    })("click", function World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Template_div_click_0_listener() {
+      const $index_r9 = \u0275\u0275restoreView(_r8).$index;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.dropMagicItem($index_r9));
+    });
+    \u0275\u0275elementStart(1, "span", 33);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(3, World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Conditional_3_Template, 2, 1, "span", 34)(4, World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Conditional_4_Template, 2, 0, "span", 35);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const box_r10 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("filled", box_r10.filled)("droppable", !box_r10.filled && (ctx_r1.magicSelectedItem || ctx_r1.magicDragItem));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("caja_", box_r10.accepts);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(box_r10.filled ? 3 : 4);
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Conditional_7_Conditional_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 36);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", ctx_r1.magicFeedback.includes("no es"));
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.magicFeedback);
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 24);
+    \u0275\u0275text(1, "Arrastra cada elemento a su caja, o toca un elemento y luego la caja donde crees que va.");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(2, "div", 25)(3, "div", 26)(4, "h3");
+    \u0275\u0275text(5, "Elementos");
+    \u0275\u0275elementEnd();
+    \u0275\u0275repeaterCreate(6, World2Component_Conditional_2_Conditional_11_Conditional_7_For_7_Template, 1, 1, null, null, _forTrack02);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "div", 27)(9, "h3");
+    \u0275\u0275text(10, "Cajas (variables)");
+    \u0275\u0275elementEnd();
+    \u0275\u0275repeaterCreate(11, World2Component_Conditional_2_Conditional_11_Conditional_7_For_12_Template, 5, 6, "div", 28, _forTrack1);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275conditionalCreate(13, World2Component_Conditional_2_Conditional_11_Conditional_7_Conditional_13_Template, 2, 3, "div", 29);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(ctx_r1.magicItems);
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(ctx_r1.magicBoxes);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.magicFeedback ? 13 : -1);
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 23)(1, "h2");
+    \u0275\u0275text(2, "\u{1F4E6} \xA1Todas las cajas llenas!");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "p");
+    \u0275\u0275text(4, "Aprendiste que las variables guardan informaci\xF3n.");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 37);
+    \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_11_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextWorld2Activity());
+    });
+    \u0275\u0275text(8, "Siguiente actividad \u2192");
+    \u0275\u0275elementEnd()();
+  }
+}
+function World2Component_Conditional_2_Conditional_11_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 1");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h1");
     \u0275\u0275text(4, "Las cajas m\xE1gicas \u{1F4E6}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275elementStart(5, "p", 22);
     \u0275\u0275text(6, "Una variable es como una caja que guarda informaci\xF3n. Haz clic en cada elemento para colocarlo en su caja.");
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World2Component_Conditional_12_Conditional_7_Template, 14, 1)(8, World2Component_Conditional_12_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World2Component_Conditional_2_Conditional_11_Conditional_7_Template, 14, 1)(8, World2Component_Conditional_2_Conditional_11_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r2.magicDone ? 7 : 8);
+    \u0275\u0275conditional(!ctx_r1.magicDone ? 7 : 8);
   }
 }
-function World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Conditional_1_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_For_2_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 30);
+    \u0275\u0275elementStart(0, "span", 43);
     \u0275\u0275text(1, "\u{1F4E6}");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(2, "small");
@@ -45427,9 +46131,9 @@ function World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Condit
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Conditional_2_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_For_2_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 30);
+    \u0275\u0275elementStart(0, "span", 43);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(2, "strong");
@@ -45440,466 +46144,466 @@ function World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Condit
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const box_r10 = \u0275\u0275nextContext().$implicit;
+    const box_r14 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(box_r10.emoji);
+    \u0275\u0275textInterpolate(box_r14.emoji);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(box_r10.value);
+    \u0275\u0275textInterpolate(box_r14.value);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(box_r10.label);
+    \u0275\u0275textInterpolate(box_r14.label);
   }
 }
-function World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_For_2_Template(rf, ctx) {
   if (rf & 1) {
-    const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 29);
-    \u0275\u0275listener("click", function World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Template_button_click_0_listener() {
-      const \u0275$index_104_r9 = \u0275\u0275restoreView(_r8).$index;
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.revealBox(\u0275$index_104_r9));
+    const _r12 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 42);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_For_2_Template_button_click_0_listener() {
+      const \u0275$index_135_r13 = \u0275\u0275restoreView(_r12).$index;
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.revealBox(\u0275$index_135_r13));
     });
-    \u0275\u0275conditionalCreate(1, World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Conditional_1_Template, 4, 0)(2, World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Conditional_2_Template, 6, 3);
+    \u0275\u0275conditionalCreate(1, World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_For_2_Conditional_1_Template, 4, 0)(2, World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_For_2_Conditional_2_Template, 6, 3);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const box_r10 = ctx.$implicit;
-    \u0275\u0275classProp("revealed", box_r10.revealed);
+    const box_r14 = ctx.$implicit;
+    \u0275\u0275classProp("revealed", box_r14.revealed);
     \u0275\u0275advance();
-    \u0275\u0275conditional(!box_r10.revealed ? 1 : 2);
+    \u0275\u0275conditional(!box_r14.revealed ? 1 : 2);
   }
 }
-function World2Component_Conditional_13_Conditional_7_Conditional_0_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 26);
-    \u0275\u0275repeaterCreate(1, World2Component_Conditional_13_Conditional_7_Conditional_0_For_2_Template, 3, 3, "button", 28, _forTrack02);
+    \u0275\u0275elementStart(0, "div", 39);
+    \u0275\u0275repeaterCreate(1, World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_For_2_Template, 3, 3, "button", 41, _forTrack02);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r2.openBoxes);
+    \u0275\u0275repeater(ctx_r1.openBoxes);
   }
 }
-function World2Component_Conditional_13_Conditional_7_Conditional_1_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 27)(1, "h3");
+    const _r15 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 40)(1, "h3");
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 31)(4, "button", 32);
-    \u0275\u0275listener("click", function World2Component_Conditional_13_Conditional_7_Conditional_1_Template_button_click_4_listener() {
-      \u0275\u0275restoreView(_r11);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.checkOpenAnswer(3));
+    \u0275\u0275elementStart(3, "div", 44)(4, "button", 45);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_1_Template_button_click_4_listener() {
+      \u0275\u0275restoreView(_r15);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.checkOpenAnswer(3));
     });
     \u0275\u0275text(5, "3");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "button", 32);
-    \u0275\u0275listener("click", function World2Component_Conditional_13_Conditional_7_Conditional_1_Template_button_click_6_listener() {
-      \u0275\u0275restoreView(_r11);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.checkOpenAnswer(5));
+    \u0275\u0275elementStart(6, "button", 45);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_1_Template_button_click_6_listener() {
+      \u0275\u0275restoreView(_r15);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.checkOpenAnswer(5));
     });
     \u0275\u0275text(7, "5");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "button", 32);
-    \u0275\u0275listener("click", function World2Component_Conditional_13_Conditional_7_Conditional_1_Template_button_click_8_listener() {
-      \u0275\u0275restoreView(_r11);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.checkOpenAnswer(10));
+    \u0275\u0275elementStart(8, "button", 45);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_1_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r15);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.checkOpenAnswer(10));
     });
     \u0275\u0275text(9, "10");
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r2.openQuestion);
+    \u0275\u0275textInterpolate(ctx_r1.openQuestion);
   }
 }
-function World2Component_Conditional_13_Conditional_7_Conditional_2_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", !ctx_r2.openDone);
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", !ctx_r1.openDone);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.openFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.openFeedback);
   }
 }
-function World2Component_Conditional_13_Conditional_7_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, World2Component_Conditional_13_Conditional_7_Conditional_0_Template, 3, 0, "div", 26)(1, World2Component_Conditional_13_Conditional_7_Conditional_1_Template, 10, 1, "div", 27);
-    \u0275\u0275conditionalCreate(2, World2Component_Conditional_13_Conditional_7_Conditional_2_Template, 2, 3, "div", 16);
+    \u0275\u0275conditionalCreate(0, World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_0_Template, 3, 0, "div", 39)(1, World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_1_Template, 10, 1, "div", 40);
+    \u0275\u0275conditionalCreate(2, World2Component_Conditional_2_Conditional_12_Conditional_7_Conditional_2_Template, 2, 3, "div", 29);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275conditional(ctx_r2.openPhase === "reveal" ? 0 : 1);
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275conditional(ctx_r1.openPhase === "reveal" ? 0 : 1);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.openFeedback ? 2 : -1);
+    \u0275\u0275conditional(ctx_r1.openFeedback ? 2 : -1);
   }
 }
-function World2Component_Conditional_13_Conditional_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r12 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "h2");
+    const _r16 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u{1F50D} \xA1Correcto!");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "p");
     \u0275\u0275text(4, "Las variables guardan valores que podemos leer.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 24);
+    \u0275\u0275elementStart(5, "p", 37);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_13_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r12);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.nextWorld2Activity());
+    \u0275\u0275elementStart(7, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_12_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r16);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextWorld2Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275elementEnd()();
   }
 }
-function World2Component_Conditional_13_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 2");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h1");
     \u0275\u0275text(4, "\xBFQu\xE9 hay dentro? \u{1F50D}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275elementStart(5, "p", 22);
     \u0275\u0275text(6, "Abre las cajas para ver qu\xE9 guardan y responde la pregunta.");
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World2Component_Conditional_13_Conditional_7_Template, 3, 2)(8, World2Component_Conditional_13_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World2Component_Conditional_2_Conditional_12_Conditional_7_Template, 3, 2)(8, World2Component_Conditional_2_Conditional_12_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r2.openDone ? 7 : 8);
+    \u0275\u0275conditional(!ctx_r1.openDone ? 7 : 8);
   }
 }
-function World2Component_Conditional_14_Conditional_7_For_12_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_13_Conditional_7_For_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 40);
+    \u0275\u0275elementStart(0, "span", 53);
     \u0275\u0275text(1, "\u2764\uFE0F");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_14_Conditional_7_Conditional_13_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_13_Conditional_7_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 41);
+    \u0275\u0275elementStart(0, "span", 54);
     \u0275\u0275text(1, "sin vidas");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_14_Conditional_7_Conditional_19_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_13_Conditional_7_Conditional_19_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("success", ctx_r2.changeValue === ctx_r2.changeTarget)("error", ctx_r2.changeValue > ctx_r2.changeTarget);
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("success", ctx_r1.changeValue === ctx_r1.changeTarget)("error", ctx_r1.changeValue > ctx_r1.changeTarget);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.changeFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.changeFeedback);
   }
 }
-function World2Component_Conditional_14_Conditional_7_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_13_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r13 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 33)(1, "div", 34);
+    const _r17 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 46)(1, "div", 47);
     \u0275\u0275text(2, "\u{1F9CD}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "p", 35);
+    \u0275\u0275elementStart(3, "p", 48);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 36)(6, "span", 37);
+    \u0275\u0275elementStart(5, "div", 49)(6, "span", 50);
     \u0275\u0275text(7, "\u2764\uFE0F Vidas =");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "strong", 38);
+    \u0275\u0275elementStart(8, "strong", 51);
     \u0275\u0275text(9);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(10, "div", 39);
-    \u0275\u0275repeaterCreate(11, World2Component_Conditional_14_Conditional_7_For_12_Template, 2, 0, "span", 40, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275conditionalCreate(13, World2Component_Conditional_14_Conditional_7_Conditional_13_Template, 2, 0, "span", 41);
+    \u0275\u0275elementStart(10, "div", 52);
+    \u0275\u0275repeaterCreate(11, World2Component_Conditional_2_Conditional_13_Conditional_7_For_12_Template, 2, 0, "span", 53, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(13, World2Component_Conditional_2_Conditional_13_Conditional_7_Conditional_13_Template, 2, 0, "span", 54);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "div", 42)(15, "button", 43);
-    \u0275\u0275listener("click", function World2Component_Conditional_14_Conditional_7_Template_button_click_15_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.changeSub());
+    \u0275\u0275elementStart(14, "div", 55)(15, "button", 56);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_15_listener() {
+      \u0275\u0275restoreView(_r17);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.changeSub());
     });
     \u0275\u0275text(16, "\u2796 Restar 1");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "button", 44);
-    \u0275\u0275listener("click", function World2Component_Conditional_14_Conditional_7_Template_button_click_17_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.changeAdd());
+    \u0275\u0275elementStart(17, "button", 57);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_17_listener() {
+      \u0275\u0275restoreView(_r17);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.changeAdd());
     });
     \u0275\u0275text(18, "\u2795 Sumar 1");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275conditionalCreate(19, World2Component_Conditional_14_Conditional_7_Conditional_19_Template, 2, 5, "div", 45);
+    \u0275\u0275conditionalCreate(19, World2Component_Conditional_2_Conditional_13_Conditional_7_Conditional_19_Template, 2, 5, "div", 58);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate1("\u{1F3AF} Meta: \xA1llega a ", ctx_r2.changeTarget, " vidas!");
+    \u0275\u0275textInterpolate1("\u{1F3AF} Meta: \xA1llega a ", ctx_r1.changeTarget, " vidas!");
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.changeValue);
+    \u0275\u0275textInterpolate(ctx_r1.changeValue);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(ctx_r2.changeHearts);
+    \u0275\u0275repeater(ctx_r1.changeHearts);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.changeValue === 0 ? 13 : -1);
+    \u0275\u0275conditional(ctx_r1.changeValue === 0 ? 13 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r2.changeValue === 0);
+    \u0275\u0275property("disabled", ctx_r1.changeValue === 0);
     \u0275\u0275advance(4);
-    \u0275\u0275conditional(ctx_r2.changeFeedback ? 19 : -1);
+    \u0275\u0275conditional(ctx_r1.changeFeedback ? 19 : -1);
   }
 }
-function World2Component_Conditional_14_Conditional_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_13_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r14 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "h2");
+    const _r18 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u{1F389} \xA1Lo lograste!");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "p");
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 24);
+    \u0275\u0275elementStart(5, "p", 37);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_14_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r14);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.nextWorld2Activity());
+    \u0275\u0275elementStart(7, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_13_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r18);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextWorld2Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate1("Cambiaste el valor de una variable hasta llegar al objetivo: \u2764\uFE0F Vidas = ", ctx_r2.changeTarget, ".");
+    \u0275\u0275textInterpolate1("Cambiaste el valor de una variable hasta llegar al objetivo: \u2764\uFE0F Vidas = ", ctx_r1.changeTarget, ".");
   }
 }
-function World2Component_Conditional_14_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 3");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h1");
     \u0275\u0275text(4, "Cambia el valor \u{1F504}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275elementStart(5, "p", 22);
     \u0275\u0275text(6, "El personaje tiene una variable \u2764\uFE0F Vidas. Una variable puede cambiar y su nuevo valor afecta lo que ocurre.");
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World2Component_Conditional_14_Conditional_7_Template, 20, 5)(8, World2Component_Conditional_14_Conditional_8_Template, 9, 1, "div", 10);
+    \u0275\u0275conditionalCreate(7, World2Component_Conditional_2_Conditional_13_Conditional_7_Template, 20, 5)(8, World2Component_Conditional_2_Conditional_13_Conditional_8_Template, 9, 1, "div", 23);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r2.changeDone ? 7 : 8);
+    \u0275\u0275conditional(!ctx_r1.changeDone ? 7 : 8);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_0_For_7_Conditional_9_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_For_7_Conditional_9_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275text(0, " \u2705 ");
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_0_For_7_Conditional_10_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_For_7_Conditional_10_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275text(0, " Comprar ");
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_0_For_7_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_For_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r15 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 49)(1, "span", 51);
+    const _r19 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 62)(1, "span", 64);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 52)(4, "strong");
+    \u0275\u0275elementStart(3, "div", 65)(4, "strong");
     \u0275\u0275text(5);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(6, "small");
     \u0275\u0275text(7);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(8, "button", 53);
-    \u0275\u0275listener("click", function World2Component_Conditional_15_Conditional_7_Conditional_0_For_7_Template_button_click_8_listener() {
-      const \u0275$index_250_r16 = \u0275\u0275restoreView(_r15).$index;
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.buyItem(\u0275$index_250_r16));
+    \u0275\u0275elementStart(8, "button", 66);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_For_7_Template_button_click_8_listener() {
+      const \u0275$index_281_r20 = \u0275\u0275restoreView(_r19).$index;
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.buyItem(\u0275$index_281_r20));
     });
-    \u0275\u0275conditionalCreate(9, World2Component_Conditional_15_Conditional_7_Conditional_0_For_7_Conditional_9_Template, 1, 0)(10, World2Component_Conditional_15_Conditional_7_Conditional_0_For_7_Conditional_10_Template, 1, 0);
+    \u0275\u0275conditionalCreate(9, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_For_7_Conditional_9_Template, 1, 0)(10, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_For_7_Conditional_10_Template, 1, 0);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const item_r17 = ctx.$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(4);
+    const item_r21 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(5);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(item_r17.emoji);
+    \u0275\u0275textInterpolate(item_r21.emoji);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(item_r17.name);
+    \u0275\u0275textInterpolate(item_r21.name);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("", item_r17.price, " \u{1FA99}");
+    \u0275\u0275textInterpolate1("", item_r21.price, " \u{1FA99}");
     \u0275\u0275advance();
-    \u0275\u0275property("disabled", item_r17.bought || ctx_r2.shopCoins < item_r17.price);
+    \u0275\u0275property("disabled", item_r21.bought || ctx_r1.shopCoins < item_r21.price);
     \u0275\u0275advance();
-    \u0275\u0275conditional(item_r17.bought ? 9 : 10);
+    \u0275\u0275conditional(item_r21.bought ? 9 : 10);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_0_Conditional_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(4);
-    \u0275\u0275classProp("error", ctx_r2.shopFeedbackError)("success", !ctx_r2.shopFeedbackError);
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("error", ctx_r1.shopFeedbackError)("success", !ctx_r1.shopFeedbackError);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.shopFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.shopFeedback);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_0_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 46)(1, "p", 47);
+    \u0275\u0275elementStart(0, "div", 59)(1, "p", 60);
     \u0275\u0275text(2, "\u{1FA99} Monedas = ");
     \u0275\u0275elementStart(3, "strong");
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(5, "div", 48);
-    \u0275\u0275repeaterCreate(6, World2Component_Conditional_15_Conditional_7_Conditional_0_For_7_Template, 11, 5, "div", 49, _forTrack2);
+    \u0275\u0275elementStart(5, "div", 61);
+    \u0275\u0275repeaterCreate(6, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_For_7_Template, 11, 5, "div", 62, _forTrack2);
     \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(8, World2Component_Conditional_15_Conditional_7_Conditional_0_Conditional_8_Template, 2, 5, "div", 50);
+    \u0275\u0275conditionalCreate(8, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_Conditional_8_Template, 2, 5, "div", 63);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(ctx_r2.shopCoins);
+    \u0275\u0275textInterpolate(ctx_r1.shopCoins);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(ctx_r2.shopItems);
+    \u0275\u0275repeater(ctx_r1.shopItems);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.shopFeedback ? 8 : -1);
+    \u0275\u0275conditional(ctx_r1.shopFeedback ? 8 : -1);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_1_Conditional_10_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_1_Conditional_10_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(4);
-    \u0275\u0275classProp("error", ctx_r2.shopFeedbackError)("success", !ctx_r2.shopFeedbackError);
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("error", ctx_r1.shopFeedbackError)("success", !ctx_r1.shopFeedbackError);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.shopFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.shopFeedback);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_1_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r18 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 27)(1, "h3");
+    const _r22 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 40)(1, "h3");
     \u0275\u0275text(2, "\u{1F9E0} \xBFQu\xE9 pas\xF3 con tus monedas?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 31)(4, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_15_Conditional_7_Conditional_1_Template_button_click_4_listener() {
-      \u0275\u0275restoreView(_r18);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerShopQuiz("up"));
+    \u0275\u0275elementStart(3, "div", 44)(4, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_1_Template_button_click_4_listener() {
+      \u0275\u0275restoreView(_r22);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerShopQuiz("up"));
     });
     \u0275\u0275text(5, "\u{1FA99} Aumentaron");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_15_Conditional_7_Conditional_1_Template_button_click_6_listener() {
-      \u0275\u0275restoreView(_r18);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerShopQuiz("down"));
+    \u0275\u0275elementStart(6, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_1_Template_button_click_6_listener() {
+      \u0275\u0275restoreView(_r22);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerShopQuiz("down"));
     });
     \u0275\u0275text(7, "\u{1FA99} Disminuyeron");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_15_Conditional_7_Conditional_1_Template_button_click_8_listener() {
-      \u0275\u0275restoreView(_r18);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerShopQuiz("same"));
+    \u0275\u0275elementStart(8, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_1_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r22);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerShopQuiz("same"));
     });
     \u0275\u0275text(9, "\u{1FA99} No cambiaron");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275conditionalCreate(10, World2Component_Conditional_15_Conditional_7_Conditional_1_Conditional_10_Template, 2, 5, "div", 50);
+    \u0275\u0275conditionalCreate(10, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_1_Conditional_10_Template, 2, 5, "div", 63);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(4);
-    \u0275\u0275property("disabled", ctx_r2.shopQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.shopQuizAnswered);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r2.shopQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.shopQuizAnswered);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r2.shopQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.shopQuizAnswered);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.shopFeedback ? 10 : -1);
+    \u0275\u0275conditional(ctx_r1.shopFeedback ? 10 : -1);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_2_For_15_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_2_For_15_Template(rf, ctx) {
   if (rf & 1) {
-    const _r20 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 49)(1, "span", 51);
+    const _r24 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 62)(1, "span", 64);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 52)(4, "strong");
+    \u0275\u0275elementStart(3, "div", 65)(4, "strong");
     \u0275\u0275text(5);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(6, "small");
     \u0275\u0275text(7);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(8, "button", 53);
-    \u0275\u0275listener("click", function World2Component_Conditional_15_Conditional_7_Conditional_2_For_15_Template_button_click_8_listener() {
-      const \u0275$index_317_r21 = \u0275\u0275restoreView(_r20).$index;
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.buyChallengeItem(\u0275$index_317_r21));
+    \u0275\u0275elementStart(8, "button", 66);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_2_For_15_Template_button_click_8_listener() {
+      const \u0275$index_348_r25 = \u0275\u0275restoreView(_r24).$index;
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.buyChallengeItem(\u0275$index_348_r25));
     });
     \u0275\u0275text(9, " Comprar ");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const item_r22 = ctx.$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(4);
+    const item_r26 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(5);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(item_r22.emoji);
+    \u0275\u0275textInterpolate(item_r26.emoji);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(item_r22.name);
+    \u0275\u0275textInterpolate(item_r26.name);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("", item_r22.price, " \u{1FA99}");
+    \u0275\u0275textInterpolate1("", item_r26.price, " \u{1FA99}");
     \u0275\u0275advance();
-    \u0275\u0275property("disabled", ctx_r2.challengeDone || ctx_r2.challengeCoins < item_r22.price);
+    \u0275\u0275property("disabled", ctx_r1.challengeDone || ctx_r1.challengeCoins < item_r26.price);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_2_Conditional_18_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_2_Conditional_18_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(4);
-    \u0275\u0275classProp("error", ctx_r2.challengeFeedbackError)("success", ctx_r2.challengeDone);
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("error", ctx_r1.challengeFeedbackError)("success", ctx_r1.challengeDone);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.challengeFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.challengeFeedback);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Conditional_2_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
-    const _r19 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 46)(1, "p", 55);
+    const _r23 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 59)(1, "p", 68);
     \u0275\u0275text(2, "\u{1F504} Reto libre: empiezas con ");
     \u0275\u0275elementStart(3, "strong");
     \u0275\u0275text(4);
@@ -45910,199 +46614,199 @@ function World2Component_Conditional_15_Conditional_7_Conditional_2_Template(rf,
     \u0275\u0275elementEnd();
     \u0275\u0275text(8, " monedas.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "p", 47);
+    \u0275\u0275elementStart(9, "p", 60);
     \u0275\u0275text(10, "\u{1FA99} Monedas = ");
     \u0275\u0275elementStart(11, "strong");
     \u0275\u0275text(12);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(13, "div", 48);
-    \u0275\u0275repeaterCreate(14, World2Component_Conditional_15_Conditional_7_Conditional_2_For_15_Template, 10, 4, "div", 49, _forTrack2);
+    \u0275\u0275elementStart(13, "div", 61);
+    \u0275\u0275repeaterCreate(14, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_2_For_15_Template, 10, 4, "div", 62, _forTrack2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "button", 56);
-    \u0275\u0275listener("click", function World2Component_Conditional_15_Conditional_7_Conditional_2_Template_button_click_16_listener() {
-      \u0275\u0275restoreView(_r19);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.resetChallengeCoins());
+    \u0275\u0275elementStart(16, "button", 69);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_2_Template_button_click_16_listener() {
+      \u0275\u0275restoreView(_r23);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.resetChallengeCoins());
     });
     \u0275\u0275text(17, "\u{1F501} Reiniciar reto");
     \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(18, World2Component_Conditional_15_Conditional_7_Conditional_2_Conditional_18_Template, 2, 5, "div", 50);
+    \u0275\u0275conditionalCreate(18, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_2_Conditional_18_Template, 2, 5, "div", 63);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(ctx_r2.challengeStart);
+    \u0275\u0275textInterpolate(ctx_r1.challengeStart);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate1("exactamente ", ctx_r2.challengeGoal);
+    \u0275\u0275textInterpolate1("exactamente ", ctx_r1.challengeGoal);
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.challengeCoins);
+    \u0275\u0275textInterpolate(ctx_r1.challengeCoins);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(ctx_r2.challengeItems);
+    \u0275\u0275repeater(ctx_r1.challengeItems);
     \u0275\u0275advance(4);
-    \u0275\u0275conditional(ctx_r2.challengeFeedback ? 18 : -1);
+    \u0275\u0275conditional(ctx_r1.challengeFeedback ? 18 : -1);
   }
 }
-function World2Component_Conditional_15_Conditional_7_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, World2Component_Conditional_15_Conditional_7_Conditional_0_Template, 9, 2)(1, World2Component_Conditional_15_Conditional_7_Conditional_1_Template, 11, 4)(2, World2Component_Conditional_15_Conditional_7_Conditional_2_Template, 19, 4);
+    \u0275\u0275conditionalCreate(0, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_0_Template, 9, 2)(1, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_1_Template, 11, 4)(2, World2Component_Conditional_2_Conditional_14_Conditional_7_Conditional_2_Template, 19, 4);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275conditional(ctx_r2.shopPhase === "shop" ? 0 : ctx_r2.shopPhase === "quiz" ? 1 : ctx_r2.shopPhase === "challenge" ? 2 : -1);
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275conditional(ctx_r1.shopPhase === "shop" ? 0 : ctx_r1.shopPhase === "quiz" ? 1 : ctx_r1.shopPhase === "challenge" ? 2 : -1);
   }
 }
-function World2Component_Conditional_15_Conditional_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r23 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "h2");
+    const _r27 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u{1F6D2} \xA1Reto completado!");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "p");
     \u0275\u0275text(4, "Descubriste que una acci\xF3n cambia el valor de una variable, y que ese valor decide qu\xE9 puedes hacer.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 24);
+    \u0275\u0275elementStart(5, "p", 37);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_15_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r23);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.nextWorld2Activity());
+    \u0275\u0275elementStart(7, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_14_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r27);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextWorld2Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275elementEnd()();
   }
 }
-function World2Component_Conditional_15_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_14_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 4");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h1");
     \u0275\u0275text(4, "La tienda de monedas \u{1F3EA}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275elementStart(5, "p", 22);
     \u0275\u0275text(6, "Una acci\xF3n puede cambiar el valor de una variable. Compra objetos y observa c\xF3mo cambian tus \u{1FA99} monedas.");
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World2Component_Conditional_15_Conditional_7_Template, 3, 1)(8, World2Component_Conditional_15_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World2Component_Conditional_2_Conditional_14_Conditional_7_Template, 3, 1)(8, World2Component_Conditional_2_Conditional_14_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r2.shopDone ? 7 : 8);
+    \u0275\u0275conditional(!ctx_r1.shopDone ? 7 : 8);
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_0_For_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_For_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 40);
+    \u0275\u0275elementStart(0, "span", 53);
     \u0275\u0275text(1, "\u2764\uFE0F");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_9_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_9_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 41);
+    \u0275\u0275elementStart(0, "span", 54);
     \u0275\u0275text(1, "sin vidas");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_12_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_12_Template(rf, ctx) {
   if (rf & 1) {
-    const _r24 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 31)(1, "button", 32);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_12_Template_button_click_1_listener() {
-      \u0275\u0275restoreView(_r24);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.answerLivesDecide(1));
+    const _r28 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 44)(1, "button", 45);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_12_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r28);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.answerLivesDecide(1));
     });
     \u0275\u0275text(2, "\u2764\uFE0F +1");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "button", 32);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_12_Template_button_click_3_listener() {
-      \u0275\u0275restoreView(_r24);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.answerLivesDecide(-1));
+    \u0275\u0275elementStart(3, "button", 45);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_12_Template_button_click_3_listener() {
+      \u0275\u0275restoreView(_r28);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.answerLivesDecide(-1));
     });
     \u0275\u0275text(4, "\u2764\uFE0F -1");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "button", 32);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_12_Template_button_click_5_listener() {
-      \u0275\u0275restoreView(_r24);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.answerLivesDecide(0));
+    \u0275\u0275elementStart(5, "button", 45);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_12_Template_button_click_5_listener() {
+      \u0275\u0275restoreView(_r28);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.answerLivesDecide(0));
     });
     \u0275\u0275text(6, "\u2764\uFE0F No cambia");
     \u0275\u0275elementEnd()();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_13_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
-    const _r25 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_13_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r25);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.nextLivesDecide());
+    const _r29 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_13_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r29);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.nextLivesDecide());
     });
     \u0275\u0275text(1, "Continuar \u2192");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_0_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 33)(1, "div", 36)(2, "span", 37);
+    \u0275\u0275elementStart(0, "div", 46)(1, "div", 49)(2, "span", 50);
     \u0275\u0275text(3, "\u2764\uFE0F Vidas =");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "strong", 38);
+    \u0275\u0275elementStart(4, "strong", 51);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(6, "div", 39);
-    \u0275\u0275repeaterCreate(7, World2Component_Conditional_16_Conditional_7_Conditional_0_For_8_Template, 2, 0, "span", 40, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275conditionalCreate(9, World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_9_Template, 2, 0, "span", 41);
+    \u0275\u0275elementStart(6, "div", 52);
+    \u0275\u0275repeaterCreate(7, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_For_8_Template, 2, 0, "span", 53, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(9, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_9_Template, 2, 0, "span", 54);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "p", 57);
+    \u0275\u0275elementStart(10, "p", 70);
     \u0275\u0275text(11);
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(12, World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_12_Template, 7, 0, "div", 31)(13, World2Component_Conditional_16_Conditional_7_Conditional_0_Conditional_13_Template, 2, 0, "button", 58);
+    \u0275\u0275conditionalCreate(12, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_12_Template, 7, 0, "div", 44)(13, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Conditional_13_Template, 2, 0, "button", 71);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.livesValue);
+    \u0275\u0275textInterpolate(ctx_r1.livesValue);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(ctx_r2.livesHearts);
+    \u0275\u0275repeater(ctx_r1.livesHearts);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.livesValue === 0 ? 9 : -1);
+    \u0275\u0275conditional(ctx_r1.livesValue === 0 ? 9 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate2("", ctx_r2.livesDecideEvent.emoji, " ", ctx_r2.livesDecideEvent.text, " \xBFQu\xE9 deber\xEDa pasar con tus vidas?");
+    \u0275\u0275textInterpolate2("", ctx_r1.livesDecideEvent.emoji, " ", ctx_r1.livesDecideEvent.text, " \xBFQu\xE9 deber\xEDa pasar con tus vidas?");
     \u0275\u0275advance();
-    \u0275\u0275conditional(!ctx_r2.livesDecideResolved ? 12 : 13);
+    \u0275\u0275conditional(!ctx_r1.livesDecideResolved ? 12 : 13);
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_1_For_10_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_For_10_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 40);
+    \u0275\u0275elementStart(0, "span", 53);
     \u0275\u0275text(1, "\u2764\uFE0F");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_11_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Conditional_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 41);
+    \u0275\u0275elementStart(0, "span", 54);
     \u0275\u0275text(1, "sin vidas");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_12_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Conditional_12_Template(rf, ctx) {
   if (rf & 1) {
-    const _r26 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 61);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_12_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r26);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.reactLivesEvent());
+    const _r30 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 74);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Conditional_12_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r30);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.reactLivesEvent());
     });
     \u0275\u0275text(1);
     \u0275\u0275elementStart(2, "small");
@@ -46110,654 +46814,654 @@ function World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(4);
+    const ctx_r1 = \u0275\u0275nextContext(5);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate2(" ", ctx_r2.livesRoundEvent.emoji, " ", ctx_r2.livesRoundEvent.label, " ");
+    \u0275\u0275textInterpolate2(" ", ctx_r1.livesRoundEvent.emoji, " ", ctx_r1.livesRoundEvent.label, " ");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("(", ctx_r2.livesRoundEvent.delta > 0 ? "+1" : "-1", " vida)");
+    \u0275\u0275textInterpolate1("(", ctx_r1.livesRoundEvent.delta > 0 ? "+1" : "-1", " vida)");
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_13_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
-    const _r27 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 56);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_13_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r27);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.restartLivesRound());
+    const _r31 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 69);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Conditional_13_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r31);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.restartLivesRound());
     });
     \u0275\u0275text(1, "\u{1F501} Reintentar ronda");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_1_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 33)(1, "p", 35);
+    \u0275\u0275elementStart(0, "div", 46)(1, "p", 48);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 36)(4, "span", 37);
+    \u0275\u0275elementStart(3, "div", 49)(4, "span", 50);
     \u0275\u0275text(5, "\u2764\uFE0F Vidas =");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "strong", 38);
+    \u0275\u0275elementStart(6, "strong", 51);
     \u0275\u0275text(7);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(8, "div", 39);
-    \u0275\u0275repeaterCreate(9, World2Component_Conditional_16_Conditional_7_Conditional_1_For_10_Template, 2, 0, "span", 40, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275conditionalCreate(11, World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_11_Template, 2, 0, "span", 41);
+    \u0275\u0275elementStart(8, "div", 52);
+    \u0275\u0275repeaterCreate(9, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_For_10_Template, 2, 0, "span", 53, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(11, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Conditional_11_Template, 2, 0, "span", 54);
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(12, World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_12_Template, 4, 3, "button", 59)(13, World2Component_Conditional_16_Conditional_7_Conditional_1_Conditional_13_Template, 2, 0, "button", 60);
+    \u0275\u0275conditionalCreate(12, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Conditional_12_Template, 4, 3, "button", 72)(13, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Conditional_13_Template, 2, 0, "button", 73);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate2("\u{1F579}\uFE0F Reacciona a los eventos que aparecen (", ctx_r2.livesRoundCount, "/", ctx_r2.livesRoundGoal, ")");
+    \u0275\u0275textInterpolate2("\u{1F579}\uFE0F Reacciona a los eventos que aparecen (", ctx_r1.livesRoundCount, "/", ctx_r1.livesRoundGoal, ")");
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.livesValue);
+    \u0275\u0275textInterpolate(ctx_r1.livesValue);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(ctx_r2.livesHearts);
+    \u0275\u0275repeater(ctx_r1.livesHearts);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.livesValue === 0 ? 11 : -1);
+    \u0275\u0275conditional(ctx_r1.livesValue === 0 ? 11 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(!ctx_r2.livesGameOver ? 12 : 13);
+    \u0275\u0275conditional(!ctx_r1.livesGameOver ? 12 : 13);
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_2_For_10_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_For_10_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 40);
+    \u0275\u0275elementStart(0, "span", 53);
     \u0275\u0275text(1, "\u2764\uFE0F");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_11_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 41);
+    \u0275\u0275elementStart(0, "span", 54);
     \u0275\u0275text(1, "sin vidas");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_2_For_14_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_For_14_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 65);
+    \u0275\u0275elementStart(0, "span", 78);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const step_r28 = ctx.$implicit;
-    const $index_r29 = ctx.$index;
-    const ctx_r2 = \u0275\u0275nextContext(4);
-    \u0275\u0275classProp("passed", $index_r29 < ctx_r2.livesMissionIndex)("current", $index_r29 === ctx_r2.livesMissionIndex);
+    const step_r32 = ctx.$implicit;
+    const $index_r33 = ctx.$index;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("passed", $index_r33 < ctx_r1.livesMissionIndex)("current", $index_r33 === ctx_r1.livesMissionIndex);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(step_r28.emoji);
+    \u0275\u0275textInterpolate(step_r32.emoji);
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_17_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_17_Template(rf, ctx) {
   if (rf & 1) {
-    const _r30 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 61);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_17_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r30);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.advanceLivesMission());
+    const _r34 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 74);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_17_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r34);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.advanceLivesMission());
     });
     \u0275\u0275text(1, " Avanzar al siguiente obst\xE1culo \u2192 ");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_18_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_18_Template(rf, ctx) {
   if (rf & 1) {
-    const _r31 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 56);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_18_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r31);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.restartLivesMission());
+    const _r35 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 69);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_18_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r35);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.restartLivesMission());
     });
     \u0275\u0275text(1, "\u{1F501} Reintentar misi\xF3n");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_19_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_19_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(4);
-    \u0275\u0275classProp("error", ctx_r2.livesMissionFailed)("success", !ctx_r2.livesMissionFailed && ctx_r2.livesMissionIndex >= ctx_r2.livesMissionSteps.length);
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("error", ctx_r1.livesMissionFailed)("success", !ctx_r1.livesMissionFailed && ctx_r1.livesMissionIndex >= ctx_r1.livesMissionSteps.length);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.livesMissionFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.livesMissionFeedback);
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_2_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 33)(1, "p", 35);
+    \u0275\u0275elementStart(0, "div", 46)(1, "p", 48);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 36)(4, "span", 37);
+    \u0275\u0275elementStart(3, "div", 49)(4, "span", 50);
     \u0275\u0275text(5, "\u2764\uFE0F Vidas =");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "strong", 38);
+    \u0275\u0275elementStart(6, "strong", 51);
     \u0275\u0275text(7);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(8, "div", 39);
-    \u0275\u0275repeaterCreate(9, World2Component_Conditional_16_Conditional_7_Conditional_2_For_10_Template, 2, 0, "span", 40, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275conditionalCreate(11, World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_11_Template, 2, 0, "span", 41);
+    \u0275\u0275elementStart(8, "div", 52);
+    \u0275\u0275repeaterCreate(9, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_For_10_Template, 2, 0, "span", 53, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(11, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_11_Template, 2, 0, "span", 54);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 62);
-    \u0275\u0275repeaterCreate(13, World2Component_Conditional_16_Conditional_7_Conditional_2_For_14_Template, 2, 5, "span", 63, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementStart(15, "span", 64);
+    \u0275\u0275elementStart(12, "div", 75);
+    \u0275\u0275repeaterCreate(13, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_For_14_Template, 2, 5, "span", 76, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(15, "span", 77);
     \u0275\u0275text(16, "\u{1F3C1}");
     \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(17, World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_17_Template, 2, 0, "button", 59)(18, World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_18_Template, 2, 0, "button", 60);
+    \u0275\u0275conditionalCreate(17, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_17_Template, 2, 0, "button", 72)(18, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_18_Template, 2, 0, "button", 73);
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(19, World2Component_Conditional_16_Conditional_7_Conditional_2_Conditional_19_Template, 2, 5, "div", 50);
+    \u0275\u0275conditionalCreate(19, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Conditional_19_Template, 2, 5, "div", 63);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1F3C1} \xA1Llega al final con al menos ", ctx_r2.livesMissionMin, " vidas!");
+    \u0275\u0275textInterpolate1("\u{1F3C1} \xA1Llega al final con al menos ", ctx_r1.livesMissionMin, " vidas!");
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.livesMissionValue);
+    \u0275\u0275textInterpolate(ctx_r1.livesMissionValue);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(ctx_r2.livesMissionHearts);
+    \u0275\u0275repeater(ctx_r1.livesMissionHearts);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.livesMissionValue === 0 ? 11 : -1);
+    \u0275\u0275conditional(ctx_r1.livesMissionValue === 0 ? 11 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(ctx_r2.livesMissionSteps);
+    \u0275\u0275repeater(ctx_r1.livesMissionSteps);
     \u0275\u0275advance(4);
-    \u0275\u0275conditional(!ctx_r2.livesMissionFailed && ctx_r2.livesMissionIndex < ctx_r2.livesMissionSteps.length ? 17 : ctx_r2.livesMissionFailed ? 18 : -1);
+    \u0275\u0275conditional(!ctx_r1.livesMissionFailed && ctx_r1.livesMissionIndex < ctx_r1.livesMissionSteps.length ? 17 : ctx_r1.livesMissionFailed ? 18 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.livesMissionFeedback ? 19 : -1);
+    \u0275\u0275conditional(ctx_r1.livesMissionFeedback ? 19 : -1);
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_3_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
-    const _r32 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 27)(1, "h3");
+    const _r36 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 40)(1, "h3");
     \u0275\u0275text(2, "\u{1F9E0} Tu personaje tiene 2 vidas. Aparece un \u{1F432} monstruo y despu\xE9s encuentras un \u{1F496} coraz\xF3n. \xBFCon cu\xE1ntas vidas terminar\xE1s?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 31)(4, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_3_Template_button_click_4_listener() {
-      \u0275\u0275restoreView(_r32);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerLivesQuiz(1));
+    \u0275\u0275elementStart(3, "div", 44)(4, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_3_Template_button_click_4_listener() {
+      \u0275\u0275restoreView(_r36);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerLivesQuiz(1));
     });
     \u0275\u0275text(5, "1 \u2764\uFE0F");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_3_Template_button_click_6_listener() {
-      \u0275\u0275restoreView(_r32);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerLivesQuiz(2));
+    \u0275\u0275elementStart(6, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_3_Template_button_click_6_listener() {
+      \u0275\u0275restoreView(_r36);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerLivesQuiz(2));
     });
     \u0275\u0275text(7, "2 \u2764\uFE0F");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_7_Conditional_3_Template_button_click_8_listener() {
-      \u0275\u0275restoreView(_r32);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerLivesQuiz(3));
+    \u0275\u0275elementStart(8, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_3_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r36);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerLivesQuiz(3));
     });
     \u0275\u0275text(9, "3 \u2764\uFE0F");
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(4);
-    \u0275\u0275property("disabled", ctx_r2.livesQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.livesQuizAnswered);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r2.livesQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.livesQuizAnswered);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r2.livesQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.livesQuizAnswered);
   }
 }
-function World2Component_Conditional_16_Conditional_7_Conditional_4_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", ctx_r2.livesFeedbackError)("success", !ctx_r2.livesFeedbackError);
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", ctx_r1.livesFeedbackError)("success", !ctx_r1.livesFeedbackError);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.livesFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.livesFeedback);
   }
 }
-function World2Component_Conditional_16_Conditional_7_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, World2Component_Conditional_16_Conditional_7_Conditional_0_Template, 14, 5, "div", 33)(1, World2Component_Conditional_16_Conditional_7_Conditional_1_Template, 14, 5, "div", 33)(2, World2Component_Conditional_16_Conditional_7_Conditional_2_Template, 20, 5)(3, World2Component_Conditional_16_Conditional_7_Conditional_3_Template, 10, 3, "div", 27);
-    \u0275\u0275conditionalCreate(4, World2Component_Conditional_16_Conditional_7_Conditional_4_Template, 2, 5, "div", 50);
+    \u0275\u0275conditionalCreate(0, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_0_Template, 14, 5, "div", 46)(1, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_1_Template, 14, 5, "div", 46)(2, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_2_Template, 20, 5)(3, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_3_Template, 10, 3, "div", 40);
+    \u0275\u0275conditionalCreate(4, World2Component_Conditional_2_Conditional_15_Conditional_7_Conditional_4_Template, 2, 5, "div", 63);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275conditional(ctx_r2.livesPhase === "decide" ? 0 : ctx_r2.livesPhase === "round" ? 1 : ctx_r2.livesPhase === "mission" ? 2 : ctx_r2.livesPhase === "quiz" ? 3 : -1);
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275conditional(ctx_r1.livesPhase === "decide" ? 0 : ctx_r1.livesPhase === "round" ? 1 : ctx_r1.livesPhase === "mission" ? 2 : ctx_r1.livesPhase === "quiz" ? 3 : -1);
     \u0275\u0275advance(4);
-    \u0275\u0275conditional(ctx_r2.livesPhase !== "mission" && ctx_r2.livesFeedback ? 4 : -1);
+    \u0275\u0275conditional(ctx_r1.livesPhase !== "mission" && ctx_r1.livesFeedback ? 4 : -1);
   }
 }
-function World2Component_Conditional_16_Conditional_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r33 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "h2");
+    const _r37 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u2764\uFE0F \xA1Misi\xF3n superada!");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "p");
     \u0275\u0275text(4, "Aprendiste que los eventos del juego cambian el valor de la variable vidas, y que ese valor representa el estado del personaje.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 24);
+    \u0275\u0275elementStart(5, "p", 37);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_16_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r33);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.nextWorld2Activity());
+    \u0275\u0275elementStart(7, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_15_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r37);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextWorld2Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275elementEnd()();
   }
 }
-function World2Component_Conditional_16_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_15_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 5");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h1");
     \u0275\u0275text(4, "\xA1Cuida tus vidas! \u2764\uFE0F");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275elementStart(5, "p", 22);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World2Component_Conditional_16_Conditional_7_Template, 5, 2)(8, World2Component_Conditional_16_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World2Component_Conditional_2_Conditional_15_Conditional_7_Template, 5, 2)(8, World2Component_Conditional_2_Conditional_15_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1("Una variable puede cambiar por diferentes eventos del juego. Las vidas van de 0 a ", ctx_r2.LIVES_MAX, ".");
+    \u0275\u0275textInterpolate1("Una variable puede cambiar por diferentes eventos del juego. Las vidas van de 0 a ", ctx_r1.LIVES_MAX, ".");
     \u0275\u0275advance();
-    \u0275\u0275conditional(!ctx_r2.livesDone ? 7 : 8);
+    \u0275\u0275conditional(!ctx_r1.livesDone ? 7 : 8);
   }
 }
-function World2Component_Conditional_17_Conditional_7_Conditional_0_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    const _r34 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 66);
+    const _r38 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 79);
     \u0275\u0275text(1, "\u{1F44B} \xA1Hola! Antes de comenzar necesito saber c\xF3mo llamarte.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "div", 67)(3, "label");
+    \u0275\u0275elementStart(2, "div", 80)(3, "label");
     \u0275\u0275text(4, "Escribe tu nombre:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "input", 68);
-    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_17_Conditional_7_Conditional_0_Template_input_ngModelChange_5_listener($event) {
-      \u0275\u0275restoreView(_r34);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      \u0275\u0275twoWayBindingSet(ctx_r2.heroName, $event) || (ctx_r2.heroName = $event);
+    \u0275\u0275elementStart(5, "input", 81);
+    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_0_Template_input_ngModelChange_5_listener($event) {
+      \u0275\u0275restoreView(_r38);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      \u0275\u0275twoWayBindingSet(ctx_r1.heroName, $event) || (ctx_r1.heroName = $event);
       return \u0275\u0275resetView($event);
     });
-    \u0275\u0275listener("keyup.enter", function World2Component_Conditional_17_Conditional_7_Conditional_0_Template_input_keyup_enter_5_listener() {
-      \u0275\u0275restoreView(_r34);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.saveHeroName());
+    \u0275\u0275listener("keyup.enter", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_0_Template_input_keyup_enter_5_listener() {
+      \u0275\u0275restoreView(_r38);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.saveHeroName());
     });
     \u0275\u0275elementEnd();
     \u0275\u0275controlCreate();
-    \u0275\u0275elementStart(6, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_7_Conditional_0_Template_button_click_6_listener() {
-      \u0275\u0275restoreView(_r34);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.saveHeroName());
+    \u0275\u0275elementStart(6, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_0_Template_button_click_6_listener() {
+      \u0275\u0275restoreView(_r38);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.saveHeroName());
     });
     \u0275\u0275text(7, "Guardar");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(5);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r2.heroName);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.heroName);
     \u0275\u0275control();
   }
 }
-function World2Component_Conditional_17_Conditional_7_Conditional_1_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r35 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 69)(1, "span", 70);
+    const _r39 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 82)(1, "span", 83);
     \u0275\u0275text(2, "\u{1F4E6}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 71);
+    \u0275\u0275elementStart(3, "span", 84);
     \u0275\u0275text(4, "nombre");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 72);
+    \u0275\u0275elementStart(5, "span", 85);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "p", 73);
+    \u0275\u0275elementStart(7, "p", 86);
     \u0275\u0275text(8, "Una variable tambi\xE9n puede guardar palabras o texto. En este caso, la variable ");
     \u0275\u0275elementStart(9, "strong");
     \u0275\u0275text(10, "nombre");
     \u0275\u0275elementEnd();
     \u0275\u0275text(11);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 74)(13, "div", 75);
+    \u0275\u0275elementStart(12, "div", 87)(13, "div", 88);
     \u0275\u0275text(14);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(15, "div", 75);
+    \u0275\u0275elementStart(15, "div", 88);
     \u0275\u0275text(16);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "div", 75);
+    \u0275\u0275elementStart(17, "div", 88);
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "p", 76);
+    \u0275\u0275elementStart(19, "p", 89);
     \u0275\u0275text(20, "No tuvimos que escribir el nombre cada vez: el programa lo guarda en la variable ");
     \u0275\u0275elementStart(21, "strong");
     \u0275\u0275text(22, "nombre");
     \u0275\u0275elementEnd();
     \u0275\u0275text(23, " y lo usa cuando lo necesita.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_7_Conditional_1_Template_button_click_24_listener() {
-      \u0275\u0275restoreView(_r35);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.goToChangeName());
+    \u0275\u0275elementStart(24, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_1_Template_button_click_24_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.goToChangeName());
     });
     \u0275\u0275text(25, "Continuar \u2192");
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1('"', ctx_r2.heroName, '"');
+    \u0275\u0275textInterpolate1('"', ctx_r1.heroName, '"');
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate1(' guarda: "', ctx_r2.heroName, '".');
+    \u0275\u0275textInterpolate1(' guarda: "', ctx_r1.heroName, '".');
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate1("\u{1F44B} \xA1Hola, ", ctx_r2.heroName, "!");
+    \u0275\u0275textInterpolate1("\u{1F44B} \xA1Hola, ", ctx_r1.heroName, "!");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u2B50 ", ctx_r2.heroName, ", encontraste un tesoro.");
+    \u0275\u0275textInterpolate1("\u2B50 ", ctx_r1.heroName, ", encontraste un tesoro.");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1F3C6} \xA1Muy bien, ", ctx_r2.heroName, "!");
+    \u0275\u0275textInterpolate1("\u{1F3C6} \xA1Muy bien, ", ctx_r1.heroName, "!");
   }
 }
-function World2Component_Conditional_17_Conditional_7_Conditional_2_Conditional_20_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_2_Conditional_20_Template(rf, ctx) {
   if (rf & 1) {
-    const _r37 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_7_Conditional_2_Conditional_20_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r37);
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.goToTypePhase());
+    const _r41 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_2_Conditional_20_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r41);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.goToTypePhase());
     });
     \u0275\u0275text(1, "Continuar \u2192");
     \u0275\u0275elementEnd();
   }
 }
-function World2Component_Conditional_17_Conditional_7_Conditional_2_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
-    const _r36 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 66);
+    const _r40 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 79);
     \u0275\u0275text(1, "\u{1F914} \xBFQu\xE9 pasa si cambiamos el valor de la variable?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "div", 69)(3, "span", 70);
+    \u0275\u0275elementStart(2, "div", 82)(3, "span", 83);
     \u0275\u0275text(4, "\u{1F4E6}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 71);
+    \u0275\u0275elementStart(5, "span", 84);
     \u0275\u0275text(6, "nombre =");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "span", 72);
+    \u0275\u0275elementStart(7, "span", 85);
     \u0275\u0275text(8);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 67)(10, "label");
+    \u0275\u0275elementStart(9, "div", 80)(10, "label");
     \u0275\u0275text(11, "Cambia el valor de nombre:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "input", 77);
-    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_17_Conditional_7_Conditional_2_Template_input_ngModelChange_12_listener($event) {
-      \u0275\u0275restoreView(_r36);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      \u0275\u0275twoWayBindingSet(ctx_r2.heroNewName, $event) || (ctx_r2.heroNewName = $event);
+    \u0275\u0275elementStart(12, "input", 90);
+    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_2_Template_input_ngModelChange_12_listener($event) {
+      \u0275\u0275restoreView(_r40);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      \u0275\u0275twoWayBindingSet(ctx_r1.heroNewName, $event) || (ctx_r1.heroNewName = $event);
       return \u0275\u0275resetView($event);
     });
-    \u0275\u0275listener("keyup.enter", function World2Component_Conditional_17_Conditional_7_Conditional_2_Template_input_keyup_enter_12_listener() {
-      \u0275\u0275restoreView(_r36);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.changeHeroName());
+    \u0275\u0275listener("keyup.enter", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_2_Template_input_keyup_enter_12_listener() {
+      \u0275\u0275restoreView(_r40);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.changeHeroName());
     });
     \u0275\u0275elementEnd();
     \u0275\u0275controlCreate();
-    \u0275\u0275elementStart(13, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_7_Conditional_2_Template_button_click_13_listener() {
-      \u0275\u0275restoreView(_r36);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.changeHeroName());
+    \u0275\u0275elementStart(13, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_2_Template_button_click_13_listener() {
+      \u0275\u0275restoreView(_r40);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.changeHeroName());
     });
     \u0275\u0275text(14, "Cambiar valor");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 74)(16, "div", 75);
+    \u0275\u0275elementStart(15, "div", 87)(16, "div", 88);
     \u0275\u0275text(17);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "div", 75);
+    \u0275\u0275elementStart(18, "div", 88);
     \u0275\u0275text(19);
     \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(20, World2Component_Conditional_17_Conditional_7_Conditional_2_Conditional_20_Template, 2, 0, "button", 58);
+    \u0275\u0275conditionalCreate(20, World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_2_Conditional_20_Template, 2, 0, "button", 71);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(8);
-    \u0275\u0275textInterpolate1('"', ctx_r2.heroName, '"');
+    \u0275\u0275textInterpolate1('"', ctx_r1.heroName, '"');
     \u0275\u0275advance(4);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r2.heroNewName);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.heroNewName);
     \u0275\u0275control();
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate1("\u{1F44B} \xA1Hola, ", ctx_r2.heroName, "!");
+    \u0275\u0275textInterpolate1("\u{1F44B} \xA1Hola, ", ctx_r1.heroName, "!");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u2B50 ", ctx_r2.heroName, ", encontraste un tesoro.");
+    \u0275\u0275textInterpolate1("\u2B50 ", ctx_r1.heroName, ", encontraste un tesoro.");
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r2.heroFeedback && !ctx_r2.heroFeedbackError ? 20 : -1);
+    \u0275\u0275conditional(ctx_r1.heroFeedback && !ctx_r1.heroFeedbackError ? 20 : -1);
   }
 }
-function World2Component_Conditional_17_Conditional_7_Conditional_3_For_5_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_3_For_5_Template(rf, ctx) {
   if (rf & 1) {
-    const _r38 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 80);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_7_Conditional_3_For_5_Template_button_click_0_listener() {
-      const \u0275$index_637_r39 = \u0275\u0275restoreView(_r38).$index;
-      const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.answerHeroType(\u0275$index_637_r39));
+    const _r42 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 93);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_3_For_5_Template_button_click_0_listener() {
+      const \u0275$index_668_r43 = \u0275\u0275restoreView(_r42).$index;
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.answerHeroType(\u0275$index_668_r43));
     });
-    \u0275\u0275elementStart(1, "span", 81);
+    \u0275\u0275elementStart(1, "span", 94);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 82);
+    \u0275\u0275elementStart(3, "span", 95);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 83);
+    \u0275\u0275elementStart(5, "span", 96);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const v_r40 = ctx.$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(4);
-    \u0275\u0275property("disabled", ctx_r2.heroTypeAnswered);
+    const v_r44 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275property("disabled", ctx_r1.heroTypeAnswered);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(v_r40.emoji);
+    \u0275\u0275textInterpolate(v_r44.emoji);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(v_r40.name);
+    \u0275\u0275textInterpolate(v_r44.name);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(v_r40.value);
+    \u0275\u0275textInterpolate(v_r44.value);
   }
 }
-function World2Component_Conditional_17_Conditional_7_Conditional_3_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 27)(1, "h3");
+    \u0275\u0275elementStart(0, "div", 40)(1, "h3");
     \u0275\u0275text(2, "\xBFCu\xE1l de estas variables guarda texto?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 78);
-    \u0275\u0275repeaterCreate(4, World2Component_Conditional_17_Conditional_7_Conditional_3_For_5_Template, 7, 4, "button", 79, _forTrack2);
+    \u0275\u0275elementStart(3, "div", 91);
+    \u0275\u0275repeaterCreate(4, World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_3_For_5_Template, 7, 4, "button", 92, _forTrack2);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(4);
-    \u0275\u0275repeater(ctx_r2.heroTypeVars);
+    \u0275\u0275repeater(ctx_r1.heroTypeVars);
   }
 }
-function World2Component_Conditional_17_Conditional_7_Conditional_4_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
-    const _r41 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "p", 73);
+    const _r45 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "p", 86);
     \u0275\u0275text(1, "Completa un mensaje usando variables:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "div", 69)(3, "span", 70);
+    \u0275\u0275elementStart(2, "div", 82)(3, "span", 83);
     \u0275\u0275text(4, "\u{1F4E6}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 71);
+    \u0275\u0275elementStart(5, "span", 84);
     \u0275\u0275text(6, "nombre =");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "span", 72);
+    \u0275\u0275elementStart(7, "span", 85);
     \u0275\u0275text(8);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 69)(10, "span", 70);
+    \u0275\u0275elementStart(9, "div", 82)(10, "span", 83);
     \u0275\u0275text(11, "\u{1F4E6}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "span", 71);
+    \u0275\u0275elementStart(12, "span", 84);
     \u0275\u0275text(13, "mascota =");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "span", 72);
+    \u0275\u0275elementStart(14, "span", 85);
     \u0275\u0275text(15);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(16, "div", 84);
+    \u0275\u0275elementStart(16, "div", 97);
     \u0275\u0275text(17);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "div", 27)(19, "h3");
+    \u0275\u0275elementStart(18, "div", 40)(19, "h3");
     \u0275\u0275text(20, "Si cambiamos ");
     \u0275\u0275elementStart(21, "strong");
     \u0275\u0275text(22, 'nombre \u2192 "Sara"');
     \u0275\u0275elementEnd();
     \u0275\u0275text(23, ", \xBFqu\xE9 mensaje aparecer\xE1?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "div", 85)(25, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_7_Conditional_4_Template_button_click_25_listener() {
-      \u0275\u0275restoreView(_r41);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerHeroFinalQuiz("Sara"));
+    \u0275\u0275elementStart(24, "div", 98)(25, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_4_Template_button_click_25_listener() {
+      \u0275\u0275restoreView(_r45);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerHeroFinalQuiz("Sara"));
     });
     \u0275\u0275text(26, "\u{1F436} \xA1Hola, Sara! Tu mascota se llama Luna.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_7_Conditional_4_Template_button_click_27_listener() {
-      \u0275\u0275restoreView(_r41);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerHeroFinalQuiz("Mateo"));
+    \u0275\u0275elementStart(27, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_4_Template_button_click_27_listener() {
+      \u0275\u0275restoreView(_r45);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerHeroFinalQuiz("Mateo"));
     });
     \u0275\u0275text(28, "\u{1F436} \xA1Hola, Mateo! Tu mascota se llama Sara.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(29, "button", 54);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_7_Conditional_4_Template_button_click_29_listener() {
-      \u0275\u0275restoreView(_r41);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.answerHeroFinalQuiz("otro"));
+    \u0275\u0275elementStart(29, "button", 67);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_4_Template_button_click_29_listener() {
+      \u0275\u0275restoreView(_r45);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.answerHeroFinalQuiz("otro"));
     });
     \u0275\u0275text(30, "\u{1F436} \xA1Hola, Luna! Tu mascota se llama Sara.");
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(8);
-    \u0275\u0275textInterpolate1('"', ctx_r2.heroFinalName, '"');
+    \u0275\u0275textInterpolate1('"', ctx_r1.heroFinalName, '"');
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1('"', ctx_r2.heroFinalPet, '"');
+    \u0275\u0275textInterpolate1('"', ctx_r1.heroFinalPet, '"');
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate2("\u{1F436} \xA1Hola, ", ctx_r2.heroFinalName, "! Tu mascota se llama ", ctx_r2.heroFinalPet, ".");
+    \u0275\u0275textInterpolate2("\u{1F436} \xA1Hola, ", ctx_r1.heroFinalName, "! Tu mascota se llama ", ctx_r1.heroFinalPet, ".");
     \u0275\u0275advance(8);
-    \u0275\u0275property("disabled", ctx_r2.heroFinalQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.heroFinalQuizAnswered);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r2.heroFinalQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.heroFinalQuizAnswered);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r2.heroFinalQuizAnswered);
+    \u0275\u0275property("disabled", ctx_r1.heroFinalQuizAnswered);
   }
 }
-function World2Component_Conditional_17_Conditional_7_Conditional_5_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", ctx_r2.heroFeedbackError)("success", !ctx_r2.heroFeedbackError);
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", ctx_r1.heroFeedbackError)("success", !ctx_r1.heroFeedbackError);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.heroFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.heroFeedback);
   }
 }
-function World2Component_Conditional_17_Conditional_7_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, World2Component_Conditional_17_Conditional_7_Conditional_0_Template, 8, 1)(1, World2Component_Conditional_17_Conditional_7_Conditional_1_Template, 26, 5)(2, World2Component_Conditional_17_Conditional_7_Conditional_2_Template, 21, 5)(3, World2Component_Conditional_17_Conditional_7_Conditional_3_Template, 6, 0, "div", 27)(4, World2Component_Conditional_17_Conditional_7_Conditional_4_Template, 31, 7);
-    \u0275\u0275conditionalCreate(5, World2Component_Conditional_17_Conditional_7_Conditional_5_Template, 2, 5, "div", 50);
+    \u0275\u0275conditionalCreate(0, World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_0_Template, 8, 1)(1, World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_1_Template, 26, 5)(2, World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_2_Template, 21, 5)(3, World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_3_Template, 6, 0, "div", 40)(4, World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_4_Template, 31, 7);
+    \u0275\u0275conditionalCreate(5, World2Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template, 2, 5, "div", 63);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275conditional(ctx_r2.heroPhase === "name" ? 0 : ctx_r2.heroPhase === "use" ? 1 : ctx_r2.heroPhase === "change" ? 2 : ctx_r2.heroPhase === "type" ? 3 : ctx_r2.heroPhase === "final" ? 4 : -1);
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275conditional(ctx_r1.heroPhase === "name" ? 0 : ctx_r1.heroPhase === "use" ? 1 : ctx_r1.heroPhase === "change" ? 2 : ctx_r1.heroPhase === "type" ? 3 : ctx_r1.heroPhase === "final" ? 4 : -1);
     \u0275\u0275advance(5);
-    \u0275\u0275conditional(ctx_r2.heroFeedback ? 5 : -1);
+    \u0275\u0275conditional(ctx_r1.heroFeedback ? 5 : -1);
   }
 }
-function World2Component_Conditional_17_Conditional_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r42 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "h2");
+    const _r46 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "p");
     \u0275\u0275text(4, "Descubriste que una variable puede guardar texto y que ese valor se puede usar y cambiar dentro del juego. La caja no cambia, lo que cambia es lo que guardamos dentro.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 24);
+    \u0275\u0275elementStart(5, "p", 37);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_17_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r42);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.nextWorld2Activity());
+    \u0275\u0275elementStart(7, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_16_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r46);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextWorld2Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1F464} \xA1Hola, ", ctx_r2.heroName, "!");
+    \u0275\u0275textInterpolate1("\u{1F464} \xA1Hola, ", ctx_r1.heroName, "!");
   }
 }
-function World2Component_Conditional_17_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 6");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h1");
     \u0275\u0275text(4, "\xBFQui\xE9n eres? \u{1F464}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275elementStart(5, "p", 22);
     \u0275\u0275text(6, "Una variable tambi\xE9n puede guardar texto, y ese valor puede usarse dentro del juego.");
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World2Component_Conditional_17_Conditional_7_Template, 6, 2)(8, World2Component_Conditional_17_Conditional_8_Template, 9, 1, "div", 10);
+    \u0275\u0275conditionalCreate(7, World2Component_Conditional_2_Conditional_16_Conditional_7_Template, 6, 2)(8, World2Component_Conditional_2_Conditional_16_Conditional_8_Template, 9, 1, "div", 23);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r2.heroDone ? 7 : 8);
+    \u0275\u0275conditional(!ctx_r1.heroDone ? 7 : 8);
   }
 }
-function World2Component_Conditional_18_Conditional_7_Conditional_0_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    const _r43 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 86)(1, "label");
+    const _r47 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 99)(1, "label");
     \u0275\u0275text(2, "\u{1F4DB} Nombre ");
-    \u0275\u0275elementStart(3, "input", 87);
-    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_18_Conditional_7_Conditional_0_Template_input_ngModelChange_3_listener($event) {
-      \u0275\u0275restoreView(_r43);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      \u0275\u0275twoWayBindingSet(ctx_r2.backpack.name, $event) || (ctx_r2.backpack.name = $event);
+    \u0275\u0275elementStart(3, "input", 100);
+    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_0_Template_input_ngModelChange_3_listener($event) {
+      \u0275\u0275restoreView(_r47);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      \u0275\u0275twoWayBindingSet(ctx_r1.backpack.name, $event) || (ctx_r1.backpack.name = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
@@ -46765,11 +47469,11 @@ function World2Component_Conditional_18_Conditional_7_Conditional_0_Template(rf,
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(4, "label");
     \u0275\u0275text(5, "\u{1FA99} Monedas ");
-    \u0275\u0275elementStart(6, "input", 88);
-    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_18_Conditional_7_Conditional_0_Template_input_ngModelChange_6_listener($event) {
-      \u0275\u0275restoreView(_r43);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      \u0275\u0275twoWayBindingSet(ctx_r2.backpack.coins, $event) || (ctx_r2.backpack.coins = $event);
+    \u0275\u0275elementStart(6, "input", 101);
+    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_0_Template_input_ngModelChange_6_listener($event) {
+      \u0275\u0275restoreView(_r47);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      \u0275\u0275twoWayBindingSet(ctx_r1.backpack.coins, $event) || (ctx_r1.backpack.coins = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
@@ -46777,11 +47481,11 @@ function World2Component_Conditional_18_Conditional_7_Conditional_0_Template(rf,
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(7, "label");
     \u0275\u0275text(8, "\u2764\uFE0F Vidas ");
-    \u0275\u0275elementStart(9, "input", 88);
-    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_18_Conditional_7_Conditional_0_Template_input_ngModelChange_9_listener($event) {
-      \u0275\u0275restoreView(_r43);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      \u0275\u0275twoWayBindingSet(ctx_r2.backpack.lives, $event) || (ctx_r2.backpack.lives = $event);
+    \u0275\u0275elementStart(9, "input", 101);
+    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_0_Template_input_ngModelChange_9_listener($event) {
+      \u0275\u0275restoreView(_r47);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      \u0275\u0275twoWayBindingSet(ctx_r1.backpack.lives, $event) || (ctx_r1.backpack.lives = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
@@ -46789,45 +47493,45 @@ function World2Component_Conditional_18_Conditional_7_Conditional_0_Template(rf,
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(10, "label");
     \u0275\u0275text(11, "\u2B50 Puntos ");
-    \u0275\u0275elementStart(12, "input", 88);
-    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_18_Conditional_7_Conditional_0_Template_input_ngModelChange_12_listener($event) {
-      \u0275\u0275restoreView(_r43);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      \u0275\u0275twoWayBindingSet(ctx_r2.backpack.points, $event) || (ctx_r2.backpack.points = $event);
+    \u0275\u0275elementStart(12, "input", 101);
+    \u0275\u0275twoWayListener("ngModelChange", function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_0_Template_input_ngModelChange_12_listener($event) {
+      \u0275\u0275restoreView(_r47);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      \u0275\u0275twoWayBindingSet(ctx_r1.backpack.points, $event) || (ctx_r1.backpack.points = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
     \u0275\u0275controlCreate();
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(13, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_18_Conditional_7_Conditional_0_Template_button_click_13_listener() {
-      \u0275\u0275restoreView(_r43);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.startBackpackAdventure());
+    \u0275\u0275elementStart(13, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_0_Template_button_click_13_listener() {
+      \u0275\u0275restoreView(_r47);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.startBackpackAdventure());
     });
     \u0275\u0275text(14, "Comenzar aventura");
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(3);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r2.backpack.name);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.backpack.name);
     \u0275\u0275control();
     \u0275\u0275advance(3);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r2.backpack.coins);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.backpack.coins);
     \u0275\u0275control();
     \u0275\u0275advance(3);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r2.backpack.lives);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.backpack.lives);
     \u0275\u0275control();
     \u0275\u0275advance(3);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r2.backpack.points);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.backpack.points);
     \u0275\u0275control();
   }
 }
-function World2Component_Conditional_18_Conditional_7_Conditional_1_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r44 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 89)(1, "div");
+    const _r48 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 102)(1, "div");
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "div");
@@ -46839,233 +47543,299 @@ function World2Component_Conditional_18_Conditional_7_Conditional_1_Template(rf,
     \u0275\u0275elementStart(7, "div");
     \u0275\u0275text(8);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_18_Conditional_7_Conditional_1_Template_button_click_9_listener() {
-      \u0275\u0275restoreView(_r44);
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.backpackEvent());
+    \u0275\u0275elementStart(9, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_1_Template_button_click_9_listener() {
+      \u0275\u0275restoreView(_r48);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.backpackEvent());
     });
     \u0275\u0275text(10, "Siguiente evento");
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1F4DB} ", ctx_r2.backpack.name);
+    \u0275\u0275textInterpolate1("\u{1F4DB} ", ctx_r1.backpack.name);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1FA99} ", ctx_r2.backpack.coins, " monedas");
+    \u0275\u0275textInterpolate1("\u{1FA99} ", ctx_r1.backpack.coins, " monedas");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u2764\uFE0F ", ctx_r2.backpack.lives, " vidas");
+    \u0275\u0275textInterpolate1("\u2764\uFE0F ", ctx_r1.backpack.lives, " vidas");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u2B50 ", ctx_r2.backpack.points, " puntos");
+    \u0275\u0275textInterpolate1("\u2B50 ", ctx_r1.backpack.points, " puntos");
   }
 }
-function World2Component_Conditional_18_Conditional_7_Conditional_2_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.backpackFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.backpackFeedback);
   }
 }
-function World2Component_Conditional_18_Conditional_7_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_17_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, World2Component_Conditional_18_Conditional_7_Conditional_0_Template, 15, 4)(1, World2Component_Conditional_18_Conditional_7_Conditional_1_Template, 11, 4);
-    \u0275\u0275conditionalCreate(2, World2Component_Conditional_18_Conditional_7_Conditional_2_Template, 2, 1, "div", 23);
+    \u0275\u0275conditionalCreate(0, World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_0_Template, 15, 4)(1, World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_1_Template, 11, 4);
+    \u0275\u0275conditionalCreate(2, World2Component_Conditional_2_Conditional_17_Conditional_7_Conditional_2_Template, 2, 1, "div", 36);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275conditional(ctx_r2.backpackPhase === "edit" ? 0 : ctx_r2.backpackPhase === "adventure" ? 1 : -1);
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275conditional(ctx_r1.backpackPhase === "edit" ? 0 : ctx_r1.backpackPhase === "adventure" ? 1 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.backpackFeedback ? 2 : -1);
+    \u0275\u0275conditional(ctx_r1.backpackFeedback ? 2 : -1);
   }
 }
-function World2Component_Conditional_18_Conditional_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_17_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r45 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "h2");
+    const _r49 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u{1F392} \xA1Aventura completada!");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "p");
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 24);
+    \u0275\u0275elementStart(5, "p", 37);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_18_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r45);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.nextWorld2Activity());
+    \u0275\u0275elementStart(7, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_17_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r49);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.nextWorld2Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate3("Variables finales: ", ctx_r2.backpack.coins, " monedas, ", ctx_r2.backpack.lives, " vidas, ", ctx_r2.backpack.points, " puntos");
+    \u0275\u0275textInterpolate3("Variables finales: ", ctx_r1.backpack.coins, " monedas, ", ctx_r1.backpack.lives, " vidas, ", ctx_r1.backpack.points, " puntos");
   }
 }
-function World2Component_Conditional_18_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_17_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 7");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h1");
     \u0275\u0275text(4, "La mochila de variables \u{1F392}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275elementStart(5, "p", 22);
     \u0275\u0275text(6, "Configura las variables de tu personaje y vive una peque\xF1a aventura.");
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World2Component_Conditional_18_Conditional_7_Template, 3, 2)(8, World2Component_Conditional_18_Conditional_8_Template, 9, 3, "div", 10);
+    \u0275\u0275conditionalCreate(7, World2Component_Conditional_2_Conditional_17_Conditional_7_Template, 3, 2)(8, World2Component_Conditional_2_Conditional_17_Conditional_8_Template, 9, 3, "div", 23);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r2.backpackDone ? 7 : 8);
+    \u0275\u0275conditional(!ctx_r1.backpackDone ? 7 : 8);
   }
 }
-function World2Component_Conditional_19_Conditional_7_Conditional_33_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_18_Conditional_7_Conditional_53_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275elementStart(0, "div", 36);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", !ctx_r2.quizDone);
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("error", !ctx_r1.quizDone);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.quizFeedback);
+    \u0275\u0275textInterpolate(ctx_r1.quizFeedback);
   }
 }
-function World2Component_Conditional_19_Conditional_7_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_18_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r46 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 91)(1, "div", 92)(2, "h3");
+    const _r50 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 104)(1, "div", 105)(2, "h3");
     \u0275\u0275text(3, "1. Si tienes 5 monedas y encuentras 1 m\xE1s, \xBFcu\xE1ntas tienes?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 93)(5, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_5_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(0, "5"));
+    \u0275\u0275elementStart(4, "div", 106)(5, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_5_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(0, "5"));
     });
     \u0275\u0275text(6, "5");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(0, "6"));
+    \u0275\u0275elementStart(7, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(0, "6"));
     });
     \u0275\u0275text(8, "6");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_9_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(0, "4"));
+    \u0275\u0275elementStart(9, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_9_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(0, "4"));
     });
     \u0275\u0275text(10, "4");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(11, "div", 92)(12, "h3");
+    \u0275\u0275elementStart(11, "div", 105)(12, "h3");
     \u0275\u0275text(13, "2. \xBFQu\xE9 tipo de dato es un nombre?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "div", 93)(15, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_15_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(1, "n\xFAmero"));
+    \u0275\u0275elementStart(14, "div", 106)(15, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_15_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(1, "n\xFAmero"));
     });
     \u0275\u0275text(16, "N\xFAmero");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_17_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(1, "texto"));
+    \u0275\u0275elementStart(17, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_17_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(1, "texto"));
     });
     \u0275\u0275text(18, "Texto");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(19, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_19_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(1, "estrella"));
+    \u0275\u0275elementStart(19, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_19_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(1, "estrella"));
     });
     \u0275\u0275text(20, "Estrella");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(21, "div", 92)(22, "h3");
+    \u0275\u0275elementStart(21, "div", 105)(22, "h3");
     \u0275\u0275text(23, "3. \xBFQu\xE9 puede hacer una variable?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "div", 93)(25, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_25_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(2, "nunca"));
+    \u0275\u0275elementStart(24, "div", 106)(25, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_25_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(2, "nunca"));
     });
     \u0275\u0275text(26, "Nunca cambiar");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_27_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(2, "cambiar"));
+    \u0275\u0275elementStart(27, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_27_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(2, "cambiar"));
     });
     \u0275\u0275text(28, "Cambiar su valor");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(29, "button", 94);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_29_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.selectQuizAnswer(2, "desaparecer"));
+    \u0275\u0275elementStart(29, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_29_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(2, "desaparecer"));
     });
     \u0275\u0275text(30, "Desaparecer");
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(31, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_7_Template_button_click_31_listener() {
-      \u0275\u0275restoreView(_r46);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.checkQuiz());
-    });
-    \u0275\u0275text(32, "\u2713 Verificar respuestas");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(31, "div", 105)(32, "h3");
+    \u0275\u0275text(33, "4. \xBFCon qu\xE9 se compara una variable?");
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(33, World2Component_Conditional_19_Conditional_7_Conditional_33_Template, 2, 3, "div", 16);
+    \u0275\u0275elementStart(34, "div", 106)(35, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_35_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(3, "caja"));
+    });
+    \u0275\u0275text(36, "Una caja que guarda algo");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(37, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_37_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(3, "piedra"));
+    });
+    \u0275\u0275text(38, "Una piedra del camino");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(39, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_39_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(3, "nube"));
+    });
+    \u0275\u0275text(40, "Una nube en el cielo");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(41, "div", 105)(42, "h3");
+    \u0275\u0275text(43, '5. Si una variable "vidas" vale 5 y pierdes 2, \xBFcu\xE1nto vale ahora?');
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(44, "div", 106)(45, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_45_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(4, "5"));
+    });
+    \u0275\u0275text(46, "5");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(47, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_47_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(4, "3"));
+    });
+    \u0275\u0275text(48, "3");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(49, "button", 107);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_49_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectQuizAnswer(4, "7"));
+    });
+    \u0275\u0275text(50, "7");
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(51, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_7_Template_button_click_51_listener() {
+      \u0275\u0275restoreView(_r50);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.checkQuiz());
+    });
+    \u0275\u0275text(52, "\u2713 Verificar respuestas");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(53, World2Component_Conditional_2_Conditional_18_Conditional_7_Conditional_53_Template, 2, 3, "div", 29);
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance(5);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[0] === "5");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[0] === "5");
     \u0275\u0275advance(2);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[0] === "6");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[0] === "6");
     \u0275\u0275advance(2);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[0] === "4");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[0] === "4");
     \u0275\u0275advance(6);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[1] === "n\xFAmero");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[1] === "n\xFAmero");
     \u0275\u0275advance(2);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[1] === "texto");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[1] === "texto");
     \u0275\u0275advance(2);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[1] === "estrella");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[1] === "estrella");
     \u0275\u0275advance(6);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[2] === "nunca");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[2] === "nunca");
     \u0275\u0275advance(2);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[2] === "cambiar");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[2] === "cambiar");
     \u0275\u0275advance(2);
-    \u0275\u0275classProp("selected", ctx_r2.quizAnswers[2] === "desaparecer");
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[2] === "desaparecer");
+    \u0275\u0275advance(6);
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[3] === "caja");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[3] === "piedra");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[3] === "nube");
+    \u0275\u0275advance(6);
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[4] === "5");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[4] === "3");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.quizAnswers[4] === "7");
     \u0275\u0275advance(4);
-    \u0275\u0275conditional(ctx_r2.quizFeedback ? 33 : -1);
+    \u0275\u0275conditional(ctx_r1.quizFeedback ? 53 : -1);
   }
 }
-function World2Component_Conditional_19_Conditional_8_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_18_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r47 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 90)(1, "div", 95);
+    const _r51 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 103)(1, "div", 108);
     \u0275\u0275text(2, "\u{1F393}");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h2");
@@ -47074,54 +47844,87 @@ function World2Component_Conditional_19_Conditional_8_Template(rf, ctx) {
     \u0275\u0275elementStart(5, "p");
     \u0275\u0275text(6, "Has aprendido todo sobre variables: qu\xE9 son, c\xF3mo guardan informaci\xF3n y c\xF3mo cambiar sus valores.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "div", 96)(8, "div", 97)(9, "strong");
+    \u0275\u0275elementStart(7, "div", 109)(8, "div", 110)(9, "strong");
     \u0275\u0275text(10, "80");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(11, "span");
     \u0275\u0275text(12, "XP Total");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(13, "div", 97)(14, "strong");
+    \u0275\u0275elementStart(13, "div", 110)(14, "strong");
     \u0275\u0275text(15, "8");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(16, "span");
     \u0275\u0275text(17, "Semillas");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(18, "button", 25);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_8_Template_button_click_18_listener() {
-      \u0275\u0275restoreView(_r47);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.unlockAndOpenWorld3());
+    \u0275\u0275elementStart(18, "button", 38);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_8_Template_button_click_18_listener() {
+      \u0275\u0275restoreView(_r51);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.unlockAndOpenWorld3());
     });
     \u0275\u0275text(19, "Desbloquear Mundo 3 \u{1F30A}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(20, "button", 56);
-    \u0275\u0275listener("click", function World2Component_Conditional_19_Conditional_8_Template_button_click_20_listener() {
-      \u0275\u0275restoreView(_r47);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.backToForest.emit());
+    \u0275\u0275elementStart(20, "button", 69);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Conditional_18_Conditional_8_Template_button_click_20_listener() {
+      \u0275\u0275restoreView(_r51);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.backToForest.emit());
     });
     \u0275\u0275text(21, "Volver al bosque \u{1F333}");
     \u0275\u0275elementEnd()();
   }
 }
-function World2Component_Conditional_19_Template(rf, ctx) {
+function World2Component_Conditional_2_Conditional_18_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275elementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "EVALUACI\xD3N FINAL");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h1");
     \u0275\u0275text(4, "Comprueba lo que aprendiste \u{1F393}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275elementStart(5, "p", 22);
     \u0275\u0275text(6, "Responde las preguntas sobre variables.");
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(7, World2Component_Conditional_19_Conditional_7_Template, 34, 19)(8, World2Component_Conditional_19_Conditional_8_Template, 22, 0, "div", 90);
+    \u0275\u0275conditionalCreate(7, World2Component_Conditional_2_Conditional_18_Conditional_7_Template, 54, 31)(8, World2Component_Conditional_2_Conditional_18_Conditional_8_Template, 22, 0, "div", 103);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r2.quizDone ? 7 : 8);
+    \u0275\u0275conditional(!ctx_r1.quizDone ? 7 : 8);
+  }
+}
+function World2Component_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 2)(1, "div", 15)(2, "div", 16)(3, "span");
+    \u0275\u0275text(4, "\u{1F33F} Mundo 2: Sendero de Variables");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span");
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "div", 17);
+    \u0275\u0275element(8, "div", 18);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "button", 19);
+    \u0275\u0275listener("click", function World2Component_Conditional_2_Template_button_click_9_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.skipWorld2Activity());
+    });
+    \u0275\u0275text(10, "Saltar \u23ED\uFE0F");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275conditionalCreate(11, World2Component_Conditional_2_Conditional_11_Template, 9, 1, "article", 20)(12, World2Component_Conditional_2_Conditional_12_Template, 9, 1, "article", 20)(13, World2Component_Conditional_2_Conditional_13_Template, 9, 1, "article", 20)(14, World2Component_Conditional_2_Conditional_14_Template, 9, 1, "article", 20)(15, World2Component_Conditional_2_Conditional_15_Template, 9, 2, "article", 20)(16, World2Component_Conditional_2_Conditional_16_Template, 9, 1, "article", 20)(17, World2Component_Conditional_2_Conditional_17_Template, 9, 1, "article", 20)(18, World2Component_Conditional_2_Conditional_18_Template, 9, 1, "article", 20);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate2("", ctx_r1.currentWorld2Activity + 1, " / ", ctx_r1.totalWorld2Activities);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", ctx_r1.world2ProgressPercent(), "%");
+    \u0275\u0275advance(3);
+    \u0275\u0275conditional(ctx_r1.currentWorld2Activity === 0 ? 11 : ctx_r1.currentWorld2Activity === 1 ? 12 : ctx_r1.currentWorld2Activity === 2 ? 13 : ctx_r1.currentWorld2Activity === 3 ? 14 : ctx_r1.currentWorld2Activity === 4 ? 15 : ctx_r1.currentWorld2Activity === 5 ? 16 : ctx_r1.currentWorld2Activity === 6 ? 17 : ctx_r1.currentWorld2Activity === 7 ? 18 : -1);
   }
 }
 var World2Component = class _World2Component {
@@ -47134,8 +47937,67 @@ var World2Component = class _World2Component {
   game;
   unlockWorld3 = new EventEmitter();
   backToForest = new EventEmitter();
+  ngOnInit() {
+    this.startW2Dialogue();
+  }
   currentWorld2Activity = 0;
   totalWorld2Activities = 8;
+  // ═══════════════════════════════════════════════════════════
+  // INTRO CON DIÁLOGO (Vera la maga presenta el mundo de variables)
+  // ═══════════════════════════════════════════════════════════
+  showW2Intro = true;
+  /** Personaje guía de este mundo. */
+  w2Character = "\u{1F9D9}\u200D\u2640\uFE0F";
+  w2Dialogue = [
+    "\xA1Saludos! Soy Vera, la maga del Sendero. \u{1F9D9}\u200D\u2640\uFE0F",
+    "Este es el Mundo de las Variables. \xA1Aqu\xED guardaremos cosas con magia!",
+    "Una variable es como una caja m\xE1gica \u{1F4E6} con una etiqueta.",
+    "Dentro puedes guardar un n\xFAmero, un nombre o cualquier cosa que necesites.",
+    "Y lo mejor: puedes cambiar lo que hay dentro cuando quieras. \u2728",
+    "\xBFList@ para dominar la magia de las variables? \xA1Acomp\xE1\xF1ame! \u{1F31F}"
+  ];
+  w2DialogueIndex = 0;
+  w2DisplayedText = "";
+  w2Typing = false;
+  w2TypeTimer = null;
+  startW2Dialogue() {
+    this.w2DialogueIndex = 0;
+    this.typeW2Line();
+  }
+  typeW2Line() {
+    clearInterval(this.w2TypeTimer);
+    const full = this.w2Dialogue[this.w2DialogueIndex];
+    this.w2DisplayedText = "";
+    this.w2Typing = true;
+    let i = 0;
+    this.w2TypeTimer = setInterval(() => {
+      this.w2DisplayedText = full.slice(0, ++i);
+      if (i >= full.length) {
+        clearInterval(this.w2TypeTimer);
+        this.w2Typing = false;
+      }
+      this.cdr.detectChanges();
+    }, 32);
+  }
+  get w2DialogueFinished() {
+    return this.w2DialogueIndex >= this.w2Dialogue.length - 1 && !this.w2Typing;
+  }
+  advanceW2Dialogue() {
+    if (this.w2Typing) {
+      clearInterval(this.w2TypeTimer);
+      this.w2DisplayedText = this.w2Dialogue[this.w2DialogueIndex];
+      this.w2Typing = false;
+      return;
+    }
+    if (this.w2DialogueIndex < this.w2Dialogue.length - 1) {
+      this.w2DialogueIndex++;
+      this.typeW2Line();
+    }
+  }
+  startWorld2() {
+    clearInterval(this.w2TypeTimer);
+    this.showW2Intro = false;
+  }
   // Actividad 1 – Cajas mágicas
   magicItems = [
     { emoji: "\u2B50", label: "estrella", placed: false },
@@ -47265,8 +48127,8 @@ var World2Component = class _World2Component {
   backpackAdventureStep = 0;
   backpackDone = false;
   // Actividad 8 – Evaluación final
-  quizAnswers = [null, null, null];
-  quizCorrect = ["6", "texto", "cambiar"];
+  quizAnswers = [null, null, null, null, null];
+  quizCorrect = ["6", "texto", "cambiar", "caja", "3"];
   quizFeedback = "";
   quizDone = false;
   // ═══════════════════════════════════════════════════════════
@@ -47837,7 +48699,7 @@ var World2Component = class _World2Component {
   // ACTIVIDAD 8: EVALUACIÓN
   // ───────────────────────────────────────────────────────────
   resetQuiz() {
-    this.quizAnswers = [null, null, null];
+    this.quizAnswers = [null, null, null, null, null];
     this.quizFeedback = "";
     this.quizDone = false;
   }
@@ -47862,33 +48724,15 @@ var World2Component = class _World2Component {
   static \u0275fac = function World2Component_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _World2Component)(\u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(GameStateService));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _World2Component, selectors: [["app-world-2"]], outputs: { unlockWorld3: "unlockWorld3", backToForest: "backToForest" }, decls: 20, vars: 5, consts: [[1, "world-screen"], [1, "world-container"], [1, "progress-section"], [1, "progress-info"], [1, "progress-bar"], [1, "progress-fill"], [1, "skip-btn", 3, "click"], [1, "activity-card"], [1, "activity-badge"], [1, "activity-desc"], [1, "success-box"], [1, "magic-hint"], [1, "magic-game"], [1, "magic-items"], [1, "magic-boxes"], [1, "magic-box", 3, "filled", "droppable"], [1, "feedback-box", 3, "error"], ["draggable", "true", 1, "magic-btn", 3, "selected"], ["draggable", "true", 1, "magic-btn", 3, "dragstart", "click"], [1, "magic-box", 3, "dragover", "drop", "click"], [1, "box-name"], [1, "box-content"], [1, "box-empty"], [1, "feedback-box"], [1, "reward-text"], [1, "btn-primary", 3, "click"], [1, "open-boxes-grid"], [1, "question-panel"], [1, "open-box", 3, "revealed"], [1, "open-box", 3, "click"], [1, "box-icon"], [1, "answer-options"], [1, "answer-btn", 3, "click"], [1, "lives-game"], [1, "lives-character"], [1, "lives-goal"], [1, "lives-var"], [1, "lives-var-name"], [1, "lives-var-value"], [1, "lives-hearts"], [1, "heart"], [1, "lives-empty"], [1, "value-buttons"], [1, "value-btn", 3, "click", "disabled"], [1, "value-btn", 3, "click"], [1, "feedback-box", 3, "success", "error"], [1, "shop-panel"], [1, "wallet"], [1, "shop-items"], [1, "shop-item"], [1, "feedback-box", 3, "error", "success"], [1, "item-icon"], [1, "item-info"], [1, "buy-btn", 3, "click", "disabled"], [1, "answer-btn", 3, "click", "disabled"], [1, "challenge-intro"], [1, "btn-secondary", 3, "click"], [1, "lives-event-text"], [1, "btn-primary"], [1, "event-btn", "big-event"], [1, "btn-secondary"], [1, "event-btn", "big-event", 3, "click"], [1, "mission-track"], [1, "mission-step", 3, "passed", "current"], [1, "mission-step", "goal"], [1, "mission-step"], [1, "hero-say"], [1, "input-panel"], ["type", "text", "placeholder", "Ej: Valentina", "maxlength", "20", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "text-var-box"], [1, "text-var-icon"], [1, "text-var-name"], [1, "text-var-value"], [1, "hero-explain"], [1, "hero-messages"], [1, "hero-msg"], [1, "hero-note"], ["type", "text", "placeholder", "Ej: Leo", "maxlength", "20", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "type-vars"], [1, "type-var-btn", 3, "disabled"], [1, "type-var-btn", 3, "click", "disabled"], [1, "tv-emoji"], [1, "tv-name"], [1, "tv-value"], [1, "hero-msg", "big"], [1, "answer-options", "vertical"], [1, "backpack-form"], ["type", "text", "placeholder", "Tu nombre", 3, "ngModelChange", "ngModel"], ["type", "number", "min", "0", 3, "ngModelChange", "ngModel"], [1, "backpack-stats"], [1, "completion-box"], [1, "quiz-panel"], [1, "quiz-question"], [1, "quiz-options"], [3, "click"], [1, "trophy"], [1, "rewards-row"], [1, "reward-item"]], template: function World2Component_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _World2Component, selectors: [["app-world-2"]], outputs: { unlockWorld3: "unlockWorld3", backToForest: "backToForest" }, decls: 3, vars: 1, consts: [[1, "world-screen"], [1, "world-intro", "world-intro--magic"], [1, "world-container"], [1, "world-intro", "world-intro--magic", 3, "click"], [1, "intro-badge"], [1, "dialogue-bubble"], [1, "dialogue-text"], [1, "type-caret"], [1, "intro-character-xl"], [1, "dialogue-dots"], [1, "dlg-dot", 3, "active", "seen"], [1, "tap-hint"], [1, "btn-primary", "intro-start"], [1, "dlg-dot"], [1, "btn-primary", "intro-start", 3, "click"], [1, "progress-section"], [1, "progress-info"], [1, "progress-bar"], [1, "progress-fill"], [1, "skip-btn", 3, "click"], [1, "activity-card"], [1, "activity-badge"], [1, "activity-desc"], [1, "success-box"], [1, "magic-hint"], [1, "magic-game"], [1, "magic-items"], [1, "magic-boxes"], [1, "magic-box", 3, "filled", "droppable"], [1, "feedback-box", 3, "error"], ["draggable", "true", 1, "magic-btn", 3, "selected"], ["draggable", "true", 1, "magic-btn", 3, "dragstart", "click"], [1, "magic-box", 3, "dragover", "drop", "click"], [1, "box-name"], [1, "box-content"], [1, "box-empty"], [1, "feedback-box"], [1, "reward-text"], [1, "btn-primary", 3, "click"], [1, "open-boxes-grid"], [1, "question-panel"], [1, "open-box", 3, "revealed"], [1, "open-box", 3, "click"], [1, "box-icon"], [1, "answer-options"], [1, "answer-btn", 3, "click"], [1, "lives-game"], [1, "lives-character"], [1, "lives-goal"], [1, "lives-var"], [1, "lives-var-name"], [1, "lives-var-value"], [1, "lives-hearts"], [1, "heart"], [1, "lives-empty"], [1, "value-buttons"], [1, "value-btn", 3, "click", "disabled"], [1, "value-btn", 3, "click"], [1, "feedback-box", 3, "success", "error"], [1, "shop-panel"], [1, "wallet"], [1, "shop-items"], [1, "shop-item"], [1, "feedback-box", 3, "error", "success"], [1, "item-icon"], [1, "item-info"], [1, "buy-btn", 3, "click", "disabled"], [1, "answer-btn", 3, "click", "disabled"], [1, "challenge-intro"], [1, "btn-secondary", 3, "click"], [1, "lives-event-text"], [1, "btn-primary"], [1, "event-btn", "big-event"], [1, "btn-secondary"], [1, "event-btn", "big-event", 3, "click"], [1, "mission-track"], [1, "mission-step", 3, "passed", "current"], [1, "mission-step", "goal"], [1, "mission-step"], [1, "hero-say"], [1, "input-panel"], ["type", "text", "placeholder", "Ej: Valentina", "maxlength", "20", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "text-var-box"], [1, "text-var-icon"], [1, "text-var-name"], [1, "text-var-value"], [1, "hero-explain"], [1, "hero-messages"], [1, "hero-msg"], [1, "hero-note"], ["type", "text", "placeholder", "Ej: Leo", "maxlength", "20", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "type-vars"], [1, "type-var-btn", 3, "disabled"], [1, "type-var-btn", 3, "click", "disabled"], [1, "tv-emoji"], [1, "tv-name"], [1, "tv-value"], [1, "hero-msg", "big"], [1, "answer-options", "vertical"], [1, "backpack-form"], ["type", "text", "placeholder", "Tu nombre", 3, "ngModelChange", "ngModel"], ["type", "number", "min", "0", 3, "ngModelChange", "ngModel"], [1, "backpack-stats"], [1, "completion-box"], [1, "quiz-panel"], [1, "quiz-question"], [1, "quiz-options"], [3, "click"], [1, "trophy"], [1, "rewards-row"], [1, "reward-item"]], template: function World2Component_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275elementStart(0, "main", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "span");
-      \u0275\u0275text(5, "\u{1F33F} Mundo 2: Sendero de Variables");
+      \u0275\u0275elementStart(0, "main", 0);
+      \u0275\u0275conditionalCreate(1, World2Component_Conditional_1_Template, 15, 8, "div", 1)(2, World2Component_Conditional_2_Template, 19, 5, "div", 2);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(6, "span");
-      \u0275\u0275text(7);
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(8, "div", 4);
-      \u0275\u0275element(9, "div", 5);
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(10, "button", 6);
-      \u0275\u0275listener("click", function World2Component_Template_button_click_10_listener() {
-        return ctx.skipWorld2Activity();
-      });
-      \u0275\u0275text(11, "Saltar \u23ED\uFE0F");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275conditionalCreate(12, World2Component_Conditional_12_Template, 9, 1, "article", 7)(13, World2Component_Conditional_13_Template, 9, 1, "article", 7)(14, World2Component_Conditional_14_Template, 9, 1, "article", 7)(15, World2Component_Conditional_15_Template, 9, 1, "article", 7)(16, World2Component_Conditional_16_Template, 9, 2, "article", 7)(17, World2Component_Conditional_17_Template, 9, 1, "article", 7)(18, World2Component_Conditional_18_Template, 9, 1, "article", 7)(19, World2Component_Conditional_19_Template, 9, 1, "article", 7);
-      \u0275\u0275elementEnd()();
     }
     if (rf & 2) {
-      \u0275\u0275advance(7);
-      \u0275\u0275textInterpolate2("", ctx.currentWorld2Activity + 1, " / ", ctx.totalWorld2Activities);
-      \u0275\u0275advance(2);
-      \u0275\u0275styleProp("width", ctx.world2ProgressPercent(), "%");
-      \u0275\u0275advance(3);
-      \u0275\u0275conditional(ctx.currentWorld2Activity === 0 ? 12 : ctx.currentWorld2Activity === 1 ? 13 : ctx.currentWorld2Activity === 2 ? 14 : ctx.currentWorld2Activity === 3 ? 15 : ctx.currentWorld2Activity === 4 ? 16 : ctx.currentWorld2Activity === 5 ? 17 : ctx.currentWorld2Activity === 6 ? 18 : ctx.currentWorld2Activity === 7 ? 19 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.showW2Intro ? 1 : 2);
     }
   }, dependencies: [CommonModule, FormsModule, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, MaxLengthValidator, MinValidator, NgModel], styles: ["\n/*# sourceMappingURL=world-2.css.map */"] });
 };
@@ -47896,6 +48740,36 @@ var World2Component = class _World2Component {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(World2Component, [{
     type: Component,
     args: [{ selector: "app-world-2", standalone: true, imports: [CommonModule, FormsModule], template: `    <main class="world-screen">
+      <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+           INTRO: Vera la maga aparece en grande y explica lo b\xE1sico
+           \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+      @if (showW2Intro) {
+        <div class="world-intro world-intro--magic" (click)="advanceW2Dialogue()">
+          <span class="intro-badge">\u{1F33F} MUNDO 2 \xB7 VARIABLES</span>
+
+          <div class="dialogue-bubble">
+            <p class="dialogue-text">{{ w2DisplayedText }}<span class="type-caret" [class.hidden]="!w2Typing">\u258B</span></p>
+          </div>
+
+          <div class="intro-character-xl" [class.talking]="w2Typing">{{ w2Character }}</div>
+
+          <div class="dialogue-dots">
+            @for (line of [0,1,2,3,4,5]; track line) {
+              <span class="dlg-dot" [class.active]="line === w2DialogueIndex" [class.seen]="line < w2DialogueIndex"></span>
+            }
+          </div>
+
+          @if (!w2DialogueFinished) {
+            <p class="tap-hint">\u{1F446} Toca la pantalla para continuar</p>
+          } @else {
+            <button class="btn-primary intro-start" (click)="startWorld2(); $event.stopPropagation()">
+              \xA1Comenzar el sendero! \u{1F31F}
+            </button>
+          }
+        </div>
+      }
+
+      @else {
       <div class="world-container">
         <div class="progress-section">
           <div class="progress-info">
@@ -48439,6 +49313,22 @@ var World2Component = class _World2Component {
                     <button [class.selected]="quizAnswers[2] === 'desaparecer'" (click)="selectQuizAnswer(2, 'desaparecer')">Desaparecer</button>
                   </div>
                 </div>
+                <div class="quiz-question">
+                  <h3>4. \xBFCon qu\xE9 se compara una variable?</h3>
+                  <div class="quiz-options">
+                    <button [class.selected]="quizAnswers[3] === 'caja'" (click)="selectQuizAnswer(3, 'caja')">Una caja que guarda algo</button>
+                    <button [class.selected]="quizAnswers[3] === 'piedra'" (click)="selectQuizAnswer(3, 'piedra')">Una piedra del camino</button>
+                    <button [class.selected]="quizAnswers[3] === 'nube'" (click)="selectQuizAnswer(3, 'nube')">Una nube en el cielo</button>
+                  </div>
+                </div>
+                <div class="quiz-question">
+                  <h3>5. Si una variable "vidas" vale 5 y pierdes 2, \xBFcu\xE1nto vale ahora?</h3>
+                  <div class="quiz-options">
+                    <button [class.selected]="quizAnswers[4] === '5'" (click)="selectQuizAnswer(4, '5')">5</button>
+                    <button [class.selected]="quizAnswers[4] === '3'" (click)="selectQuizAnswer(4, '3')">3</button>
+                    <button [class.selected]="quizAnswers[4] === '7'" (click)="selectQuizAnswer(4, '7')">7</button>
+                  </div>
+                </div>
               </div>
               <button class="btn-primary" (click)="checkQuiz()">\u2713 Verificar respuestas</button>
               @if (quizFeedback) {
@@ -48460,6 +49350,7 @@ var World2Component = class _World2Component {
           </article>
         }
       </div>
+      }
     </main>
 `, styles: ["/* src/app/worlds/world-2-path/world-2.css */\n/*# sourceMappingURL=world-2.css.map */\n"] }]
   }], () => [{ type: ChangeDetectorRef }, { type: GameStateService }], { unlockWorld3: [{
@@ -48473,158 +49364,233 @@ var World2Component = class _World2Component {
 })();
 
 // src/app/worlds/world-3-river/world-3.ts
-function World3Component_Conditional_12_Conditional_7_Conditional_12_Template(rf, ctx) {
+var _c03 = () => [0, 1, 2, 3, 4, 5];
+var _forTrack03 = ($index, $item) => $item.id;
+function World3Component_Conditional_1_For_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 17);
+    \u0275\u0275domElement(0, "span", 13);
+  }
+  if (rf & 2) {
+    const line_r3 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("active", line_r3 === ctx_r1.w3DialogueIndex)("seen", line_r3 < ctx_r1.w3DialogueIndex);
+  }
+}
+function World3Component_Conditional_1_Conditional_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "p", 11);
+    \u0275\u0275text(1, "\u{1F446} Toca la pantalla para continuar");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_1_Conditional_14_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 14);
+    \u0275\u0275domListener("click", function World3Component_Conditional_1_Conditional_14_Template_button_click_0_listener($event) {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      ctx_r1.startWorld3();
+      return \u0275\u0275resetView($event.stopPropagation());
+    });
+    \u0275\u0275text(1, " \xA1Cruzar el r\xEDo! \u{1FAB7} ");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 3);
+    \u0275\u0275domListener("click", function World3Component_Conditional_1_Template_div_click_0_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.advanceW3Dialogue());
+    });
+    \u0275\u0275domElementStart(1, "span", 4);
+    \u0275\u0275text(2, "\u{1F30A} MUNDO 3 \xB7 CONDICIONALES");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "div", 5)(4, "p", 6);
+    \u0275\u0275text(5);
+    \u0275\u0275domElementStart(6, "span", 7);
+    \u0275\u0275text(7, "\u258B");
+    \u0275\u0275domElementEnd()()();
+    \u0275\u0275domElementStart(8, "div", 8);
+    \u0275\u0275text(9);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(10, "div", 9);
+    \u0275\u0275repeaterCreate(11, World3Component_Conditional_1_For_12_Template, 1, 4, "span", 10, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275conditionalCreate(13, World3Component_Conditional_1_Conditional_13_Template, 2, 0, "p", 11)(14, World3Component_Conditional_1_Conditional_14_Template, 2, 0, "button", 12);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r1.w3DisplayedText);
+    \u0275\u0275advance();
+    \u0275\u0275classProp("hidden", !ctx_r1.w3Typing);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("talking", ctx_r1.w3Typing);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.w3Character);
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(7, _c03));
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(!ctx_r1.w3DialogueFinished ? 13 : 14);
+  }
+}
+function World3Component_Conditional_2_Conditional_11_Conditional_7_Conditional_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 30);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275classProp("error", ctx_r1.forkFeedbackError)("success", !ctx_r1.forkFeedbackError);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(ctx_r1.forkFeedback);
   }
 }
-function World3Component_Conditional_12_Conditional_7_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_11_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 11)(1, "div", 12);
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 24)(1, "div", 25);
     \u0275\u0275text(2);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "p", 13);
+    \u0275\u0275domElementStart(3, "p", 26);
     \u0275\u0275text(4, "\u{1F511} \xBFTienes la llave? ");
     \u0275\u0275domElement(5, "br");
     \u0275\u0275text(6, " S\xCD \u2192 camino derecha \xB7 NO \u2192 camino izquierda");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "div", 14)(8, "button", 15);
-    \u0275\u0275domListener("click", function World3Component_Conditional_12_Conditional_7_Template_button_click_8_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(7, "div", 27)(8, "button", 28);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_11_Conditional_7_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.chooseFork("left"));
     });
     \u0275\u0275text(9, "\u2B05\uFE0F Camino izquierda");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(10, "button", 15);
-    \u0275\u0275domListener("click", function World3Component_Conditional_12_Conditional_7_Template_button_click_10_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(10, "button", 28);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_11_Conditional_7_Template_button_click_10_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.chooseFork("right"));
     });
     \u0275\u0275text(11, "Camino derecha \u27A1\uFE0F");
     \u0275\u0275domElementEnd()()();
-    \u0275\u0275conditionalCreate(12, World3Component_Conditional_12_Conditional_7_Conditional_12_Template, 2, 5, "div", 16);
+    \u0275\u0275conditionalCreate(12, World3Component_Conditional_2_Conditional_11_Conditional_7_Conditional_12_Template, 2, 5, "div", 29);
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate2("", ctx_r1.forkScenario.emoji, " ", ctx_r1.forkScenario.text);
     \u0275\u0275advance(10);
     \u0275\u0275conditional(ctx_r1.forkFeedback ? 12 : -1);
   }
 }
-function World3Component_Conditional_12_Conditional_8_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_11_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 10)(1, "h2");
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u{1F309} \xA1Bien hecho!");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "p");
     \u0275\u0275text(4, "Aprendiste que una condici\xF3n te ayuda a decidir qu\xE9 camino tomar.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 18);
+    \u0275\u0275domElementStart(5, "p", 31);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_12_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(7, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_11_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.nextWorld3Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275domElementEnd()();
   }
 }
-function World3Component_Conditional_12_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275domElementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 1");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "h1");
     \u0275\u0275text(4, "La bifurcaci\xF3n \u{1F309}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 9);
+    \u0275\u0275domElementStart(5, "p", 22);
     \u0275\u0275text(6, "Una condici\xF3n permite tomar una decisi\xF3n: si se cumple, hacemos algo.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(7, World3Component_Conditional_12_Conditional_7_Template, 13, 3)(8, World3Component_Conditional_12_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_11_Conditional_7_Template, 13, 3)(8, World3Component_Conditional_2_Conditional_11_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
     \u0275\u0275conditional(!ctx_r1.forkDone ? 7 : 8);
   }
 }
-function World3Component_Conditional_13_Conditional_7_Conditional_25_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_12_Conditional_7_Conditional_25_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 17);
+    \u0275\u0275domElementStart(0, "div", 30);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275classProp("error", ctx_r1.detectorFeedbackError)("success", !ctx_r1.detectorFeedbackError);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(ctx_r1.detectorFeedback);
   }
 }
-function World3Component_Conditional_13_Conditional_7_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_12_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 11)(1, "div", 20)(2, "div", 21)(3, "span", 22);
+    const _r8 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 24)(1, "div", 33)(2, "div", 34)(3, "span", 35);
     \u0275\u0275text(4);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "span", 23);
+    \u0275\u0275domElementStart(5, "span", 36);
     \u0275\u0275text(6);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "strong", 24);
+    \u0275\u0275domElementStart(7, "strong", 37);
     \u0275\u0275text(8);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(9, "span", 25);
+    \u0275\u0275domElementStart(9, "span", 38);
     \u0275\u0275text(10, "==");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(11, "div", 21)(12, "span", 22);
+    \u0275\u0275domElementStart(11, "div", 34)(12, "span", 35);
     \u0275\u0275text(13, "\u{1F3AF}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(14, "span", 23);
+    \u0275\u0275domElementStart(14, "span", 36);
     \u0275\u0275text(15, "Objetivo");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(16, "strong", 24);
+    \u0275\u0275domElementStart(16, "strong", 37);
     \u0275\u0275text(17);
     \u0275\u0275domElementEnd()()();
-    \u0275\u0275domElementStart(18, "p", 13);
+    \u0275\u0275domElementStart(18, "p", 26);
     \u0275\u0275text(19);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(20, "div", 26)(21, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_13_Conditional_7_Template_button_click_21_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(20, "div", 39)(21, "button", 40);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_12_Conditional_7_Template_button_click_21_listener() {
+      \u0275\u0275restoreView(_r8);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.answerDetector(true));
     });
     \u0275\u0275text(22, "\u2705 S\xED");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(23, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_13_Conditional_7_Template_button_click_23_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(23, "button", 40);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_12_Conditional_7_Template_button_click_23_listener() {
+      \u0275\u0275restoreView(_r8);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.answerDetector(false));
     });
     \u0275\u0275text(24, "\u274C No");
     \u0275\u0275domElementEnd()()();
-    \u0275\u0275conditionalCreate(25, World3Component_Conditional_13_Conditional_7_Conditional_25_Template, 2, 5, "div", 16);
+    \u0275\u0275conditionalCreate(25, World3Component_Conditional_2_Conditional_12_Conditional_7_Conditional_25_Template, 2, 5, "div", 29);
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(ctx_r1.detectorRound.icon);
     \u0275\u0275advance(2);
@@ -48639,106 +49605,106 @@ function World3Component_Conditional_13_Conditional_7_Template(rf, ctx) {
     \u0275\u0275conditional(ctx_r1.detectorFeedback ? 25 : -1);
   }
 }
-function World3Component_Conditional_13_Conditional_8_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_12_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 10)(1, "h2");
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u{1F50E} \xA1Detective de valores!");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "p");
     \u0275\u0275text(4, "Aprendiste a comparar si dos valores son iguales.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 18);
+    \u0275\u0275domElementStart(5, "p", 31);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_13_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r5);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(7, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_12_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.nextWorld3Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275domElementEnd()();
   }
 }
-function World3Component_Conditional_13_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275domElementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 2");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "h1");
     \u0275\u0275text(4, "El detector \u{1F50E}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 9);
+    \u0275\u0275domElementStart(5, "p", 22);
     \u0275\u0275text(6, "Comparar valores: \xBFson iguales? Esto se escribe con == .");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(7, World3Component_Conditional_13_Conditional_7_Template, 26, 6)(8, World3Component_Conditional_13_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_12_Conditional_7_Template, 26, 6)(8, World3Component_Conditional_2_Conditional_12_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
     \u0275\u0275conditional(!ctx_r1.detectorDone ? 7 : 8);
   }
 }
-function World3Component_Conditional_14_Conditional_7_Conditional_22_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_13_Conditional_7_Conditional_22_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 17);
+    \u0275\u0275domElementStart(0, "div", 30);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275classProp("error", ctx_r1.doorFeedbackError)("success", !ctx_r1.doorFeedbackError);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(ctx_r1.doorFeedback);
   }
 }
-function World3Component_Conditional_14_Conditional_7_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_13_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 11)(1, "div", 28);
+    const _r10 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 24)(1, "div", 41);
     \u0275\u0275text(2);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "p", 13);
+    \u0275\u0275domElementStart(3, "p", 26);
     \u0275\u0275text(4, "Para entrar necesitas ");
     \u0275\u0275domElementStart(5, "strong");
     \u0275\u0275text(6);
     \u0275\u0275domElementEnd();
     \u0275\u0275text(7, ".");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(8, "div", 29)(9, "span", 22);
+    \u0275\u0275domElementStart(8, "div", 42)(9, "span", 35);
     \u0275\u0275text(10, "\u{1FA99}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(11, "span", 23);
+    \u0275\u0275domElementStart(11, "span", 36);
     \u0275\u0275text(12, "Monedas");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(13, "strong", 24);
+    \u0275\u0275domElementStart(13, "strong", 37);
     \u0275\u0275text(14);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(15, "p", 13);
+    \u0275\u0275domElementStart(15, "p", 26);
     \u0275\u0275text(16, "\xBFPuedes pasar?");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(17, "div", 26)(18, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_14_Conditional_7_Template_button_click_18_listener() {
-      \u0275\u0275restoreView(_r6);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(17, "div", 39)(18, "button", 40);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_18_listener() {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.answerDoor(true));
     });
     \u0275\u0275text(19, "\u2705 S\xED");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(20, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_14_Conditional_7_Template_button_click_20_listener() {
-      \u0275\u0275restoreView(_r6);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(20, "button", 40);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_13_Conditional_7_Template_button_click_20_listener() {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.answerDoor(false));
     });
     \u0275\u0275text(21, "\u274C No");
     \u0275\u0275domElementEnd()()();
-    \u0275\u0275conditionalCreate(22, World3Component_Conditional_14_Conditional_7_Conditional_22_Template, 2, 5, "div", 16);
+    \u0275\u0275conditionalCreate(22, World3Component_Conditional_2_Conditional_13_Conditional_7_Conditional_22_Template, 2, 5, "div", 29);
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance();
     \u0275\u0275classProp("open", ctx_r1.doorOpen);
     \u0275\u0275advance();
@@ -48751,129 +49717,132 @@ function World3Component_Conditional_14_Conditional_7_Template(rf, ctx) {
     \u0275\u0275conditional(ctx_r1.doorFeedback ? 22 : -1);
   }
 }
-function World3Component_Conditional_14_Conditional_8_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_13_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 10)(1, "h2");
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u{1FA99} \xA1Puerta dominada!");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "p");
     \u0275\u0275text(4, "Una condici\xF3n puede comparar si un valor es mayor o menor que otro.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 18);
+    \u0275\u0275domElementStart(5, "p", 31);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_14_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(7, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_13_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.nextWorld3Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275domElementEnd()();
   }
 }
-function World3Component_Conditional_14_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275domElementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 3");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "h1");
     \u0275\u0275text(4, "La puerta de las monedas \u{1FA99}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 9);
+    \u0275\u0275domElementStart(5, "p", 22);
     \u0275\u0275text(6, "Una condici\xF3n puede depender del valor de una variable (mayor o menor que).");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(7, World3Component_Conditional_14_Conditional_7_Template, 23, 6)(8, World3Component_Conditional_14_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_13_Conditional_7_Template, 23, 6)(8, World3Component_Conditional_2_Conditional_13_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
     \u0275\u0275conditional(!ctx_r1.doorDone ? 7 : 8);
   }
 }
-function World3Component_Conditional_15_Conditional_7_For_10_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_For_10_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 36);
+    \u0275\u0275domElementStart(0, "span", 51);
     \u0275\u0275text(1, "\u2764\uFE0F");
     \u0275\u0275domElementEnd();
   }
 }
-function World3Component_Conditional_15_Conditional_7_Conditional_11_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_Conditional_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 37);
+    \u0275\u0275domElementStart(0, "span", 52);
     \u0275\u0275text(1, "sin vidas");
     \u0275\u0275domElementEnd();
   }
 }
-function World3Component_Conditional_15_Conditional_7_Conditional_19_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_15_Conditional_7_Conditional_19_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.finishIfLives());
-    });
-    \u0275\u0275text(1, "Entendido, continuar \u2192");
+    const _r12 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 45)(1, "div", 46);
+    \u0275\u0275text(2, "Cambia las \u2764\uFE0F y observa qu\xE9 hace el h\xE9roe");
     \u0275\u0275domElementEnd();
-  }
-}
-function World3Component_Conditional_15_Conditional_7_Conditional_20_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 17);
-    \u0275\u0275text(1);
-    \u0275\u0275domElementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("error", ctx_r1.ifLivesReached0)("success", !ctx_r1.ifLivesReached0);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.ifLivesFeedback);
-  }
-}
-function World3Component_Conditional_15_Conditional_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 30)(1, "div", 31);
-    \u0275\u0275text(2, "SI vidas > 0 \u2192 continuar");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "div", 32)(4, "span", 33);
+    \u0275\u0275domElementStart(3, "div", 47)(4, "span", 48);
     \u0275\u0275text(5, "\u2764\uFE0F Vidas =");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(6, "strong", 34);
+    \u0275\u0275domElementStart(6, "strong", 49);
     \u0275\u0275text(7);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(8, "div", 35);
-    \u0275\u0275repeaterCreate(9, World3Component_Conditional_15_Conditional_7_For_10_Template, 2, 0, "span", 36, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275conditionalCreate(11, World3Component_Conditional_15_Conditional_7_Conditional_11_Template, 2, 0, "span", 37);
+    \u0275\u0275domElementStart(8, "div", 50);
+    \u0275\u0275repeaterCreate(9, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_For_10_Template, 2, 0, "span", 51, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(11, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_Conditional_11_Template, 2, 0, "span", 52);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(12, "div", 38);
+    \u0275\u0275domElementStart(12, "div", 53);
     \u0275\u0275text(13);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(14, "div", 39)(15, "button", 40);
-    \u0275\u0275domListener("click", function World3Component_Conditional_15_Conditional_7_Template_button_click_15_listener() {
-      \u0275\u0275restoreView(_r8);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(14, "div", 54)(15, "button", 55);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_Template_button_click_15_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r1 = \u0275\u0275nextContext(4);
       return \u0275\u0275resetView(ctx_r1.ifLivesSub());
     });
     \u0275\u0275text(16, "\u2796 Restar 1");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(17, "button", 40);
-    \u0275\u0275domListener("click", function World3Component_Conditional_15_Conditional_7_Template_button_click_17_listener() {
-      \u0275\u0275restoreView(_r8);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(17, "button", 55);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_Template_button_click_17_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r1 = \u0275\u0275nextContext(4);
       return \u0275\u0275resetView(ctx_r1.ifLivesAdd());
     });
     \u0275\u0275text(18, "\u2795 Sumar 1");
     \u0275\u0275domElementEnd()();
-    \u0275\u0275conditionalCreate(19, World3Component_Conditional_15_Conditional_7_Conditional_19_Template, 2, 0, "button", 41);
+    \u0275\u0275domElementStart(19, "ul", 56)(20, "li")(21, "span");
+    \u0275\u0275text(22, "\u2764\uFE0F\u2764\uFE0F\u2764\uFE0F vidas > 2");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(20, World3Component_Conditional_15_Conditional_7_Conditional_20_Template, 2, 5, "div", 16);
+    \u0275\u0275domElementStart(23, "span");
+    \u0275\u0275text(24, "\u{1F5E1}\uFE0F Enfrentar al enemigo");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(25, "li")(26, "span");
+    \u0275\u0275text(27, "\u2764\uFE0F\u2764\uFE0F vidas = 2");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(28, "span");
+    \u0275\u0275text(29, "\u{1F3C3} Continuar con cuidado");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(30, "li")(31, "span");
+    \u0275\u0275text(32, "\u2764\uFE0F vidas = 1");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(33, "span");
+    \u0275\u0275text(34, "\u{1F49A} Buscar una vida extra");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(35, "li")(36, "span");
+    \u0275\u0275text(37, "\u{1F5A4} vidas = 0");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(38, "span");
+    \u0275\u0275text(39, "\u{1F480} Game Over");
+    \u0275\u0275domElementEnd()()();
+    \u0275\u0275domElementStart(40, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_Template_button_click_40_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.goToLivesOrder());
+    });
+    \u0275\u0275text(41, "Siguiente: ordenar condiciones \u2192");
+    \u0275\u0275domElementEnd()();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275advance(7);
     \u0275\u0275textInterpolate(ctx_r1.ifLivesValue);
     \u0275\u0275advance(2);
@@ -48881,436 +49850,1132 @@ function World3Component_Conditional_15_Conditional_7_Template(rf, ctx) {
     \u0275\u0275advance(2);
     \u0275\u0275conditional(ctx_r1.ifLivesValue === 0 ? 11 : -1);
     \u0275\u0275advance();
-    \u0275\u0275classProp("ok", !ctx_r1.ifLivesReached0)("stop", ctx_r1.ifLivesReached0);
+    \u0275\u0275classProp("ok", ctx_r1.ifLivesCurrentOutcome.cls === "ok")("fight", ctx_r1.ifLivesCurrentOutcome.cls === "fight")("seek", ctx_r1.ifLivesCurrentOutcome.cls === "seek")("stop", ctx_r1.ifLivesCurrentOutcome.cls === "stop");
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.ifLivesReached0 ? "\u{1F6D1} No puedes continuar" : "\u{1F3C3} Contin\xFAa", " ");
+    \u0275\u0275textInterpolate2(" ", ctx_r1.ifLivesCurrentOutcome.emoji, " ", ctx_r1.ifLivesCurrentOutcome.label, " ");
     \u0275\u0275advance(2);
     \u0275\u0275domProperty("disabled", ctx_r1.ifLivesValue === 0);
     \u0275\u0275advance(2);
-    \u0275\u0275domProperty("disabled", ctx_r1.ifLivesValue === 5);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.ifLivesReached0 || ctx_r1.ifLivesReachedContinue ? 19 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.ifLivesFeedback ? 20 : -1);
+    \u0275\u0275domProperty("disabled", ctx_r1.ifLivesValue === 4);
+    \u0275\u0275advance(3);
+    \u0275\u0275classProp("now", ctx_r1.ifLivesValue > 2);
+    \u0275\u0275advance(5);
+    \u0275\u0275classProp("now", ctx_r1.ifLivesValue === 2);
+    \u0275\u0275advance(5);
+    \u0275\u0275classProp("now", ctx_r1.ifLivesValue === 1);
+    \u0275\u0275advance(5);
+    \u0275\u0275classProp("now", ctx_r1.ifLivesValue === 0);
   }
 }
-function World3Component_Conditional_15_Conditional_8_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_For_5_Template(rf, ctx) {
   if (rf & 1) {
-    const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 10)(1, "h2");
+    const _r13 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 61);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_For_5_Template_button_click_0_listener() {
+      const \u0275$index_346_r14 = \u0275\u0275restoreView(_r13).$index;
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.removeCondition(\u0275$index_346_r14));
+    });
+    \u0275\u0275domElementStart(1, "span", 62);
+    \u0275\u0275text(2);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 63);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "span", 64);
+    \u0275\u0275text(6);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const id_r15 = ctx.$implicit;
+    const \u0275$index_346_r14 = ctx.$index;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275$index_346_r14 + 1);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.conditionCard(id_r15).text);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("\u2192 ", ctx_r1.conditionCard(id_r15).action);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 59);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1("Ranura ", ctx_r1.livesOrderPlaced.length + 1);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_7_For_4_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r16 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 68);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_7_For_4_Template_button_click_0_listener() {
+      const id_r17 = \u0275\u0275restoreView(_r16).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(6);
+      return \u0275\u0275resetView(ctx_r1.placeCondition(id_r17));
+    });
+    \u0275\u0275domElementStart(1, "span", 63);
+    \u0275\u0275text(2);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 64);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const id_r17 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(6);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.conditionCard(id_r17).text);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("\u2192 ", ctx_r1.conditionCard(id_r17).action);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "p", 65);
+    \u0275\u0275text(1, "Toca una condici\xF3n para colocarla:");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(2, "div", 66);
+    \u0275\u0275repeaterCreate(3, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_7_For_4_Template, 5, 2, "button", 67, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275advance(3);
+    \u0275\u0275repeater(ctx_r1.livesOrderPool);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 30);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("error", ctx_r1.livesOrderError)("success", ctx_r1.livesOrderOk);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.livesOrderFeedback);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_9_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r18 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_9_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r18);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.checkLivesOrder());
+    });
+    \u0275\u0275text(1, "Comprobar orden \u2713");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_10_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r19 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_10_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r19);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.goToLivesPredict());
+    });
+    \u0275\u0275text(1, "Siguiente: \xA1a predecir! \u2192");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 45)(1, "p", 26);
+    \u0275\u0275text(2, "\u{1F9E0} Reto: ordena las condiciones. El programa las revisa de arriba hacia abajo, as\xED que empieza por la m\xE1s exigente.");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "div", 57);
+    \u0275\u0275repeaterCreate(4, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_For_5_Template, 7, 3, "button", 58, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(6, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_6_Template, 2, 1, "div", 59);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_7_Template, 5, 0);
+    \u0275\u0275conditionalCreate(8, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_8_Template, 2, 5, "div", 29);
+    \u0275\u0275conditionalCreate(9, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_9_Template, 2, 0, "button", 60)(10, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Conditional_10_Template, 2, 0, "button", 60);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(4);
+    \u0275\u0275repeater(ctx_r1.livesOrderPlaced);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.livesOrderPlaced.length < 3 ? 6 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.livesOrderPool.length > 0 ? 7 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.livesOrderFeedback ? 8 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!ctx_r1.livesOrderOk ? 9 : 10);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_For_10_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span", 51);
+    \u0275\u0275text(1, "\u2764\uFE0F");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_11_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span", 52);
+    \u0275\u0275text(1, "sin vidas");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_21_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 30);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("error", !ctx_r1.predictCorrect)("success", ctx_r1.predictCorrect);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.predictFeedback);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_22_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r21 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 72);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_22_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r21);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.revealPrediction());
+    });
+    \u0275\u0275text(1, "\u25B6\uFE0F Ejecutar y comprobar");
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275domProperty("disabled", !ctx_r1.predictChoice);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_23_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r22 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 54)(1, "button", 73);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_23_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r22);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.newPrediction());
+    });
+    \u0275\u0275text(2, "\u{1F501} Otra ronda");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_23_Template_button_click_3_listener() {
+      \u0275\u0275restoreView(_r22);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.finishIfLives());
+    });
+    \u0275\u0275text(4, "Terminar actividad \u2192");
+    \u0275\u0275domElementEnd()();
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r20 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 45)(1, "p", 26);
+    \u0275\u0275text(2, "\u{1F52E} Reto final: mira las vidas y predice qu\xE9 har\xE1 el h\xE9roe ANTES de ejecutar.");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "div", 47)(4, "span", 48);
+    \u0275\u0275text(5, "\u2764\uFE0F Vidas =");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(6, "strong", 49);
+    \u0275\u0275text(7);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(8, "div", 50);
+    \u0275\u0275repeaterCreate(9, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_For_10_Template, 2, 0, "span", 51, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(11, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_11_Template, 2, 0, "span", 52);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(12, "div", 69)(13, "button", 70);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Template_button_click_13_listener() {
+      \u0275\u0275restoreView(_r20);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.choosePrediction("fight"));
+    });
+    \u0275\u0275text(14, "\u{1F5E1}\uFE0F Enfrentar");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(15, "button", 70);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Template_button_click_15_listener() {
+      \u0275\u0275restoreView(_r20);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.choosePrediction("careful"));
+    });
+    \u0275\u0275text(16, "\u{1F3C3} Continuar");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(17, "button", 70);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Template_button_click_17_listener() {
+      \u0275\u0275restoreView(_r20);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.choosePrediction("seek"));
+    });
+    \u0275\u0275text(18, "\u{1F49A} Buscar vida");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(19, "button", 70);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Template_button_click_19_listener() {
+      \u0275\u0275restoreView(_r20);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.choosePrediction("over"));
+    });
+    \u0275\u0275text(20, "\u{1F480} Game Over");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275conditionalCreate(21, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_21_Template, 2, 5, "div", 29);
+    \u0275\u0275conditionalCreate(22, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_22_Template, 2, 1, "button", 71)(23, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Conditional_23_Template, 5, 0, "div", 54);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate(ctx_r1.predictLives);
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r1.predictHearts);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.predictLives === 0 ? 11 : -1);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.predictChoice === "fight");
+    \u0275\u0275domProperty("disabled", ctx_r1.predictRevealed);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.predictChoice === "careful");
+    \u0275\u0275domProperty("disabled", ctx_r1.predictRevealed);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.predictChoice === "seek");
+    \u0275\u0275domProperty("disabled", ctx_r1.predictRevealed);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.predictChoice === "over");
+    \u0275\u0275domProperty("disabled", ctx_r1.predictRevealed);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.predictFeedback ? 21 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!ctx_r1.predictRevealed ? 22 : 23);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 43)(1, "span", 44);
+    \u0275\u0275text(2, "1 \xB7 Explorar");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 44);
+    \u0275\u0275text(4, "2 \xB7 Ordenar");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "span", 44);
+    \u0275\u0275text(6, "3 \xB7 Predecir");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_7_Template, 42, 22, "div", 45)(8, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_8_Template, 11, 4, "div", 45)(9, World3Component_Conditional_2_Conditional_14_Conditional_7_Conditional_9_Template, 24, 16, "div", 45);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275classProp("active", ctx_r1.ifLivesPhase === "explore");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("active", ctx_r1.ifLivesPhase === "order");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("active", ctx_r1.ifLivesPhase === "predict");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.ifLivesPhase === "explore" ? 7 : ctx_r1.ifLivesPhase === "order" ? 8 : 9);
+  }
+}
+function World3Component_Conditional_2_Conditional_14_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r23 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u2764\uFE0F \xA1Lo entendiste!");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "p");
-    \u0275\u0275text(4, "Una condici\xF3n SI decide si el personaje puede continuar seg\xFAn sus vidas.");
+    \u0275\u0275text(4, "El valor de una variable (las vidas) cambia el camino que toma el programa. Y el orden de las condiciones importa.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 18);
+    \u0275\u0275domElementStart(5, "p", 31);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_15_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r10);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(7, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_14_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r23);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.nextWorld3Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275domElementEnd()();
   }
 }
-function World3Component_Conditional_15_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_14_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275domElementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 4");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "h1");
     \u0275\u0275text(4, "Si tienes vidas... \u2764\uFE0F");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 9);
-    \u0275\u0275text(6, "Regla: SI vidas > 0 \u2192 puedes continuar. Cambia las vidas y observa qu\xE9 pasa.");
+    \u0275\u0275domElementStart(5, "p", 22);
+    \u0275\u0275text(6, "Tus vidas deciden el camino del programa. Explora, ordena las condiciones y predice el resultado.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(7, World3Component_Conditional_15_Conditional_7_Template, 21, 11)(8, World3Component_Conditional_15_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_14_Conditional_7_Template, 10, 7)(8, World3Component_Conditional_2_Conditional_14_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
     \u0275\u0275conditional(!ctx_r1.ifLivesDone ? 7 : 8);
   }
 }
-function World3Component_Conditional_16_Conditional_7_Conditional_12_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Conditional_19_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 42);
+    \u0275\u0275domElementStart(0, "div", 30);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.elseResult === "if" ? ctx_r1.elseScenario.ifText : ctx_r1.elseScenario.elseText);
-  }
-}
-function World3Component_Conditional_16_Conditional_7_Conditional_13_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 17);
-    \u0275\u0275text(1);
-    \u0275\u0275domElementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(5);
     \u0275\u0275classProp("error", ctx_r1.elseFeedbackError)("success", !ctx_r1.elseFeedbackError);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(ctx_r1.elseFeedback);
   }
 }
-function World3Component_Conditional_16_Conditional_7_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Conditional_20_Template(rf, ctx) {
   if (rf & 1) {
-    const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 11)(1, "div", 12);
-    \u0275\u0275text(2);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "div", 31);
-    \u0275\u0275text(4);
-    \u0275\u0275domElement(5, "br");
-    \u0275\u0275text(6);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "div", 26)(8, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_16_Conditional_7_Template_button_click_8_listener() {
-      \u0275\u0275restoreView(_r11);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.chooseElse(true));
+    const _r25 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Conditional_20_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r25);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.goToElseClassify());
     });
-    \u0275\u0275text(9, "\u2705 S\xED (rama SI)");
+    \u0275\u0275text(1, "Siguiente: reto extra \u2192");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(10, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_16_Conditional_7_Template_button_click_10_listener() {
-      \u0275\u0275restoreView(_r11);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.chooseElse(false));
-    });
-    \u0275\u0275text(11, "\u274C No (rama SI NO)");
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275conditionalCreate(12, World3Component_Conditional_16_Conditional_7_Conditional_12_Template, 2, 1, "div", 42);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(13, World3Component_Conditional_16_Conditional_7_Conditional_13_Template, 2, 5, "div", 16);
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.elseScenario.question);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1(" SI (condici\xF3n) \u2192 ", ctx_r1.elseScenario.ifText);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1(" SI NO \u2192 ", ctx_r1.elseScenario.elseText, " ");
-    \u0275\u0275advance(6);
-    \u0275\u0275conditional(ctx_r1.elseResult ? 12 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.elseFeedback ? 13 : -1);
   }
 }
-function World3Component_Conditional_16_Conditional_8_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
-    const _r12 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 10)(1, "h2");
-    \u0275\u0275text(2, "\u{1F500} \xA1SI / SI NO dominado!");
+    const _r24 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 24)(1, "div", 46);
+    \u0275\u0275text(2, " SI llave > 0 \u2192 \u{1F513} Abrir la puerta");
+    \u0275\u0275domElement(3, "br");
+    \u0275\u0275text(4, " SI NO \u2192 \u{1F50E} Buscar la llave ");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "div", 74)(6, "div", 41);
+    \u0275\u0275text(7);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(8, "div", 75);
+    \u0275\u0275text(9);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(10, "p", 26);
+    \u0275\u0275text(11, "Elige tu situaci\xF3n:");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(12, "div", 39)(13, "button", 40);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Template_button_click_13_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.toggleElseKey(true));
+    });
+    \u0275\u0275text(14, "\u{1F511} Tengo llave");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(15, "button", 40);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Template_button_click_15_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.toggleElseKey(false));
+    });
+    \u0275\u0275text(16, "\u274C No tengo llave");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(17, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Template_button_click_17_listener() {
+      \u0275\u0275restoreView(_r24);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.runElseDoor());
+    });
+    \u0275\u0275text(18, "\u25B6\uFE0F Ejecutar programa");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275conditionalCreate(19, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Conditional_19_Template, 2, 5, "div", 29);
+    \u0275\u0275conditionalCreate(20, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Conditional_20_Template, 2, 0, "button", 60);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(6);
+    \u0275\u0275classProp("open", ctx_r1.elseRan && ctx_r1.elseHasKey);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.elseRan && ctx_r1.elseHasKey ? "\u{1F513}" : "\u{1F6AA}", " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.elseHasKey ? "\u{1F511} Tienes la llave" : "\u274C Sin llave");
+    \u0275\u0275advance(4);
+    \u0275\u0275classProp("selected", ctx_r1.elseHasKey);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", !ctx_r1.elseHasKey);
+    \u0275\u0275advance(4);
+    \u0275\u0275conditional(ctx_r1.elseFeedback ? 19 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.elseRan ? 20 : -1);
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_For_7_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 83);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const s_r27 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.isElseCorrect(s_r27) ? "\u2705" : "\u274C \u2192 " + (ctx_r1.elseExpected(s_r27.keys) === "open" ? "\u{1F513} Abrir" : "\u{1F50E} Buscar"));
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r26 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 79)(1, "div", 80);
+    \u0275\u0275text(2);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "div", 81)(4, "button", 82);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_For_7_Template_button_click_4_listener() {
+      const s_r27 = \u0275\u0275restoreView(_r26).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.assignElse(s_r27.id, "open"));
+    });
+    \u0275\u0275text(5, "\u{1F513} Abrir");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(6, "button", 82);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_For_7_Template_button_click_6_listener() {
+      const s_r27 = \u0275\u0275restoreView(_r26).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.assignElse(s_r27.id, "search"));
+    });
+    \u0275\u0275text(7, "\u{1F50E} Buscar");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275conditionalCreate(8, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_For_7_Conditional_8_Template, 2, 1, "div", 83);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const s_r27 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("correct", ctx_r1.elseChecked && ctx_r1.isElseCorrect(s_r27))("wrong", ctx_r1.elseChecked && !ctx_r1.isElseCorrect(s_r27));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("llave = ", s_r27.keys);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", s_r27.choice === "open");
+    \u0275\u0275domProperty("disabled", ctx_r1.elseChecked);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", s_r27.choice === "search");
+    \u0275\u0275domProperty("disabled", ctx_r1.elseChecked);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.elseChecked ? 8 : -1);
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 30);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("error", ctx_r1.elseChecked && !ctx_r1.elseAllCorrect)("success", ctx_r1.elseAllCorrect);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.elseClassifyFeedback);
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_9_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r28 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_9_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r28);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.checkElseClassify());
+    });
+    \u0275\u0275text(1, "\u25B6\uFE0F Ejecutar y comprobar");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_10_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r29 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_10_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r29);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.finishElse());
+    });
+    \u0275\u0275text(1, "Terminar actividad \u2192");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_11_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r30 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 73);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_11_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r30);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.resetElseClassify());
+    });
+    \u0275\u0275text(1, "\u{1F501} Intentar de nuevo");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 24)(1, "p", 26);
+    \u0275\u0275text(2, "\u{1F9E0} Reto extra: sin ejecutar, decide qu\xE9 camino tomar\xE1 cada situaci\xF3n.");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "div", 46);
+    \u0275\u0275text(4, "SI llave > 0 \u2192 \u{1F513} Abrir puerta \xA0|\xA0 SI NO \u2192 \u{1F50E} Buscar llave");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "div", 76);
+    \u0275\u0275repeaterCreate(6, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_For_7_Template, 9, 12, "div", 77, _forTrack03);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275conditionalCreate(8, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_8_Template, 2, 5, "div", 29);
+    \u0275\u0275conditionalCreate(9, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_9_Template, 2, 0, "button", 60)(10, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_10_Template, 2, 0, "button", 60)(11, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Conditional_11_Template, 2, 0, "button", 78);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(ctx_r1.elseSituations);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.elseClassifyFeedback ? 8 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!ctx_r1.elseChecked ? 9 : ctx_r1.elseAllCorrect ? 10 : 11);
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 43)(1, "span", 44);
+    \u0275\u0275text(2, "1 \xB7 Probar");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 44);
+    \u0275\u0275text(4, "2 \xB7 Reto extra");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275conditionalCreate(5, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_5_Template, 21, 10, "div", 24)(6, World3Component_Conditional_2_Conditional_15_Conditional_7_Conditional_6_Template, 12, 2, "div", 24);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275classProp("active", ctx_r1.elsePhase === "explore");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("active", ctx_r1.elsePhase === "classify");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.elsePhase === "explore" ? 5 : 6);
+  }
+}
+function World3Component_Conditional_2_Conditional_15_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r31 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 23)(1, "h2");
+    \u0275\u0275text(2, "\u{1F6AA} \xA1if / else dominado!");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "p");
-    \u0275\u0275text(4, "Una condici\xF3n puede llevar a dos caminos diferentes.");
+    \u0275\u0275text(4, "Una condici\xF3n deja que el programa tome uno de dos caminos posibles: SI se cumple, o SI NO.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 18);
+    \u0275\u0275domElementStart(5, "p", 31);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_16_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r12);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(7, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_15_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r31);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.nextWorld3Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275domElementEnd()();
   }
 }
-function World3Component_Conditional_16_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_15_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275domElementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 5");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "h1");
-    \u0275\u0275text(4, "Si no... toma otro camino \u{1F500}");
+    \u0275\u0275text(4, "La puerta \u{1F6AA}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 9);
-    \u0275\u0275text(6, "Una condici\xF3n puede producir dos resultados: SI se cumple, o SI NO.");
+    \u0275\u0275domElementStart(5, "p", 22);
+    \u0275\u0275text(6, "SI tienes una llave \u2192 abres la puerta. SI NO \u2192 buscas la llave. \xA1Dos caminos posibles!");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(7, World3Component_Conditional_16_Conditional_7_Template, 14, 5)(8, World3Component_Conditional_16_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_15_Conditional_7_Template, 7, 5)(8, World3Component_Conditional_2_Conditional_15_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
     \u0275\u0275conditional(!ctx_r1.elseDone ? 7 : 8);
   }
 }
-function World3Component_Conditional_17_Conditional_7_Conditional_31_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_45_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 17);
+    const _r33 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 72);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_45_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r33);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.runGuardian());
+    });
+    \u0275\u0275text(1, "\u25B6\uFE0F Ejecutar programa");
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275domProperty("disabled", ctx_r1.guardianPrediction === null);
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_46_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 30);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(5);
     \u0275\u0275classProp("error", ctx_r1.guardianFeedbackError)("success", !ctx_r1.guardianFeedbackError);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(ctx_r1.guardianFeedback);
   }
 }
-function World3Component_Conditional_17_Conditional_7_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_47_Template(rf, ctx) {
   if (rf & 1) {
-    const _r13 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 11)(1, "div", 43);
-    \u0275\u0275text(2, '\u{1F9D9} "Solo dejar\xE9 pasar a quienes tengan ');
-    \u0275\u0275domElementStart(3, "strong");
-    \u0275\u0275text(4, "3 vidas o m\xE1s");
+    const _r34 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 54)(1, "button", 73);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_47_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r34);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.toggleGuardianKey(ctx_r1.guardianKey));
+    });
+    \u0275\u0275text(2, "\u{1F501} Otra situaci\xF3n");
     \u0275\u0275domElementEnd();
-    \u0275\u0275text(5, " Y la ");
+    \u0275\u0275domElementStart(3, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_47_Template_button_click_3_listener() {
+      \u0275\u0275restoreView(_r34);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.goToGuardianFinal());
+    });
+    \u0275\u0275text(4, "Siguiente: reto final \u2192");
+    \u0275\u0275domElementEnd()();
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r32 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 24)(1, "div", 84);
+    \u0275\u0275text(2, '\u{1F9D9} "Solo cruza quien tenga la ');
+    \u0275\u0275domElementStart(3, "strong");
+    \u0275\u0275text(4, "llave");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275text(5, " Y ");
     \u0275\u0275domElementStart(6, "strong");
-    \u0275\u0275text(7, "llave");
+    \u0275\u0275text(7, "5 monedas o m\xE1s");
     \u0275\u0275domElementEnd();
     \u0275\u0275text(8, '."');
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(9, "div", 20)(10, "div", 21)(11, "span", 22);
-    \u0275\u0275text(12, "\u2764\uFE0F");
+    \u0275\u0275domElementStart(9, "div", 46);
+    \u0275\u0275text(10, " SI tiene_llave = verdadero Y monedas >= 5 \u2192 \u{1F309} \xA1Cruzar el r\xEDo!");
+    \u0275\u0275domElement(11, "br");
+    \u0275\u0275text(12, " SI NO \u2192 \u{1F9D9} El guardi\xE1n no te deja pasar ");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(13, "span", 23);
-    \u0275\u0275text(14, "Vidas");
+    \u0275\u0275domElementStart(13, "div", 33)(14, "div", 34)(15, "span", 35);
+    \u0275\u0275text(16, "\u{1F511}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(15, "strong", 24);
-    \u0275\u0275text(16);
+    \u0275\u0275domElementStart(17, "span", 36);
+    \u0275\u0275text(18, "Llave");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(19, "strong", 37);
+    \u0275\u0275text(20);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(21, "div", 85)(22, "button", 73);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template_button_click_22_listener() {
+      \u0275\u0275restoreView(_r32);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.toggleGuardianKey(true));
+    });
+    \u0275\u0275text(23, "S\xED");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(24, "button", 73);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template_button_click_24_listener() {
+      \u0275\u0275restoreView(_r32);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.toggleGuardianKey(false));
+    });
+    \u0275\u0275text(25, "No");
+    \u0275\u0275domElementEnd()()();
+    \u0275\u0275domElementStart(26, "div", 34)(27, "span", 35);
+    \u0275\u0275text(28, "\u{1FA99}");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(29, "span", 36);
+    \u0275\u0275text(30, "Monedas");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(31, "strong", 37);
+    \u0275\u0275text(32);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(33, "div", 85)(34, "button", 55);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template_button_click_34_listener() {
+      \u0275\u0275restoreView(_r32);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.guardianCoinsSub());
+    });
+    \u0275\u0275text(35, "\u2796");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(36, "button", 55);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template_button_click_36_listener() {
+      \u0275\u0275restoreView(_r32);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.guardianCoinsAdd());
+    });
+    \u0275\u0275text(37, "\u2795");
+    \u0275\u0275domElementEnd()()()();
+    \u0275\u0275domElementStart(38, "p", 26);
+    \u0275\u0275text(39, "Antes de ejecutar, predice: \xBFpodr\xE1 cruzar?");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(40, "div", 39)(41, "button", 86);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template_button_click_41_listener() {
+      \u0275\u0275restoreView(_r32);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.predictGuardian(true));
+    });
+    \u0275\u0275text(42, "\u2705 S\xED puede cruzar");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(43, "button", 86);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template_button_click_43_listener() {
+      \u0275\u0275restoreView(_r32);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.predictGuardian(false));
+    });
+    \u0275\u0275text(44, "\u274C No puede cruzar");
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(17, "div", 21)(18, "span", 22);
-    \u0275\u0275text(19, "\u{1F511}");
+    \u0275\u0275conditionalCreate(45, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_45_Template, 2, 1, "button", 71);
+    \u0275\u0275conditionalCreate(46, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_46_Template, 2, 5, "div", 29);
+    \u0275\u0275conditionalCreate(47, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Conditional_47_Template, 5, 0, "div", 54);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(20, "span", 23);
-    \u0275\u0275text(21, "Llave");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(22, "strong", 24);
-    \u0275\u0275text(23);
-    \u0275\u0275domElementEnd()()();
-    \u0275\u0275domElementStart(24, "p", 13);
-    \u0275\u0275text(25, "\xBFPuede pasar?");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(26, "div", 26)(27, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_17_Conditional_7_Template_button_click_27_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.answerGuardian(true));
-    });
-    \u0275\u0275text(28, "\u2705 S\xED, puede pasar");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(29, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_17_Conditional_7_Template_button_click_29_listener() {
-      \u0275\u0275restoreView(_r13);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.answerGuardian(false));
-    });
-    \u0275\u0275text(30, "\u274C No puede pasar");
-    \u0275\u0275domElementEnd()()();
-    \u0275\u0275conditionalCreate(31, World3Component_Conditional_17_Conditional_7_Conditional_31_Template, 2, 5, "div", 16);
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(16);
-    \u0275\u0275textInterpolate(ctx_r1.guardianScenario.lives);
-    \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate(ctx_r1.guardianScenario.hasKey ? "S\xED" : "No");
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(20);
+    \u0275\u0275textInterpolate(ctx_r1.guardianKey ? "S\xED" : "No");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.guardianKey);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", !ctx_r1.guardianKey);
     \u0275\u0275advance(8);
-    \u0275\u0275conditional(ctx_r1.guardianFeedback ? 31 : -1);
+    \u0275\u0275textInterpolate(ctx_r1.guardianCoins);
+    \u0275\u0275advance(2);
+    \u0275\u0275domProperty("disabled", ctx_r1.guardianCoins === 0);
+    \u0275\u0275advance(2);
+    \u0275\u0275domProperty("disabled", ctx_r1.guardianCoins === 10);
+    \u0275\u0275advance(5);
+    \u0275\u0275classProp("selected", ctx_r1.guardianPrediction === true);
+    \u0275\u0275domProperty("disabled", ctx_r1.guardianRan);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("selected", ctx_r1.guardianPrediction === false);
+    \u0275\u0275domProperty("disabled", ctx_r1.guardianRan);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(!ctx_r1.guardianRan ? 45 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.guardianFeedback ? 46 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.guardianRan ? 47 : -1);
   }
 }
-function World3Component_Conditional_17_Conditional_8_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_For_5_Conditional_9_Template(rf, ctx) {
   if (rf & 1) {
-    const _r14 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 10)(1, "h2");
+    \u0275\u0275domElementStart(0, "span", 94);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const c_r36 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.isGuardianCharCorrect(c_r36) ? "\u2714\uFE0F correcto" : "\u2716\uFE0F " + (ctx_r1.charCanCross(c_r36) ? "s\xED cruzaba" : "no cruzaba"));
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_For_5_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r35 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 89);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_For_5_Template_button_click_0_listener() {
+      const c_r36 = \u0275\u0275restoreView(_r35).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.toggleGuardianChar(c_r36.id));
+    });
+    \u0275\u0275domElementStart(1, "span", 90);
+    \u0275\u0275text(2);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 91);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "span", 92);
+    \u0275\u0275text(6);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(7, "span", 93);
+    \u0275\u0275text(8);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275conditionalCreate(9, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_For_5_Conditional_9_Template, 2, 1, "span", 94);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const c_r36 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("selected", c_r36.selected)("correct", ctx_r1.guardianChecked && ctx_r1.isGuardianCharCorrect(c_r36))("wrong", ctx_r1.guardianChecked && !ctx_r1.isGuardianCharCorrect(c_r36));
+    \u0275\u0275domProperty("disabled", ctx_r1.guardianChecked);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(c_r36.emoji);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(c_r36.name);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate2("", c_r36.hasKey ? "\u{1F511} S\xED" : "\u{1F511} No", " \xB7 \u{1FA99} ", c_r36.coins);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(c_r36.selected ? "\u2705 Cruza" : "No cruza");
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.guardianChecked ? 9 : -1);
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 30);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(5);
+    \u0275\u0275classProp("error", ctx_r1.guardianChecked && !ctx_r1.guardianAllCorrect)("success", ctx_r1.guardianAllCorrect);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.guardianFinalFeedback);
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r37 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_7_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r37);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.checkGuardianFinal());
+    });
+    \u0275\u0275text(1, "\u25B6\uFE0F Ejecutar y comprobar");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r38 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_8_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r38);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.finishGuardian());
+    });
+    \u0275\u0275text(1, "Terminar actividad \u2192");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_9_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r39 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 73);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_9_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r39);
+      const ctx_r1 = \u0275\u0275nextContext(5);
+      return \u0275\u0275resetView(ctx_r1.resetGuardianFinal());
+    });
+    \u0275\u0275text(1, "\u{1F501} Intentar de nuevo");
+    \u0275\u0275domElementEnd();
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 24)(1, "p", 26);
+    \u0275\u0275text(2, "\u{1F525} Reto final: marca a qui\xE9nes pueden cruzar (llave \u{1F511} Y monedas \u2265 5). Pi\xE9nsalo antes de ejecutar.");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "div", 87);
+    \u0275\u0275repeaterCreate(4, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_For_5_Template, 10, 13, "button", 88, _forTrack03);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275conditionalCreate(6, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_6_Template, 2, 5, "div", 29);
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_7_Template, 2, 0, "button", 60)(8, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_8_Template, 2, 0, "button", 60)(9, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Conditional_9_Template, 2, 0, "button", 78);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(4);
+    \u0275\u0275repeater(ctx_r1.guardianChars);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.guardianFinalFeedback ? 6 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!ctx_r1.guardianChecked ? 7 : ctx_r1.guardianAllCorrect ? 8 : 9);
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 43)(1, "span", 44);
+    \u0275\u0275text(2, "1 \xB7 Explorar");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 44);
+    \u0275\u0275text(4, "2 \xB7 Reto final");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275conditionalCreate(5, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_5_Template, 48, 17, "div", 24)(6, World3Component_Conditional_2_Conditional_16_Conditional_7_Conditional_6_Template, 10, 2, "div", 24);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275classProp("active", ctx_r1.guardianPhase === "explore");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("active", ctx_r1.guardianPhase === "final");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.guardianPhase === "explore" ? 5 : 6);
+  }
+}
+function World3Component_Conditional_2_Conditional_16_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r40 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 23)(1, "h2");
     \u0275\u0275text(2, "\u{1F9D9} \xA1Guardi\xE1n superado!");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "p");
-    \u0275\u0275text(4, 'Aprendiste a combinar dos condiciones con "Y".');
+    \u0275\u0275text(4, "Aprendiste la condici\xF3n compuesta con Y (AND): todas las condiciones deben cumplirse para que ocurra la acci\xF3n.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 18);
+    \u0275\u0275domElementStart(5, "p", 31);
     \u0275\u0275text(6, "+10 XP \xB7 +1 Semilla");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_17_Conditional_8_Template_button_click_7_listener() {
-      \u0275\u0275restoreView(_r14);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(7, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_16_Conditional_8_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r40);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.nextWorld3Activity());
     });
     \u0275\u0275text(8, "Siguiente actividad \u2192");
     \u0275\u0275domElementEnd()();
   }
 }
-function World3Component_Conditional_17_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275domElementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "ACTIVIDAD 6");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "h1");
     \u0275\u0275text(4, "El guardi\xE1n del r\xEDo \u{1F9D9}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 9);
-    \u0275\u0275text(6, "Combina variables y condiciones: deben cumplirse las dos a la vez.");
+    \u0275\u0275domElementStart(5, "p", 22);
+    \u0275\u0275text(6, "Para cruzar necesitas DOS condiciones a la vez: tener la llave \u{1F511} Y suficientes monedas \u{1FA99}.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(7, World3Component_Conditional_17_Conditional_7_Template, 32, 3)(8, World3Component_Conditional_17_Conditional_8_Template, 9, 0, "div", 10);
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_16_Conditional_7_Template, 7, 5)(8, World3Component_Conditional_2_Conditional_16_Conditional_8_Template, 9, 0, "div", 23);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(7);
     \u0275\u0275conditional(!ctx_r1.guardianDone ? 7 : 8);
   }
 }
-function World3Component_Conditional_18_Conditional_7_Conditional_9_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_41_Template(rf, ctx) {
   if (rf & 1) {
-    const _r15 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 46)(1, "div", 48);
+    const _r41 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "p", 26);
+    \u0275\u0275text(1, "\u{1F392} Prepara lo que te falta:");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(2, "div", 102)(3, "button", 55);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_41_Template_button_click_3_listener() {
+      \u0275\u0275restoreView(_r41);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.crossFindKey());
+    });
+    \u0275\u0275text(4, "\u{1F511} Buscar la llave");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "button", 55);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_41_Template_button_click_5_listener() {
+      \u0275\u0275restoreView(_r41);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.crossEarnCoins());
+    });
+    \u0275\u0275text(6, "\u{1FA99} Ganar monedas (+3)");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(7, "button", 55);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_41_Template_button_click_7_listener() {
+      \u0275\u0275restoreView(_r41);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.crossRest());
+    });
+    \u0275\u0275text(8, "\u2764\uFE0F Descansar (+1 vida)");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(9, "button", 55);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_41_Template_button_click_9_listener() {
+      \u0275\u0275restoreView(_r41);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.crossTakeItem());
+    });
+    \u0275\u0275text(10, "\u{1F392} Recoger el objeto");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(11, "p", 26);
+    \u0275\u0275text(12, "Cuando est\xE9s list@, ejecuta el programa:");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(13, "div", 103)(14, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_41_Template_button_click_14_listener() {
+      \u0275\u0275restoreView(_r41);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.crossCheckAndCross());
+    });
+    \u0275\u0275text(15, "\u{1F50E} Comprobar y cruzar");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(16, "button", 104);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_41_Template_button_click_16_listener() {
+      \u0275\u0275restoreView(_r41);
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.crossRush());
+    });
+    \u0275\u0275text(17, "\u{1F3B2} Arriesgarse a cruzar");
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275advance(3);
+    \u0275\u0275domProperty("disabled", ctx_r1.crossKey);
+    \u0275\u0275advance(2);
+    \u0275\u0275domProperty("disabled", ctx_r1.crossCoins >= 12);
+    \u0275\u0275advance(2);
+    \u0275\u0275domProperty("disabled", ctx_r1.crossLives >= 5);
+    \u0275\u0275advance(2);
+    \u0275\u0275domProperty("disabled", ctx_r1.crossItem);
+  }
+}
+function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_42_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r42 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 101)(1, "div", 105);
     \u0275\u0275text(2, "\u{1F480}");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "p");
-    \u0275\u0275text(4, "Te quedaste sin vidas.");
+    \u0275\u0275text(4, "Te arriesgaste sin cumplir las condiciones.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "button", 49);
-    \u0275\u0275domListener("click", function World3Component_Conditional_18_Conditional_7_Conditional_9_Template_button_click_5_listener() {
-      \u0275\u0275restoreView(_r15);
-      const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275domElementStart(5, "button", 104);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_42_Template_button_click_5_listener() {
+      \u0275\u0275restoreView(_r42);
+      const ctx_r1 = \u0275\u0275nextContext(4);
       return \u0275\u0275resetView(ctx_r1.restartCross());
     });
     \u0275\u0275text(6, "\u{1F501} Reintentar el r\xEDo");
     \u0275\u0275domElementEnd()();
   }
 }
-function World3Component_Conditional_18_Conditional_7_Conditional_10_Conditional_5_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_43_Template(rf, ctx) {
   if (rf & 1) {
-    const _r17 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "button", 27);
-    \u0275\u0275domListener("click", function World3Component_Conditional_18_Conditional_7_Conditional_10_Conditional_5_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r17);
-      const ctx_r1 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r1.crossTakeKey());
-    });
-    \u0275\u0275text(1, "\u{1F511} Recoger la llave");
-    \u0275\u0275domElementEnd();
-  }
-}
-function World3Component_Conditional_18_Conditional_7_Conditional_10_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r16 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 47)(1, "div", 48);
-    \u0275\u0275text(2, "\u{1F309}");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "p", 13);
-    \u0275\u0275text(4, "Puente: SI tienes la llave \u2192 cruzas.");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(5, World3Component_Conditional_18_Conditional_7_Conditional_10_Conditional_5_Template, 2, 0, "button", 50);
-    \u0275\u0275domElementStart(6, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_18_Conditional_7_Conditional_10_Template_button_click_6_listener() {
-      \u0275\u0275restoreView(_r16);
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.crossBridge());
-    });
-    \u0275\u0275text(7, "Cruzar el puente \u2192");
-    \u0275\u0275domElementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance(5);
-    \u0275\u0275conditional(!ctx_r1.crossKey ? 5 : -1);
-  }
-}
-function World3Component_Conditional_18_Conditional_7_Conditional_11_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r18 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 47)(1, "div", 48);
-    \u0275\u0275text(2, "\u{1FA99}");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "p", 13);
-    \u0275\u0275text(4, "Tienda: SI tienes 5 monedas \u2192 compra el bote \u{1F6F6}.");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_18_Conditional_7_Conditional_11_Template_button_click_5_listener() {
-      \u0275\u0275restoreView(_r18);
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.crossBuyBoat());
-    });
-    \u0275\u0275text(6, "Comprar el bote (5 \u{1FA99})");
-    \u0275\u0275domElementEnd()();
-  }
-}
-function World3Component_Conditional_18_Conditional_7_Conditional_12_For_7_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 36);
-    \u0275\u0275text(1, "\u2764\uFE0F");
-    \u0275\u0275domElementEnd();
-  }
-}
-function World3Component_Conditional_18_Conditional_7_Conditional_12_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r19 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 47)(1, "div", 48);
-    \u0275\u0275text(2, "\u{1F479}");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "p", 13);
-    \u0275\u0275text(4, "Monstruo: SI tienes vidas \u2192 contin\xFAas. Si llegas a 0 \u2192 Game Over.");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "div", 35);
-    \u0275\u0275repeaterCreate(6, World3Component_Conditional_18_Conditional_7_Conditional_12_For_7_Template, 2, 0, "span", 36, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(8, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_18_Conditional_7_Conditional_12_Template_button_click_8_listener() {
-      \u0275\u0275restoreView(_r19);
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.crossFightMonster());
-    });
-    \u0275\u0275text(9, "Enfrentar al monstruo");
-    \u0275\u0275domElementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(ctx_r1.crossHearts);
-  }
-}
-function World3Component_Conditional_18_Conditional_7_Conditional_13_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r20 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 47)(1, "div", 48);
-    \u0275\u0275text(2, "\u{1F3C1}");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "p", 13);
-    \u0275\u0275text(4, "Meta: SI tienes el bote \u{1F6F6} Y al menos 1 vida \u2192 \xA1cruzaste!");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_18_Conditional_7_Conditional_13_Template_button_click_5_listener() {
-      \u0275\u0275restoreView(_r20);
-      const ctx_r1 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r1.crossFinish());
-    });
-    \u0275\u0275text(6, "Intentar cruzar \u{1F3C1}");
-    \u0275\u0275domElementEnd()();
-  }
-}
-function World3Component_Conditional_18_Conditional_7_Conditional_14_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 17);
+    \u0275\u0275domElementStart(0, "div", 30);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(3);
+    const ctx_r1 = \u0275\u0275nextContext(4);
     \u0275\u0275classProp("error", ctx_r1.crossFeedbackError)("success", !ctx_r1.crossFeedbackError);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(ctx_r1.crossFeedback);
   }
 }
-function World3Component_Conditional_18_Conditional_7_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_17_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 45)(1, "span");
+    \u0275\u0275domElementStart(0, "div", 96)(1, "span");
     \u0275\u0275text(2);
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "span");
@@ -49322,29 +50987,93 @@ function World3Component_Conditional_18_Conditional_7_Template(rf, ctx) {
     \u0275\u0275domElementStart(7, "span");
     \u0275\u0275text(8);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275conditionalCreate(9, World3Component_Conditional_18_Conditional_7_Conditional_9_Template, 7, 0, "div", 46)(10, World3Component_Conditional_18_Conditional_7_Conditional_10_Template, 8, 1, "div", 47)(11, World3Component_Conditional_18_Conditional_7_Conditional_11_Template, 7, 0, "div", 47)(12, World3Component_Conditional_18_Conditional_7_Conditional_12_Template, 10, 0, "div", 47)(13, World3Component_Conditional_18_Conditional_7_Conditional_13_Template, 7, 0, "div", 47);
-    \u0275\u0275conditionalCreate(14, World3Component_Conditional_18_Conditional_7_Conditional_14_Template, 2, 5, "div", 16);
+    \u0275\u0275domElementStart(9, "ul", 97)(10, "li")(11, "span", 98);
+    \u0275\u0275text(12, "\u{1F309}");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(13, "span", 99);
+    \u0275\u0275text(14, "Puente: llave \u{1F511} ");
+    \u0275\u0275domElementStart(15, "strong");
+    \u0275\u0275text(16, "Y");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275text(17, " monedas >= 5");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(18, "span", 100);
+    \u0275\u0275text(19);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(20, "li")(21, "span", 98);
+    \u0275\u0275text(22, "\u{1F40A}");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(23, "span", 99);
+    \u0275\u0275text(24, "Cocodrilo: vidas > 2");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(25, "span", 100);
+    \u0275\u0275text(26);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(27, "li")(28, "span", 98);
+    \u0275\u0275text(29, "\u{1F9D9}");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(30, "span", 99);
+    \u0275\u0275text(31, "Guardi\xE1n: objeto especial \u{1F392}");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(32, "span", 100);
+    \u0275\u0275text(33);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(34, "li")(35, "span", 98);
+    \u0275\u0275text(36, "\u{1F3C6}");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(37, "span", 99);
+    \u0275\u0275text(38, "Meta: cumplir TODAS las condiciones");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(39, "span", 100);
+    \u0275\u0275text(40);
+    \u0275\u0275domElementEnd()()();
+    \u0275\u0275conditionalCreate(41, World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_41_Template, 18, 4)(42, World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_42_Template, 7, 0, "div", 101);
+    \u0275\u0275conditionalCreate(43, World3Component_Conditional_2_Conditional_17_Conditional_7_Conditional_43_Template, 2, 5, "div", 29);
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1F511} ", ctx_r1.crossKey ? "S\xED" : "No");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1FA99} ", ctx_r1.crossCoins);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u2764\uFE0F ", ctx_r1.crossLives);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1F6F6} ", ctx_r1.crossBoat ? "S\xED" : "No");
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.crossGameOver ? 9 : ctx_r1.crossStep === 0 ? 10 : ctx_r1.crossStep === 1 ? 11 : ctx_r1.crossStep === 2 ? 12 : ctx_r1.crossStep === 3 ? 13 : -1);
-    \u0275\u0275advance(5);
-    \u0275\u0275conditional(ctx_r1.crossFeedback ? 14 : -1);
+    \u0275\u0275classProp("ok-var", ctx_r1.crossLives > 2);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1("\u2764\uFE0F ", ctx_r1.crossLives);
+    \u0275\u0275advance();
+    \u0275\u0275classProp("ok-var", ctx_r1.crossCoins >= 5);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1("\u{1FA99} ", ctx_r1.crossCoins);
+    \u0275\u0275advance();
+    \u0275\u0275classProp("ok-var", ctx_r1.crossKey);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1("\u{1F511} ", ctx_r1.crossKey ? "S\xED" : "No");
+    \u0275\u0275advance();
+    \u0275\u0275classProp("ok-var", ctx_r1.crossItem);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1("\u{1F392} ", ctx_r1.crossItem ? "S\xED" : "No");
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("met", ctx_r1.crossBridgeOk);
+    \u0275\u0275advance(9);
+    \u0275\u0275textInterpolate(ctx_r1.crossBridgeOk ? "\u2705" : "\u2B1C");
+    \u0275\u0275advance();
+    \u0275\u0275classProp("met", ctx_r1.crossCrocOk);
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate(ctx_r1.crossCrocOk ? "\u2705" : "\u2B1C");
+    \u0275\u0275advance();
+    \u0275\u0275classProp("met", ctx_r1.crossGuardianOk);
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate(ctx_r1.crossGuardianOk ? "\u2705" : "\u2B1C");
+    \u0275\u0275advance();
+    \u0275\u0275classProp("met", ctx_r1.crossAllOk);
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate(ctx_r1.crossAllOk ? "\u2705" : "\u2B1C");
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.crossResult !== "over" ? 41 : 42);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.crossFeedback ? 43 : -1);
   }
 }
-function World3Component_Conditional_18_Conditional_8_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_17_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    const _r21 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 44)(1, "div", 51);
+    const _r43 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 95)(1, "div", 106);
     \u0275\u0275text(2, "\u{1F3C6}");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "h2");
@@ -49353,46 +51082,79 @@ function World3Component_Conditional_18_Conditional_8_Template(rf, ctx) {
     \u0275\u0275domElementStart(5, "p");
     \u0275\u0275text(6, "Usaste condiciones para tomar decisiones: SI, SI NO, comparaciones y combinaciones. \xA1Excelente trabajo!");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "div", 52)(8, "div", 53)(9, "strong");
+    \u0275\u0275domElementStart(7, "div", 107)(8, "div", 108)(9, "strong");
     \u0275\u0275text(10, "70");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(11, "span");
     \u0275\u0275text(12, "XP Total");
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(13, "div", 53)(14, "strong");
+    \u0275\u0275domElementStart(13, "div", 108)(14, "strong");
     \u0275\u0275text(15, "7");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(16, "span");
     \u0275\u0275text(17, "Semillas");
     \u0275\u0275domElementEnd()()();
-    \u0275\u0275domElementStart(18, "button", 19);
-    \u0275\u0275domListener("click", function World3Component_Conditional_18_Conditional_8_Template_button_click_18_listener() {
-      \u0275\u0275restoreView(_r21);
-      const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275domElementStart(18, "button", 32);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Conditional_17_Conditional_8_Template_button_click_18_listener() {
+      \u0275\u0275restoreView(_r43);
+      const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.exitToForest.emit());
     });
     \u0275\u0275text(19, "Volver al bosque \u{1F333}");
     \u0275\u0275domElementEnd()();
   }
 }
-function World3Component_Conditional_18_Template(rf, ctx) {
+function World3Component_Conditional_2_Conditional_17_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "article", 7)(1, "span", 8);
+    \u0275\u0275domElementStart(0, "article", 20)(1, "span", 21);
     \u0275\u0275text(2, "RETO FINAL");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "h1");
-    \u0275\u0275text(4, "\xA1Cruza el R\xEDo! \u{1F3C6}");
+    \u0275\u0275text(4, "\xA1La gran aventura del r\xEDo! \u{1F3C6}\u{1F30A}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "p", 9);
-    \u0275\u0275text(6, "Analiza cada condici\xF3n y decide bien. No basta con hacer clic: hay que pensar.");
+    \u0275\u0275domElementStart(5, "p", 22);
+    \u0275\u0275text(6, "El r\xEDo est\xE1 frente a ti y tienes una sola oportunidad. Analiza tus variables, prepara al personaje y decide cu\xE1ndo cruzar.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(7, World3Component_Conditional_18_Conditional_7_Template, 15, 6)(8, World3Component_Conditional_18_Conditional_8_Template, 20, 0, "div", 44);
+    \u0275\u0275conditionalCreate(7, World3Component_Conditional_2_Conditional_17_Conditional_7_Template, 44, 26)(8, World3Component_Conditional_2_Conditional_17_Conditional_8_Template, 20, 0, "div", 95);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(7);
+    \u0275\u0275conditional(!ctx_r1.crossDone ? 7 : 8);
+  }
+}
+function World3Component_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 2)(1, "div", 15)(2, "div", 16)(3, "span");
+    \u0275\u0275text(4, "\u{1F30A} Mundo 3: R\xEDo de los Condicionales");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "span");
+    \u0275\u0275text(6);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(7, "div", 17);
+    \u0275\u0275domElement(8, "div", 18);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(9, "button", 19);
+    \u0275\u0275domListener("click", function World3Component_Conditional_2_Template_button_click_9_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.skipWorld3Activity());
+    });
+    \u0275\u0275text(10, "Saltar \u23ED\uFE0F");
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275conditionalCreate(11, World3Component_Conditional_2_Conditional_11_Template, 9, 1, "article", 20)(12, World3Component_Conditional_2_Conditional_12_Template, 9, 1, "article", 20)(13, World3Component_Conditional_2_Conditional_13_Template, 9, 1, "article", 20)(14, World3Component_Conditional_2_Conditional_14_Template, 9, 1, "article", 20)(15, World3Component_Conditional_2_Conditional_15_Template, 9, 1, "article", 20)(16, World3Component_Conditional_2_Conditional_16_Template, 9, 1, "article", 20)(17, World3Component_Conditional_2_Conditional_17_Template, 9, 1, "article", 20);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(7);
-    \u0275\u0275conditional(!ctx_r1.crossDone ? 7 : 8);
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate2("", ctx_r1.currentWorld3Activity + 1, " / ", ctx_r1.totalWorld3Activities);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", ctx_r1.world3ProgressPercent(), "%");
+    \u0275\u0275advance(3);
+    \u0275\u0275conditional(ctx_r1.currentWorld3Activity === 0 ? 11 : ctx_r1.currentWorld3Activity === 1 ? 12 : ctx_r1.currentWorld3Activity === 2 ? 13 : ctx_r1.currentWorld3Activity === 3 ? 14 : ctx_r1.currentWorld3Activity === 4 ? 15 : ctx_r1.currentWorld3Activity === 5 ? 16 : ctx_r1.currentWorld3Activity === 6 ? 17 : -1);
   }
 }
 var World3Component = class _World3Component {
@@ -49404,8 +51166,67 @@ var World3Component = class _World3Component {
   cdr;
   game;
   exitToForest = new EventEmitter();
+  ngOnInit() {
+    this.startW3Dialogue();
+  }
   currentWorld3Activity = 0;
   totalWorld3Activities = 7;
+  // ═══════════════════════════════════════════════════════════
+  // INTRO CON DIÁLOGO (Coco la rana presenta el mundo de condicionales)
+  // ═══════════════════════════════════════════════════════════
+  showW3Intro = true;
+  /** Personaje guía de este mundo. */
+  w3Character = "\u{1F438}";
+  w3Dialogue = [
+    "\xA1Croac! Soy Coco, la rana guardiana del R\xEDo. \u{1F438}",
+    "Bienvenid@ al R\xEDo de los Condicionales. \xA1Aqu\xED tomaremos decisiones!",
+    "Un condicional es preguntarse: SI pasa algo... entonces hago esto. \u{1F914}",
+    "Por ejemplo: SI tienes la llave \u{1F511}, entonces la puerta se abre.",
+    "Y SI NO la tienes, \xA1tendr\xE1s que buscar otro camino! \u{1F30A}",
+    "\xBFList@ para decidir y cruzar el r\xEDo conmigo? \xA1Salta! \u{1FAB7}"
+  ];
+  w3DialogueIndex = 0;
+  w3DisplayedText = "";
+  w3Typing = false;
+  w3TypeTimer = null;
+  startW3Dialogue() {
+    this.w3DialogueIndex = 0;
+    this.typeW3Line();
+  }
+  typeW3Line() {
+    clearInterval(this.w3TypeTimer);
+    const full = this.w3Dialogue[this.w3DialogueIndex];
+    this.w3DisplayedText = "";
+    this.w3Typing = true;
+    let i = 0;
+    this.w3TypeTimer = setInterval(() => {
+      this.w3DisplayedText = full.slice(0, ++i);
+      if (i >= full.length) {
+        clearInterval(this.w3TypeTimer);
+        this.w3Typing = false;
+      }
+      this.cdr.detectChanges();
+    }, 32);
+  }
+  get w3DialogueFinished() {
+    return this.w3DialogueIndex >= this.w3Dialogue.length - 1 && !this.w3Typing;
+  }
+  advanceW3Dialogue() {
+    if (this.w3Typing) {
+      clearInterval(this.w3TypeTimer);
+      this.w3DisplayedText = this.w3Dialogue[this.w3DialogueIndex];
+      this.w3Typing = false;
+      return;
+    }
+    if (this.w3DialogueIndex < this.w3Dialogue.length - 1) {
+      this.w3DialogueIndex++;
+      this.typeW3Line();
+    }
+  }
+  startWorld3() {
+    clearInterval(this.w3TypeTimer);
+    this.showW3Intro = false;
+  }
   // Actividad 1 – La bifurcación
   forkScenarios = [
     { emoji: "\u{1F511}", text: "Tienes la llave.", hasKey: true },
@@ -49436,52 +51257,65 @@ var World3Component = class _World3Component {
   doorFeedbackError = false;
   doorOpen = false;
   doorDone = false;
-  // Actividad 4 – Si tienes vidas...
-  ifLivesValue = 4;
-  ifLivesFeedback = "";
-  ifLivesReached0 = false;
-  ifLivesReachedContinue = false;
+  // Actividad 4 – Si tienes vidas... (condiciones encadenadas)
+  ifLivesPhase = "explore";
+  ifLivesValue = 3;
   ifLivesDone = false;
-  // Actividad 5 – Si no... toma otro camino (SI / SINO)
-  elseScenarios = [
-    {
-      question: "\u{1F511} \xBFTienes la llave?",
-      hasIt: true,
-      ifText: "\u{1F6AA} Abre la puerta.",
-      elseText: "\u{1F504} Busca otra entrada."
-    },
-    {
-      question: "\u{1FA99} \xBFTienes 10 monedas?",
-      hasIt: false,
-      ifText: "\u{1F6D2} Compra el objeto.",
-      elseText: "\u{1F6AB} No puedes comprarlo."
-    }
+  // Fase 2: ordenar las condiciones (el reto de programación)
+  livesConditionCards = [
+    { id: "gt2", text: "SI vidas > 2", action: "\u{1F5E1}\uFE0F Enfrentar al enemigo" },
+    { id: "gt0", text: "SI vidas > 0", action: "\u{1F3C3} Continuar" },
+    { id: "eq0", text: "SI vidas = 0", action: "\u{1F480} Game Over" }
   ];
-  elseIndex = 0;
-  elseResult = null;
+  livesOrderCorrect = ["gt2", "gt0", "eq0"];
+  livesOrderPool = [];
+  livesOrderPlaced = [];
+  livesOrderFeedback = "";
+  livesOrderError = false;
+  livesOrderOk = false;
+  // Fase 3: predecir el resultado antes de ejecutar
+  predictLives = 3;
+  predictChoice = null;
+  predictRevealed = false;
+  predictCorrect = false;
+  predictFeedback = "";
+  // Actividad 5 – La puerta (if / else)
+  elsePhase = "explore";
+  elseDone = false;
+  // Fase 1: probar la puerta (SI tienes llave → abrir / SI NO → buscar)
+  elseHasKey = true;
+  elseRan = false;
   elseFeedback = "";
   elseFeedbackError = false;
-  elseDone = false;
-  // Actividad 6 – El guardián del río (variables + condiciones)
-  guardianScenarios = [
-    { lives: 4, hasKey: true },
-    { lives: 2, hasKey: true },
-    { lives: 5, hasKey: false }
-  ];
-  guardianIndex = 0;
+  // Fase 2: reto extra – clasificar situaciones sin ejecutar
+  elseSituations = [];
+  elseChecked = false;
+  elseAllCorrect = false;
+  elseClassifyFeedback = "";
+  // Actividad 6 – El guardián del río (condición compuesta con Y / AND)
+  guardianPhase = "explore";
+  guardianDone = false;
+  // Fase 1: cambiar variables, predecir y comprobar
+  guardianKey = true;
+  guardianCoins = 5;
+  guardianPrediction = null;
+  guardianRan = false;
   guardianFeedback = "";
   guardianFeedbackError = false;
-  guardianDone = false;
-  // Actividad 7 – Reto final: ¡Cruza el Río!
+  // Fase 2: reto final – 4 personajes
+  guardianChars = [];
+  guardianChecked = false;
+  guardianAllCorrect = false;
+  guardianFinalFeedback = "";
+  // Actividad 7 – Reto final: ¡La gran aventura del río!
+  // El niño analiza sus variables, las prepara y decide cuándo ejecutar.
+  crossLives = 2;
+  crossCoins = 3;
   crossKey = false;
-  crossCoins = 5;
-  crossLives = 3;
-  crossBoat = false;
-  crossStep = 0;
-  // 0 puente, 1 tienda, 2 monstruo, 3 meta
+  crossItem = false;
+  crossResult = "none";
   crossFeedback = "";
   crossFeedbackError = false;
-  crossGameOver = false;
   crossDone = false;
   // ═══════════════════════════════════════════════════════════
   // MÉTODOS GENERALES
@@ -49641,34 +51475,121 @@ var World3Component = class _World3Component {
   // ACTIVIDAD 4: SI TIENES VIDAS...
   // ───────────────────────────────────────────────────────────
   resetIfLives() {
-    this.ifLivesValue = 4;
-    this.ifLivesFeedback = "";
-    this.ifLivesReached0 = false;
-    this.ifLivesReachedContinue = false;
+    this.ifLivesPhase = "explore";
+    this.ifLivesValue = 3;
     this.ifLivesDone = false;
+    this.resetLivesOrder();
+    this.newPrediction();
   }
   get ifLivesHearts() {
     return Array.from({ length: this.ifLivesValue }, (_, i) => i);
   }
   ifLivesAdd() {
-    if (this.ifLivesValue < 5)
+    if (this.ifLivesValue < 4)
       this.ifLivesValue++;
-    this.evalIfLives();
   }
   ifLivesSub() {
     if (this.ifLivesValue > 0)
       this.ifLivesValue--;
-    this.evalIfLives();
   }
-  evalIfLives() {
-    if (this.ifLivesValue > 0) {
-      this.ifLivesReached0 = false;
-      this.ifLivesReachedContinue = true;
-      this.ifLivesFeedback = "\u{1F3C3} vidas > 0 \u2192 \xA1Puedes continuar! (vidas = " + this.ifLivesValue + ")";
-    } else {
-      this.ifLivesReached0 = true;
-      this.ifLivesFeedback = "\u{1F6D1} vidas = 0 \u2192 No puedes continuar.";
+  /** Devuelve el resultado según las 4 situaciones de vidas. */
+  livesOutcome(v) {
+    if (v > 2)
+      return { key: "fight", emoji: "\u{1F5E1}\uFE0F", label: "Enfrentar al enemigo", cls: "fight" };
+    if (v === 2)
+      return { key: "careful", emoji: "\u{1F3C3}", label: "Continuar con cuidado", cls: "ok" };
+    if (v === 1)
+      return { key: "seek", emoji: "\u{1F49A}", label: "Buscar una vida extra", cls: "seek" };
+    return { key: "over", emoji: "\u{1F480}", label: "Game Over", cls: "stop" };
+  }
+  get ifLivesCurrentOutcome() {
+    return this.livesOutcome(this.ifLivesValue);
+  }
+  goToLivesOrder() {
+    this.ifLivesPhase = "order";
+    this.resetLivesOrder();
+  }
+  goToLivesPredict() {
+    this.ifLivesPhase = "predict";
+    this.newPrediction();
+  }
+  // ── Fase 2: ordenar condiciones ──
+  resetLivesOrder() {
+    this.livesOrderPool = this.shuffleIds(this.livesConditionCards.map((c) => c.id));
+    this.livesOrderPlaced = [];
+    this.livesOrderFeedback = "";
+    this.livesOrderError = false;
+    this.livesOrderOk = false;
+  }
+  shuffleIds(ids) {
+    const arr = [...ids];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
+    if (arr.join() === this.livesOrderCorrect.join()) {
+      return [arr[1], arr[0], arr[2]];
+    }
+    return arr;
+  }
+  conditionCard(id) {
+    return this.livesConditionCards.find((c) => c.id === id);
+  }
+  placeCondition(id) {
+    if (this.livesOrderOk)
+      return;
+    this.livesOrderPool = this.livesOrderPool.filter((x) => x !== id);
+    this.livesOrderPlaced.push(id);
+    this.livesOrderFeedback = "";
+    this.livesOrderError = false;
+  }
+  removeCondition(index) {
+    if (this.livesOrderOk)
+      return;
+    const [id] = this.livesOrderPlaced.splice(index, 1);
+    if (id)
+      this.livesOrderPool.push(id);
+    this.livesOrderFeedback = "";
+    this.livesOrderError = false;
+  }
+  checkLivesOrder() {
+    if (this.livesOrderPlaced.length < this.livesConditionCards.length) {
+      this.livesOrderError = true;
+      this.livesOrderFeedback = "\u{1F440} Coloca las 3 condiciones en orden antes de comprobar.";
+      return;
+    }
+    if (this.livesOrderPlaced.join() === this.livesOrderCorrect.join()) {
+      this.livesOrderOk = true;
+      this.livesOrderError = false;
+      this.livesOrderFeedback = "\u2705 \xA1Orden perfecto! Se revisa primero la m\xE1s exigente (vidas > 2) y al final vidas = 0.";
+    } else {
+      this.livesOrderError = true;
+      this.livesOrderFeedback = "\u274C El orden importa: empieza por la condici\xF3n m\xE1s exigente (vidas > 2) y termina con vidas = 0.";
+    }
+  }
+  // ── Fase 3: predecir el resultado ──
+  newPrediction() {
+    this.predictLives = Math.floor(Math.random() * 4);
+    this.predictChoice = null;
+    this.predictRevealed = false;
+    this.predictCorrect = false;
+    this.predictFeedback = "";
+  }
+  get predictHearts() {
+    return Array.from({ length: this.predictLives }, (_, i) => i);
+  }
+  choosePrediction(choice) {
+    if (this.predictRevealed)
+      return;
+    this.predictChoice = choice;
+  }
+  revealPrediction() {
+    if (!this.predictChoice)
+      return;
+    const real = this.livesOutcome(this.predictLives);
+    this.predictRevealed = true;
+    this.predictCorrect = this.predictChoice === real.key;
+    this.predictFeedback = this.predictCorrect ? "\u{1F389} \xA1Predicci\xF3n correcta! Con " + this.predictLives + " \u2764\uFE0F \u2192 " + real.emoji + " " + real.label + "." : "\u{1F914} Casi. Con " + this.predictLives + " \u2764\uFE0F el programa elige \u2192 " + real.emoji + " " + real.label + ".";
   }
   finishIfLives() {
     this.ifLivesDone = true;
@@ -49677,147 +51598,257 @@ var World3Component = class _World3Component {
   // ACTIVIDAD 5: SI NO... TOMA OTRO CAMINO
   // ───────────────────────────────────────────────────────────
   resetElse() {
-    this.elseIndex = 0;
-    this.elseResult = null;
+    this.elsePhase = "explore";
+    this.elseDone = false;
+    this.elseHasKey = true;
+    this.elseRan = false;
     this.elseFeedback = "";
     this.elseFeedbackError = false;
-    this.elseDone = false;
+    this.resetElseClassify();
   }
-  get elseScenario() {
-    return this.elseScenarios[this.elseIndex];
+  // ── Fase 1: probar la puerta ──
+  toggleElseKey(hasKey) {
+    this.elseHasKey = hasKey;
+    this.elseRan = false;
+    this.elseFeedback = "";
+    this.elseFeedbackError = false;
   }
-  // choice: true = intenta el camino "SI", false = camino "SINO"
-  chooseElse(choice) {
-    const sc = this.elseScenario;
-    const shouldTakeIf = sc.hasIt;
-    if (choice === shouldTakeIf) {
-      this.elseResult = choice ? "if" : "else";
+  runElseDoor() {
+    this.elseRan = true;
+    if (this.elseHasKey) {
       this.elseFeedbackError = false;
-      this.elseFeedback = choice ? "\u2705 La condici\xF3n se cumple \u2192 " + sc.ifText : "\u2705 La condici\xF3n NO se cumple \u2192 " + sc.elseText;
-      if (this.elseIndex < this.elseScenarios.length - 1) {
-        setTimeout(() => {
-          this.elseIndex++;
-          this.elseResult = null;
-          this.elseFeedback = "";
-          this.cdr.detectChanges();
-        }, 1600);
-      } else {
-        this.elseDone = true;
-      }
+      this.elseFeedback = "\u{1F513} SI tienes la llave \u2192 \xA1La puerta se abre!";
     } else {
       this.elseFeedbackError = true;
-      this.elseFeedback = "\u274C Mira la condici\xF3n: " + sc.question + " La respuesta es " + (sc.hasIt ? "S\xCD" : "NO") + ".";
+      this.elseFeedback = "\u{1F50E} SI NO tienes la llave \u2192 \xA1Debes buscarla!";
     }
+  }
+  goToElseClassify() {
+    this.elsePhase = "classify";
+    this.resetElseClassify();
+  }
+  // ── Fase 2: reto extra – clasificar sin ejecutar ──
+  resetElseClassify() {
+    this.elseSituations = [
+      { id: 1, keys: 0, choice: null },
+      { id: 2, keys: 1, choice: null },
+      { id: 3, keys: 3, choice: null },
+      { id: 4, keys: 0, choice: null }
+    ];
+    this.elseChecked = false;
+    this.elseAllCorrect = false;
+    this.elseClassifyFeedback = "";
+  }
+  assignElse(id, choice) {
+    if (this.elseChecked)
+      return;
+    const s = this.elseSituations.find((x) => x.id === id);
+    if (s)
+      s.choice = choice;
+  }
+  get elseAllAssigned() {
+    return this.elseSituations.every((s) => s.choice !== null);
+  }
+  /** Rama correcta según la condición llave > 0. */
+  elseExpected(keys) {
+    return keys > 0 ? "open" : "search";
+  }
+  isElseCorrect(s) {
+    return s.choice === this.elseExpected(s.keys);
+  }
+  checkElseClassify() {
+    if (!this.elseAllAssigned) {
+      this.elseClassifyFeedback = "\u{1F440} Asigna un camino a cada situaci\xF3n antes de ejecutar.";
+      this.elseAllCorrect = false;
+      return;
+    }
+    this.elseChecked = true;
+    this.elseAllCorrect = this.elseSituations.every((s) => this.isElseCorrect(s));
+    this.elseClassifyFeedback = this.elseAllCorrect ? "\u{1F389} \xA1Todas correctas! SI llave > 0 abre la puerta; SI NO, toca buscar la llave." : "\u{1F914} Revisa las marcadas en rojo: SI llave > 0 \u2192 abrir, SI NO \u2192 buscar.";
+  }
+  finishElse() {
+    this.elseDone = true;
   }
   // ───────────────────────────────────────────────────────────
   // ACTIVIDAD 6: EL GUARDIÁN DEL RÍO
   // ───────────────────────────────────────────────────────────
   resetGuardian() {
-    this.guardianIndex = 0;
+    this.guardianPhase = "explore";
+    this.guardianDone = false;
+    this.guardianKey = true;
+    this.guardianCoins = 5;
+    this.guardianPrediction = null;
+    this.guardianRan = false;
     this.guardianFeedback = "";
     this.guardianFeedbackError = false;
-    this.guardianDone = false;
+    this.resetGuardianFinal();
   }
-  get guardianScenario() {
-    return this.guardianScenarios[this.guardianIndex];
+  // ── Fase 1: variables + predicción ──
+  /** Regla: tiene llave Y monedas >= 5. */
+  guardianRule(hasKey, coins) {
+    return hasKey && coins >= 5;
   }
-  // Regla: vidas >= 3 Y llave = sí
-  answerGuardian(canPass) {
-    const sc = this.guardianScenario;
-    const actuallyCan = sc.lives >= 3 && sc.hasKey;
-    if (canPass === actuallyCan) {
-      this.guardianFeedbackError = false;
-      if (actuallyCan) {
-        this.guardianFeedback = "\u{1F389} \xA1Puede pasar! Tiene " + sc.lives + " vidas (\u2265 3) y la llave. \u{1F511}";
-      } else if (!sc.hasKey) {
-        this.guardianFeedback = "\u2705 Correcto: no puede pasar porque le falta la llave. \u{1F511}\u274C";
-      } else {
-        this.guardianFeedback = "\u2705 Correcto: no puede pasar, tiene " + sc.lives + " vidas (menos de 3).";
-      }
-      if (this.guardianIndex < this.guardianScenarios.length - 1) {
-        setTimeout(() => {
-          this.guardianIndex++;
-          this.guardianFeedback = "";
-          this.cdr.detectChanges();
-        }, 1800);
-      } else {
-        this.guardianDone = true;
-      }
-    } else {
-      this.guardianFeedbackError = true;
-      this.guardianFeedback = "\u274C Recuerda: necesita 3 vidas o m\xE1s Y la llave. Revisa ambas condiciones.";
-    }
+  get guardianCanCross() {
+    return this.guardianRule(this.guardianKey, this.guardianCoins);
+  }
+  toggleGuardianKey(hasKey) {
+    this.guardianKey = hasKey;
+    this.guardianPrediction = null;
+    this.guardianRan = false;
+    this.guardianFeedback = "";
+  }
+  guardianCoinsAdd() {
+    if (this.guardianCoins < 10)
+      this.guardianCoins++;
+    this.guardianPrediction = null;
+    this.guardianRan = false;
+    this.guardianFeedback = "";
+  }
+  guardianCoinsSub() {
+    if (this.guardianCoins > 0)
+      this.guardianCoins--;
+    this.guardianPrediction = null;
+    this.guardianRan = false;
+    this.guardianFeedback = "";
+  }
+  predictGuardian(canCross) {
+    if (this.guardianRan)
+      return;
+    this.guardianPrediction = canCross;
+  }
+  runGuardian() {
+    if (this.guardianPrediction === null)
+      return;
+    this.guardianRan = true;
+    const real = this.guardianCanCross;
+    const hit = this.guardianPrediction === real;
+    this.guardianFeedbackError = !hit;
+    const result = real ? "\u{1F309} \xA1Puede cruzar! Tiene la llave \u{1F511} Y " + this.guardianCoins + " monedas (\u2265 5)." : "\u{1F9D9} El guardi\xE1n no lo deja pasar: " + (!this.guardianKey ? "falta la llave \u{1F511}." : "solo tiene " + this.guardianCoins + " monedas (< 5).");
+    this.guardianFeedback = (hit ? "\u{1F389} \xA1Predicci\xF3n correcta! " : "\u{1F914} Fallaste la predicci\xF3n. ") + result;
+  }
+  goToGuardianFinal() {
+    this.guardianPhase = "final";
+    this.resetGuardianFinal();
+  }
+  // ── Fase 2: reto final con 4 personajes ──
+  resetGuardianFinal() {
+    this.guardianChars = [
+      { id: 1, name: "Ana", emoji: "\u{1F9D2}", hasKey: true, coins: 8, selected: false },
+      { id: 2, name: "Beto", emoji: "\u{1F466}", hasKey: true, coins: 3, selected: false },
+      { id: 3, name: "Caro", emoji: "\u{1F467}", hasKey: false, coins: 10, selected: false },
+      { id: 4, name: "Dani", emoji: "\u{1F9D1}", hasKey: true, coins: 6, selected: false }
+    ];
+    this.guardianChecked = false;
+    this.guardianAllCorrect = false;
+    this.guardianFinalFeedback = "";
+  }
+  toggleGuardianChar(id) {
+    if (this.guardianChecked)
+      return;
+    const c = this.guardianChars.find((x) => x.id === id);
+    if (c)
+      c.selected = !c.selected;
+  }
+  charCanCross(c) {
+    return this.guardianRule(c.hasKey, c.coins);
+  }
+  isGuardianCharCorrect(c) {
+    return c.selected === this.charCanCross(c);
+  }
+  checkGuardianFinal() {
+    this.guardianChecked = true;
+    this.guardianAllCorrect = this.guardianChars.every((c) => this.isGuardianCharCorrect(c));
+    this.guardianFinalFeedback = this.guardianAllCorrect ? "\u{1F389} \xA1Perfecto! Solo cruzan quienes tienen llave \u{1F511} Y 5 o m\xE1s monedas \u{1FA99}." : "\u{1F914} Revisa: para cruzar hacen falta las DOS condiciones a la vez (llave Y monedas \u2265 5).";
+  }
+  finishGuardian() {
+    this.guardianDone = true;
   }
   // ───────────────────────────────────────────────────────────
   // ACTIVIDAD 7: RETO FINAL - ¡CRUZA EL RÍO!
   // ───────────────────────────────────────────────────────────
   resetCross() {
+    this.crossLives = 2;
+    this.crossCoins = 3;
     this.crossKey = false;
-    this.crossCoins = 5;
-    this.crossLives = 3;
-    this.crossBoat = false;
-    this.crossStep = 0;
+    this.crossItem = false;
+    this.crossResult = "none";
     this.crossFeedback = "";
     this.crossFeedbackError = false;
-    this.crossGameOver = false;
     this.crossDone = false;
   }
   get crossHearts() {
     return Array.from({ length: this.crossLives }, (_, i) => i);
   }
-  // El niño consigue una llave antes del puente
-  crossTakeKey() {
-    this.crossKey = true;
-    this.crossFeedback = "\u{1F511} Recogiste la llave.";
+  // ── Condiciones de cada obstáculo ──
+  get crossBridgeOk() {
+    return this.crossKey && this.crossCoins >= 5;
+  }
+  get crossCrocOk() {
+    return this.crossLives > 2;
+  }
+  get crossGuardianOk() {
+    return this.crossItem;
+  }
+  get crossAllOk() {
+    return this.crossBridgeOk && this.crossCrocOk && this.crossGuardianOk;
+  }
+  crossMissingList() {
+    const missing = [];
+    if (!this.crossBridgeOk)
+      missing.push("\u{1F309} puente (llave \u{1F511} Y 5 monedas \u{1FA99})");
+    if (!this.crossCrocOk)
+      missing.push("\u{1F40A} cocodrilo (m\xE1s de 2 vidas \u2764\uFE0F)");
+    if (!this.crossGuardianOk)
+      missing.push("\u{1F9D9} guardi\xE1n (objeto especial \u{1F392})");
+    return missing.join(", ");
+  }
+  // ── Acciones para preparar al personaje (analizar variables) ──
+  clearCrossRun() {
+    if (this.crossResult !== "over")
+      this.crossResult = "none";
+    this.crossFeedback = "";
     this.crossFeedbackError = false;
   }
-  // Paso 0: puente (necesita llave)
-  crossBridge() {
-    if (this.crossKey) {
-      this.crossFeedbackError = false;
-      this.crossFeedback = "\u{1F309} SI tienes la llave \u2192 cruzas el puente. \u2705";
-      this.crossStep = 1;
-    } else {
-      this.crossFeedbackError = true;
-      this.crossFeedback = "\u{1F309} No tienes la llave. Recoge la llave para cruzar el puente.";
-    }
+  crossFindKey() {
+    this.crossKey = true;
+    this.clearCrossRun();
   }
-  // Paso 1: tienda (necesita 5 monedas para el bote)
-  crossBuyBoat() {
-    if (this.crossCoins >= 5) {
-      this.crossCoins -= 5;
-      this.crossBoat = true;
-      this.crossFeedbackError = false;
-      this.crossFeedback = "\u{1FA99} SI tienes 5 monedas \u2192 compras el bote. \u{1F6F6} \u2705";
-      this.crossStep = 2;
-    } else {
-      this.crossFeedbackError = true;
-      this.crossFeedback = "\u{1FA99} No te alcanza para el bote. Necesitas 5 monedas.";
-    }
+  crossEarnCoins() {
+    this.crossCoins = Math.min(this.crossCoins + 3, 12);
+    this.clearCrossRun();
   }
-  // Paso 2: monstruo (si tienes vidas continúas, si 0 game over)
-  crossFightMonster() {
-    this.crossLives -= 1;
-    if (this.crossLives <= 0) {
-      this.crossLives = 0;
-      this.crossGameOver = true;
-      this.crossFeedbackError = true;
-      this.crossFeedback = "\u{1F480} Game Over. Te quedaste sin vidas.";
-    } else {
-      this.crossFeedbackError = false;
-      this.crossFeedback = "\u2764\uFE0F El monstruo te quit\xF3 1 vida (vidas = " + this.crossLives + "), pero contin\xFAas. \u2705";
-      this.crossStep = 3;
-    }
+  crossRest() {
+    this.crossLives = Math.min(this.crossLives + 1, 5);
+    this.clearCrossRun();
   }
-  // Paso 3: meta (necesita bote y al menos 1 vida)
-  crossFinish() {
-    if (this.crossBoat && this.crossLives >= 1) {
+  crossTakeItem() {
+    this.crossItem = true;
+    this.clearCrossRun();
+  }
+  // ── Ejecutar con comprobación (camino seguro) ──
+  crossCheckAndCross() {
+    if (this.crossAllOk) {
+      this.crossResult = "win";
       this.crossFeedbackError = false;
-      this.crossFeedback = "\u{1F3C1} \xA1Cruzaste el r\xEDo! Tienes el bote \u{1F6F6} y " + this.crossLives + " vida(s). \u{1F389}";
+      this.crossFeedback = "\u{1F3C6} \xA1Lo lograste! Cumpliste todas las condiciones y cruzaste el r\xEDo. \u{1F309}";
       this.crossDone = true;
     } else {
+      this.crossResult = "missing";
       this.crossFeedbackError = true;
-      this.crossFeedback = "\u{1F3C1} A\xFAn no puedes cruzar: necesitas el bote y al menos 1 vida.";
+      this.crossFeedback = "\u{1F50E} Te falta algo. Revisa tus variables: " + this.crossMissingList() + ".";
+    }
+  }
+  // ── Ejecutar arriesgándose (camino peligroso) ──
+  crossRush() {
+    if (this.crossAllOk) {
+      this.crossResult = "win";
+      this.crossFeedbackError = false;
+      this.crossFeedback = "\u{1F3C6} \xA1Lo lograste! Te arriesgaste... y estabas list@ de verdad. \u{1F309}";
+      this.crossDone = true;
+    } else {
+      this.crossResult = "over";
+      this.crossFeedbackError = true;
+      this.crossFeedback = "\u{1F480} Game Over. Tomaste una decisi\xF3n incorrecta sin cumplir: " + this.crossMissingList() + ".";
     }
   }
   restartCross() {
@@ -49826,33 +51857,15 @@ var World3Component = class _World3Component {
   static \u0275fac = function World3Component_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _World3Component)(\u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(GameStateService));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _World3Component, selectors: [["app-world-3"]], outputs: { exitToForest: "exitToForest" }, decls: 19, vars: 5, consts: [[1, "world-screen"], [1, "world-container"], [1, "progress-section"], [1, "progress-info"], [1, "progress-bar"], [1, "progress-fill"], [1, "skip-btn", 3, "click"], [1, "activity-card"], [1, "activity-badge"], [1, "activity-desc"], [1, "success-box"], [1, "cond-scene"], [1, "cond-question"], [1, "cond-rule"], [1, "fork-paths"], [1, "fork-btn", 3, "click"], [1, "feedback-box", 3, "error", "success"], [1, "feedback-box"], [1, "reward-text"], [1, "btn-primary", 3, "click"], [1, "compare-row"], [1, "compare-box"], [1, "cmp-icon"], [1, "cmp-label"], [1, "cmp-value"], [1, "compare-op"], [1, "answer-options"], [1, "answer-btn", 3, "click"], [1, "door-visual"], [1, "compare-box", "solo"], [1, "lives-game"], [1, "code-rule"], [1, "lives-var"], [1, "lives-var-name"], [1, "lives-var-value"], [1, "lives-hearts"], [1, "heart"], [1, "lives-empty"], [1, "cond-result"], [1, "value-buttons"], [1, "value-btn", 3, "click", "disabled"], [1, "btn-primary"], [1, "else-result"], [1, "guardian-speech"], [1, "completion-box"], [1, "cross-status"], [1, "cross-stage", "gameover"], [1, "cross-stage"], [1, "stage-emoji"], [1, "btn-secondary", 3, "click"], [1, "answer-btn"], [1, "trophy"], [1, "rewards-row"], [1, "reward-item"]], template: function World3Component_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _World3Component, selectors: [["app-world-3"]], outputs: { exitToForest: "exitToForest" }, decls: 3, vars: 1, consts: [[1, "world-screen"], [1, "world-intro", "world-intro--river"], [1, "world-container"], [1, "world-intro", "world-intro--river", 3, "click"], [1, "intro-badge"], [1, "dialogue-bubble"], [1, "dialogue-text"], [1, "type-caret"], [1, "intro-character-xl"], [1, "dialogue-dots"], [1, "dlg-dot", 3, "active", "seen"], [1, "tap-hint"], [1, "btn-primary", "intro-start"], [1, "dlg-dot"], [1, "btn-primary", "intro-start", 3, "click"], [1, "progress-section"], [1, "progress-info"], [1, "progress-bar"], [1, "progress-fill"], [1, "skip-btn", 3, "click"], [1, "activity-card"], [1, "activity-badge"], [1, "activity-desc"], [1, "success-box"], [1, "cond-scene"], [1, "cond-question"], [1, "cond-rule"], [1, "fork-paths"], [1, "fork-btn", 3, "click"], [1, "feedback-box", 3, "error", "success"], [1, "feedback-box"], [1, "reward-text"], [1, "btn-primary", 3, "click"], [1, "compare-row"], [1, "compare-box"], [1, "cmp-icon"], [1, "cmp-label"], [1, "cmp-value"], [1, "compare-op"], [1, "answer-options"], [1, "answer-btn", 3, "click"], [1, "door-visual"], [1, "compare-box", "solo"], [1, "lives-steps"], [1, "lives-step"], [1, "lives-game"], [1, "code-rule"], [1, "lives-var"], [1, "lives-var-name"], [1, "lives-var-value"], [1, "lives-hearts"], [1, "heart"], [1, "lives-empty"], [1, "cond-result"], [1, "value-buttons"], [1, "value-btn", 3, "click", "disabled"], [1, "lives-table"], [1, "order-slots"], [1, "order-card", "placed"], [1, "order-slot-empty"], [1, "btn-primary"], [1, "order-card", "placed", 3, "click"], [1, "order-num"], [1, "order-text"], [1, "order-action"], [1, "order-hint"], [1, "order-pool"], [1, "order-card"], [1, "order-card", 3, "click"], [1, "predict-options"], [1, "predict-btn", 3, "click", "disabled"], [1, "btn-primary", 3, "disabled"], [1, "btn-primary", 3, "click", "disabled"], [1, "value-btn", 3, "click"], [1, "door-scene"], [1, "door-key"], [1, "classify-grid"], [1, "classify-card", 3, "correct", "wrong"], [1, "value-btn"], [1, "classify-card"], [1, "classify-cond"], [1, "classify-choices"], [1, "classify-btn", 3, "click", "disabled"], [1, "classify-mark"], [1, "guardian-speech"], [1, "mini-buttons"], [1, "answer-btn", 3, "click", "disabled"], [1, "chars-grid"], [1, "char-card", 3, "selected", "correct", "wrong", "disabled"], [1, "char-card", 3, "click", "disabled"], [1, "char-emoji"], [1, "char-name"], [1, "char-vars"], [1, "char-pick"], [1, "char-mark"], [1, "completion-box"], [1, "cross-status"], [1, "cross-checklist"], [1, "chk-emoji"], [1, "chk-text"], [1, "chk-mark"], [1, "cross-stage", "gameover"], [1, "cross-actions"], [1, "cross-run"], [1, "btn-secondary", 3, "click"], [1, "stage-emoji"], [1, "trophy"], [1, "rewards-row"], [1, "reward-item"]], template: function World3Component_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275domElementStart(0, "main", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "span");
-      \u0275\u0275text(5, "\u{1F30A} Mundo 3: R\xEDo de los Condicionales");
+      \u0275\u0275domElementStart(0, "main", 0);
+      \u0275\u0275conditionalCreate(1, World3Component_Conditional_1_Template, 15, 8, "div", 1)(2, World3Component_Conditional_2_Template, 18, 5, "div", 2);
       \u0275\u0275domElementEnd();
-      \u0275\u0275domElementStart(6, "span");
-      \u0275\u0275text(7);
-      \u0275\u0275domElementEnd()();
-      \u0275\u0275domElementStart(8, "div", 4);
-      \u0275\u0275domElement(9, "div", 5);
-      \u0275\u0275domElementEnd();
-      \u0275\u0275domElementStart(10, "button", 6);
-      \u0275\u0275domListener("click", function World3Component_Template_button_click_10_listener() {
-        return ctx.skipWorld3Activity();
-      });
-      \u0275\u0275text(11, "Saltar \u23ED\uFE0F");
-      \u0275\u0275domElementEnd()();
-      \u0275\u0275conditionalCreate(12, World3Component_Conditional_12_Template, 9, 1, "article", 7)(13, World3Component_Conditional_13_Template, 9, 1, "article", 7)(14, World3Component_Conditional_14_Template, 9, 1, "article", 7)(15, World3Component_Conditional_15_Template, 9, 1, "article", 7)(16, World3Component_Conditional_16_Template, 9, 1, "article", 7)(17, World3Component_Conditional_17_Template, 9, 1, "article", 7)(18, World3Component_Conditional_18_Template, 9, 1, "article", 7);
-      \u0275\u0275domElementEnd()();
     }
     if (rf & 2) {
-      \u0275\u0275advance(7);
-      \u0275\u0275textInterpolate2("", ctx.currentWorld3Activity + 1, " / ", ctx.totalWorld3Activities);
-      \u0275\u0275advance(2);
-      \u0275\u0275styleProp("width", ctx.world3ProgressPercent(), "%");
-      \u0275\u0275advance(3);
-      \u0275\u0275conditional(ctx.currentWorld3Activity === 0 ? 12 : ctx.currentWorld3Activity === 1 ? 13 : ctx.currentWorld3Activity === 2 ? 14 : ctx.currentWorld3Activity === 3 ? 15 : ctx.currentWorld3Activity === 4 ? 16 : ctx.currentWorld3Activity === 5 ? 17 : ctx.currentWorld3Activity === 6 ? 18 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.showW3Intro ? 1 : 2);
     }
   }, dependencies: [CommonModule], styles: ["\n/*# sourceMappingURL=world-3.css.map */"] });
 };
@@ -49860,6 +51873,36 @@ var World3Component = class _World3Component {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(World3Component, [{
     type: Component,
     args: [{ selector: "app-world-3", standalone: true, imports: [CommonModule], template: `    <main class="world-screen">
+      <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+           INTRO: Coco la rana aparece en grande y explica lo b\xE1sico
+           \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+      @if (showW3Intro) {
+        <div class="world-intro world-intro--river" (click)="advanceW3Dialogue()">
+          <span class="intro-badge">\u{1F30A} MUNDO 3 \xB7 CONDICIONALES</span>
+
+          <div class="dialogue-bubble">
+            <p class="dialogue-text">{{ w3DisplayedText }}<span class="type-caret" [class.hidden]="!w3Typing">\u258B</span></p>
+          </div>
+
+          <div class="intro-character-xl" [class.talking]="w3Typing">{{ w3Character }}</div>
+
+          <div class="dialogue-dots">
+            @for (line of [0,1,2,3,4,5]; track line) {
+              <span class="dlg-dot" [class.active]="line === w3DialogueIndex" [class.seen]="line < w3DialogueIndex"></span>
+            }
+          </div>
+
+          @if (!w3DialogueFinished) {
+            <p class="tap-hint">\u{1F446} Toca la pantalla para continuar</p>
+          } @else {
+            <button class="btn-primary intro-start" (click)="startWorld3(); $event.stopPropagation()">
+              \xA1Cruzar el r\xEDo! \u{1FAB7}
+            </button>
+          }
+        </div>
+      }
+
+      @else {
       <div class="world-container">
         <div class="progress-section">
           <div class="progress-info">
@@ -49985,37 +52028,133 @@ var World3Component = class _World3Component {
           <article class="activity-card">
             <span class="activity-badge">ACTIVIDAD 4</span>
             <h1>Si tienes vidas... \u2764\uFE0F</h1>
-            <p class="activity-desc">Regla: SI vidas > 0 \u2192 puedes continuar. Cambia las vidas y observa qu\xE9 pasa.</p>
+            <p class="activity-desc">Tus vidas deciden el camino del programa. Explora, ordena las condiciones y predice el resultado.</p>
 
             @if (!ifLivesDone) {
-              <div class="lives-game">
-                <div class="code-rule">SI vidas &gt; 0 \u2192 continuar</div>
-                <div class="lives-var">
-                  <span class="lives-var-name">\u2764\uFE0F Vidas =</span>
-                  <strong class="lives-var-value">{{ ifLivesValue }}</strong>
-                </div>
-                <div class="lives-hearts">
-                  @for (h of ifLivesHearts; track h) { <span class="heart">\u2764\uFE0F</span> }
-                  @if (ifLivesValue === 0) { <span class="lives-empty">sin vidas</span> }
-                </div>
-                <div class="cond-result" [class.ok]="!ifLivesReached0" [class.stop]="ifLivesReached0">
-                  {{ ifLivesReached0 ? '\u{1F6D1} No puedes continuar' : '\u{1F3C3} Contin\xFAa' }}
-                </div>
-                <div class="value-buttons">
-                  <button class="value-btn" (click)="ifLivesSub()" [disabled]="ifLivesValue === 0">\u2796 Restar 1</button>
-                  <button class="value-btn" (click)="ifLivesAdd()" [disabled]="ifLivesValue === 5">\u2795 Sumar 1</button>
-                </div>
-                @if (ifLivesReached0 || ifLivesReachedContinue) {
-                  <button class="btn-primary" (click)="finishIfLives()">Entendido, continuar \u2192</button>
-                }
+
+              <!-- Pasos de la actividad -->
+              <div class="lives-steps">
+                <span class="lives-step" [class.active]="ifLivesPhase === 'explore'">1 \xB7 Explorar</span>
+                <span class="lives-step" [class.active]="ifLivesPhase === 'order'">2 \xB7 Ordenar</span>
+                <span class="lives-step" [class.active]="ifLivesPhase === 'predict'">3 \xB7 Predecir</span>
               </div>
-              @if (ifLivesFeedback) {
-                <div class="feedback-box" [class.error]="ifLivesReached0" [class.success]="!ifLivesReached0">{{ ifLivesFeedback }}</div>
+
+              <!-- FASE 1: EXPLORAR LAS SITUACIONES -->
+              @if (ifLivesPhase === 'explore') {
+                <div class="lives-game">
+                  <div class="code-rule">Cambia las \u2764\uFE0F y observa qu\xE9 hace el h\xE9roe</div>
+                  <div class="lives-var">
+                    <span class="lives-var-name">\u2764\uFE0F Vidas =</span>
+                    <strong class="lives-var-value">{{ ifLivesValue }}</strong>
+                  </div>
+                  <div class="lives-hearts">
+                    @for (h of ifLivesHearts; track h) { <span class="heart">\u2764\uFE0F</span> }
+                    @if (ifLivesValue === 0) { <span class="lives-empty">sin vidas</span> }
+                  </div>
+                  <div class="cond-result"
+                       [class.ok]="ifLivesCurrentOutcome.cls === 'ok'"
+                       [class.fight]="ifLivesCurrentOutcome.cls === 'fight'"
+                       [class.seek]="ifLivesCurrentOutcome.cls === 'seek'"
+                       [class.stop]="ifLivesCurrentOutcome.cls === 'stop'">
+                    {{ ifLivesCurrentOutcome.emoji }} {{ ifLivesCurrentOutcome.label }}
+                  </div>
+                  <div class="value-buttons">
+                    <button class="value-btn" (click)="ifLivesSub()" [disabled]="ifLivesValue === 0">\u2796 Restar 1</button>
+                    <button class="value-btn" (click)="ifLivesAdd()" [disabled]="ifLivesValue === 4">\u2795 Sumar 1</button>
+                  </div>
+
+                  <ul class="lives-table">
+                    <li [class.now]="ifLivesValue > 2"><span>\u2764\uFE0F\u2764\uFE0F\u2764\uFE0F vidas &gt; 2</span><span>\u{1F5E1}\uFE0F Enfrentar al enemigo</span></li>
+                    <li [class.now]="ifLivesValue === 2"><span>\u2764\uFE0F\u2764\uFE0F vidas = 2</span><span>\u{1F3C3} Continuar con cuidado</span></li>
+                    <li [class.now]="ifLivesValue === 1"><span>\u2764\uFE0F vidas = 1</span><span>\u{1F49A} Buscar una vida extra</span></li>
+                    <li [class.now]="ifLivesValue === 0"><span>\u{1F5A4} vidas = 0</span><span>\u{1F480} Game Over</span></li>
+                  </ul>
+
+                  <button class="btn-primary" (click)="goToLivesOrder()">Siguiente: ordenar condiciones \u2192</button>
+                </div>
               }
+
+              <!-- FASE 2: ORDENAR LAS CONDICIONES -->
+              @else if (ifLivesPhase === 'order') {
+                <div class="lives-game">
+                  <p class="cond-rule">\u{1F9E0} Reto: ordena las condiciones. El programa las revisa de arriba hacia abajo, as\xED que empieza por la m\xE1s exigente.</p>
+
+                  <div class="order-slots">
+                    @for (id of livesOrderPlaced; track id; let i = $index) {
+                      <button class="order-card placed" (click)="removeCondition(i)">
+                        <span class="order-num">{{ i + 1 }}</span>
+                        <span class="order-text">{{ conditionCard(id).text }}</span>
+                        <span class="order-action">\u2192 {{ conditionCard(id).action }}</span>
+                      </button>
+                    }
+                    @if (livesOrderPlaced.length < 3) {
+                      <div class="order-slot-empty">Ranura {{ livesOrderPlaced.length + 1 }}</div>
+                    }
+                  </div>
+
+                  @if (livesOrderPool.length > 0) {
+                    <p class="order-hint">Toca una condici\xF3n para colocarla:</p>
+                    <div class="order-pool">
+                      @for (id of livesOrderPool; track id) {
+                        <button class="order-card" (click)="placeCondition(id)">
+                          <span class="order-text">{{ conditionCard(id).text }}</span>
+                          <span class="order-action">\u2192 {{ conditionCard(id).action }}</span>
+                        </button>
+                      }
+                    </div>
+                  }
+
+                  @if (livesOrderFeedback) {
+                    <div class="feedback-box" [class.error]="livesOrderError" [class.success]="livesOrderOk">{{ livesOrderFeedback }}</div>
+                  }
+
+                  @if (!livesOrderOk) {
+                    <button class="btn-primary" (click)="checkLivesOrder()">Comprobar orden \u2713</button>
+                  } @else {
+                    <button class="btn-primary" (click)="goToLivesPredict()">Siguiente: \xA1a predecir! \u2192</button>
+                  }
+                </div>
+              }
+
+              <!-- FASE 3: PREDECIR EL RESULTADO -->
+              @else {
+                <div class="lives-game">
+                  <p class="cond-rule">\u{1F52E} Reto final: mira las vidas y predice qu\xE9 har\xE1 el h\xE9roe ANTES de ejecutar.</p>
+                  <div class="lives-var">
+                    <span class="lives-var-name">\u2764\uFE0F Vidas =</span>
+                    <strong class="lives-var-value">{{ predictLives }}</strong>
+                  </div>
+                  <div class="lives-hearts">
+                    @for (h of predictHearts; track h) { <span class="heart">\u2764\uFE0F</span> }
+                    @if (predictLives === 0) { <span class="lives-empty">sin vidas</span> }
+                  </div>
+
+                  <div class="predict-options">
+                    <button class="predict-btn" [class.selected]="predictChoice === 'fight'" [disabled]="predictRevealed" (click)="choosePrediction('fight')">\u{1F5E1}\uFE0F Enfrentar</button>
+                    <button class="predict-btn" [class.selected]="predictChoice === 'careful'" [disabled]="predictRevealed" (click)="choosePrediction('careful')">\u{1F3C3} Continuar</button>
+                    <button class="predict-btn" [class.selected]="predictChoice === 'seek'" [disabled]="predictRevealed" (click)="choosePrediction('seek')">\u{1F49A} Buscar vida</button>
+                    <button class="predict-btn" [class.selected]="predictChoice === 'over'" [disabled]="predictRevealed" (click)="choosePrediction('over')">\u{1F480} Game Over</button>
+                  </div>
+
+                  @if (predictFeedback) {
+                    <div class="feedback-box" [class.error]="!predictCorrect" [class.success]="predictCorrect">{{ predictFeedback }}</div>
+                  }
+
+                  @if (!predictRevealed) {
+                    <button class="btn-primary" (click)="revealPrediction()" [disabled]="!predictChoice">\u25B6\uFE0F Ejecutar y comprobar</button>
+                  } @else {
+                    <div class="value-buttons">
+                      <button class="value-btn" (click)="newPrediction()">\u{1F501} Otra ronda</button>
+                      <button class="btn-primary" (click)="finishIfLives()">Terminar actividad \u2192</button>
+                    </div>
+                  }
+                </div>
+              }
+
             } @else {
               <div class="success-box">
                 <h2>\u2764\uFE0F \xA1Lo entendiste!</h2>
-                <p>Una condici\xF3n SI decide si el personaje puede continuar seg\xFAn sus vidas.</p>
+                <p>El valor de una variable (las vidas) cambia el camino que toma el programa. Y el orden de las condiciones importa.</p>
                 <p class="reward-text">+10 XP \xB7 +1 Semilla</p>
                 <button class="btn-primary" (click)="nextWorld3Activity()">Siguiente actividad \u2192</button>
               </div>
@@ -50027,31 +52166,96 @@ var World3Component = class _World3Component {
         @else if (currentWorld3Activity === 4) {
           <article class="activity-card">
             <span class="activity-badge">ACTIVIDAD 5</span>
-            <h1>Si no... toma otro camino \u{1F500}</h1>
-            <p class="activity-desc">Una condici\xF3n puede producir dos resultados: SI se cumple, o SI NO.</p>
+            <h1>La puerta \u{1F6AA}</h1>
+            <p class="activity-desc">SI tienes una llave \u2192 abres la puerta. SI NO \u2192 buscas la llave. \xA1Dos caminos posibles!</p>
 
             @if (!elseDone) {
-              <div class="cond-scene">
-                <div class="cond-question">{{ elseScenario.question }}</div>
-                <div class="code-rule">
-                  SI (condici\xF3n) \u2192 {{ elseScenario.ifText }}<br>
-                  SI NO \u2192 {{ elseScenario.elseText }}
-                </div>
-                <div class="answer-options">
-                  <button class="answer-btn" (click)="chooseElse(true)">\u2705 S\xED (rama SI)</button>
-                  <button class="answer-btn" (click)="chooseElse(false)">\u274C No (rama SI NO)</button>
-                </div>
-                @if (elseResult) {
-                  <div class="else-result">{{ elseResult === 'if' ? elseScenario.ifText : elseScenario.elseText }}</div>
-                }
+
+              <div class="lives-steps">
+                <span class="lives-step" [class.active]="elsePhase === 'explore'">1 \xB7 Probar</span>
+                <span class="lives-step" [class.active]="elsePhase === 'classify'">2 \xB7 Reto extra</span>
               </div>
-              @if (elseFeedback) {
-                <div class="feedback-box" [class.error]="elseFeedbackError" [class.success]="!elseFeedbackError">{{ elseFeedback }}</div>
+
+              <!-- FASE 1: PROBAR LA PUERTA -->
+              @if (elsePhase === 'explore') {
+                <div class="cond-scene">
+                  <div class="code-rule">
+                    SI llave &gt; 0 \u2192 \u{1F513} Abrir la puerta<br>
+                    SI NO \u2192 \u{1F50E} Buscar la llave
+                  </div>
+
+                  <div class="door-scene">
+                    <div class="door-visual" [class.open]="elseRan && elseHasKey">
+                      {{ elseRan && elseHasKey ? '\u{1F513}' : '\u{1F6AA}' }}
+                    </div>
+                    <div class="door-key">{{ elseHasKey ? '\u{1F511} Tienes la llave' : '\u274C Sin llave' }}</div>
+                  </div>
+
+                  <p class="cond-rule">Elige tu situaci\xF3n:</p>
+                  <div class="answer-options">
+                    <button class="answer-btn" [class.selected]="elseHasKey" (click)="toggleElseKey(true)">\u{1F511} Tengo llave</button>
+                    <button class="answer-btn" [class.selected]="!elseHasKey" (click)="toggleElseKey(false)">\u274C No tengo llave</button>
+                  </div>
+
+                  <button class="btn-primary" (click)="runElseDoor()">\u25B6\uFE0F Ejecutar programa</button>
+
+                  @if (elseFeedback) {
+                    <div class="feedback-box" [class.error]="elseFeedbackError" [class.success]="!elseFeedbackError">{{ elseFeedback }}</div>
+                  }
+
+                  @if (elseRan) {
+                    <button class="btn-primary" (click)="goToElseClassify()">Siguiente: reto extra \u2192</button>
+                  }
+                </div>
               }
+
+              <!-- FASE 2: RETO EXTRA \u2013 CLASIFICAR SIN EJECUTAR -->
+              @else {
+                <div class="cond-scene">
+                  <p class="cond-rule">\u{1F9E0} Reto extra: sin ejecutar, decide qu\xE9 camino tomar\xE1 cada situaci\xF3n.</p>
+                  <div class="code-rule">SI llave &gt; 0 \u2192 \u{1F513} Abrir puerta &nbsp;|&nbsp; SI NO \u2192 \u{1F50E} Buscar llave</div>
+
+                  <div class="classify-grid">
+                    @for (s of elseSituations; track s.id) {
+                      <div class="classify-card"
+                           [class.correct]="elseChecked && isElseCorrect(s)"
+                           [class.wrong]="elseChecked && !isElseCorrect(s)">
+                        <div class="classify-cond">llave = {{ s.keys }}</div>
+                        <div class="classify-choices">
+                          <button class="classify-btn"
+                                  [class.selected]="s.choice === 'open'"
+                                  [disabled]="elseChecked"
+                                  (click)="assignElse(s.id, 'open')">\u{1F513} Abrir</button>
+                          <button class="classify-btn"
+                                  [class.selected]="s.choice === 'search'"
+                                  [disabled]="elseChecked"
+                                  (click)="assignElse(s.id, 'search')">\u{1F50E} Buscar</button>
+                        </div>
+                        @if (elseChecked) {
+                          <div class="classify-mark">{{ isElseCorrect(s) ? '\u2705' : '\u274C \u2192 ' + (elseExpected(s.keys) === 'open' ? '\u{1F513} Abrir' : '\u{1F50E} Buscar') }}</div>
+                        }
+                      </div>
+                    }
+                  </div>
+
+                  @if (elseClassifyFeedback) {
+                    <div class="feedback-box" [class.error]="elseChecked && !elseAllCorrect" [class.success]="elseAllCorrect">{{ elseClassifyFeedback }}</div>
+                  }
+
+                  @if (!elseChecked) {
+                    <button class="btn-primary" (click)="checkElseClassify()">\u25B6\uFE0F Ejecutar y comprobar</button>
+                  } @else if (elseAllCorrect) {
+                    <button class="btn-primary" (click)="finishElse()">Terminar actividad \u2192</button>
+                  } @else {
+                    <button class="value-btn" (click)="resetElseClassify()">\u{1F501} Intentar de nuevo</button>
+                  }
+                </div>
+              }
+
             } @else {
               <div class="success-box">
-                <h2>\u{1F500} \xA1SI / SI NO dominado!</h2>
-                <p>Una condici\xF3n puede llevar a dos caminos diferentes.</p>
+                <h2>\u{1F6AA} \xA1if / else dominado!</h2>
+                <p>Una condici\xF3n deja que el programa tome uno de dos caminos posibles: SI se cumple, o SI NO.</p>
                 <p class="reward-text">+10 XP \xB7 +1 Semilla</p>
                 <button class="btn-primary" (click)="nextWorld3Activity()">Siguiente actividad \u2192</button>
               </div>
@@ -50064,36 +52268,110 @@ var World3Component = class _World3Component {
           <article class="activity-card">
             <span class="activity-badge">ACTIVIDAD 6</span>
             <h1>El guardi\xE1n del r\xEDo \u{1F9D9}</h1>
-            <p class="activity-desc">Combina variables y condiciones: deben cumplirse las dos a la vez.</p>
+            <p class="activity-desc">Para cruzar necesitas DOS condiciones a la vez: tener la llave \u{1F511} Y suficientes monedas \u{1FA99}.</p>
 
             @if (!guardianDone) {
-              <div class="cond-scene">
-                <div class="guardian-speech">\u{1F9D9} "Solo dejar\xE9 pasar a quienes tengan <strong>3 vidas o m\xE1s</strong> Y la <strong>llave</strong>."</div>
-                <div class="compare-row">
-                  <div class="compare-box">
-                    <span class="cmp-icon">\u2764\uFE0F</span>
-                    <span class="cmp-label">Vidas</span>
-                    <strong class="cmp-value">{{ guardianScenario.lives }}</strong>
-                  </div>
-                  <div class="compare-box">
-                    <span class="cmp-icon">\u{1F511}</span>
-                    <span class="cmp-label">Llave</span>
-                    <strong class="cmp-value">{{ guardianScenario.hasKey ? 'S\xED' : 'No' }}</strong>
-                  </div>
-                </div>
-                <p class="cond-rule">\xBFPuede pasar?</p>
-                <div class="answer-options">
-                  <button class="answer-btn" (click)="answerGuardian(true)">\u2705 S\xED, puede pasar</button>
-                  <button class="answer-btn" (click)="answerGuardian(false)">\u274C No puede pasar</button>
-                </div>
+
+              <div class="lives-steps">
+                <span class="lives-step" [class.active]="guardianPhase === 'explore'">1 \xB7 Explorar</span>
+                <span class="lives-step" [class.active]="guardianPhase === 'final'">2 \xB7 Reto final</span>
               </div>
-              @if (guardianFeedback) {
-                <div class="feedback-box" [class.error]="guardianFeedbackError" [class.success]="!guardianFeedbackError">{{ guardianFeedback }}</div>
+
+              <!-- FASE 1: VARIABLES + PREDICCI\xD3N -->
+              @if (guardianPhase === 'explore') {
+                <div class="cond-scene">
+                  <div class="guardian-speech">\u{1F9D9} "Solo cruza quien tenga la <strong>llave</strong> Y <strong>5 monedas o m\xE1s</strong>."</div>
+                  <div class="code-rule">
+                    SI tiene_llave = verdadero Y monedas &gt;= 5 \u2192 \u{1F309} \xA1Cruzar el r\xEDo!<br>
+                    SI NO \u2192 \u{1F9D9} El guardi\xE1n no te deja pasar
+                  </div>
+
+                  <div class="compare-row">
+                    <div class="compare-box">
+                      <span class="cmp-icon">\u{1F511}</span>
+                      <span class="cmp-label">Llave</span>
+                      <strong class="cmp-value">{{ guardianKey ? 'S\xED' : 'No' }}</strong>
+                      <div class="mini-buttons">
+                        <button class="value-btn" [class.selected]="guardianKey" (click)="toggleGuardianKey(true)">S\xED</button>
+                        <button class="value-btn" [class.selected]="!guardianKey" (click)="toggleGuardianKey(false)">No</button>
+                      </div>
+                    </div>
+                    <div class="compare-box">
+                      <span class="cmp-icon">\u{1FA99}</span>
+                      <span class="cmp-label">Monedas</span>
+                      <strong class="cmp-value">{{ guardianCoins }}</strong>
+                      <div class="mini-buttons">
+                        <button class="value-btn" (click)="guardianCoinsSub()" [disabled]="guardianCoins === 0">\u2796</button>
+                        <button class="value-btn" (click)="guardianCoinsAdd()" [disabled]="guardianCoins === 10">\u2795</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p class="cond-rule">Antes de ejecutar, predice: \xBFpodr\xE1 cruzar?</p>
+                  <div class="answer-options">
+                    <button class="answer-btn" [class.selected]="guardianPrediction === true" [disabled]="guardianRan" (click)="predictGuardian(true)">\u2705 S\xED puede cruzar</button>
+                    <button class="answer-btn" [class.selected]="guardianPrediction === false" [disabled]="guardianRan" (click)="predictGuardian(false)">\u274C No puede cruzar</button>
+                  </div>
+
+                  @if (!guardianRan) {
+                    <button class="btn-primary" (click)="runGuardian()" [disabled]="guardianPrediction === null">\u25B6\uFE0F Ejecutar programa</button>
+                  }
+
+                  @if (guardianFeedback) {
+                    <div class="feedback-box" [class.error]="guardianFeedbackError" [class.success]="!guardianFeedbackError">{{ guardianFeedback }}</div>
+                  }
+
+                  @if (guardianRan) {
+                    <div class="value-buttons">
+                      <button class="value-btn" (click)="toggleGuardianKey(guardianKey)">\u{1F501} Otra situaci\xF3n</button>
+                      <button class="btn-primary" (click)="goToGuardianFinal()">Siguiente: reto final \u2192</button>
+                    </div>
+                  }
+                </div>
               }
+
+              <!-- FASE 2: RETO FINAL \u2013 \xBFQUI\xC9NES PUEDEN CRUZAR? -->
+              @else {
+                <div class="cond-scene">
+                  <p class="cond-rule">\u{1F525} Reto final: marca a qui\xE9nes pueden cruzar (llave \u{1F511} Y monedas \u2265 5). Pi\xE9nsalo antes de ejecutar.</p>
+
+                  <div class="chars-grid">
+                    @for (c of guardianChars; track c.id) {
+                      <button class="char-card"
+                              [class.selected]="c.selected"
+                              [class.correct]="guardianChecked && isGuardianCharCorrect(c)"
+                              [class.wrong]="guardianChecked && !isGuardianCharCorrect(c)"
+                              [disabled]="guardianChecked"
+                              (click)="toggleGuardianChar(c.id)">
+                        <span class="char-emoji">{{ c.emoji }}</span>
+                        <span class="char-name">{{ c.name }}</span>
+                        <span class="char-vars">{{ c.hasKey ? '\u{1F511} S\xED' : '\u{1F511} No' }} \xB7 \u{1FA99} {{ c.coins }}</span>
+                        <span class="char-pick">{{ c.selected ? '\u2705 Cruza' : 'No cruza' }}</span>
+                        @if (guardianChecked) {
+                          <span class="char-mark">{{ isGuardianCharCorrect(c) ? '\u2714\uFE0F correcto' : '\u2716\uFE0F ' + (charCanCross(c) ? 's\xED cruzaba' : 'no cruzaba') }}</span>
+                        }
+                      </button>
+                    }
+                  </div>
+
+                  @if (guardianFinalFeedback) {
+                    <div class="feedback-box" [class.error]="guardianChecked && !guardianAllCorrect" [class.success]="guardianAllCorrect">{{ guardianFinalFeedback }}</div>
+                  }
+
+                  @if (!guardianChecked) {
+                    <button class="btn-primary" (click)="checkGuardianFinal()">\u25B6\uFE0F Ejecutar y comprobar</button>
+                  } @else if (guardianAllCorrect) {
+                    <button class="btn-primary" (click)="finishGuardian()">Terminar actividad \u2192</button>
+                  } @else {
+                    <button class="value-btn" (click)="resetGuardianFinal()">\u{1F501} Intentar de nuevo</button>
+                  }
+                </div>
+              }
+
             } @else {
               <div class="success-box">
                 <h2>\u{1F9D9} \xA1Guardi\xE1n superado!</h2>
-                <p>Aprendiste a combinar dos condiciones con "Y".</p>
+                <p>Aprendiste la condici\xF3n compuesta con Y (AND): todas las condiciones deben cumplirse para que ocurra la acci\xF3n.</p>
                 <p class="reward-text">+10 XP \xB7 +1 Semilla</p>
                 <button class="btn-primary" (click)="nextWorld3Activity()">Siguiente actividad \u2192</button>
               </div>
@@ -50105,64 +52383,62 @@ var World3Component = class _World3Component {
         @else if (currentWorld3Activity === 6) {
           <article class="activity-card">
             <span class="activity-badge">RETO FINAL</span>
-            <h1>\xA1Cruza el R\xEDo! \u{1F3C6}</h1>
-            <p class="activity-desc">Analiza cada condici\xF3n y decide bien. No basta con hacer clic: hay que pensar.</p>
+            <h1>\xA1La gran aventura del r\xEDo! \u{1F3C6}\u{1F30A}</h1>
+            <p class="activity-desc">El r\xEDo est\xE1 frente a ti y tienes una sola oportunidad. Analiza tus variables, prepara al personaje y decide cu\xE1ndo cruzar.</p>
 
             @if (!crossDone) {
+
+              <!-- Variables del personaje -->
               <div class="cross-status">
-                <span>\u{1F511} {{ crossKey ? 'S\xED' : 'No' }}</span>
-                <span>\u{1FA99} {{ crossCoins }}</span>
-                <span>\u2764\uFE0F {{ crossLives }}</span>
-                <span>\u{1F6F6} {{ crossBoat ? 'S\xED' : 'No' }}</span>
+                <span [class.ok-var]="crossLives > 2">\u2764\uFE0F {{ crossLives }}</span>
+                <span [class.ok-var]="crossCoins >= 5">\u{1FA99} {{ crossCoins }}</span>
+                <span [class.ok-var]="crossKey">\u{1F511} {{ crossKey ? 'S\xED' : 'No' }}</span>
+                <span [class.ok-var]="crossItem">\u{1F392} {{ crossItem ? 'S\xED' : 'No' }}</span>
               </div>
 
-              @if (crossGameOver) {
+              <!-- Obst\xE1culos y sus condiciones -->
+              <ul class="cross-checklist">
+                <li [class.met]="crossBridgeOk">
+                  <span class="chk-emoji">\u{1F309}</span>
+                  <span class="chk-text">Puente: llave \u{1F511} <strong>Y</strong> monedas &gt;= 5</span>
+                  <span class="chk-mark">{{ crossBridgeOk ? '\u2705' : '\u2B1C' }}</span>
+                </li>
+                <li [class.met]="crossCrocOk">
+                  <span class="chk-emoji">\u{1F40A}</span>
+                  <span class="chk-text">Cocodrilo: vidas &gt; 2</span>
+                  <span class="chk-mark">{{ crossCrocOk ? '\u2705' : '\u2B1C' }}</span>
+                </li>
+                <li [class.met]="crossGuardianOk">
+                  <span class="chk-emoji">\u{1F9D9}</span>
+                  <span class="chk-text">Guardi\xE1n: objeto especial \u{1F392}</span>
+                  <span class="chk-mark">{{ crossGuardianOk ? '\u2705' : '\u2B1C' }}</span>
+                </li>
+                <li [class.met]="crossAllOk">
+                  <span class="chk-emoji">\u{1F3C6}</span>
+                  <span class="chk-text">Meta: cumplir TODAS las condiciones</span>
+                  <span class="chk-mark">{{ crossAllOk ? '\u2705' : '\u2B1C' }}</span>
+                </li>
+              </ul>
+
+              @if (crossResult !== 'over') {
+                <p class="cond-rule">\u{1F392} Prepara lo que te falta:</p>
+                <div class="cross-actions">
+                  <button class="value-btn" (click)="crossFindKey()" [disabled]="crossKey">\u{1F511} Buscar la llave</button>
+                  <button class="value-btn" (click)="crossEarnCoins()" [disabled]="crossCoins >= 12">\u{1FA99} Ganar monedas (+3)</button>
+                  <button class="value-btn" (click)="crossRest()" [disabled]="crossLives >= 5">\u2764\uFE0F Descansar (+1 vida)</button>
+                  <button class="value-btn" (click)="crossTakeItem()" [disabled]="crossItem">\u{1F392} Recoger el objeto</button>
+                </div>
+
+                <p class="cond-rule">Cuando est\xE9s list@, ejecuta el programa:</p>
+                <div class="cross-run">
+                  <button class="btn-primary" (click)="crossCheckAndCross()">\u{1F50E} Comprobar y cruzar</button>
+                  <button class="btn-secondary" (click)="crossRush()">\u{1F3B2} Arriesgarse a cruzar</button>
+                </div>
+              } @else {
                 <div class="cross-stage gameover">
                   <div class="stage-emoji">\u{1F480}</div>
-                  <p>Te quedaste sin vidas.</p>
+                  <p>Te arriesgaste sin cumplir las condiciones.</p>
                   <button class="btn-secondary" (click)="restartCross()">\u{1F501} Reintentar el r\xEDo</button>
-                </div>
-              }
-
-              <!-- Paso 0: Puente -->
-              @else if (crossStep === 0) {
-                <div class="cross-stage">
-                  <div class="stage-emoji">\u{1F309}</div>
-                  <p class="cond-rule">Puente: SI tienes la llave \u2192 cruzas.</p>
-                  @if (!crossKey) {
-                    <button class="answer-btn" (click)="crossTakeKey()">\u{1F511} Recoger la llave</button>
-                  }
-                  <button class="btn-primary" (click)="crossBridge()">Cruzar el puente \u2192</button>
-                </div>
-              }
-
-              <!-- Paso 1: Tienda -->
-              @else if (crossStep === 1) {
-                <div class="cross-stage">
-                  <div class="stage-emoji">\u{1FA99}</div>
-                  <p class="cond-rule">Tienda: SI tienes 5 monedas \u2192 compra el bote \u{1F6F6}.</p>
-                  <button class="btn-primary" (click)="crossBuyBoat()">Comprar el bote (5 \u{1FA99})</button>
-                </div>
-              }
-
-              <!-- Paso 2: Monstruo -->
-              @else if (crossStep === 2) {
-                <div class="cross-stage">
-                  <div class="stage-emoji">\u{1F479}</div>
-                  <p class="cond-rule">Monstruo: SI tienes vidas \u2192 contin\xFAas. Si llegas a 0 \u2192 Game Over.</p>
-                  <div class="lives-hearts">
-                    @for (h of crossHearts; track h) { <span class="heart">\u2764\uFE0F</span> }
-                  </div>
-                  <button class="btn-primary" (click)="crossFightMonster()">Enfrentar al monstruo</button>
-                </div>
-              }
-
-              <!-- Paso 3: Meta -->
-              @else if (crossStep === 3) {
-                <div class="cross-stage">
-                  <div class="stage-emoji">\u{1F3C1}</div>
-                  <p class="cond-rule">Meta: SI tienes el bote \u{1F6F6} Y al menos 1 vida \u2192 \xA1cruzaste!</p>
-                  <button class="btn-primary" (click)="crossFinish()">Intentar cruzar \u{1F3C1}</button>
                 </div>
               }
 
@@ -50184,6 +52460,7 @@ var World3Component = class _World3Component {
           </article>
         }
       </div>
+      }
     </main>
 `, styles: ["/* src/app/worlds/world-3-river/world-3.css */\n/*# sourceMappingURL=world-3.css.map */\n"] }]
   }], () => [{ type: ChangeDetectorRef }, { type: GameStateService }], { exitToForest: [{
@@ -50195,85 +52472,168 @@ var World3Component = class _World3Component {
 })();
 
 // src/app/app.ts
-function App_Conditional_15_Template(rf, ctx) {
+function App_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 8);
-    \u0275\u0275listener("click", function App_Conditional_15_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "app-auth", 1);
+    \u0275\u0275listener("authenticated", function App_Conditional_0_Template_app_auth_authenticated_0_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onAuthenticated());
+    });
+    \u0275\u0275elementEnd();
+  }
+}
+function App_Conditional_1_Conditional_19_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 11);
+    \u0275\u0275listener("click", function App_Conditional_1_Conditional_19_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.backToForest());
     });
     \u0275\u0275text(1, "\u2190 Volver al Bosque");
     \u0275\u0275elementEnd();
   }
 }
-function App_Conditional_16_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "app-forest", 9);
-    \u0275\u0275listener("openWorld1", function App_Conditional_16_Template_app_forest_openWorld1_0_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.openWorld1());
-    })("openWorld2", function App_Conditional_16_Template_app_forest_openWorld2_0_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.openWorld2());
-    })("openWorld3", function App_Conditional_16_Template_app_forest_openWorld3_0_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.openWorld3());
-    });
-    \u0275\u0275elementEnd();
-  }
-}
-function App_Conditional_17_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "app-world-1", 10);
-    \u0275\u0275listener("unlockWorld2", function App_Conditional_17_Template_app_world_1_unlockWorld2_0_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.openWorld2());
-    });
-    \u0275\u0275elementEnd();
-  }
-}
-function App_Conditional_18_Template(rf, ctx) {
+function App_Conditional_1_Conditional_20_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "app-world-2", 11);
-    \u0275\u0275listener("unlockWorld3", function App_Conditional_18_Template_app_world_2_unlockWorld3_0_listener() {
+    \u0275\u0275elementStart(0, "app-forest", 12);
+    \u0275\u0275listener("openWorld1", function App_Conditional_1_Conditional_20_Template_app_forest_openWorld1_0_listener() {
       \u0275\u0275restoreView(_r5);
-      const ctx_r1 = \u0275\u0275nextContext();
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.openWorld1());
+    })("openWorld2", function App_Conditional_1_Conditional_20_Template_app_forest_openWorld2_0_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.openWorld2());
+    })("openWorld3", function App_Conditional_1_Conditional_20_Template_app_forest_openWorld3_0_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.openWorld3());
-    })("backToForest", function App_Conditional_18_Template_app_world_2_backToForest_0_listener() {
-      \u0275\u0275restoreView(_r5);
-      const ctx_r1 = \u0275\u0275nextContext();
+    });
+    \u0275\u0275elementEnd();
+  }
+}
+function App_Conditional_1_Conditional_21_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "app-world-1", 13);
+    \u0275\u0275listener("unlockWorld2", function App_Conditional_1_Conditional_21_Template_app_world_1_unlockWorld2_0_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.openWorld2());
+    });
+    \u0275\u0275elementEnd();
+  }
+}
+function App_Conditional_1_Conditional_22_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "app-world-2", 14);
+    \u0275\u0275listener("unlockWorld3", function App_Conditional_1_Conditional_22_Template_app_world_2_unlockWorld3_0_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.openWorld3());
+    })("backToForest", function App_Conditional_1_Conditional_22_Template_app_world_2_backToForest_0_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.backToForest());
     });
     \u0275\u0275elementEnd();
   }
 }
-function App_Conditional_19_Template(rf, ctx) {
+function App_Conditional_1_Conditional_23_Template(rf, ctx) {
   if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "app-world-3", 12);
-    \u0275\u0275listener("exitToForest", function App_Conditional_19_Template_app_world_3_exitToForest_0_listener() {
-      \u0275\u0275restoreView(_r6);
-      const ctx_r1 = \u0275\u0275nextContext();
+    const _r8 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "app-world-3", 15);
+    \u0275\u0275listener("exitToForest", function App_Conditional_1_Conditional_23_Template_app_world_3_exitToForest_0_listener() {
+      \u0275\u0275restoreView(_r8);
+      const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.backToForest());
     });
     \u0275\u0275elementEnd();
+  }
+}
+function App_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 0)(1, "header", 2)(2, "div", 3);
+    \u0275\u0275text(3, "\u{1F333} ");
+    \u0275\u0275elementStart(4, "span");
+    \u0275\u0275text(5, "Bosque de Algoritmos");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(6, "div", 4)(7, "span", 5);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "span", 5);
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "span", 6);
+    \u0275\u0275text(12, "\u{1F9D1}\u200D\u{1F680}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "span", 7);
+    \u0275\u0275text(14);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(15, "span", 8);
+    \u0275\u0275text(16);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "button", 9);
+    \u0275\u0275listener("click", function App_Conditional_1_Template_button_click_17_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.logout());
+    });
+    \u0275\u0275text(18, "Salir");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275conditionalCreate(19, App_Conditional_1_Conditional_19_Template, 2, 0, "button", 10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(20, App_Conditional_1_Conditional_20_Template, 1, 0, "app-forest")(21, App_Conditional_1_Conditional_21_Template, 1, 0, "app-world-1")(22, App_Conditional_1_Conditional_22_Template, 1, 0, "app-world-2")(23, App_Conditional_1_Conditional_23_Template, 1, 0, "app-world-3");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(8);
+    \u0275\u0275textInterpolate1("\u{1F331} ", ctx_r1.game.seeds);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("\u2B50 ", ctx_r1.game.experience, " XP");
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r1.auth.currentUser()?.username);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.auth.currentUser()?.role);
+    \u0275\u0275advance(3);
+    \u0275\u0275conditional(ctx_r1.currentScreen !== "forest" ? 19 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.currentScreen === "forest" ? 20 : ctx_r1.currentScreen === "world-1" ? 21 : ctx_r1.currentScreen === "world-2" ? 22 : ctx_r1.currentScreen === "world-3" ? 23 : -1);
   }
 }
 var App = class _App {
-  constructor(game) {
+  constructor(game, auth) {
     this.game = game;
+    this.auth = auth;
+    this.applyRolePermissions();
   }
   game;
+  auth;
   currentScreen = "forest";
+  /** Al iniciar sesión se vuelve al bosque y se aplican los permisos del rol. */
+  onAuthenticated() {
+    this.applyRolePermissions();
+    this.currentScreen = "forest";
+  }
+  /** El profesor (permiso 'desbloquear-todo') tiene todos los mundos abiertos. */
+  applyRolePermissions() {
+    if (this.auth.hasPermission("desbloquear-todo")) {
+      this.game.unlockAll();
+    }
+  }
+  /** Cierra la sesión y vuelve a la pantalla de acceso. */
+  logout() {
+    this.auth.logout();
+    this.currentScreen = "forest";
+  }
   openWorld1() {
     this.currentScreen = "world-1";
   }
@@ -50291,99 +52651,93 @@ var App = class _App {
     this.currentScreen = "forest";
   }
   static \u0275fac = function App_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _App)(\u0275\u0275directiveInject(GameStateService));
+    return new (__ngFactoryType__ || _App)(\u0275\u0275directiveInject(GameStateService), \u0275\u0275directiveInject(AuthService));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 20, vars: 4, consts: [[1, "app-container"], [1, "topbar"], [1, "logo"], [1, "player-stats"], [1, "stat"], [1, "avatar"], [1, "player-name"], [1, "back-btn"], [1, "back-btn", 3, "click"], [3, "openWorld1", "openWorld2", "openWorld3"], [3, "unlockWorld2"], [3, "unlockWorld3", "backToForest"], [3, "exitToForest"]], template: function App_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 2, vars: 1, consts: [[1, "app-container"], [3, "authenticated"], [1, "topbar"], [1, "logo"], [1, "player-stats"], [1, "stat"], [1, "avatar"], [1, "player-name"], [1, "role-badge"], [1, "logout-btn", 3, "click"], [1, "back-btn"], [1, "back-btn", 3, "click"], [3, "openWorld1", "openWorld2", "openWorld3"], [3, "unlockWorld2"], [3, "unlockWorld3", "backToForest"], [3, "exitToForest"]], template: function App_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275elementStart(0, "div", 0)(1, "header", 1)(2, "div", 2);
-      \u0275\u0275text(3, "\u{1F333} ");
-      \u0275\u0275elementStart(4, "span");
-      \u0275\u0275text(5, "Bosque de Algoritmos");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(6, "div", 3)(7, "span", 4);
-      \u0275\u0275text(8);
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(9, "span", 4);
-      \u0275\u0275text(10);
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(11, "span", 5);
-      \u0275\u0275text(12, "\u{1F9D1}\u200D\u{1F680}");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(13, "span", 6);
-      \u0275\u0275text(14, "Explorador");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275conditionalCreate(15, App_Conditional_15_Template, 2, 0, "button", 7);
-      \u0275\u0275elementEnd();
-      \u0275\u0275conditionalCreate(16, App_Conditional_16_Template, 1, 0, "app-forest")(17, App_Conditional_17_Template, 1, 0, "app-world-1")(18, App_Conditional_18_Template, 1, 0, "app-world-2")(19, App_Conditional_19_Template, 1, 0, "app-world-3");
-      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(0, App_Conditional_0_Template, 1, 0, "app-auth")(1, App_Conditional_1_Template, 24, 6, "div", 0);
     }
     if (rf & 2) {
-      \u0275\u0275advance(8);
-      \u0275\u0275textInterpolate1("\u{1F331} ", ctx.game.seeds);
-      \u0275\u0275advance(2);
-      \u0275\u0275textInterpolate1("\u2B50 ", ctx.game.experience, " XP");
-      \u0275\u0275advance(5);
-      \u0275\u0275conditional(ctx.currentScreen !== "forest" ? 15 : -1);
-      \u0275\u0275advance();
-      \u0275\u0275conditional(ctx.currentScreen === "forest" ? 16 : ctx.currentScreen === "world-1" ? 17 : ctx.currentScreen === "world-2" ? 18 : ctx.currentScreen === "world-3" ? 19 : -1);
+      \u0275\u0275conditional(!ctx.auth.isLoggedIn() ? 0 : 1);
     }
-  }, dependencies: [CommonModule, ForestComponent, World1Component, World2Component, World3Component], styles: ["\n/*# sourceMappingURL=app.css.map */"] });
+  }, dependencies: [
+    CommonModule,
+    AuthComponent,
+    ForestComponent,
+    World1Component,
+    World2Component,
+    World3Component
+  ], styles: ["\n/*# sourceMappingURL=app.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(App, [{
     type: Component,
-    args: [{ selector: "app-root", standalone: true, imports: [CommonModule, ForestComponent, World1Component, World2Component, World3Component], template: `<div class="app-container">
-  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-       HEADER
-       \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
-  <header class="topbar">
-    <div class="logo">\u{1F333} <span>Bosque de Algoritmos</span></div>
-    <div class="player-stats">
-      <span class="stat">\u{1F331} {{ game.seeds }}</span>
-      <span class="stat">\u2B50 {{ game.experience }} XP</span>
-      <span class="avatar">\u{1F9D1}\u200D\u{1F680}</span>
-      <span class="player-name">Explorador</span>
-    </div>
-    @if (currentScreen !== 'forest') {
-      <button class="back-btn" (click)="backToForest()">\u2190 Volver al Bosque</button>
+    args: [{ selector: "app-root", standalone: true, imports: [
+      CommonModule,
+      AuthComponent,
+      ForestComponent,
+      World1Component,
+      World2Component,
+      World3Component
+    ], template: `<!-- PANTALLA DE ACCESO: si no hay sesi\xF3n iniciada -->
+@if (!auth.isLoggedIn()) {
+  <app-auth (authenticated)="onAuthenticated()"></app-auth>
+} @else {
+  <div class="app-container">
+    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+         HEADER
+         \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+    <header class="topbar">
+      <div class="logo">\u{1F333} <span>Bosque de Algoritmos</span></div>
+      <div class="player-stats">
+        <span class="stat">\u{1F331} {{ game.seeds }}</span>
+        <span class="stat">\u2B50 {{ game.experience }} XP</span>
+        <span class="avatar">\u{1F9D1}\u200D\u{1F680}</span>
+        <span class="player-name">{{ auth.currentUser()?.username }}</span>
+        <span class="role-badge">{{ auth.currentUser()?.role }}</span>
+        <button class="logout-btn" (click)="logout()">Salir</button>
+      </div>
+      @if (currentScreen !== 'forest') {
+        <button class="back-btn" (click)="backToForest()">\u2190 Volver al Bosque</button>
+      }
+    </header>
+
+    <!-- PANTALLA: BOSQUE -->
+    @if (currentScreen === 'forest') {
+      <app-forest
+        (openWorld1)="openWorld1()"
+        (openWorld2)="openWorld2()"
+        (openWorld3)="openWorld3()">
+      </app-forest>
     }
-  </header>
 
-  <!-- PANTALLA: BOSQUE -->
-  @if (currentScreen === 'forest') {
-    <app-forest
-      (openWorld1)="openWorld1()"
-      (openWorld2)="openWorld2()"
-      (openWorld3)="openWorld3()">
-    </app-forest>
-  }
+    <!-- PANTALLA: MUNDO 1 - SEMILLAS -->
+    @else if (currentScreen === 'world-1') {
+      <app-world-1 (unlockWorld2)="openWorld2()"></app-world-1>
+    }
 
-  <!-- PANTALLA: MUNDO 1 - SEMILLAS -->
-  @else if (currentScreen === 'world-1') {
-    <app-world-1 (unlockWorld2)="openWorld2()"></app-world-1>
-  }
+    <!-- PANTALLA: MUNDO 2 - SENDERO -->
+    @else if (currentScreen === 'world-2') {
+      <app-world-2
+        (unlockWorld3)="openWorld3()"
+        (backToForest)="backToForest()">
+      </app-world-2>
+    }
 
-  <!-- PANTALLA: MUNDO 2 - SENDERO -->
-  @else if (currentScreen === 'world-2') {
-    <app-world-2
-      (unlockWorld3)="openWorld3()"
-      (backToForest)="backToForest()">
-    </app-world-2>
-  }
-
-  <!-- PANTALLA: MUNDO 3 - R\xCDO DE LOS CONDICIONALES -->
-  @else if (currentScreen === 'world-3') {
-    <app-world-3 (exitToForest)="backToForest()"></app-world-3>
-  }
-</div>
+    <!-- PANTALLA: MUNDO 3 - R\xCDO DE LOS CONDICIONALES -->
+    @else if (currentScreen === 'world-3') {
+      <app-world-3 (exitToForest)="backToForest()"></app-world-3>
+    }
+  </div>
+}
 `, styles: ["/* src/app/app.css */\n/*# sourceMappingURL=app.css.map */\n"] }]
-  }], () => [{ type: GameStateService }], null);
+  }], () => [{ type: GameStateService }, { type: AuthService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(App, { className: "App", filePath: "src/app/app.ts", lineNumber: 23 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(App, { className: "App", filePath: "src/app/app.ts", lineNumber: 34 });
 })();
 
 // src/main.ts
 bootstrapApplication(App, appConfig).catch((err) => console.error(err));
-//# debugId=13941334-bc6f-5a4c-993b-0c9f1d2663ef
+//# debugId=7d20c9f0-6d3f-5ec5-a925-d181e2f822c9
 //# sourceMappingURL=main.js.map
